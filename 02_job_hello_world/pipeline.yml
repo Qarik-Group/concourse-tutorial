@@ -1,17 +1,17 @@
 ---
 jobs:
-- name: timer
+- name: job-hello-world
   public: true
   serial: true
   plan:
   - aggregate:
-    - get: tutorial
+    - get: resource-tutorial
       trigger: false
   - task: hello-world
-    file: tutorial/01_task_hello_worl/task_hello_world.yml
+    file: resource-tutorial/01_task_hello_world/task_hello_world.yml
 
 resources:
-- name: tutorial
+- name: resource-tutorial
   type: git
   source:
     uri: https://github.com/drnic/concourse-tutorial.git

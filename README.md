@@ -31,8 +31,15 @@ Tutorials
 $ cd 01_task_hello_world
 $ fly execute -c task_hello_world.yml
 Connecting to 10.0.2.15:8080 (10.0.2.15:8080)
--                    100% |[*****************************](https://github.com/concourse/*****************************)| 10240   0:00:00 ETA
+-                    100% |*******************************| 10240   0:00:00 ETA
 initializing with docker:///ubuntu#14.04
+```
+
+At this point it is downloading a large Docker image `ubuntu#14.04`. It will only need to do this once.
+
+Eventually it will continue:
+
+```
 running echo hello world
 hello world
 succeeded
@@ -46,6 +53,37 @@ On the first time this will trigger concourse to download the `ubuntu#14.04` doc
 $ cd 02_job_hello_world
 $ fly configure -c pipeline.yml
 ```
+
+It will display the concourse pipeline (or any changes) and request confirmation:
+
+```
+resources:
+  resource resource-tutorial has been added:
+    name: resource-tutorial
+    type: git
+    source:
+      uri: https://github.com/drnic/concourse-tutorial.git
+
+jobs:
+  job job-hello-world has been added:
+    name: job-hello-world
+    public: true
+    serial: true
+    plan:
+    - aggregate:
+      - get: resource-tutorial
+        trigger: false
+    - task: hello-world
+      file: resource-tutorial/01_task_hello_world/task_hello_world.yml
+
+apply configuration? (y/n):
+```
+
+Press `y`.
+
+Go back to your browser and start the job manually. Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
+
+![resource-job](http://cl.ly/image/0F1T1d1I301A/02-resource-job.gif)
 
 ### 20 - Available concourse resources
 
