@@ -176,7 +176,7 @@ curl http://192.168.100.4:8080/jobs/job-hello-world/builds -X POST
 If your concourse API is running somewhere else, you can set the environment variable `$ATC_URL`:
 
 ```
-ATC_URL=http://myproject.concourse.mycompany.com:8080
+export ATC_URL=http://myproject.concourse.mycompany.com:8080
 ```
 
 `fly` will automatically target this API.
