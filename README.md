@@ -163,7 +163,7 @@ hello world
 succeeded
 ```
 
-### 05 - Trigger a job via concourse API
+### 05 - The Concourse API and trigger a job via the API
 
 Our concourse in vagrant has an API running at `http://192.168.100.4:8080`. The `fly` CLI targets this endpoint by default.
 
@@ -172,6 +172,14 @@ We can trigger a job to be run using that API. For example, using `curl`:
 ```
 curl http://192.168.100.4:8080/jobs/job-hello-world/builds -X POST
 ```
+
+If your concourse API is running somewhere else, you can set the environment variable `$ATC_URL`:
+
+```
+ATC_URL=http://myproject.concourse.mycompany.com:8080
+```
+
+`fly` will automatically target this API.
 
 ### 20 - Available concourse resources
 
