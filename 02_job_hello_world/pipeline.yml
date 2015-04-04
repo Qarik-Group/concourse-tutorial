@@ -1,0 +1,8 @@
+---
+jobs:
+- name: timer
+  public: true
+  serial: true
+  plan:
+  - task: hello-world
+    file: task_hello_world.yml

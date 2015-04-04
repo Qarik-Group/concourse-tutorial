@@ -29,7 +29,7 @@ Tutorials
 
 ```
 $ cd 01_task_hello_world
-$ fly execute -c 01_task_hello_world.yml
+$ fly execute -c task_hello_world.yml
 Connecting to 10.0.2.15:8080 (10.0.2.15:8080)
 -                    100% |[*****************************](https://github.com/concourse/*****************************)| 10240   0:00:00 ETA
 initializing with docker:///ubuntu#14.04
@@ -39,6 +39,13 @@ succeeded
 ```
 
 On the first time this will trigger concourse to download the `ubuntu#14.04` docker image.
+
+### 02 - Hello World job
+
+```
+$ cd 02_job_hello_world
+$ fly configure -c pipeline.yml
+```
 
 ### 20 - Available concourse resources
 
