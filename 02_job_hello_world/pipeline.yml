@@ -4,5 +4,14 @@ jobs:
   public: true
   serial: true
   plan:
+  - aggregate:
+    - get: tutorial
+      trigger: false
   - task: hello-world
-    file: task_hello_world.yml
+    file: tutorial/01_task_hello_worl/task_hello_world.yml
+
+resources:
+- name: tutorial
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
