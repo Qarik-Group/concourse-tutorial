@@ -31,7 +31,7 @@ Tutorials
 $ cd 01_task_hello_world
 $ fly execute -c 01_task_hello_world.yml
 Connecting to 10.0.2.15:8080 (10.0.2.15:8080)
--                    100% |*******************************| 10240   0:00:00 ETA
+-                    100% |[*****************************](https://github.com/concourse/*****************************)| 10240   0:00:00 ETA
 initializing with docker:///ubuntu#14.04
 running echo hello world
 hello world
@@ -39,3 +39,22 @@ succeeded
 ```
 
 On the first time this will trigger concourse to download the `ubuntu#14.04` docker image.
+
+### 20 - Available concourse resources
+
+https://github.com/concourse?query=resource
+
+-	[bosh-deployment-resource](https://github.com/concourse/bosh-deployment-resource) - deploy bosh releases as part of your pipeline
+-	[semver-resource](https://github.com/concourse/semver-resource) - automated semantic version bumping
+-	[bosh-io-release-resource](https://github.com/concourse/bosh-io-release-resource) - Tracks the versions of a release on bosh.io
+-	[s3-resource](https://github.com/concourse/s3-resource) - Concourse resource for interacting with AWS S3
+-	[git-resource](https://github.com/concourse/git-resource) - Tracks the commits in a git repository.
+-	[bosh-io-stemcell-resource](https://github.com/concourse/bosh-io-stemcell-resource) - Tracks the versions of a stemcell on bosh.io.
+-	[vagrant-cloud-resource](https://github.com/concourse/vagrant-cloud-resource) - manages boxes in vagrant cloud, by provider
+-	[docker-image-resource](https://github.com/concourse/docker-image-resource) - a resource for docker images
+-	[archive-resource](https://github.com/concourse/archive-resource) - downloads and extracts an archive (currently tgz) from a uri
+-	[github-release-resource](https://github.com/concourse/github-release-resource) - a resource for github releases
+-	[tracker-resource](https://github.com/concourse/tracker-resource) - pivotal tracker output resource
+-	[time-resource](https://github.com/concourse/time-resource) - a resource for triggering on an interval
+-	[cf-resource](https://github.com/concourse/cf-resource) - Concourse resource for interacting with Cloud Foundry
+-	[broker-resource](https://github.com/concourse/broker-resource) - a resource for cloud foundry service brokers
