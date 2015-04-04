@@ -85,6 +85,10 @@ Go back to your browser and start the job manually. Click on `job-hello-world` a
 
 ![resource-job](http://cl.ly/image/0F1T1d1I301A/02-resource-job.gif)
 
+Clicking the top-left "Home" icon will show the status of our pipeline:
+
+![pipeline](http://cl.ly/image/302V1J0F2G0D/Concourse.png)
+
 ### 20 - Available concourse resources
 
 https://github.com/concourse?query=resource
