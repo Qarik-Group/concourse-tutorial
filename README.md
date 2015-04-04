@@ -56,26 +56,26 @@ $ fly configure -c pipeline.yml
 
 It will display the concourse pipeline (or any changes) and request confirmation:
 
-```
-resources:
-  resource resource-tutorial has been added:
-    name: resource-tutorial
-    type: git
-    source:
-      uri: https://github.com/drnic/concourse-tutorial.git
-
+```yaml
 jobs:
   job job-hello-world has been added:
     name: job-hello-world
     public: true
     serial: true
     plan:
-    - aggregate:
-      - get: resource-tutorial
-        trigger: false
     - task: hello-world
-      file: resource-tutorial/01_task_hello_world/task_hello_world.yml
+      config:
+        platform: linux
+        image: docker:///ubuntu#14.04
+        run:
+          path: echo
+          args:
+          - hello world
+```
 
+You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`\):
+
+```
 apply configuration? (y/n):
 ```
 
@@ -83,11 +83,85 @@ Press `y`.
 
 Go back to your browser and start the job manually. Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
 
-![resource-job](http://cl.ly/image/0F1T1d1I301A/02-resource-job.gif)
+![job](http://cl.ly/image/3i2e0k0v3O2l/02-job-hello-world.gif)
 
-Clicking the top-left "Home" icon will show the status of our pipeline:
+Clicking the top-left "Home" icon will show the status of our pipeline.
 
-![pipeline](http://cl.ly/image/302V1J0F2G0D/Concourse.png)
+### 03 - Tasks extracted into resources
+
+It is easy to iterate on a job's tasks by configuring them in the `pipeline.yml` as above. Eventually you might want to colocate a job task with one of the resources you are already pulling in.
+
+This is a little convoluted example for our "hello world" task, but let's assume the task we want to run is the one from "01 - Hello World task" above. It's stored in a git repo.
+
+In our `pipeline.yml` we add the tutorial's git repo as a resource:
+
+```yaml
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
+```
+
+Now we can consume that resource in our job. Update it to:
+
+```yaml
+jobs:
+- name: job-hello-world
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: resource-tutorial
+      trigger: false
+  - task: hello-world
+    file: resource-tutorial/01_task_hello_world/task_hello_world.yml
+```
+
+Our `plan:` specifies that first we need to `get` the resource `resource-tutorial`.
+
+Second we use the `01_task_hello_world/task_hello_world.yml` file from `resource-tutorial` as the task configuration.
+
+Apply the updated pipeline using `fly c -c pipeline.yml`.
+
+Or run the pre-created pipeline from the tutorial:
+
+```
+cd ../03_resource_job
+fly c -c pipeline.yml
+```
+
+![resource-job](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
+
+### 04 - Get job output in terminal
+
+The `job-hello-world` had terminal output from its resource fetch of a git repo and of the `hello-world` task running.
+
+You can also view this output from the terminal with `fly`:
+
+```
+$ fly watch -j job-hello-world
+Cloning into '/tmp/build/src'...
+d6f8e75 02 now embeds task; 03 extracts it into resource to be fetched
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+initializing with docker:///ubuntu#14.04
+running echo hello world
+hello world
+succeeded
+```
 
 ### 20 - Available concourse resources
 
