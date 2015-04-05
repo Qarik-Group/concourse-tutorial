@@ -27,7 +27,13 @@ echo "Concourse API $ATC_URL"
 # # verify pipeline config
 # popd
 #
-pushd 07_*
+# pushd 07_*
+# yes y | fly configure -c pipeline.yml
+# curl $ATC_URL/jobs/job-hello-world/builds -X POST
+# fly watch -j job-hello-world
+# popd
+
+pushd 08_*
 yes y | fly configure -c pipeline.yml
 curl $ATC_URL/jobs/job-hello-world/builds -X POST
 fly watch -j job-hello-world
