@@ -1,32 +1,16 @@
 ---
 jobs:
-- name: job-fetch-app
-  public: true
-  serial: true
-  plan:
-  - aggregate:
-    - get: resource-web-app
-  # - task: show-contents
-  #   config:
-  #     platform: linux
-  #     image: docker:///ubuntu#14.04
-  #     run:
-  #       path: ls
-  #       args: ["resource-web-app"]
-
 - name: job-deploy-app
   public: true
   serial: true
   plan:
   - aggregate:
     - get: resource-web-app
-      passed: [job-fetch-app]
   - aggregate:
     - put: resource-deploy-web-app
       params:
         manifest: resource-web-app/manifest.yml
         path: resource-web-app
-        current_app_name: resource-web-app
 
 resources:
 - name: resource-web-app

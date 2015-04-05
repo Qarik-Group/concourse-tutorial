@@ -44,7 +44,7 @@ echo "Concourse API $ATC_URL"
 
 pushd 10_*
 yes y | fly configure -c pipeline.yml
-curl $ATC_URL/jobs/job-fetch-app/builds -X POST
-fly watch -j job-fetch-app
+curl $ATC_URL/jobs/job-deploy-app/builds -X POST
+fly watch -j job-deploy-app
 # fly watch -j job-run-task
 popd
