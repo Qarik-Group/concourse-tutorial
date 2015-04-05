@@ -22,11 +22,11 @@ jobs:
     - get: resource-web-app
       passed: [job-fetch-app]
   - aggregate:
-    - get: resource-deploy-web-app
+    - put: resource-deploy-web-app
       params:
         manifest: resource-web-app/manifest.yml
         path: resource-web-app
-        current_app_name: simple-go-web-app
+        current_app_name: resource-web-app
 
 resources:
 - name: resource-web-app
