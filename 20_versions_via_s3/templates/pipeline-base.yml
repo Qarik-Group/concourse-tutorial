@@ -1,0 +1,23 @@
+---
+meta:
+  aws:
+    access_key_id: (( merge ))
+    secret_access_key: (( merge ))
+
+jobs:
+- name: job-bump-version
+  public: true
+  serial: true
+  plan:
+  - get: resource-app-version
+
+resources:
+- name: resource-app-version
+  type: semver
+  source:
+    bucket: concourse-tutorial-app-version-pipeline
+    key: app-version
+    initial_version: 1.0.0
+    access_key_id: (( meta.aws.access_key_id ))
+    secret_access_key: (( meta.aws.secret_access_key ))
+    region_name: us-east-1

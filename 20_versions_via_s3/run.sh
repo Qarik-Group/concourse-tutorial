@@ -22,6 +22,6 @@ fi
 pushd $DIR
   spiff merge templates/pipeline-final.yml templates/pipeline-base.yml ${stub} > pipeline.yml
   yes y | fly configure -c pipeline.yml
-  curl $ATC_URL/jobs/job-test-deploy-app/builds -X POST
-  fly watch -j job-test-deploy-app
+  curl $ATC_URL/jobs/job-bump-version/builds -X POST
+  fly watch -j job-bump-version
 popd
