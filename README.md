@@ -204,4 +204,3 @@ https://github.com/concourse?query=resource
 -	[tracker-resource](https://github.com/concourse/tracker-resource) - pivotal tracker output resource
 -	[time-resource](https://github.com/concourse/time-resource) - a resource for triggering on an interval
 -	[cf-resource](https://github.com/concourse/cf-resource) - Concourse resource for interacting with Cloud Foundry
--	[broker-resource](https://github.com/concourse/broker-resource) - a resource for cloud foundry service brokers
