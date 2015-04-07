@@ -16,4 +16,5 @@ echo "Concourse API $ATC_URL"
 ./10_*/run.sh
 ./11_*/run.sh stub.yml
 ./12_*/run.sh stub.yml
-./20_*/run.sh stub.yml
+./20_*/run.sh stub.yml get-version
+./20_*/run.sh stub.yml display-version
