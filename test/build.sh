@@ -48,16 +48,16 @@ echo "Concourse API $ATC_URL"
 # fly watch -j job-deploy-app
 # popd
 #
-# pushd 11_*
-# spiff merge templates/pipeline.yml ../stub.yml > pipeline.yml
-# yes y | fly configure -c pipeline.yml
-# curl $ATC_URL/jobs/job-deploy-app/builds -X POST
-# fly watch -j job-deploy-app
-# popd
-
-pushd 12_*
-spiff merge templates/pipeline.yml ../stub.yml > pipeline.yml
+pushd 11_*
+spiff merge templates/pipeline-final.yml templates/pipeline-base.yml ../stub.yml > pipeline.yml
 yes y | fly configure -c pipeline.yml
-curl $ATC_URL/jobs/job-test-deploy-app/builds -X POST
-fly watch -j job-test-deploy-app
+curl $ATC_URL/jobs/job-deploy-app/builds -X POST
+fly watch -j job-deploy-app
 popd
+
+# pushd 12_*
+# spiff merge templates/pipeline-final.yml templates/pipeline-base.yml ../stub.yml > pipeline.yml
+# yes y | fly configure -c pipeline.yml
+# curl $ATC_URL/jobs/job-test-deploy-app/builds -X POST
+# fly watch -j job-test-deploy-app
+# popd

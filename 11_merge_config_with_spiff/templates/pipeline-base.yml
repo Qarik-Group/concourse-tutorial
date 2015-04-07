@@ -1,4 +1,13 @@
 ---
+meta:
+  pivotal:
+    api: https://api.run.pivotal.io
+    username: (( merge ))
+    password: (( merge ))
+    organization: (( merge ))
+    space: (( merge ))
+    skip_cert_check: false
+
 jobs:
 - name: job-deploy-app
   public: true
@@ -22,8 +31,8 @@ resources:
   type: cf
   source:
     api: https://api.run.pivotal.io
-    username: (( merge ))
-    password: (( merge ))
-    organization: (( merge ))
-    space: (( merge ))
+    username: (( meta.pivotal.username ))
+    password: (( meta.pivotal.password ))
+    organization: (( meta.pivotal.organization ))
+    space: (( meta.pivotal.space ))
     skip_cert_check: false
