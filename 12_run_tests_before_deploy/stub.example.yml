@@ -1,6 +1,5 @@
-resources:
-- name: resource-deploy-web-app
-  source:
+meta:
+  pivotal:
     api: https://api.run.pivotal.io
     username: EMAIL
     password: PASSWORD
