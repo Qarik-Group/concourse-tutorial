@@ -1,0 +1,9 @@
+resources:
+- name: resource-deploy-web-app
+  source:
+    api: https://api.run.pivotal.io
+    username: EMAIL
+    password: PASSWORD
+    organization: ORG
+    space: SPACE
+    skip_cert_check: false
