@@ -18,3 +18,4 @@ echo "Concourse API $ATC_URL"
 ./12_*/run.sh stub.yml
 ./20_*/run.sh stub.yml get-version
 ./20_*/run.sh stub.yml display-version
+./20_*/run.sh stub.yml rename-resource

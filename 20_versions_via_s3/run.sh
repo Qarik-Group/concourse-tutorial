@@ -24,7 +24,7 @@ if [[ ! -f ${stub} ]]; then
 fi
 
 stage=$1; shift
-if [[ "${stage}" != "get-version" && "${stage}" != "display-version" ]]; then
+if [[ "${stage}" != "get-version" && "${stage}" != "display-version" && "${stage}" != "rename-resource" ]]; then
   usage
 fi
 
