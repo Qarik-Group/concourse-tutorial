@@ -4,12 +4,9 @@ jobs:
   public: true
   serial: true
   plan:
-  - get: gist
-    resource: resource-gist
-  - task: hello-world
-    file: gist/hello-world.yml
-  - task: meta
-    file: gist/display-other-task.yml
+  - { get: gist, resource: resource-gist }
+  - { task: hello-world, file: gist/hello-world.yml }
+  - { task: meta, file: gist/display-other-task.yml }
 
 resources:
 - name: resource-gist
