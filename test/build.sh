@@ -19,3 +19,5 @@ echo "Concourse API $ATC_URL"
 ./20_*/run.sh stub.yml get-version
 ./20_*/run.sh stub.yml display-version
 ./20_*/run.sh stub.yml rename-resource
+./20_*/run.sh stub.yml bump-minor
+./20_*/run.sh stub.yml bump-rc-save

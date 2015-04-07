@@ -10,7 +10,7 @@ realpath() {
 }
 
 usage() {
-  echo "USAGE: run.sh path/to/stub.yml [get-version|display-version]"
+  echo "USAGE: run.sh path/to/stub.yml [get-version|display-version|rename-resource|bump-minor]"
   exit 1
 }
 
@@ -24,7 +24,9 @@ if [[ ! -f ${stub} ]]; then
 fi
 
 stage=$1; shift
-if [[ "${stage}" != "get-version" && "${stage}" != "display-version" && "${stage}" != "rename-resource" ]]; then
+if [[ "${stage}" != "get-version" && "${stage}" != "display-version" \
+  && "${stage}" != "rename-resource" \
+  && "${stage}" != "bump-minor" && "${stage}" != "bump-rc-save" ]]; then
   usage
 fi
 

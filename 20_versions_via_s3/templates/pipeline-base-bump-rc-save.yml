@@ -11,15 +11,20 @@ jobs:
   plan:
   - get: app-version
     resource: resource-app-version
-  - task: display-version
-    config:
-      platform: linux
-      image: docker:///ubuntu#14.04
-      inputs:
-      - name: app-version
-      run:
-        path: cat
-        args: [app-version/number]
+    params:
+      pre: rc
+  - put: app-version
+    params:
+      file: app-version/number
+  # - task: display-version
+  #   config:
+  #     platform: linux
+  #     image: docker:///ubuntu#14.04
+  #     inputs:
+  #     - name: app-version
+  #     run:
+  #       path: cat
+  #       args: [app-version/number]
 
 resources:
 - name: resource-app-version

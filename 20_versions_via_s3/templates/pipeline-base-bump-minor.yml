@@ -11,6 +11,8 @@ jobs:
   plan:
   - get: app-version
     resource: resource-app-version
+    params:
+      bump: minor
   - task: display-version
     config:
       platform: linux
