@@ -8,18 +8,18 @@ realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 
-stub=$1; shift
-if [[ "${stub}X" == "X" ]]; then
-  echo "USAGE: run.sh path/to/stub.yml"
-  exit 1
-fi
-stub=$(realpath $stub)
-if [[ ! -f ${stub} ]]; then
-  echo "USAGE: run.sh path/to/stub.yml"
-  exit 1
-fi
-
 pushd $DIR
+  stub=$1; shift
+  if [[ "${stub}X" == "X" ]]; then
+    echo "USAGE: run.sh path/to/stub.yml"
+    exit 1
+  fi
+  stub=$(realpath $stub)
+  if [[ ! -f ${stub} ]]; then
+    echo "USAGE: run.sh path/to/stub.yml"
+    exit 1
+  fi
+
   spiff merge templates/pipeline-final.yml templates/pipeline-base.yml ${stub} > pipeline.yml
   yes y | fly configure -c pipeline.yml
   curl $ATC_URL/jobs/job-bump-version/builds -X POST
