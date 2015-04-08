@@ -6,13 +6,22 @@ jobs:
   plan:
   - { get: gist-abc, resource: resource-gist-a-b-c }
   - { get: gist-xyz, resource: resource-gist-x-y-z }
-  - task: ls
+  - task: ls-abc-xyz
     config:
       platform: linux
       image: docker:///ubuntu#14.04
       inputs:
       - name: gist-abc
       - name: gist-xyz
+      run:
+        path: ls
+        args: ["-opR", "."]
+  - task: ls-abc
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: gist-abc
       run:
         path: ls
         args: ["-opR", "."]

@@ -7,13 +7,23 @@ jobs:
   - { get: pretty-ls, resource: resource-script-pretty-ls }
   - { get: gist-abc, resource: resource-gist-a-b-c }
   - { get: gist-xyz, resource: resource-gist-x-y-z }
-  - task: pretty-ls
+  - task: pretty-ls-all
     config:
       platform: linux
       image: docker:///ubuntu#14.04
       inputs:
       - name: pretty-ls
       - name: gist-abc
+      - name: gist-xyz
+      run:
+        path: bash
+        args: ["pretty-ls/pretty_ls.sh", "."]
+  - task: pretty-ls-xyz
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: pretty-ls
       - name: gist-xyz
       run:
         path: bash
