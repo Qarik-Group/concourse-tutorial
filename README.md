@@ -204,3 +204,22 @@ https://github.com/concourse?query=resource
 -	[tracker-resource](https://github.com/concourse/tracker-resource) - pivotal tracker output resource
 -	[time-resource](https://github.com/concourse/time-resource) - a resource for triggering on an interval
 -	[cf-resource](https://github.com/concourse/cf-resource) - Concourse resource for interacting with Cloud Foundry
+
+To find out which resources are available on your target Concourse you can ask the API endpoint `/api/v1/workers`:
+
+```
+$ curl -s http://192.168.100.4:8080/api/v1/workers | jq -r ".[0].resource_types[].type" | sort
+archive
+bosh-deployment
+bosh-io-release
+bosh-io-stemcell
+cf
+docker-image
+git
+github-release
+s3
+semver
+time
+tracker
+vagrant-cloud
+```
