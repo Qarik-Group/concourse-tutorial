@@ -13,6 +13,8 @@ echo "Concourse API $ATC_URL"
 ./07_*/run.sh simple
 ./07_*/run.sh renamed
 ./08_*/run.sh
+./09_*/run.sh simple-ls
+./09_*/run.sh pretty-ls
 ./10_*/run.sh
 ./11_*/run.sh stub.yml
 ./12_*/run.sh stub.yml

@@ -10,7 +10,7 @@ realpath() {
 }
 
 usage() {
-  echo "USAGE: run.sh path/to/stub.yml [get-version|display-version|rename-resource|bump-minor]"
+  echo "USAGE: run.sh path/to/stub.yml [get-version|display-version|rename-resource|bump-minor|bump-rc-save|bump-save-no-trigger]"
   exit 1
 }
 

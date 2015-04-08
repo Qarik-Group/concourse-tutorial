@@ -1,0 +1,28 @@
+---
+jobs:
+- name: job-inputs-btw-steps
+  public: true
+  serial: true
+  plan:
+  - { get: gist-abc, resource: resource-gist-a-b-c }
+  - { get: gist-xyz, resource: resource-gist-x-y-z }
+  - task: ls
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: gist-abc
+      - name: gist-xyz
+      run:
+        path: ls
+        args: ["-opR", "."]
+
+resources:
+- name: resource-gist-a-b-c
+  type: git
+  source:
+    uri: https://gist.github.com/drnic/a5a8d36c126ddc476b85.git
+- name: resource-gist-x-y-z
+  type: git
+  source:
+    uri: https://gist.github.com/drnic/7d0a4761efb55a312ab2.git
