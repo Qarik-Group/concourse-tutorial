@@ -10,9 +10,10 @@ jobs:
   serial: true
   plan:
   - get: app-version
+    trigger: false
     resource: resource-app-version
     params:
-      pre: rc
+      bump: patch
   - put: app-version
     resource: resource-app-version
     params:
