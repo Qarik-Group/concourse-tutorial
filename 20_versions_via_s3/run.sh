@@ -26,7 +26,7 @@ fi
 stage=$1; shift
 if [[ "${stage}" != "get-version" && "${stage}" != "display-version" \
   && "${stage}" != "rename-resource" && "${stage}" != "bump-minor" \
-  && "${stage}" != "bump-rc-save" && "${stage}" != "save-no-trigger" ]]; then
+  && "${stage}" != "bump-rc-save" && "${stage}" != "bump-save-no-trigger" ]]; then
   usage
 fi
 

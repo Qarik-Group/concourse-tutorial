@@ -21,4 +21,4 @@ echo "Concourse API $ATC_URL"
 ./20_*/run.sh stub.yml rename-resource
 ./20_*/run.sh stub.yml bump-minor
 ./20_*/run.sh stub.yml bump-rc-save
-./20_*/run.sh stub.yml save-no-trigger
+./20_*/run.sh stub.yml bump-save-no-trigger
