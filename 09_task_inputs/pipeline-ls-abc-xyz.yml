@@ -1,6 +1,6 @@
 ---
 jobs:
-- name: job-inputs-btw-steps
+- name: job-with-inputs
   public: true
   serial: true
   plan:
@@ -13,15 +13,6 @@ jobs:
       inputs:
       - name: gist-abc
       - name: gist-xyz
-      run:
-        path: ls
-        args: ["-opR", "."]
-  - task: ls-abc
-    config:
-      platform: linux
-      image: docker:///ubuntu#14.04
-      inputs:
-      - name: gist-abc
       run:
         path: ls
         args: ["-opR", "."]

@@ -1,13 +1,13 @@
 ---
 jobs:
-- name: job-inputs-btw-steps
+- name: job-with-inputs
   public: true
   serial: true
   plan:
   - { get: pretty-ls, resource: resource-script-pretty-ls }
   - { get: gist-abc, resource: resource-gist-a-b-c }
   - { get: gist-xyz, resource: resource-gist-x-y-z }
-  - task: pretty-ls-all
+  - task: pretty-ls-abc-xyz
     config:
       platform: linux
       image: docker:///ubuntu#14.04
