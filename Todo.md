@@ -11,6 +11,10 @@ TODO
 -	[ ] `get` steps with `passed: [job-a, job-b]`
 -	[ ] task steps that produce new resources (e.g. a `tgz`\) - 09?
 
+-	[ ] `fly intercept` (`hijack`\)
+
+-	[ ] update to new concourse in vagrant - `vagrant box update` & `sudo fly sync`
+
 Show case resources
 
 -	[x] fetch and bump semver X.Y.Z numbers (20)
@@ -18,7 +22,15 @@ Show case resources
 -	[ ] running tests of a Golang app (11)
 -	[ ] building, testing, deploying Java app
 -	[ ] building, testing, deploying Ruby app
+-	[ ] build/push a docker image - perhaps automate https://github.com/mmb/bosh_cli_docker_container
+-	[ ] pull a docker image and use it
 
 Non-basic
 
 -	[ ] a resource "changes" based on its `check` - show the checks for each resource
+-	[ ] options/methods for passing in private keys e.g. https://gist.github.com/vito/81248555ad1f6100674e#file-sanitized-concourse-yml-L1028-L1036 which is used https://github.com/concourse/concourse/blob/master/ci/scripts/bump-resource-package#L14
+
+Writing Resources
+
+-	[ ] Show resources are available per worker node (via ATC API; ssh in to vagrant)
+-	[ ] Show that `/var/vcap/jobs/groundcrew/config/worker.json` describes the per-worker resources available (change `worker.json`, then `monit restart beacon`, and resource type shows up in ATC API)
