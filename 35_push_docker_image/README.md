@@ -6,12 +6,17 @@ This section will show how to take a Dockerfile project, build it and push to Do
 Define a docker image
 ---------------------
 
-This section's subfolder `docker` containers a `Dockerfile` to embed our dummy `out` script into `/opt/resource/out` within the container:
+![created-image](http://cl.ly/image/2g3T2s0G0z2b/drnic_hello-world_image.png)
+
+This section's subfolder `docker` containers a `Dockerfile` and a simple `hello-world` command:
 
 ```dockerfile
 FROM busybox
 
-ADD out /opt/resource/out
+ADD hello-world /bin/hello-world
+
+ENTRYPOINT ["/bin/hello-world"]
+CMD ["world"]
 ```
 
 Create a docker container image
@@ -25,33 +30,37 @@ The pipeline is below:
 
 ```yaml
 jobs:
-- name: job-publish
-  public: true
-  serial: true
-  plan:
-  - get: resource-tutorial
-  - put: resource-41-docker-image
-    params:
-      build: resource-tutorial/41_dummy_resource_docker_image/docker
+  jobs:
+  - name: job-publish
+    public: true
+    serial: true
+    plan:
+    - get: resource-tutorial
+    - put: hello-world-docker-image
+      params:
+        build: resource-tutorial/35_push_docker_image/docker
 
-resources:
-- name: resource-tutorial
-  type: git
-  source:
-    uri: https://github.com/drnic/concourse-tutorial.git
+  resources:
+  - name: resource-tutorial
+    type: git
+    source:
+      uri: https://github.com/drnic/concourse-tutorial.git
 
-- name: resource-41-docker-image
+- name: hello-world-docker-image
   type: docker-image
   source:
     email: DOCKER_EMAIL
     username: DOCKER_USERNAME
     password: DOCKER_PASSWORD
-    repository: drnic/resource-41-docker-image
+    repository: drnic/hello-world
 ```
 
-Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use it as the input/`get` resource called `resource-tutorial`.
+Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use this tutorial repo as the input resource called `resource-tutorial`. In the job `job-publish` build plan we `get` it first; and it is used by the `hello-world-docker-image` docker-image resource next.
 
 This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/41_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `41_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
+
+Running the pipeline
+--------------------
 
 Your `stub.yml` now needs your Docker Hub account credentials (see `stub.example.yml`\):
 
@@ -69,48 +78,9 @@ The `run.sh` will create the pipeline.yml and upload it to Concourse:
 ./41_*/run.sh stub.yml
 ```
 
-This will create a docker image `<username>/resource-41-docker-image` on Docker Hub.
+This will create a docker image `<username>/hello-world` on Docker Hub.
 
-Worker references remote docker image
--------------------------------------
+Using the docker image
+----------------------
 
-On the Vagrant VM (or Worker VM) change `/var/vcap/jobs/groundcrew/config/worker.json`.
-
-Where we had added the following `resource_type` in section 40:
-
-```
-{"image":"/var/vcap/packages/dummy","type":"dummy"}
-```
-
-Change it to the following (replacing `<username>` with your Docker Hub username):
-
-```
-{"image":"docker:///<username>/resource-41-docker-image","type":"dummy"}
-```
-
-Or use a pre-existing Docker image:
-
-```
-{"image":"docker:///drnic/resource-41-docker-image","type":"dummy"}
-```
-
-Restart the monit process to re-register the `dummy` resource type:
-
-```
-monit restart beacon
-```
-
-The folder `/var/vcap/packages/dummy` can now be deleted:
-
-```
-rm -rf /var/vcap/packages/dummy
-```
-
-Re-run pipeline to use dummy resource type
-------------------------------------------
-
-The pipeline in section 40 can now be reused to use test our `dummy` resource type:
-
-```
-./40_*/run.sh
-```
+In the next tutorial section we will fetch and run the `<username>/hello-world` container image.

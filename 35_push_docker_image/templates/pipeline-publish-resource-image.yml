@@ -11,7 +11,7 @@ jobs:
   serial: true
   plan:
   - get: resource-tutorial
-  - put: resource-35-docker-image
+  - put: hello-world-docker-image
     params:
       build: resource-tutorial/35_push_docker_image/docker
 
@@ -21,10 +21,10 @@ resources:
   source:
     uri: https://github.com/drnic/concourse-tutorial.git
 
-- name: resource-35-docker-image
+- name: hello-world-docker-image
   type: docker-image
   source:
     email: (( meta.docker.email ))
     username: (( meta.docker.username ))
     password: (( meta.docker.password ))
-    repository: (( meta.docker.username "/35-hello-world" ))
+    repository: (( meta.docker.username "/hello-world" ))

@@ -22,7 +22,7 @@ Show case resources
 -	[ ] running tests of a Golang app (11)
 -	[ ] building, testing, deploying Java app
 -	[ ] building, testing, deploying Ruby app
--	[x] build/push a docker image - perhaps automate https://github.com/mmb/bosh_cli_docker_container (demo in 41)
+-	[x] build/push a docker image - perhaps automate https://github.com/mmb/bosh_cli_docker_container (35, demo in 41)
 -	[ ] pull a docker image and use it
 
 Non-basic
