@@ -1,0 +1,5 @@
+meta:
+  docker:
+    email: EMAIL
+    username: USERNAME
+    password: PASSWORD

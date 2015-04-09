@@ -1,0 +1,22 @@
+jobs:
+- name: job-publish
+  plan:
+  - get: resource-tutorial
+  - params:
+      build: 41_dummy_resource_docker_image/docker
+    put: resource-41-docker-image
+  public: true
+  serial: true
+resources:
+- name: resource-tutorial
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
+  type: git
+- name: resource-41-docker-image
+  source:
+    email: drnicwilliams@gmail.com
+    password: UHUst0ck
+    repository: drnic/resource-41-docker-image
+    username: drnic
+  type: docker-image
+
