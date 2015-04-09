@@ -22,7 +22,7 @@ Show case resources
 -	[ ] running tests of a Golang app (11)
 -	[ ] building, testing, deploying Java app
 -	[ ] building, testing, deploying Ruby app
--	[ ] build/push a docker image - perhaps automate https://github.com/mmb/bosh_cli_docker_container
+-	[x] build/push a docker image - perhaps automate https://github.com/mmb/bosh_cli_docker_container (demo in 41)
 -	[ ] pull a docker image and use it
 
 Non-basic
@@ -33,5 +33,5 @@ Non-basic
 Writing Resources
 
 -	[ ] Show resources are available per worker node (via ATC API; ssh in to vagrant)
--	[ ] Show that `/var/vcap/jobs/groundcrew/config/worker.json` describes the per-worker resources available (change `worker.json`, then `monit restart beacon`, and resource type shows up in ATC API)
--	[ ] use a docker URI `docker:///username/imagename#tagname` for dev/test of the docker image without forcing re-deploy
+-	[x] Show that `/var/vcap/jobs/groundcrew/config/worker.json` describes the per-worker resources available (change `worker.json`, then `monit restart beacon`, and resource type shows up in ATC API)
+-	[x] use a docker URI `docker:///username/imagename#tagname` for dev/test of the docker image without forcing re-deploy (41)

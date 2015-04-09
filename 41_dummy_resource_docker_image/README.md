@@ -1,89 +1,133 @@
-40 - Dummy resource
-===================
+41 - Dummy resource via Docker image
+====================================
 
-Create dummy resource
+In section 40, we hacked in the core idea of a resource type into the worker VM (which is the shared Vagrant VM):
+
+1.	manually created a `dummy` rootfs with a simple/dummy `opt/resource/out` script that satisfies concourse's API
+2.	edited `/var/vcap/jobs/groundcrew/config/worker.json` and `monit restart beacon`
+3.	ran a pipeline that did a `put` to our `dummy` resource type
+
+Create docker image
+-------------------
+
+As documented http://concourse.ci/implementing-resources.html: a resource type is implemented by a container image with three scripts:
+
+-	`/opt/resource/check` for checking for new versions of the resource
+-	`/opt/resource/in` for pulling a version of the resource down
+-	`/opt/resource/out` for idempotently pushing a version up
+
+In section 40 we hacked in a simple `/opt/resource/out` script into a container image at `/var/vcap/package/dummy` on the Vagrant VM.
+
+In this section we will create a normal Docker image and host it on Docker Hub; then use that docker image in our worker.
+
+Define a docker image
 ---------------------
 
-```
-vagrant ssh
-```
+This section's subfolder `docker` containers a `Dockerfile` to embed our dummy `out` script into `/opt/resource/out` within the container:
 
-Change to root user:
+```dockerfile
+FROM busybox
 
-```
-sudo su -
+ADD out /opt/resource/out
 ```
 
-In `/var/vcap/packages` create `dummy` and copy another resource package (a rootfs) into it and create a `opt/resources/out`
+Create a docker container image
+-------------------------------
 
-```
-cd /var/vcap/packages
-mkdir dummy
-cp -r time_resource/* dummy/
-cd dummy/opt/resource
-rm *
-```
+We could manually create a docker image and push it to Docker Hub. But since we have concourse we will use it instead.
 
-Now create `out` file:
+The pipeline for this section is to `put` a docker-image resource.
 
-```bash
-#!/bin/sh
+The pipeline is below:
 
-echo '{"version": {"ref": 123}}'
-```
+```yaml
+jobs:
+- name: job-publish
+  public: true
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - put: resource-41-docker-image
+    params:
+      build: resource-tutorial/41_dummy_resource_docker_image/docker
 
-And make it executable:
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
 
-```
-chmod +x out
-```
-
-Add new resource type into worker
----------------------------------
-
-```
-vi /var/vcap/jobs/groundcrew/config/worker.json
-```
-
-The top-level of this JSON are the keys: `platform`, `tags`, `addr`, and `resource_types`. We want to add our new resource type to the latter's list.
-
-Add to the tail:
-
-```
-,{"image":"/var/vcap/packages/dummy","type":"dummy"}]}
+- name: resource-41-docker-image
+  type: docker-image
+  source:
+    email: DOCKER_EMAIL
+    username: DOCKER_USERNAME
+    password: DOCKER_PASSWORD
+    repository: drnic/resource-41-docker-image
 ```
 
-Exit and restart the `beacon` monit process (see `/var/vcap/jobs/groundcrew/monit` for definition):
+Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use it as the input/`get` resource called `resource-tutorial`.
+
+This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/41_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `41_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
+
+Your `stub.yml` now needs your Docker Hub account credentials (see `stub.example.yml`\):
+
+```yaml
+meta:
+  docker:
+    email: EMAIL
+    username: USERNAME
+    password: PASSWORD
+```
+
+The `run.sh` will create the pipeline.yml and upload it to Concourse:
+
+```
+./41_*/run.sh stub.yml
+```
+
+This will create a docker image `<username>/resource-41-docker-image` on Docker Hub.
+
+Worker references remote docker image
+-------------------------------------
+
+On the Vagrant VM (or Worker VM) change `/var/vcap/jobs/groundcrew/config/worker.json`.
+
+Where we had added the following `resource_type` in section 40:
+
+```
+{"image":"/var/vcap/packages/dummy","type":"dummy"}
+```
+
+Change it to the following (replacing `<username>` with your Docker Hub username):
+
+```
+{"image":"docker:///<username>/resource-41-docker-image","type":"dummy"}
+```
+
+Or use a pre-existing Docker image:
+
+```
+{"image":"docker:///drnic/resource-41-docker-image","type":"dummy"}
+```
+
+Restart the monit process to re-register the `dummy` resource type:
 
 ```
 monit restart beacon
 ```
 
-From the host machine, the new resource type will now be registered with Concourse ATC's API:
+The folder `/var/vcap/packages/dummy` can now be deleted:
 
 ```
-curl http://192.168.100.4:8080/api/v1/workers
+rm -rf /var/vcap/packages/dummy
 ```
 
-Run a job that uses resource type
----------------------------------
+Re-run pipeline to use dummy resource type
+------------------------------------------
 
-The simplest pipeline to use this new resource type is:
-
-```yaml
-jobs:
-- name: job-dummy
-  public: true
-  serial: true
-  plan:
-  - put: resource-dummy
-resources:
-- name: resource-dummy
-  type: dummy
-```
+The pipeline in section 40 can now be reused to use test our `dummy` resource type:
 
 ```
-run.sh
+./40_*/run.sh
 ```
-
-![dummy](http://cl.ly/image/3N292T3b2a0g/dummy_resource.png)

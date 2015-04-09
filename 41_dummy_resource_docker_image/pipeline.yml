@@ -3,7 +3,7 @@ jobs:
   plan:
   - get: resource-tutorial
   - params:
-      build: 41_dummy_resource_docker_image/docker
+      build: resource-tutorial/41_dummy_resource_docker_image/docker
     put: resource-41-docker-image
   public: true
   serial: true
