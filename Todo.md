@@ -4,6 +4,7 @@ TODO
 -	[x] introduce a task being run directly (01), described within a job (02), described via YAML in a resource (03)
 -	[ ] introduce input resources; overview what's available
 -	[ ] introduce output resources; overview what's available
+-	[ ] show examples of how inputs to tasks are passed via files
 -	[x] trigger a job to build if a resources changes (06 - via timer resource)
 -	[ ] explicitly introduce the build plan
 -	[ ] `aggregate` & `do` steps

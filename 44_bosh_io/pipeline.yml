@@ -1,0 +1,32 @@
+jobs:
+- name: job-bosh-assets
+  public: true
+  serial: true
+  plan:
+  - get: bosh-stemcell-aws
+  # - get: bosh-stemcell-openstack
+  - get: bosh-release-redis
+  - task: ls
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: bosh-stemcell-aws
+      # - name: bosh-stemcell-openstack
+      - name: bosh-release-redis
+      run:
+        path: ls
+        args: ["-opR", "."]
+resources:
+- name: bosh-stemcell-aws
+  type: bosh-io-stemcell
+  source:
+    name: bosh-aws-xen-ubuntu-trusty-go_agent
+- name: bosh-stemcell-openstack
+  type: bosh-io-stemcell
+  source:
+    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+- name: bosh-release-redis
+  type: bosh-io-release
+  source:
+    repository: cloudfoundry-community/redis-boshrelease
