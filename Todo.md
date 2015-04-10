@@ -7,7 +7,7 @@ TODO
 -	[ ] show examples of how inputs to tasks are passed via files
 -	[x] trigger a job to build if a resources changes (06 - via timer resource)
 -	[ ] explicitly introduce the build plan
--	[ ] `aggregate` & `do` steps
+-	[ ] `aggregate` & `do` steps - all inputs need to be in first `aggregate` step
 -	[ ] `conditions` steps - build plan fails if step fails; but can handle failure explicitly based on previous step results (combine with `aggregate` to cover success & failure cases); perhaps to determine if you bump semvar
 -	[ ] `get` steps with `passed: [job-a, job-b]`
 -	[ ] task steps that produce new resources (e.g. a `tgz`\) - 09?
@@ -24,7 +24,11 @@ Show case resources
 -	[ ] building, testing, deploying Java app
 -	[ ] building, testing, deploying Ruby app
 -	[x] build/push a docker image - perhaps automate https://github.com/mmb/bosh_cli_docker_container (35, demo in 41)
+-	[x] pull a docker image (36)
 -	[ ] pull a docker image and use it
+-	[x] get bosh release
+-	[x] get bosh stemcell
+-	[ ] bosh deploy
 
 Non-basic
 
