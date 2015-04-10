@@ -1,9 +1,0 @@
-jobs:
-- name: job-dummy
-  public: true
-  serial: true
-  plan:
-  - put: resource-dummy
-resources:
-- name: resource-dummy
-  type: dummy

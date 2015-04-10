@@ -1,4 +1,4 @@
-40 - Dummy resource
+50 - Dummy resource
 ===================
 
 Create dummy resource

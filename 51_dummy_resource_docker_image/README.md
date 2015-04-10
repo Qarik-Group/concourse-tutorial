@@ -1,7 +1,7 @@
 41 - Dummy resource via Docker image
 ====================================
 
-In section 40, we hacked in the core idea of a resource type into the worker VM (which is the shared Vagrant VM):
+In section 50, we hacked in the core idea of a resource type into the worker VM (which is the shared Vagrant VM):
 
 1.	manually created a `dummy` rootfs with a simple/dummy `opt/resource/out` script that satisfies concourse's API
 2.	edited `/var/vcap/jobs/groundcrew/config/worker.json` and `monit restart beacon`
@@ -16,7 +16,7 @@ As documented http://concourse.ci/implementing-resources.html: a resource type i
 -	`/opt/resource/in` for pulling a version of the resource down
 -	`/opt/resource/out` for idempotently pushing a version up
 
-In section 40 we hacked in a simple `/opt/resource/out` script into a container image at `/var/vcap/package/dummy` on the Vagrant VM.
+In section 50 we hacked in a simple `/opt/resource/out` script into a container image at `/var/vcap/package/dummy` on the Vagrant VM.
 
 In this section we will create a normal Docker image and host it on Docker Hub; then use that docker image in our worker.
 
@@ -93,7 +93,7 @@ Worker references remote docker image
 
 On the Vagrant VM (or Worker VM) change `/var/vcap/jobs/groundcrew/config/worker.json`.
 
-Where we had added the following `resource_type` in section 40:
+Where we had added the following `resource_type` in section 50:
 
 ```
 {"image":"/var/vcap/packages/dummy","type":"dummy"}
@@ -126,8 +126,8 @@ rm -rf /var/vcap/packages/dummy
 Re-run pipeline to use dummy resource type
 ------------------------------------------
 
-The pipeline in section 40 can now be reused to use test our `dummy` resource type:
+The pipeline in section 50 can now be reused to use test our `dummy` resource type:
 
 ```
-./40_*/run.sh
+./50_*/run.sh
 ```
