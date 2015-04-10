@@ -1,0 +1,17 @@
+---
+meta:
+  docker:
+    username: (( merge ))
+
+jobs:
+- name: job-run-image
+  public: true
+  serial: true
+  plan:
+  - get: hello-world-docker-image
+
+resources:
+- name: hello-world-docker-image
+  type: docker-image
+  source:
+    repository: (( meta.docker.username "/hello-world" ))
