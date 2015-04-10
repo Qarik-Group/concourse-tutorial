@@ -5,7 +5,11 @@ jobs:
   plan:
   - aggregate:
     - get: bosh-stemcell-aws
+      params:
+        tarball: true
     - get: bosh-release-redis
+      params:
+        tarball: true
   - task: ls
     config:
       platform: linux

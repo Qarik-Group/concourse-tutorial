@@ -38,6 +38,14 @@ The `version` contains the version of the stemcell that corresponds to http://bo
 
 The `url` contains the URL of the stemcell such as `https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-2915-aws-xen-ubuntu-trusty-go_agent.tgz`.
 
+If your build plan does not require the `stemcell.tgz` can set the parameter `tarball` to `false`.
+
+```yaml
+- get: bosh-stemcell-aws
+  params:
+    tarball: false
+```
+
 Releases
 --------
 
@@ -73,6 +81,14 @@ The `release.tgz` is the file that can be uploaded to a BOSH as a release.
 The `version` contains the version of the release tarball that corresponds to http://bosh.io/stemcells such as `9`.
 
 The `url` contains the URL of the release tarball such as `https://bosh.io/d/github.com/cloudfoundry-community/redis-boshrelease?v=9`.
+
+If your build plan does not require the `release.tgz` can set the parameter `tarball` to `false`.
+
+```yaml
+- get: bosh-release-redis
+  params:
+    tarball: false
+```
 
 Example
 -------
