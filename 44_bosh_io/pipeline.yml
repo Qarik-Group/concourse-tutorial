@@ -1,22 +1,39 @@
 jobs:
-- name: job-bosh-assets
+- name: job-bosh-assets2
   public: true
   serial: true
   plan:
-  - get: bosh-stemcell-aws
-  # - get: bosh-stemcell-openstack
-  - get: bosh-release-redis
+  - aggregate:
+    - get: bosh-stemcell-aws
+    - get: bosh-release-redis
   - task: ls
     config:
       platform: linux
       image: docker:///ubuntu#14.04
       inputs:
       - name: bosh-stemcell-aws
-      # - name: bosh-stemcell-openstack
       - name: bosh-release-redis
       run:
         path: ls
         args: ["-opR", "."]
+  - task: files-bosh-stemcell-aws
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: bosh-stemcell-aws
+      run:
+        path: cat
+        args: ["bosh-stemcell-aws/url", "bosh-stemcell-aws/version"]
+  - task: files-bosh-release-redis
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: bosh-release-redis
+      run:
+        path: cat
+        args: ["bosh-release-redis/url", "bosh-release-redis/version"]
 resources:
 - name: bosh-stemcell-aws
   type: bosh-io-stemcell
