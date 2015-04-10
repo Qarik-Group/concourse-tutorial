@@ -1,21 +1,21 @@
 jobs:
-- name: job-cf-cli-release
+- name: job-github-release
   public: true
   serial: true
   plan:
-  - get: cloudfoundry-cli-release
+  - get: github-release-spiff
   - task: ls
     config:
       platform: linux
       image: docker:///ubuntu#14.04
       inputs:
-      - name: cloudfoundry-cli-release
+      - name: github-release-spiff
       run:
         path: ls
         args: ["-opR", "."]
 resources:
-- name: cloudfoundry-cli-release
+- name: github-release-spiff
   type: github-release
   source:
-    user: cloudfoundry
-    repository: cli
+    user: cloudfoundry-incubator
+    repository: spiff

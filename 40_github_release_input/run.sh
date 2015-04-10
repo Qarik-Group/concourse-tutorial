@@ -13,6 +13,6 @@ realpath() {
 
 pushd $DIR
   yes y | fly configure -c pipeline.yml
-  curl $ATC_URL/jobs/job-cf-cli-release/builds -X POST
-  fly watch -j job-cf-cli-release
+  curl $ATC_URL/jobs/job-github-release/builds -X POST
+  fly watch -j job-github-release
 popd
