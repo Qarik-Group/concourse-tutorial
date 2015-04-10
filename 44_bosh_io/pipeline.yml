@@ -1,5 +1,5 @@
 jobs:
-- name: job-bosh-assets2
+- name: job-bosh-stemcell-release
   public: true
   serial: true
   plan:

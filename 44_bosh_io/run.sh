@@ -13,6 +13,6 @@ realpath() {
 
 pushd $DIR
   yes y | fly configure -c pipeline.yml
-  curl $ATC_URL/jobs/job-bosh-assets2/builds -X POST
-  fly watch -j job-bosh-assets2
+  curl $ATC_URL/jobs/job-bosh-stemcell-release/builds -X POST
+  fly watch -j job-bosh-stemcell-release
 popd
