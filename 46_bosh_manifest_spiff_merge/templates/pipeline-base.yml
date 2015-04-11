@@ -17,27 +17,22 @@ jobs:
       resource: resource-redis-release-templates
       params:
         submodules: none
-    - get: spiff
-      resource: resource-spiff-cli
-  # - task: spiff-help
-  #   config:
-  #     platform: linux
-  #     image: docker:///ubuntu#14.04
-  #     inputs:
-  #     - name: spiff
-  #     run:
-  #       path: spiff/bin/spiff
-  #       args: ["-h"]
+  - task: spiff-help
+    config:
+      platform: linux
+      image: docker:///drnic/spiff
+      run:
+        path: spiff
+        args: ["-h"]
   - task: spiff-merge
     config:
       platform: linux
-      image: docker:///ubuntu#14.04
+      image: docker:///drnic/spiff
       inputs:
-      - name: spiff
       - name: redis-release
       - name: stub
       run:
-        path: spiff/bin/spiff
+        path: spiff
         args:
           - merge
           - redis-release/templates/deployment.yml
@@ -60,8 +55,3 @@ resources:
   type: git
   source:
     uri: https://gist.github.com/638a2e7051071b3bbec7.git
-
-- name: resource-spiff-cli
-  type: git
-  source:
-    uri: https://github.com/drnic/concourse-spiff-merge-task.git
