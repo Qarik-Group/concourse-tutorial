@@ -11,6 +11,8 @@ jobs:
   serial: true
   plan:
   - aggregate:
+    - get: stub
+      resource: resource-deployment-manifest-stub
     - get: redis-release
       resource: resource-redis-release-templates
       params:
@@ -33,6 +35,7 @@ jobs:
       inputs:
       - name: spiff
       - name: redis-release
+      - name: stub
       run:
         path: spiff/bin/spiff
         args:
@@ -40,6 +43,7 @@ jobs:
           - redis-release/templates/deployment.yml
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-aws-ec2.yml
+          - stub/stub.yml
 
 resources:
 - name: resource-cf-release-templates
@@ -51,6 +55,11 @@ resources:
   type: git
   source:
     uri: https://github.com/cloudfoundry-community/redis-boshrelease.git
+
+- name: resource-deployment-manifest-stub
+  type: git
+  source:
+    uri: https://gist.github.com/638a2e7051071b3bbec7.git
 
 - name: resource-spiff-cli
   type: git
