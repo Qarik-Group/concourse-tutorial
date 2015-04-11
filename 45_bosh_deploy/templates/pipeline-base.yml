@@ -1,0 +1,40 @@
+---
+meta:
+  bosh:
+    target: (( merge ))
+    username: (( merge ))
+    password: (( merge ))
+
+jobs:
+- name: job-deploy
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: resource-bosh-release-redis
+    - get: resource-manifest
+  - put: resource-redis-bosh-deployment
+    params:
+      manifest: resource-manifest/manifest.yml
+      releases:
+        - resource-bosh-release-redis/*.tgz
+      stemcells: []
+resources:
+- name: resource-manifest
+  type: git
+  source:
+    uri: https://gist.github.com/3ff87c465d483543c53d.git
+
+- name: resource-bosh-release-redis
+  type: bosh-io-release
+  source:
+    repository: cloudfoundry-community/redis-boshrelease
+
+- name: resource-redis-bosh-deployment
+  type: bosh-deployment
+  source:
+    target: (( meta.bosh.target ))
+    username: (( meta.bosh.username ))
+    password: (( meta.bosh.password ))
+    deployment: redis
+    ignore_ssl: true
