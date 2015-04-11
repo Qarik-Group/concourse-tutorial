@@ -29,3 +29,23 @@ Create the `pipeline.yml` and run it in Concourse with:
 ```
 ./45_*/run.sh stub.yml
 ```
+
+Since `bosh deploy` is a no-op if the manifest doesn't change, re-running the pipeline job succeeds:
+
+![](http://cl.ly/image/2f0l1W200q3L/bosh-deploy-redis.png)
+
+Notes
+-----
+
+For a normal BOSH with built-in SSL, you will need to set `source.ignore_ssl` to `true` in your `bosh-deployment` resource:
+
+```yaml
+- name: resource-redis-bosh-deployment
+  type: bosh-deployment
+  source:
+    target: (( meta.bosh.target ))
+    username: (( meta.bosh.username ))
+    password: (( meta.bosh.password ))
+    deployment: redis
+    ignore_ssl: true
+```
