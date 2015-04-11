@@ -1,0 +1,58 @@
+---
+meta:
+  bosh:
+    target: (( merge ))
+    username: (( merge ))
+    password: (( merge ))
+
+jobs:
+- name: job-spiff-merge
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: redis-release
+      resource: resource-redis-release-templates
+      params:
+        submodules: none
+    - get: spiff
+      resource: resource-spiff-cli
+  # - task: spiff-help
+  #   config:
+  #     platform: linux
+  #     image: docker:///ubuntu#14.04
+  #     inputs:
+  #     - name: spiff
+  #     run:
+  #       path: spiff/bin/spiff
+  #       args: ["-h"]
+  - task: spiff-merge
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: spiff
+      - name: redis-release
+      run:
+        path: spiff/bin/spiff
+        args:
+          - merge
+          - redis-release/templates/deployment.yml
+          - redis-release/templates/jobs.yml
+          - redis-release/templates/infrastructure-aws-ec2.yml
+
+resources:
+- name: resource-cf-release-templates
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry/cf-release.git
+
+- name: resource-redis-release-templates
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry-community/redis-boshrelease.git
+
+- name: resource-spiff-cli
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-spiff-merge-task.git
