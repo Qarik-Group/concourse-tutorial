@@ -5,6 +5,8 @@ This section will show how to deploy a simple manifest to an existing BOSH.
 
 The deployment manifest being used is stored at this gist: https://gist.github.com/drnic/3ff87c465d483543c53d
 
+![pipeline](http://cl.ly/image/1U1R2e1m412a/bosh-deploy-pipeline.png)
+
 It deploys a Redis cluster of 3-VMs to a BOSH in an AWS VPC.
 
 Deploy
