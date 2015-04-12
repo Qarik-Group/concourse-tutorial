@@ -1,6 +1,5 @@
 #!/bin/bash
 
-stub=$1; shift
 stage=$1; shift
 
 set -e
@@ -15,25 +14,16 @@ realpath() {
 }
 
 usage() {
-  echo "USAGE: run.sh path/to/stub.yml [show|save]"
+  echo "USAGE: run.sh [show|save]"
   exit 1
 }
-
-if [[ "${stub}X" == "X" ]]; then
-  usage
-fi
-stub=$(realpath $stub)
-if [[ ! -f ${stub} ]]; then
-  usage
-fi
 
 if [[ "${stage}" != "show" && "${stage}" != "save" ]]; then
   usage
 fi
 
 pushd $DIR
-  spiff merge templates/pipeline-final.yml templates/pipeline-base-${stage}.yml ${stub} > pipeline.yml
-  yes y | fly configure -c pipeline.yml
+  yes y | fly configure -c pipeline-base-${stage}.yml
   curl $ATC_URL/jobs/job-spiff-merge/builds -X POST
   fly watch -j job-spiff-merge
 popd

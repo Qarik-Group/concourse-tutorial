@@ -1,10 +1,4 @@
 ---
-meta:
-  bosh:
-    target: (( merge ))
-    username: (( merge ))
-    password: (( merge ))
-
 jobs:
 - name: job-spiff-merge
   public: true
@@ -17,13 +11,6 @@ jobs:
       resource: resource-redis-release-templates
       params:
         submodules: none
-  - task: spiff-help
-    config:
-      platform: linux
-      image: docker:///drnic/spiff
-      run:
-        path: spiff
-        args: ["-h"]
   - task: spiff-merge
     config:
       platform: linux
@@ -32,13 +19,22 @@ jobs:
       - name: redis-release
       - name: stub
       run:
-        path: spiff
+        path: spiff-merge-and-save
         args:
-          - merge
+          - manifest.yml
           - redis-release/templates/deployment.yml
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-aws-ec2.yml
           - stub/stub.yml
+  - task: show-manifest
+    config:
+      platform: linux
+      image: docker:///drnic/spiff
+      inputs:
+      - name: spiff-merge
+      run:
+        path: cat
+        args: ["spiff-merge/manifest.yml"]
 
 resources:
 - name: resource-cf-release-templates
