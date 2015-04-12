@@ -32,6 +32,15 @@ jobs:
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-aws-ec2.yml
           - stub/stub.yml
+  - task: show-manifest
+    config:
+      platform: linux
+      image: docker:///drnic/spiff
+      inputs:
+      - name: spiff-merge
+      run:
+        path: cat
+        args: ["spiff-merge/manifest.yml"]
 
 resources:
 - name: resource-cf-release-templates
