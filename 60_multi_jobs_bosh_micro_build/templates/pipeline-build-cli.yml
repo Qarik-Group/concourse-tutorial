@@ -1,0 +1,40 @@
+---
+meta:
+  bosh:
+    target: (( merge ))
+    username: (( merge ))
+    password: (( merge ))
+
+jobs:
+- name: job-build-bosh-init-cli
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: bosh-init
+      resource: git-bosh-init
+  - task: bosh-init-cli-build
+    config:
+      platform: linux
+      image: docker:///concourse/static-golang
+      inputs:
+        - name: bosh-init
+          path: gopath/src/github.com/cloudfoundry/bosh-init
+      run:
+        path: gopath/src/github.com/cloudfoundry/bosh-init/bin/build
+  - task: ls
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: bosh-init-cli-build
+      run:
+        path: ls
+        args: ["-opR", "bosh-init-cli-build/gopath/src/github.com/cloudfoundry/bosh-init/out"]
+
+resources:
+- name: git-bosh-init
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry/bosh-init.git
+    branch: master

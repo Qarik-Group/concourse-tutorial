@@ -1,0 +1,60 @@
+---
+meta:
+  bosh:
+    target: (( merge ))
+    username: (( merge ))
+    password: (( merge ))
+
+jobs:
+- name: job-build-bosh-init-cli
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: bosh-stemcell-aws
+      params:
+        tarball: true
+    - get: bosh-release-redis
+      params:
+        tarball: true
+  - task: ls
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: bosh-stemcell-aws
+      - name: bosh-release-redis
+      run:
+        path: ls
+        args: ["-opR", "."]
+  - task: files-bosh-stemcell-aws
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: bosh-stemcell-aws
+      run:
+        path: cat
+        args: ["bosh-stemcell-aws/url", "bosh-stemcell-aws/version"]
+  - task: files-bosh-release-redis
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: bosh-release-redis
+      run:
+        path: cat
+        args: ["bosh-release-redis/url", "bosh-release-redis/version"]
+resources:
+- name: bosh-stemcell-aws
+  type: bosh-io-stemcell
+  source:
+    name: bosh-aws-xen-ubuntu-trusty-go_agent
+- name: bosh-stemcell-openstack
+  type: bosh-io-stemcell
+  source:
+    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+- name: bosh-release-redis
+  type: bosh-io-release
+  source:
+    repository: cloudfoundry-community/redis-boshrelease
