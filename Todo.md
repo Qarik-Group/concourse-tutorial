@@ -19,8 +19,8 @@ TODO
 Show case resources
 
 -	[x] get git repo
--	[ ] push to git repo
 -	[x] fetch and bump semver X.Y.Z numbers (20)
+-	[ ] push to git repo (bump version, get git, task to update version file, push git)
 -	[x] deploy an app to Cloud Foundry (10)
 -	[ ] running tests of a Golang app (11)
 -	[ ] building, testing, deploying Java app
