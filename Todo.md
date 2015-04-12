@@ -18,6 +18,8 @@ TODO
 
 Show case resources
 
+-	[x] get git repo
+-	[ ] push to git repo
 -	[x] fetch and bump semver X.Y.Z numbers (20)
 -	[x] deploy an app to Cloud Foundry (10)
 -	[ ] running tests of a Golang app (11)
@@ -25,10 +27,12 @@ Show case resources
 -	[ ] building, testing, deploying Ruby app
 -	[x] build/push a docker image - perhaps automate https://github.com/mmb/bosh_cli_docker_container (35, demo in 41)
 -	[x] pull a docker image (36)
--	[ ] pull a docker image and use it
--	[x] get bosh release
--	[x] get bosh stemcell
--	[ ] bosh deploy
+-	[ ] pull a docker image and use it as image for a task (perhaps drnic/spiff?)
+-	[x] get bosh release (44)
+-	[x] get bosh stemcell (44)
+-	[x] bosh deploy (45)
+-	[x] spiff merge (46)
+-	[ ] spiff merge -> store in git -> bosh deploy (two jobs)
 
 Non-basic
 
