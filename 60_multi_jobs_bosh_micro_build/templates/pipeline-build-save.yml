@@ -1,0 +1,48 @@
+---
+meta:
+  bosh:
+    target: (( merge ))
+    username: (( merge ))
+    password: (( merge ))
+  aws:
+    access_key_id: (( merge ))
+    secret_access_key: (( merge ))
+    region_name: us-east-1
+    bosh_init:
+      bucket: (( merge ))
+
+jobs:
+- name: job-build-bosh-init-cli
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: bosh-init
+      resource: git-bosh-init
+  - task: bosh-init-cli-build
+    config:
+      platform: linux
+      image: docker:///concourse/static-golang
+      inputs:
+        - name: bosh-init
+          path: gopath/src/github.com/cloudfoundry/bosh-init
+      run:
+        path: gopath/src/github.com/cloudfoundry/bosh-init/bin/build
+  - put: s3-bosh-init
+    params:
+      from: bosh-init-cli-build/gopath/src/github.com/cloudfoundry/bosh-init/out/bosh-init
+
+resources:
+- name: git-bosh-init
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry/bosh-init.git
+    branch: master
+- name: s3-bosh-init
+  type: s3
+  source:
+    access_key_id: (( meta.aws.access_key_id ))
+    secret_access_key: (( meta.aws.secret_access_key ))
+    region_name: (( meta.aws.region_name ))
+    bucket:  (( meta.aws.bosh_init.bucket ))
+    private: false
