@@ -41,6 +41,7 @@ pushd $DIR
     fly watch -j job-build-bosh-init-cli
   else
     curl $ATC_URL/jobs/job-repackage-bosh-init-aws/builds -X POST
+    # curl $ATC_URL/jobs/job-repackage-bosh-init-openstack/builds -X POST
     fly watch -j job-repackage-bosh-init-aws
   fi
 popd
