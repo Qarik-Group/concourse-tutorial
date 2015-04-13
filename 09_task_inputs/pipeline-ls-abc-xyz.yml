@@ -4,8 +4,9 @@ jobs:
   public: true
   serial: true
   plan:
-  - { get: gist-abc, resource: resource-gist-a-b-c }
-  - { get: gist-xyz, resource: resource-gist-x-y-z }
+  - aggregate:
+    - { get: gist-abc, resource: resource-gist-a-b-c }
+    - { get: gist-xyz, resource: resource-gist-x-y-z }
   - task: ls-abc-xyz
     config:
       platform: linux
