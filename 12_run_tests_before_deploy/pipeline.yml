@@ -1,13 +1,4 @@
 ---
-meta:
-  pivotal:
-    api: https://api.run.pivotal.io
-    username: (( merge ))
-    password: (( merge ))
-    organization: (( merge ))
-    space: (( merge ))
-    skip_cert_check: false
-
 jobs:
 - name: job-test-deploy-app
   public: true
@@ -20,6 +11,9 @@ jobs:
       config:
         platform: linux
         image: docker:///golang#1.4.2
+        inputs:
+          - name: resource-web-app
+            path: .
         run:
           path: go
           args:
@@ -40,9 +34,9 @@ resources:
 - name: resource-deploy-web-app
   type: cf
   source:
-    api: https://api.run.pivotal.io
-    username: (( meta.pivotal.username ))
-    password: (( meta.pivotal.password ))
-    organization: (( meta.pivotal.organization ))
-    space: (( meta.pivotal.space ))
-    skip_cert_check: false
+    api: {{cf-api}}
+    username: {{cf-username}}
+    password: {{cf-password}}
+    organization: {{cf-organization}}
+    space: {{cf-space}}
+    skip_cert_check: {{cf-skip-cert-check}}
