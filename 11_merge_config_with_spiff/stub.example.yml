@@ -1,8 +1,6 @@
-meta:
-  pivotal:
-    api: https://api.run.pivotal.io
-    username: EMAIL
-    password: PASSWORD
-    organization: ORG
-    space: SPACE
-    skip_cert_check: false
+pivotal-api: https://api.run.pivotal.io
+pivotal-username: EMAIL
+pivotal-password: PASSWORD
+pivotal-organization: ORG
+pivotal-space: SPACE
+pivotal-skip-cert-check: false
