@@ -13,18 +13,17 @@ realpath() {
 
 stub=$1; shift
 if [[ "${stub}X" == "X" ]]; then
-  echo "USAGE: run.sh path/to/stub.yml"
+  echo "USAGE: run.sh path/to/credentials.yml"
   exit 1
 fi
 stub=$(realpath $stub)
 if [[ ! -f ${stub} ]]; then
-  echo "USAGE: run.sh path/to/stub.yml"
+  echo "USAGE: run.sh path/to/credentials.yml"
   exit 1
 fi
 
 pushd $DIR
-  spiff merge templates/pipeline-final.yml templates/pipeline-pull-docker-image.yml ${stub} > pipeline.yml
-  yes y | fly configure -c pipeline.yml
-  curl $ATC_URL/jobs/job-run-image/builds -X POST
-  fly watch -j job-run-image
+  yes y | fly configure -c pipeline.yml --vars-from ${stub}
+  curl $ATC_URL/jobs/job-pull-image/builds -X POST
+  fly watch -j job-pull-image
 popd
