@@ -1,10 +1,4 @@
 ---
-meta:
-  docker:
-    email: (( merge ))
-    username: (( merge ))
-    password: (( merge ))
-
 jobs:
 - name: job-publish
   public: true
@@ -24,7 +18,7 @@ resources:
 - name: hello-world-docker-image
   type: docker-image
   source:
-    email: (( meta.docker.email ))
-    username: (( meta.docker.username ))
-    password: (( meta.docker.password ))
-    repository: (( meta.docker.username "/hello-world" ))
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-hub-image-hello-world}}
