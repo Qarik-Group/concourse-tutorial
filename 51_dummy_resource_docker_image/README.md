@@ -49,7 +49,7 @@ jobs:
   - get: resource-tutorial
   - put: resource-41-docker-image
     params:
-      build: resource-tutorial/41_dummy_resource_docker_image/docker
+      build: resource-tutorial/51_dummy_resource_docker_image/docker
 
 resources:
 - name: resource-tutorial
@@ -68,7 +68,7 @@ resources:
 
 Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use it as the input/`get` resource called `resource-tutorial`.
 
-This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/41_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `41_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
+This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/51_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `51_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
 
 Your `stub.yml` now needs your Docker Hub account credentials (see `stub.example.yml`\):
 

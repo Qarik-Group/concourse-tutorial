@@ -57,7 +57,7 @@ jobs:
 
 Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use this tutorial repo as the input resource called `resource-tutorial`. In the job `job-publish` build plan we `get` it first; and it is used by the `hello-world-docker-image` docker-image resource next.
 
-This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/41_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `41_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
+This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/51_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `51_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
 
 Running the pipeline
 --------------------

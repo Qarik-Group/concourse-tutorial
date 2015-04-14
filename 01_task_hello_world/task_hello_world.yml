@@ -1,8 +1,8 @@
 ---
 platform: linux
- 
+
 image: docker:///ubuntu#14.04
- 
+
 run:
-  path: echo 
+  path: echo
   args: [hello world]

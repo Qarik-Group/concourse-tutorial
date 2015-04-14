@@ -13,7 +13,7 @@ jobs:
   - get: resource-tutorial
   - put: resource-41-docker-image
     params:
-      build: resource-tutorial/41_dummy_resource_docker_image/docker
+      build: resource-tutorial/51_dummy_resource_docker_image/docker
 
 resources:
 - name: resource-tutorial
