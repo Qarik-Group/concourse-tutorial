@@ -1,9 +1,4 @@
 ---
-meta:
-  aws:
-    access_key_id: (( merge ))
-    secret_access_key: (( merge ))
-
 jobs:
 - name: job-bump-version
   public: true
@@ -35,6 +30,6 @@ resources:
     bucket: concourse-tutorial-app-version-pipeline
     key: app-version
     initial_version: 1.0.0
-    access_key_id: (( meta.aws.access_key_id ))
-    secret_access_key: (( meta.aws.secret_access_key ))
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
     region_name: us-east-1
