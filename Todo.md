@@ -1,15 +1,37 @@
 TODO
 ====
 
+One-off
+
+-	[ ] change from spiff to --vars-from
+
+	-	[x] `11_merge_config_with_spiff`
+	-	[x] `12_run_tests_before_deploy`
+	-	[x] `20_versions_via_s3`
+	-	[x] `35_push_docker_image`
+	-	[x] `36_pull_docker_image`
+	-	[x] `45_bosh_deploy`
+	-	[ ] `51_dummy_resource_docker_image`
+	-	[ ] `60_multi_jobs_bosh_micro_build`
+
 -	[x] introduce a task being run directly (01), described within a job (02), described via YAML in a resource (03)
+
 -	[ ] introduce input resources; overview what's available
+
 -	[ ] introduce output resources; overview what's available
+
 -	[ ] show examples of how inputs to tasks are passed via files
+
 -	[x] trigger a job to build if a resources changes (06 - via timer resource)
+
 -	[ ] explicitly introduce the build plan
+
 -	[ ] `aggregate` & `do` steps - all inputs need to be in first `aggregate` step
+
 -	[ ] `conditions` steps - build plan fails if step fails; but can handle failure explicitly based on previous step results (combine with `aggregate` to cover success & failure cases); perhaps to determine if you bump semvar
+
 -	[ ] `get` steps with `passed: [job-a, job-b]`
+
 -	[ ] task steps that produce new resources (e.g. a `tgz`\) - 09?
 
 -	[ ] `fly intercept` (`hijack`\)

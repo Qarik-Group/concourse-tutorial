@@ -45,9 +45,9 @@ For a normal BOSH with built-in SSL, you will need to set `source.ignore_ssl` to
 - name: resource-redis-bosh-deployment
   type: bosh-deployment
   source:
-    target: (( meta.bosh.target ))
-    username: (( meta.bosh.username ))
-    password: (( meta.bosh.password ))
+    target: bosh-target
+    username: bosh-username
+    password: bosh-password
     deployment: redis
     ignore_ssl: true
 ```
