@@ -1,6 +1,27 @@
 50 - Dummy resource
 ===================
 
+This section includes a pipeline using a new resource called `dummy`.
+
+Failing to find new resource
+----------------------------
+
+```
+./50_*/run.sh
+```
+
+Will include an error that looks like:
+
+```
+no workers satisfying: resource type 'dummy'
+
+available workers:
+  - platform 'linux'
+errored
+```
+
+Your concourse does not yet have a resource registered called `dummy`.
+
 Create dummy resource
 ---------------------
 
