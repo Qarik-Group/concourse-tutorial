@@ -31,6 +31,8 @@ You also need a stemcell for the BOSH Warden CPI root filesystem:
 bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
 ```
 
+The three commands above can be run in parallel on different terminal windows.
+
 Get manifest and deploy
 -----------------------
 
@@ -61,10 +63,9 @@ Deployment `concourse'
 
 You now need to wire up inbound HTTP traffic to the host VM on AWS through to the `web/0` worker at `10.244.8.2:8080`.
 
-```
-local_ip=$(curl -s $meta_data_local_ip_url)
-sudo iptables -t nat -A PREROUTING -p tcp -d $local_ip --dport 8080 -j DNAT --to 10.244.8.2:8080
-```
+From your host machine:
+
+vagrant ssh -c 'sudo iptables -t nat -A PREROUTING -p tcp -d $(curl -s http://169.254.169.254/latest/meta-data/local-ipv4) --dport 8080 -j DNAT --to 10.244.8.2:8080'
 
 Browser
 -------
