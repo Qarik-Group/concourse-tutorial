@@ -66,3 +66,4 @@ resources:
     uri: git@gist.github.com:/395869dfd717644becf1.git
     branch: master
     private_key: {{github-private-key}}
+    paths: [stub.yml]
