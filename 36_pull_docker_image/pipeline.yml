@@ -1,0 +1,11 @@
+jobs:
+- name: job-pull-image
+  plan:
+  - get: hello-world-docker-image
+  public: true
+  serial: true
+resources:
+- name: hello-world-docker-image
+  source:
+    repository: {{docker-hub-image-hello-world}}
+  type: docker-image

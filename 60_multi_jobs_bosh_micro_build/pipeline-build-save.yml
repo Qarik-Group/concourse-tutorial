@@ -1,10 +1,4 @@
 ---
-meta:
-  bosh:
-    target: (( merge ))
-    username: (( merge ))
-    password: (( merge ))
-
 jobs:
 - name: job-build-bosh-init-cli
   public: true
@@ -22,15 +16,9 @@ jobs:
           path: gopath/src/github.com/cloudfoundry/bosh-init
       run:
         path: gopath/src/github.com/cloudfoundry/bosh-init/bin/build
-  - task: ls
-    config:
-      platform: linux
-      image: docker:///ubuntu#14.04
-      inputs:
-      - name: bosh-init-cli-build
-      run:
-        path: ls
-        args: ["-opR", "bosh-init-cli-build/gopath/src/github.com/cloudfoundry/bosh-init/out"]
+  - put: s3-bosh-init
+    params:
+      from: bosh-init-cli-build/gopath/src/github.com/cloudfoundry/bosh-init/out/bosh-init
 
 resources:
 - name: git-bosh-init
@@ -38,3 +26,11 @@ resources:
   source:
     uri: https://github.com/cloudfoundry/bosh-init.git
     branch: master
+- name: s3-bosh-init
+  type: s3
+  source:
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region-name}}
+    bucket:  {{aws-bosh-init-bucket}}
+    private: false

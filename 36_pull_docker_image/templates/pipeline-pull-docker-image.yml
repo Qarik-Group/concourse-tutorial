@@ -14,4 +14,4 @@ resources:
 - name: hello-world-docker-image
   type: docker-image
   source:
-    repository: (( meta.docker.username "/hello-world" ))
+    repository: docker-username "/hello-world"

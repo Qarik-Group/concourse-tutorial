@@ -51,7 +51,7 @@ On the first time this will trigger concourse to download the `ubuntu#14.04` doc
 
 ```
 $ cd 02_job_hello_world
-$ fly configure -c pipeline.yml
+$yes y | fly configure -c pipeline.yml --vars-from ${stub}
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:

@@ -1,6 +1,6 @@
-pivotal-api: https://api.run.pivotal.io
-pivotal-username: EMAIL
-pivotal-password: PASSWORD
-pivotal-organization: ORG
-pivotal-space: SPACE
-pivotal-skip-cert-check: false
+cf-api: https://api.run.pivotal.io
+cf-username: EMAIL
+cf-password: PASSWORD
+cf-organization: ORG
+cf-space: SPACE
+cf-skip-cert-check: false

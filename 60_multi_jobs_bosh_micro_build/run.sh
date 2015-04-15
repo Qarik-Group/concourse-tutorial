@@ -15,7 +15,7 @@ realpath() {
 }
 
 usage() {
-  echo "USAGE: run.sh path/to/stub.yml [build-cli|build-save|repackage]"
+  echo "USAGE: run.sh path/to/credentials.yml [build-cli|build-save|repackage|plus-openstack]"
   exit 1
 }
 
@@ -28,17 +28,19 @@ if [[ ! -f ${stub} ]]; then
 fi
 
 if [[ "${stage}" != "build-cli" && "${stage}" != "build-save" && \
-  "${stage}" != "repackage"  ]]; then
+  "${stage}" != "repackage" && "${stage}" != "plus-openstack" ]]; then
   usage
 fi
 
 
 pushd $DIR
-  spiff merge templates/pipeline-final.yml templates/pipeline-${stage}.yml ${stub} > pipeline.yml
-  yes y | fly configure -c pipeline.yml
+  yes y | fly configure -c pipeline-${stage}.yml --vars-from ${stub}
   if [[ "${stage}" == "build-cli" || "${stage}" == "build-save" ]]; then
     curl $ATC_URL/jobs/job-build-bosh-init-cli/builds -X POST
     fly watch -j job-build-bosh-init-cli
+  elif [[ "${stage}" == "plus-openstack" ]]; then
+    curl $ATC_URL/jobs/job-repackage-bosh-init-openstack/builds -X POST
+    fly watch -j job-repackage-bosh-init-openstack
   else
     curl $ATC_URL/jobs/job-repackage-bosh-init-aws/builds -X POST
     # curl $ATC_URL/jobs/job-repackage-bosh-init-openstack/builds -X POST

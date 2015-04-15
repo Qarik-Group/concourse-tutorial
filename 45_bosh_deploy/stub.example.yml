@@ -1,6 +1,0 @@
----
-meta:
-  bosh:
-    target: https://1.2.3.4:25555
-    username: admin
-    password: admin

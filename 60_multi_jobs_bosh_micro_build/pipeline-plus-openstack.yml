@@ -1,20 +1,4 @@
 ---
-meta:
-  bosh:
-    target: (( merge ))
-    username: (( merge ))
-    password: (( merge ))
-  aws:
-    access_key_id: (( merge ))
-    secret_access_key: (( merge ))
-    region_name: us-east-1
-    bosh_init:
-      bucket: (( merge ))
-  docker:
-    email: (( merge ))
-    username: (( merge ))
-    password: (( merge ))
-
 jobs:
 - name: job-build-bosh-init-cli
   public: true
@@ -91,10 +75,10 @@ resources:
 - name: s3-bosh-init
   type: s3
   source:
-    access_key_id: (( meta.aws.access_key_id ))
-    secret_access_key: (( meta.aws.secret_access_key ))
-    region_name: (( meta.aws.region_name ))
-    bucket:  (( meta.aws.bosh_init.bucket ))
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region-name}}
+    bucket:  {{aws-bosh-init-bucket}}
     private: false
 
 - name: git-bosh-init-aws-cpi
@@ -110,15 +94,15 @@ resources:
 - name: bosh-init-aws-docker-image
   type: docker-image
   source:
-    email: (( meta.docker.email ))
-    username: (( meta.docker.username ))
-    password: (( meta.docker.password ))
-    repository: (( meta.docker.username "/bosh-init-aws" ))
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-hub-image-bosh-init-aws}}
 
 - name: bosh-init-openstack-docker-image
   type: docker-image
   source:
-    email: (( meta.docker.email ))
-    username: (( meta.docker.username ))
-    password: (( meta.docker.password ))
-    repository: (( meta.docker.username "/bosh-init-openstack" ))
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-hub-image-bosh-init-openstack}}

@@ -22,8 +22,8 @@ resources:
   type: cf
   source:
     api: https://api.run.pivotal.io
-    username: EMAIL
-    password: PASSWORD
-    organization: ORG
-    space: SPACE
+    username: {{cf-username}}
+    password: {{cf-password}}
+    organization: {{cf-organization}}
+    space: {{cf-space}}
     skip_cert_check: false
