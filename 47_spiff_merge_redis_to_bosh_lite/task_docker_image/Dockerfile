@@ -20,4 +20,4 @@ RUN cd /tmp && \
 
 ADD spiff-merge-and-save /bin/spiff-merge-and-save
 
-RUN gem install bosh_cli_plugin_micro
+RUN gem install bosh_cli_plugin_micro --no-document
