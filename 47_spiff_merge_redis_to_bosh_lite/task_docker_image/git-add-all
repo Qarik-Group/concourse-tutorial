@@ -1,0 +1,13 @@
+#!/bin/bash
+
+dir=$1; shift
+if [[ "${dir}X" == "X" ]]; then
+  echo "USAGE: git-add-all path/to/git/repo"
+  exit 1
+fi
+
+set -e
+
+pushd $dir
+  git add .
+popd
