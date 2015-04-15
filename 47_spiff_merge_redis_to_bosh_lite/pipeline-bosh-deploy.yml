@@ -11,8 +11,10 @@ jobs:
       resource: resource-redis-release-templates
       params:
         submodules: none
+    - get: resource-deployment-manifest-stub-in
     - get: stub
-      resource: resource-deployment-manifest-stub
+      resource: resource-deployment-manifest-stub-save
+      trigger: false
 
   - task: spiff-merge
     config:
@@ -40,7 +42,7 @@ jobs:
         path: git-add-all
         args: [spiff-merge/stub]
 
-  - put: resource-deployment-manifest-stub
+  - put: resource-deployment-manifest-stub-save
     params:
       repository: git-add/spiff-merge/stub
 
@@ -60,10 +62,17 @@ resources:
   source:
     uri: https://github.com/cloudfoundry-community/redis-boshrelease.git
 
-- name: resource-deployment-manifest-stub
+- name: resource-deployment-manifest-stub-in
   type: git
   source:
     uri: git@gist.github.com:/395869dfd717644becf1.git
     branch: master
     private_key: {{github-private-key}}
     paths: [stub.yml]
+
+- name: resource-deployment-manifest-stub-save
+  type: git
+  source:
+    uri: git@gist.github.com:/395869dfd717644becf1.git
+    branch: master
+    private_key: {{github-private-key}}
