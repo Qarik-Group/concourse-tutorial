@@ -27,7 +27,7 @@ jobs:
   - task: create-stub
     config:
       platform: linux
-      image: docker:///drnic/spiff
+      image: docker:///{{docker-hub-image-47-tasks}}
       inputs:
       - name: redis-release
       - name: stub
@@ -38,7 +38,7 @@ jobs:
   - task: spiff-merge
     config:
       platform: linux
-      image: docker:///drnic/spiff
+      image: docker:///{{docker-hub-image-47-tasks}}
       inputs:
       - name: create-stub
       - name: stub

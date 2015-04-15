@@ -5,12 +5,13 @@ jobs:
   serial: true
   plan:
   - get: resource-tutorial
+    resource: resource-tutorial-section-47
   - put: task-docker-image
     params:
       build: resource-tutorial/47_spiff_merge_redis_to_bosh_lite/task_docker_image
 
 resources:
-- name: resource-tutorial
+- name: resource-tutorial-section-47
   type: git
   source:
     uri: https://github.com/drnic/concourse-tutorial.git
