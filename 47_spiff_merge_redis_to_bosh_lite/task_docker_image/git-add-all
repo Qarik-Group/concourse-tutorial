@@ -12,6 +12,8 @@ git config --global user.email "nobody@concourse.ci"
 git config --global user.name "Concourse"
 
 pushd $dir
-  git add .
-  git commit -m "bump"
+  if [[ "$(git status -s)X" != "X" ]]; then
+    git add .
+    git commit -m "Generate manifest from stub change"
+  fi
 popd
