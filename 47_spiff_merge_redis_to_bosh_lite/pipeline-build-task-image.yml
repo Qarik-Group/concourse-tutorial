@@ -1,0 +1,24 @@
+---
+jobs:
+- name: job-publish
+  public: true
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - put: task-docker-image
+    params:
+      build: resource-tutorial/47_spiff_merge_redis_to_bosh_lite/task_docker_image
+
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
+
+- name: task-docker-image
+  type: docker-image
+  source:
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-hub-image-47-tasks}}
