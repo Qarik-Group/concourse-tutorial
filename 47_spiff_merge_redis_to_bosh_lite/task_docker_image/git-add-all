@@ -10,4 +10,5 @@ set -e
 
 pushd $dir
   git add .
+  git commit -m "bump"
 popd
