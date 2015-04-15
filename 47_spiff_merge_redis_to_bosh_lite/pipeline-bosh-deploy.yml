@@ -37,12 +37,12 @@ jobs:
       inputs:
       - name: spiff-merge
       run:
-        path: git
-        args: ["add", "spiff-merge/stub"]
+        path: git-add-all
+        args: [spiff-merge/stub]
 
   - put: resource-deployment-manifest-stub
     params:
-      repository: spiff-merge/stub
+      repository: git-add/spiff-merge/stub
 
 resources:
 - name: resource-bosh-stemcell
