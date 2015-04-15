@@ -5,6 +5,7 @@ jobs:
   serial: true
   plan:
   - aggregate:
+    - get: resource-bosh-stemcell
     - get: resource-bosh-release-redis
     - get: resource-manifest
   - put: resource-redis-bosh-deployment
@@ -17,7 +18,13 @@ resources:
 - name: resource-manifest
   type: git
   source:
-    uri: https://gist.github.com/3ff87c465d483543c53d.git
+    uri: https://gist.github.com/395869dfd717644becf1.git # bosh-lite example
+    # uri: https://gist.github.com/3ff87c465d483543c53d.git # AWS example
+
+- name: resource-bosh-stemcell
+  type: bosh-io-stemcell
+  source:
+    name: {{bosh-stemcell-name}}
 
 - name: resource-bosh-release-redis
   type: bosh-io-release
@@ -30,5 +37,5 @@ resources:
     target: {{bosh-target}}
     username: {{bosh-username}}
     password: {{bosh-password}}
-    deployment: redis
+    deployment: redis-warden # from the manifest.yml in resource-manifest
     ignore_ssl: true
