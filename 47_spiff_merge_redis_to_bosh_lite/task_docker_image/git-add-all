@@ -8,6 +8,9 @@ fi
 
 set -e
 
+git config --global user.email "nobody@concourse.ci"
+git config --global user.name "Concourse"
+
 pushd $dir
   git add .
   git commit -m "bump"
