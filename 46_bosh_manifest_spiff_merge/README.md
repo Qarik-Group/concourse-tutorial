@@ -5,8 +5,8 @@ This section will show how to pull in upstream spiff templates and `spiff merge`
 
 Pipeline example:
 
-![pipeline](http://cl.ly/image/0V3H462j1l2Y/spiff-merge-pipeline.png)
+![pipeline](http://cl.ly/image/2S1V1I3H0S3U/Concourse.png)
 
 Successful job:
 
-![successful-job](http://cl.ly/image/2f3N0c3l0k0A/spiff-merge.png)
+![successful-job](http://cl.ly/image/41230L1m2K3j/job-spiff-merge__1_-_Concourse.png)
