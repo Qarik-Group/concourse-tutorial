@@ -17,3 +17,7 @@ RUN cd /tmp && \
     curl -L -o spiff_linux_amd64.zip https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.5/spiff_linux_amd64.zip && \
     unzip spiff_linux_amd64.zip && \
     mv spiff /bin/
+
+ADD spiff-merge-and-save /bin/spiff-merge-and-save
+
+RUN gem install bosh_cli_plugin_micro
