@@ -1,6 +1,6 @@
 ---
 jobs:
-- name: job-publish
+- name: job-build-task-image
   public: true
   serial: true
   plan:
@@ -14,6 +14,7 @@ resources:
   type: git
   source:
     uri: https://github.com/drnic/concourse-tutorial.git
+    branch: 47_spiff_merge_redis_to_bosh_lite
 
 - name: task-docker-image
   type: docker-image
