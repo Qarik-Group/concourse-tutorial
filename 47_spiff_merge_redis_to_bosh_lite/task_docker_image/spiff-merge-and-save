@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 output_manifest=$1; shift
 if [[ "${output_manifest}X" == "X" ]]; then
