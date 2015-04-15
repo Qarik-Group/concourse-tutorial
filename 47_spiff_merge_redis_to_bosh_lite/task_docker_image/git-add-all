@@ -13,5 +13,5 @@ git config --global user.name "Concourse"
 
 pushd $dir
   git add .
-  git commit -m "Generate manifest from stub change"; true # might be no changes
+  git commit -m "Generate manifest from stub change" || true # might be no changes
 popd
