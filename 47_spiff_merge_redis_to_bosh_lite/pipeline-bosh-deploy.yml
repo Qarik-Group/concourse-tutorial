@@ -29,25 +29,20 @@ jobs:
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-warden.yml
           - stub/stub.yml
-  - task: ls
-    config:
-      platform: linux
-      image: docker:///ubuntu#14.04
-      inputs:
-      - name: spiff-merge
-      run:
-        path: ls
-        args: ["-opR", "spiff-merge"]
 
-  - task: show-manifest
+  - task: git-add
     config:
       platform: linux
-      image: docker:///drnic/spiff
+      image: {{docker-hub-image-47-tasks-uri}}
       inputs:
       - name: spiff-merge
       run:
-        path: cat
-        args: ["spiff-merge/stub/manifest.yml"]
+        path: git
+        args: ["add", "spiff-merge/stub"]
+
+  - put: resource-deployment-manifest-stub
+    params:
+      repository: spiff-merge/stub
 
 resources:
 - name: resource-bosh-stemcell
@@ -68,4 +63,6 @@ resources:
 - name: resource-deployment-manifest-stub
   type: git
   source:
-    uri: https://gist.github.com/395869dfd717644becf1.git
+    uri: git@gist.github.com:/395869dfd717644becf1.git
+    branch: master
+    private_key: {{github-private-key}}
