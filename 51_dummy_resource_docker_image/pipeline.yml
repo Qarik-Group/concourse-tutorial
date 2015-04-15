@@ -1,0 +1,24 @@
+---
+jobs:
+- name: job-publish
+  public: true
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - put: resource-docker-image-dummy
+    params:
+      build: resource-tutorial/51_dummy_resource_docker_image/docker
+
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
+
+- name: resource-docker-image-dummy
+  type: docker-image
+  source:
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-hub-image-dummy-resource}}
