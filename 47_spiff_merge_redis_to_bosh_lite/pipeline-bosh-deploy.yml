@@ -14,42 +14,31 @@ jobs:
     - get: stub
       resource: resource-deployment-manifest-stub
 
-  - task: show-redis
-    config:
-      platform: linux
-      image: docker:///ubuntu#14.04
-      inputs:
-      - name: redis-release
-      run:
-        path: ls
-        args: ["-opR", "redis-release"]
-
-  - task: create-stub
-    config:
-      platform: linux
-      image: docker:///{{docker-hub-image-47-tasks}}
-      inputs:
-      - name: redis-release
-      - name: stub
-      run:
-        path: ./redis-release/templates/make_manifest
-        args: ["warden"]
-
   - task: spiff-merge
     config:
       platform: linux
-      image: docker:///{{docker-hub-image-47-tasks}}
+      image: {{docker-hub-image-47-tasks-uri}}
       inputs:
-      - name: create-stub
       - name: stub
+      - name: redis-release
       run:
         path: spiff-merge-and-save
         args:
-          - create-stub/manifest.yml
+          - stub/manifest.yml
           - redis-release/templates/deployment.yml
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-warden.yml
           - stub/stub.yml
+  - task: ls
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: spiff-merge
+      run:
+        path: ls
+        args: ["-opR", "spiff-merge"]
+
   - task: show-manifest
     config:
       platform: linux
@@ -58,7 +47,7 @@ jobs:
       - name: spiff-merge
       run:
         path: cat
-        args: ["spiff-merge/manifest.yml"]
+        args: ["spiff-merge/stub/manifest.yml"]
 
 resources:
 - name: resource-bosh-stemcell
@@ -79,4 +68,4 @@ resources:
 - name: resource-deployment-manifest-stub
   type: git
   source:
-    uri: https://gist.github.com/638a2e7051071b3bbec7.git
+    uri: https://gist.github.com/395869dfd717644becf1.git
