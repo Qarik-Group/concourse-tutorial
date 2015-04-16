@@ -8,6 +8,14 @@ See https://github.com/cloudfoundry/bosh-lite/blob/master/docs/aws-provider.md
 
 The output of `vagrant up --provider=aws` will show the public IP, such as `54.1.2.3`.
 
+You will later need inbound HTTP traffic to the host VM on AWS through to the concourse `web/0` worker at `10.244.8.2:8080`.
+
+In the bosh-lite folder run:
+
+```
+vagrant ssh -c 'sudo iptables -t nat -A PREROUTING -p tcp -d $(curl -s http://169.254.169.254/latest/meta-data/local-ipv4) --dport 8080 -j DNAT --to 10.244.8.2:8080'
+```
+
 Target BOSH
 -----------
 
@@ -60,12 +68,6 @@ Deployment `concourse'
 | worker/0  | running | concourse     | 10.244.8.10 |
 +-----------+---------+---------------+-------------+
 ```
-
-You now need to wire up inbound HTTP traffic to the host VM on AWS through to the `web/0` worker at `10.244.8.2:8080`.
-
-From your host machine:
-
-vagrant ssh -c 'sudo iptables -t nat -A PREROUTING -p tcp -d $(curl -s http://169.254.169.254/latest/meta-data/local-ipv4) --dport 8080 -j DNAT --to 10.244.8.2:8080'
 
 Browser
 -------
