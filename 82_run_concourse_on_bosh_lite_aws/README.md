@@ -48,7 +48,7 @@ Get manifest and deploy
 curl -L -o concourse.yml https://raw.githubusercontent.com/concourse/concourse/develop/manifests/bosh-lite.yml
 
 bosh deployment concourse.yml
-bosh deploy
+bosh -n deploy
 ```
 
 Wiring up the internet
