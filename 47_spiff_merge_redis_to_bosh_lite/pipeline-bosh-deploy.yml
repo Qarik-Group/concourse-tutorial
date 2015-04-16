@@ -46,6 +46,14 @@ jobs:
     params:
       repository: git-add/spiff-merge/stub
 
+  - put: resource-bosh-deployment
+    params:
+      manifest: spiff-merge/stub/manifest.yml
+      releases:
+        - resource-bosh-release-redis/*.tgz
+      stemcells:
+        - resource-bosh-stemcell/*.tgz
+
 resources:
 - name: resource-bosh-stemcell
   type: bosh-io-stemcell
@@ -76,3 +84,12 @@ resources:
     uri: git@gist.github.com:/395869dfd717644becf1.git
     branch: master
     private_key: {{github-private-key}}
+
+- name: resource-bosh-deployment
+  type: bosh-deployment
+  source:
+    target: {{bosh-target}}
+    username: {{bosh-username}}
+    password: {{bosh-password}}
+    deployment: redis-warden # from the manifest.yml in resource-manifest
+    ignore_ssl: true
