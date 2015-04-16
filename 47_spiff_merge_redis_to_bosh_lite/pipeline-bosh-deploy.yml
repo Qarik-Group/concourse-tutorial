@@ -73,7 +73,7 @@ resources:
 - name: resource-deployment-manifest-stub-in
   type: git
   source:
-    uri: git@gist.github.com:/395869dfd717644becf1.git
+    uri: {{section-47-git-redis-manifest}}
     branch: master
     private_key: {{github-private-key}}
     paths: [stub.yml]
@@ -81,7 +81,7 @@ resources:
 - name: resource-deployment-manifest-stub-save
   type: git
   source:
-    uri: git@gist.github.com:/395869dfd717644becf1.git
+    uri: {{section-47-git-redis-manifest}}
     branch: master
     private_key: {{github-private-key}}
 
@@ -91,5 +91,5 @@ resources:
     target: {{bosh-target}}
     username: {{bosh-username}}
     password: {{bosh-password}}
-    deployment: redis-warden # from the manifest.yml in resource-manifest
+    deployment: {{section-47-git-redis-name}} # from the manifest.yml in resource-manifest
     ignore_ssl: true
