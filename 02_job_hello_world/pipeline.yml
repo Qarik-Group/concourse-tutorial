@@ -2,7 +2,6 @@
 jobs:
 - name: job-hello-world
   public: true
-  serial: true
   plan:
   - task: hello-world
     config:

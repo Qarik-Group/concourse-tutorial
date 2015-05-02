@@ -2,10 +2,8 @@
 jobs:
 - name: job-hello-world
   public: true
-  serial: true
   plan:
   - get: resource-tutorial
-    trigger: false
   - task: hello-world
     file: resource-tutorial/01_task_hello_world/task_hello_world.yml
 

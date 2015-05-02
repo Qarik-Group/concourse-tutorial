@@ -172,16 +172,14 @@ jobs:
   job job-hello-world has been added:
     name: job-hello-world
     public: true
-    serial: true
     plan:
     - task: hello-world
       config:
         platform: linux
-        image: docker:///ubuntu#14.04
+        image: docker:///busybox
         run:
           path: echo
-          args:
-          - hello world
+          args: [hello world]
 ```
 
 You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`\):
@@ -222,9 +220,7 @@ jobs:
   public: true
   serial: true
   plan:
-  - aggregate:
-    - get: resource-tutorial
-      trigger: false
+  - get: resource-tutorial
   - task: hello-world
     file: resource-tutorial/01_task_hello_world/task_hello_world.yml
 ```
@@ -243,6 +239,32 @@ fly c -c pipeline.yml
 ```
 
 ![resource-job](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
+
+After manually triggering the job via the UI, the output will look like:
+
+![job-task-from-wrapper](http://cl.ly/image/0Q3m223v2l3M/job-task-from-wrapper.png)
+
+The `job-hello-world` job now has two steps in its build plan.
+
+The first step fetches the git repository for these training materials and tutorials. This is a "resource" called `resource-tutorial`.
+
+This resource can now be an input to any task in the job build plan.
+
+The second step runs a user-defined task. We give the task a name `hello-world` which will be displayed in the UI output. The task itself is not described in the pipeline. Instead it is described in `01_task_hello_world/task_hello_world.yml` from the `resource-tutorial` input.
+
+There is a benefit and a downside to abstracting tasks into YAML files outside of the pipeline.
+
+The benefit is that the behavior of the task can be modified to match the input resource that it is operating upon. For example, if the input resource was a code repository with tests then the task file could be kept in sync with how the code repo needs to have its tests executed.
+
+The downside is that the `pipeline.yml` no longer explains exactly what commands will be invoked. Comprehension is potentially reduced. `pipeline.yml` files can get long and it can be hard to read and comprehend all the YAML.
+
+Consider comprehension of other team members when making these choices. "What does this pipeline actually do?!"
+
+One idea is to consider how you name your task files, and thus how you name the wrapper scripts that they invoke.
+
+Consider using (long) names that describe their purpose/behavior.
+
+Try to make the `pipeline.yml` readable. It will become important orchestration within your team/company/project; and everyone needs to know how it actually works.
 
 ### 04 - Get job output in terminal
 
