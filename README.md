@@ -60,6 +60,31 @@ hello world
 succeeded
 ```
 
+Try changing the `image:` and the `run:` and run a different task:
+
+```yaml
+---
+platform: linux
+
+image: docker:///ubuntu#14.04
+
+run:
+  path: uname
+  args: [-a]
+```
+
+This task file is provided for convenience:
+
+```
+$ fly execute -c task_ubuntu_uname.yml
+Connecting to 10.244.8.2:8080 (10.244.8.2:8080)
+-                    100% |*******************************| 10240   0:00:00 ETA
+initializing with docker:///ubuntu#14.04
+running uname -a
+Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+succeeded
+```
+
 ### 02 - Hello World job
 
 ```
