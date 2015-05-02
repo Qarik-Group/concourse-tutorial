@@ -218,7 +218,6 @@ Now we can consume that resource in our job. Update it to:
 jobs:
 - name: job-hello-world
   public: true
-  serial: true
   plan:
   - get: resource-tutorial
   - task: hello-world
@@ -275,22 +274,8 @@ You can also view this output from the terminal with `fly`:
 ```
 $ fly watch -j job-hello-world
 Cloning into '/tmp/build/src'...
-d6f8e75 02 now embeds task; 03 extracts it into resource to be fetched
-perl: warning: Setting locale failed.
-perl: warning: Please check that your locale settings:
-	LANGUAGE = (unset),
-	LC_ALL = (unset),
-	LANG = "en_US.UTF-8"
-    are supported and installed on your system.
-perl: warning: Falling back to the standard locale ("C").
-perl: warning: Setting locale failed.
-perl: warning: Please check that your locale settings:
-	LANGUAGE = (unset),
-	LC_ALL = (unset),
-	LANG = "en_US.UTF-8"
-    are supported and installed on your system.
-perl: warning: Falling back to the standard locale ("C").
-initializing with docker:///ubuntu#14.04
+57cb645 03 - fleshout readme tutorial on how a job task calls out to yaml file
+initializing with docker:///busybox
 running echo hello world
 hello world
 succeeded
