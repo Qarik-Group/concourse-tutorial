@@ -7,7 +7,7 @@ jobs:
   - task: hello-world
     config:
       platform: linux
-      image: docker:///ubuntu#14.04
+      image: docker:///busybox
       run:
         path: echo
         args: [hello world]

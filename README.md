@@ -30,12 +30,12 @@ Tutorials
 ```
 $ cd 01_task_hello_world
 $ fly execute -c task_hello_world.yml
-Connecting to 10.0.2.15:8080 (10.0.2.15:8080)
+Connecting to 10.244.8.2:8080 (10.244.8.2:8080)
 -                    100% |*******************************| 10240   0:00:00 ETA
-initializing with docker:///ubuntu#14.04
+initializing with docker:///busybox
 ```
 
-At this point it is downloading a large Docker image `ubuntu#14.04`. It will only need to do this once.
+At this point it is downloading a large Docker image `busybox`. It will only need to do this once.
 
 Eventually it will continue:
 
@@ -45,13 +45,11 @@ hello world
 succeeded
 ```
 
-On the first time this will trigger concourse to download the `ubuntu#14.04` docker image.
-
 ### 02 - Hello World job
 
 ```
-$ cd 02_job_hello_world
-$yes y | fly configure -c pipeline.yml --vars-from ${stub}
+$ cd ../02_job_hello_world
+$ fly configure -c pipeline.yml
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
