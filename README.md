@@ -35,7 +35,22 @@ Connecting to 10.244.8.2:8080 (10.244.8.2:8080)
 initializing with docker:///busybox
 ```
 
-At this point it is downloading a large Docker image `busybox`. It will only need to do this once.
+Every task in Concourse runs within a "container" (as best available on the target platform). The `task_hello_world.yml` configuration shows that we are running on a `linux` platform using a container image defined by `docker:///busybox`.
+
+Within this container it will run the command `echo hello world`:
+
+```yaml
+---
+platform: linux
+
+image: docker:///busybox
+
+run:
+  path: echo
+  args: [hello world]
+```
+
+At this point in the output above it is downloading a Docker image `busybox`. It will only need to do this once; though will recheck every time that it has the latest `busybox` image.
 
 Eventually it will continue:
 
