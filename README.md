@@ -85,6 +85,17 @@ Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 
 succeeded
 ```
 
+A common pattern is for Concourse tasks to `run:` wrapper shell scripts, rather than directly invoking commands.
+
+As your tasks and wrapper scripts build up into complex pipelines you will appreciate the following pattern:
+
+-	Give your task files and wrapper shell scripts the same base name
+
+In the `01_task_hello_world` folder you can see two files:
+
+-	`task_show_uname.yml`
+-	`task_show_uname.sh`
+
 ### 02 - Hello World job
 
 ```

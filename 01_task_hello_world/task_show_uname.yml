@@ -1,0 +1,9 @@
+platform: linux
+image: docker:///busybox
+
+inputs:
+- name: 01_task_hello_world
+  path: .
+
+run:
+  path: ./task_show_uname.sh
