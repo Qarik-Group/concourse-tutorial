@@ -96,6 +96,68 @@ In the `01_task_hello_world` folder you can see two files:
 -	`task_show_uname.yml`
 -	`task_show_uname.sh`
 
+When you execute a task file directly via `fly`, it will upload the current folder as an input to the task. This means the wrapper shell script is available for execution:
+
+```
+$ fly execute -c task_show_uname.yml
+Connecting to 10.244.8.2:8080 (10.244.8.2:8080)
+-                    100% |*******************************| 10240   0:00:00 ETA
+initializing with docker:///busybox
+running ./task_show_uname.sh
+Linux mjgia714eg3 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 GNU/Linux
+succeeded
+```
+
+The output above `running ./task_show_uname.sh` shows that the `task_show_uname.yml` task delegated to a wrapper script to perform the task work.
+
+The `task_show_uname.yml` task is:
+
+```yaml
+platform: linux
+image: docker:///busybox
+
+inputs:
+- name: 01_task_hello_world
+  path: .
+
+run:
+  path: ./task_show_uname.sh
+```
+
+The new concept above is `inputs:`.
+
+In order for a task to run a wrapper script, it must be given access to the wrapper script. In order for a task to process data files, it must be given access to those data files.
+
+In Concourse these are `inputs` to a task.
+
+Given that we are running the task directly from the `fly` CLI, and we're running it from our host machine inside the `01_task_hello_world` folder, then the current host machine folder will be uploaded to Concourse and made available as an input called `01_task_hello_world`.
+
+Later when we look at Jobs with inputs, tasks and outputs we'll return to passing `inputs` into tasks within a Job.
+
+Consider the `inputs:` snippet above:
+
+```yaml
+inputs:
+- name: 01_task_hello_world
+  path: .
+```
+
+This is saying:
+
+1.	I want to receive an input folder called `01_task_hello_world`
+2.	I want it to be placed in the folder `.` (that is, the root folder of the task when its running)
+
+By default, without `path:` an input will be placed in a folder with the same name as the input itself.
+
+Given the list of `inputs`, we now know that the `task_show_uname.sh` script (which is in the same folder) will be available in the root folder of the running task.
+
+This allows us to invoke it:
+
+```yaml
+run:
+  path: ./task_show_uname.sh
+```
+
 ### 02 - Hello World job
 
 ```
