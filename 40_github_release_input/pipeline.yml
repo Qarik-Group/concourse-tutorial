@@ -13,6 +13,15 @@ jobs:
       run:
         path: ls
         args: ["-opR", "."]
+  - task: version
+    config:
+      platform: linux
+      image: docker:///ubuntu#14.04
+      inputs:
+      - name: github-release-spiff
+      run:
+        path: cat
+        args: [github-release-spiff/version]
 resources:
 - name: github-release-spiff
   type: github-release

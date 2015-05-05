@@ -28,6 +28,21 @@ When running the job, the `github-release` resource will download the attached f
 ```
 ./github-release-spiff:
 total 2712
--rw-r--r-- 1 vcap 1383910 Apr 10 06:54 spiff_darwin_amd64.zip
--rw-r--r-- 1 vcap 1390253 Apr 10 06:54 spiff_linux_amd64.zip
+-rw-r--r-- 1 vcap 1384411 May  5 19:08 spiff_darwin_amd64.zip
+-rw-r--r-- 1 vcap 1390871 May  5 19:08 spiff_linux_amd64.zip
+-rw-r--r-- 1 vcap       6 May  5 19:08 tag
+-rw-r--r-- 1 vcap       5 May  5 19:08 version
+```
+
+Also included are files `tag` and `version`.
+
+-	`tag` is the original git tag used for the Github release
+-	`version` is an extrapolated semver version number from the tag (removes first `v` if it exists)
+
+The example job also outputs the contents of this file:
+
+```
+initializing with docker:///ubuntu#14.04
+running cat github-release-spiff/version
+1.0.6
 ```
