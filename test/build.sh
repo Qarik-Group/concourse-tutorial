@@ -14,10 +14,10 @@ set -e
 ./09_*/run.sh ls-abc
 ./09_*/run.sh pretty-ls
 ./10_*/run.sh
-./12_*/run.sh credentials.yml
-# ./20_*/run.sh stub.yml get-version
-# ./20_*/run.sh stub.yml display-version
-# ./20_*/run.sh stub.yml rename-resource
-# ./20_*/run.sh stub.yml bump-minor
-# ./20_*/run.sh stub.yml bump-rc-save
-# ./20_*/run.sh stub.yml bump-save-no-trigger
+# # ./12_*/run.sh credentials.yml
+./20_*/run.sh credentials.yml get-version
+./20_*/run.sh credentials.yml display-version
+./20_*/run.sh credentials.yml rename-resource
+./20_*/run.sh credentials.yml bump-minor
+./20_*/run.sh credentials.yml bump-rc-save
+./20_*/run.sh credentials.yml bump-save-no-trigger
