@@ -1,7 +1,11 @@
-82 - Run Concourse on bosh-lite/AWS
+42 - Run Concourse on bosh-lite/AWS
 ===================================
 
-Boot bosh-lite on aws
+The next few tutorial stages will demonstrate creating and deploying BOSH releases. BOSH is an open source tool chain for release engineering, deployment and lifecycle management of large scale distributed services. Concourse itself is published as a BOSH release and is very easy to deploy into a single-VM version of BOSH called bosh-lite.
+
+**ProTip:** Once Concourse is running within bosh-lite, or managed by a normal BOSH, it becomes very easy to upgrade between new Concourse releases. Indeed in a later stage we will create a pipeline to do this automatically.
+
+Boot bosh-lite on AWS
 ---------------------
 
 See https://github.com/cloudfoundry/bosh-lite/blob/master/docs/aws-provider.md
