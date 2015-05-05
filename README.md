@@ -22,15 +22,52 @@ Download the `fly` CLI from the bottom right hand corner:
 
 Place it in your path (`$PATH`), such as `/usr/bin` or `~/bin`.
 
+Target Concourse
+----------------
+
+In the spirit of absolutely declaring everything you do to get absolutely the same result, the `fly` CLI requres that you specify the target API for every `fly` request.
+
+First, alias it with a name `tutorial` (this name is used by all the tutorial wrapper scripts):
+
+```
+fly save-target tutorial --api http://192.168.100.4:8080
+```
+
+You can now see this saved target Concourse API in a local file:
+
+```
+cat ~/.flyrc
+```
+
+Shows a simple YAML file with the API, credentials etc:
+
+```yaml
+targets:
+  tutorial:
+    api: http://192.168.100.4:8080
+    username: ""
+    password: ""
+    cert: ""
+```
+
+When we use the `fly` command we will target this Concourse API using `fly -t tutorial`.
+
+> @alexsuraci: I promise you'll end up liking it more than having an implicit target state :) Makes reusing commands from shell history much less dangerous (rogue fly configure can be bad)
+
 Tutorials
 ---------
 
 ### 01 - Hello World task
 
 ```
-$ cd 01_task_hello_world
-$ fly execute -c task_hello_world.yml
-Connecting to 10.244.8.2:8080 (10.244.8.2:8080)
+cd 01_task_hello_world
+fly -t tutorial execute -c task_hello_world.yml
+```
+
+The output starts with
+
+```
+Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
 -                    100% |*******************************| 10240   0:00:00 ETA
 initializing with docker:///busybox
 ```
@@ -76,8 +113,8 @@ run:
 This task file is provided for convenience:
 
 ```
-$ fly execute -c task_ubuntu_uname.yml
-Connecting to 10.244.8.2:8080 (10.244.8.2:8080)
+$ fly -t tutorial execute -c task_ubuntu_uname.yml
+Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
 -                    100% |*******************************| 10240   0:00:00 ETA
 initializing with docker:///ubuntu#14.04
 running uname -a
@@ -99,8 +136,8 @@ In the `01_task_hello_world` folder you can see two files:
 When you execute a task file directly via `fly`, it will upload the current folder as an input to the task. This means the wrapper shell script is available for execution:
 
 ```
-$ fly execute -c task_show_uname.yml
-Connecting to 10.244.8.2:8080 (10.244.8.2:8080)
+$ fly -t tutorial execute -c task_show_uname.yml
+Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
 -                    100% |*******************************| 10240   0:00:00 ETA
 initializing with docker:///busybox
 running ./task_show_uname.sh
@@ -161,8 +198,8 @@ run:
 ### 02 - Hello World job
 
 ```
-$ cd ../02_job_hello_world
-$ fly configure -c pipeline.yml
+cd ../02_job_hello_world
+fly -t tutorial configure -c pipeline.yml
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
@@ -179,7 +216,8 @@ jobs:
         image: docker:///busybox
         run:
           path: echo
-          args: [hello world]
+          args:
+          - hello world
 ```
 
 You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`\):
@@ -234,7 +272,7 @@ Or run the pre-created pipeline from the tutorial:
 
 ```
 cd ../03_resource_job
-fly c -c pipeline.yml
+fly -t tutorial c -c pipeline.yml
 ```
 
 ![resource-job](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
@@ -272,16 +310,21 @@ The `job-hello-world` had terminal output from its resource fetch of a git repo 
 You can also view this output from the terminal with `fly`:
 
 ```
-$ fly watch -j job-hello-world
+fly -t tutorial watch -j job-hello-world
+```
+
+The output will be similar to:
+
+```
 Cloning into '/tmp/build/src'...
-57cb645 03 - fleshout readme tutorial on how a job task calls out to yaml file
+8cc9e48 deploy concourse to bosh-lite prior to bosh stages of tutorial
 initializing with docker:///busybox
 running echo hello world
 hello world
 succeeded
 ```
 
-### 05 - The Concourse API and trigger a job via the API
+### 05 - Trigger a Job via the Concourse API
 
 Our concourse in vagrant has an API running at `http://192.168.100.4:8080`. The `fly` CLI targets this endpoint by default.
 
@@ -291,15 +334,13 @@ We can trigger a job to be run using that API. For example, using `curl`:
 curl http://192.168.100.4:8080/jobs/job-hello-world/builds -X POST
 ```
 
-If your concourse API is running somewhere else, you can set the environment variable `$ATC_URL`:
+You can then watch the output in your terminal using `fly watch` from above:
 
 ```
-export ATC_URL=http://myproject.concourse.mycompany.com:8080
+fly -t tutorial watch -j job-hello-world
 ```
 
-`fly` will automatically target this API.
-
-### 06 - triggering jobs - the time resource
+### 06 - Triggering jobs - the `time` resource
 
 "resources are checked every minute, but there's a shorter (10sec) interval for determining when a build should run; time resource is to just ensure a build runs on some rough periodicity; we use it to e.g. continuously run integration/acceptance tests to weed out flakiness" - alex
 
