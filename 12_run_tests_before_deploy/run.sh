@@ -25,5 +25,5 @@ fi
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline.yml --vars-from $stub
   curl $ATC_URL/pipelines/main/jobs/job-test-deploy-app/builds -X POST
-  fly watch -j job-test-deploy-app
+  fly -t ${fly_target} watch -j job-test-deploy-app
 popd

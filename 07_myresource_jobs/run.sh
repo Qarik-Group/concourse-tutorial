@@ -16,5 +16,5 @@ fi
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline-${pipeline}-resource.yml
   curl $ATC_URL/pipelines/main/jobs/job-hello-world/builds -X POST
-  fly watch -j job-hello-world
+  fly -t ${fly_target} watch -j job-hello-world
 popd

@@ -28,5 +28,5 @@ fi
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline.yml --vars-from ${stub}
   curl $ATC_URL/pipelines/main/jobs/job-publish/builds -X POST
-  fly watch -j job-publish
+  fly -t ${fly_target} watch -j job-publish
 popd

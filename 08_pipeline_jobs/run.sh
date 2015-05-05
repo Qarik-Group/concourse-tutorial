@@ -10,6 +10,6 @@ echo "Tutorial $(basename $DIR)"
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline.yml
   curl $ATC_URL/pipelines/main/jobs/job-fetch-resource/builds -X POST
-  fly watch -j job-fetch-resource
-  fly watch -j job-run-task
+  fly -t ${fly_target} watch -j job-fetch-resource
+  fly -t ${fly_target} watch -j job-run-task
 popd

@@ -27,5 +27,5 @@ fi
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline-base-${stage}.yml
   curl $ATC_URL/pipelines/main/jobs/job-spiff-merge/builds -X POST
-  fly watch -j job-spiff-merge
+  fly -t ${fly_target} watch -j job-spiff-merge
 popd

@@ -16,5 +16,5 @@ realpath() {
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline.yml
   curl $ATC_URL/pipelines/main/jobs/job-github-release/builds -X POST
-  fly watch -j job-github-release
+  fly -t ${fly_target} watch -j job-github-release
 popd

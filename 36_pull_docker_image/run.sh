@@ -27,5 +27,5 @@ fi
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline.yml --vars-from ${stub}
   curl $ATC_URL/pipelines/main/jobs/job-pull-image/builds -X POST
-  fly watch -j job-pull-image
+  fly -t ${fly_target} watch -j job-pull-image
 popd

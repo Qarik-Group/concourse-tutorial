@@ -39,13 +39,13 @@ pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline-${stage}.yml --vars-from ${stub}
   if [[ "${stage}" == "build-cli" || "${stage}" == "build-save" ]]; then
     curl $ATC_URL/pipelines/main/jobs/job-build-bosh-init-cli/builds -X POST
-    fly watch -j job-build-bosh-init-cli
+    fly -t ${fly_target} watch -j job-build-bosh-init-cli
   elif [[ "${stage}" == "plus-openstack" ]]; then
     curl $ATC_URL/pipelines/main/jobs/job-repackage-bosh-init-openstack/builds -X POST
-    fly watch -j job-repackage-bosh-init-openstack
+    fly -t ${fly_target} watch -j job-repackage-bosh-init-openstack
   else
     curl $ATC_URL/pipelines/main/jobs/job-repackage-bosh-init-aws/builds -X POST
     # curl $ATC_URL/pipelines/main/jobs/job-repackage-bosh-init-openstack/builds -X POST
-    fly watch -j job-repackage-bosh-init-aws
+    fly -t ${fly_target} watch -j job-repackage-bosh-init-aws
   fi
 popd
