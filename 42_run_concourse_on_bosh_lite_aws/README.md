@@ -78,6 +78,10 @@ Browser
 
 You can now access the Concourse Web UI via the Elastic IP on port 8080. E.g. http://54.1.2.3:8080
 
-You can now download the `fly` CLI and place it in your `$PATH`.
+If you do not already have the `fly` CLI from previous tutorial stages, download it and place it in your `$PATH`.
 
-Also, set `$ATC_URL` to the same URL, e.g. `http://54.1.2.3:8080`.
+Save the new API endpoint as your `tutorial` target:
+
+```
+fly save-target tutorial --api http://54.1.2.3
+```
