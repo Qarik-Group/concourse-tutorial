@@ -2,28 +2,19 @@ TODO
 ====
 
 -	[x] introduce a task being run directly (01), described within a job (02), described via YAML in a resource (03)
-
 -	[ ] introduce input resources; overview what's available
-
 -	[ ] introduce output resources; overview what's available
-
 -	[ ] show examples of how inputs to tasks are passed via files
-
 -	[x] trigger a job to build if a resources changes (06 - via timer resource)
-
 -	[ ] explicitly introduce the build plan
-
+-	[ ] named pipelines
 -	[ ] `aggregate` & `do` steps - all inputs need to be in first `aggregate` step
-
 -	[ ] `conditions` steps - build plan fails if step fails; but can handle failure explicitly based on previous step results (combine with `aggregate` to cover success & failure cases); perhaps to determine if you bump semvar
-
 -	[ ] `get` steps with `passed: [job-a, job-b]`
-
 -	[ ] task steps that produce new resources (e.g. a `tgz`\) - 09?
-
 -	[ ] `fly intercept` (`hijack`\)
-
--	[ ] update to new concourse in vagrant - `vagrant box update` & `sudo fly sync`
+-	[ ] update to new concourse in vagrant - `vagrant box update` & `fly sync`
+-	[ ] update to new concourse in bosh-lite
 
 Show case resources
 
@@ -41,7 +32,7 @@ Show case resources
 -	[x] get bosh stemcell (44)
 -	[x] bosh deploy (45)
 -	[x] spiff merge (46)
--	[ ] spiff merge -> store in git -> bosh deploy (two jobs)
+-	[x] spiff merge -> store in git -> bosh deploy (47)
 
 Non-basic
 
