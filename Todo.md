@@ -2,6 +2,8 @@ TODO
 ====
 
 -	[x] introduce a task being run directly (01), described within a job (02), described via YAML in a resource (03)
+-	[ ] flesh out running tasks locally; alternate inputs; hijacking
+-	[ ] `fly intercept` (`hijack`\)
 -	[ ] introduce input resources; overview what's available
 -	[ ] introduce output resources; overview what's available
 -	[ ] show examples of how inputs to tasks are passed via files
@@ -12,7 +14,6 @@ TODO
 -	[ ] `conditions` steps - build plan fails if step fails; but can handle failure explicitly based on previous step results (combine with `aggregate` to cover success & failure cases); perhaps to determine if you bump semvar
 -	[ ] `get` steps with `passed: [job-a, job-b]`
 -	[ ] task steps that produce new resources (e.g. a `tgz`\) - 09?
--	[ ] `fly intercept` (`hijack`\)
 -	[ ] update to new concourse in vagrant - `vagrant box update` & `fly sync`
 -	[ ] update to new concourse in bosh-lite
 
