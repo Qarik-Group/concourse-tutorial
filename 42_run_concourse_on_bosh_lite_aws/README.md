@@ -83,5 +83,5 @@ If you do not already have the `fly` CLI from previous tutorial stages, download
 Save the new API endpoint as your `tutorial` target:
 
 ```
-fly save-target tutorial --api http://54.1.2.3
+fly save-target tutorial --api http://54.1.2.3:8080
 ```
