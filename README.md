@@ -14,9 +14,9 @@ vagrant up
 
 Open http://192.168.100.4:8080/ in the browser:
 
-[![initial](http://cl.ly/image/221Y1F3V2s0e/concourse_initial.png)](http://192.168.100.4:8080/)
+[![initial](http://cl.ly/image/401b2z2B3w17/no-pipelines.png)](http://192.168.100.4:8080/)
 
-Download the `fly` CLI from the bottom right hand corner:
+Download the `fly` CLI:
 
 ![cli](http://cl.ly/image/1r462S1m1j1H/fly_cli.png)
 
