@@ -17,6 +17,10 @@ TODO
 -	[ ] update to new concourse in vagrant - `vagrant box update` & `fly sync`
 -	[ ] update to new concourse in bosh-lite
 
+-	[ ] passing tasks to other tasks in build plan
+
+	![](http://cl.ly/image/2X342c2p3e2S/input_paths.png)
+
 Show case resources
 
 -	[x] get git repo
