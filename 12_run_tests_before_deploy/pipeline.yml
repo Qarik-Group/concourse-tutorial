@@ -13,12 +13,8 @@ jobs:
         image: docker:///golang#1.4.2
         inputs:
           - name: resource-web-app
-            path: .
         run:
-          path: go
-          args:
-            - test
-            - ./...
+          path: ./resource-web-app/test
   - aggregate:
     - put: resource-deploy-web-app
       params:
