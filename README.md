@@ -331,7 +331,7 @@ Our concourse in vagrant has an API running at `http://192.168.100.4:8080`. The 
 We can trigger a job to be run using that API. For example, using `curl`:
 
 ```
-curl http://192.168.100.4:8080/jobs/job-hello-world/builds -X POST
+curl http://192.168.100.4:8080/pipelines/main/jobs/job-hello-world/builds -X POST
 ```
 
 You can then watch the output in your terminal using `fly watch` from above:
