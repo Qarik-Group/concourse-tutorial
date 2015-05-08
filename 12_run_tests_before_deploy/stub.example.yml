@@ -3,4 +3,3 @@ cf-username: EMAIL
 cf-password: PASSWORD
 cf-organization: ORG
 cf-space: SPACE
-cf-skip-cert-check: false
