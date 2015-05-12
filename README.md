@@ -25,7 +25,7 @@ Place it in your path (`$PATH`), such as `/usr/bin` or `~/bin`.
 Target Concourse
 ----------------
 
-In the spirit of absolutely declaring everything you do to get absolutely the same result, the `fly` CLI requres that you specify the target API for every `fly` request.
+In the spirit of absolutely declaring everything you do to get absolutely the same result, the `fly` CLI requires that you specify the target API for every `fly` request.
 
 First, alias it with a name `tutorial` (this name is used by all the tutorial wrapper scripts):
 
