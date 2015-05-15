@@ -1,7 +1,7 @@
-Summary of ideas from Alex Surachi at CF Summit 2015
-====================================================
+Summary of ideas from Alex Suraci at CF Summit 2015
+===================================================
 
-Alex Surachi is the creator of Concourse and lead developer. He gave a talk at CF Summit 2015
+Alex Suraci is the creator of Concourse and lead developer. He gave a talk at CF Summit 2015
 
 https://www.youtube.com/watch?v=mYTn3qBxPhQ&list=WL&index=27
 
