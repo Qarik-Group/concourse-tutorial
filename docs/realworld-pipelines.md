@@ -1,6 +1,28 @@
 Real-world pipelines
 ====================
 
+traveling-cf-admin
+------------------
+
+Tools for Cloud Foundry administrators
+
+The pipeline triggers on new GitHub Releases for Cloud Foundry CLI, and publishes an installer for OS X/Linux that containers it and several other CLIs used by administrators of Cloud Foundry.
+
+-	[Public Concourse](http://54.91.20.239:8080/pipelines/traveling-cf-admin)
+-	[Project](https://github.com/cloudfoundry-community/traveling-cf-admin/)
+-	[Base folder for CI scripts](https://github.com/cloudfoundry-community/traveling-cf-admin/tree/master/ci)
+-	[pipeline.yml](https://github.com/cloudfoundry-community/traveling-cf-admin/blob/master/ci/pipeline.yml)
+
+Inputs:
+
+-	[CF CLI releases](https://github.com/cloudfoundry/cli/releases)
+
+Outputs:
+
+-	[traveling-cf-admin releases](https://github.com/cloudfoundry-community/traveling-cf-admin/releases)
+
+The semver version for `traveling-cf-admin` releases is the same as the upstream CF CLI version. There are pros and cons to a downstream project using the version of an upstream dependency.
+
 bosh-init
 ---------
 
