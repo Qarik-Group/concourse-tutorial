@@ -12,20 +12,24 @@ Install Vagrant/Virtualbox.
 vagrant up
 ```
 
-Open http://192.168.100.4:8080/ in the browser:
+Open http://192.168.100.4:8080/ in your browser:
 
 [![initial](http://cl.ly/image/401b2z2B3w17/no-pipelines.png)](http://192.168.100.4:8080/)
 
-Download the `fly` CLI:
+Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
 
 ![cli](http://cl.ly/image/1r462S1m1j1H/fly_cli.png)
 
-Place it in your path (`$PATH`), such as `/usr/bin` or `~/bin`.
+Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example, 
+```
+mv ~/Downloads/fly /usr/local/bin/fly
+chmod 0755 /usr/local/bin/fly
+```
 
 Target Concourse
 ----------------
 
-In the spirit of absolutely declaring everything you do to get absolutely the same result, the `fly` CLI requires that you specify the target API for every `fly` request.
+In the spirit of declaring absolutely everything you do to get absolutely the same result every time, the `fly` CLI requires that you specify the target API for every `fly` request.
 
 First, alias it with a name `tutorial` (this name is used by all the tutorial wrapper scripts):
 
