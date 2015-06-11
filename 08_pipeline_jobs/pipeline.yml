@@ -6,6 +6,7 @@ jobs:
   plan:
   - aggregate:
     - get: resource-gist
+      trigger: true
   - task: hello-world
     file: resource-gist/hello-world.yml
 
@@ -15,6 +16,7 @@ jobs:
   plan:
   - aggregate:
     - get: resource-gist
+      trigger: true
       passed: [job-fetch-resource]
   - task: meta
     file: resource-gist/display-other-task.yml
