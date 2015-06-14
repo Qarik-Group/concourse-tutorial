@@ -2,7 +2,7 @@
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 export fly_target=${fly_target:-tutorial}
-export pipeline=${pipeline:-02helloworld}
+export pipeline=${pipeline:-02_job_hello_world}
 echo "Concourse API target ${fly_target}"
 echo "Concourse Pipeline ${pipeline}"
 echo "Tutorial $(basename $DIR)"
