@@ -20,7 +20,7 @@ Once the page loads in your browser, click to download the `fly` CLI appropriate
 
 ![cli](http://cl.ly/image/1r462S1m1j1H/fly_cli.png)
 
-Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example, 
+Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 ```
 mv ~/Downloads/fly /usr/local/bin/fly
 chmod 0755 /usr/local/bin/fly
@@ -283,7 +283,7 @@ Or run the pre-created pipeline from the tutorial:
 
 ```
 cd ../03_resource_job
-fly -t tutorial c -c pipeline.yml
+fly -t tutorial c -c pipeline.yml --paused=false 03_resource_job
 ```
 
 ![resource-job](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
