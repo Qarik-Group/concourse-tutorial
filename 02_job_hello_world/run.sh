@@ -10,5 +10,5 @@ echo "Tutorial $(basename $DIR)"
 pushd $DIR
   yes y | fly -t ${fly_target} configure -c pipeline.yml --paused=false ${pipeline}
   curl $ATC_URL/pipelines/${pipeline}/jobs/job-hello-world/builds -X POST
-  fly -t ${fly_target} -p ${pipeline} watch -j job-hello-world
+  fly -t ${fly_target} watch -p ${pipeline} -j job-hello-world
 popd
