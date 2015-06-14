@@ -224,7 +224,7 @@ jobs:
           - hello world
 ```
 
-You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`\):
+You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`)
 
 ```
 apply configuration? (y/n):
