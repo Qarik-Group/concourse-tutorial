@@ -20,7 +20,7 @@ Once the page loads in your browser, click to download the `fly` CLI appropriate
 
 ![cli](http://cl.ly/image/1r462S1m1j1H/fly_cli.png)
 
-Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example, 
+Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 ```
 mv ~/Downloads/fly /usr/local/bin/fly
 chmod 0755 /usr/local/bin/fly
@@ -203,7 +203,7 @@ run:
 
 ```
 cd ../02_job_hello_world
-fly -t tutorial configure -c pipeline.yml
+fly -t tutorial configure -c pipeline.yml --paused=false 02helloworld
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
@@ -224,13 +224,20 @@ jobs:
           - hello world
 ```
 
-You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`\):
+You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`)
 
 ```
 apply configuration? (y/n):
 ```
 
 Press `y`.
+
+You should see:
+
+```
+pipeline created!
+you can view your pipeline here: http://192.168.100.4:8080/pipelines/02helloworld
+```
 
 Go back to your browser and start the job manually. Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
 
@@ -276,7 +283,7 @@ Or run the pre-created pipeline from the tutorial:
 
 ```
 cd ../03_resource_job
-fly -t tutorial c -c pipeline.yml
+fly -t tutorial c -c pipeline.yml --paused=false 03_resource_job
 ```
 
 ![resource-job](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
@@ -314,14 +321,14 @@ The `job-hello-world` had terminal output from its resource fetch of a git repo 
 You can also view this output from the terminal with `fly`:
 
 ```
-fly -t tutorial watch -j job-hello-world
+fly -t tutorial watch -p 03_resource_job -j job-hello-world
 ```
 
 The output will be similar to:
 
 ```
-Cloning into '/tmp/build/src'...
-8cc9e48 deploy concourse to bosh-lite prior to bosh stages of tutorial
+Cloning into '/tmp/build/get'...
+e8c6632 Added trigger: true to autostart both jobs after update.
 initializing with docker:///busybox
 running echo hello world
 hello world
@@ -335,13 +342,13 @@ Our concourse in vagrant has an API running at `http://192.168.100.4:8080`. The 
 We can trigger a job to be run using that API. For example, using `curl`:
 
 ```
-curl http://192.168.100.4:8080/pipelines/main/jobs/job-hello-world/builds -X POST
+curl http://192.168.100.4:8080/pipelines/03_resource_job/jobs/job-hello-world/builds -X POST
 ```
 
 You can then watch the output in your terminal using `fly watch` from above:
 
 ```
-fly -t tutorial watch -j job-hello-world
+fly -t tutorial watch -p 03_resource_job -j job-hello-world
 ```
 
 ### 06 - Triggering jobs - the `time` resource
