@@ -321,14 +321,14 @@ The `job-hello-world` had terminal output from its resource fetch of a git repo 
 You can also view this output from the terminal with `fly`:
 
 ```
-fly -t tutorial watch -j job-hello-world
+fly -t tutorial watch -p 03_resource_job -j job-hello-world
 ```
 
 The output will be similar to:
 
 ```
-Cloning into '/tmp/build/src'...
-8cc9e48 deploy concourse to bosh-lite prior to bosh stages of tutorial
+Cloning into '/tmp/build/get'...
+e8c6632 Added trigger: true to autostart both jobs after update.
 initializing with docker:///busybox
 running echo hello world
 hello world
