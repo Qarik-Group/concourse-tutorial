@@ -203,7 +203,7 @@ run:
 
 ```
 cd ../02_job_hello_world
-fly -t tutorial configure -c pipeline.yml
+fly -t tutorial configure -c pipeline.yml --paused=false 02helloworld
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
@@ -231,6 +231,13 @@ apply configuration? (y/n):
 ```
 
 Press `y`.
+
+You should see:
+
+```
+pipeline created!
+you can view your pipeline here: http://192.168.100.4:8080/pipelines/02helloworld
+```
 
 Go back to your browser and start the job manually. Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
 
