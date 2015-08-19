@@ -1,4 +1,4 @@
-41 - Dummy resource via Docker image
+51 - Dummy resource via Docker image
 ====================================
 
 In section 50, we hacked in the core idea of a resource type into the worker VM (which is the shared Vagrant VM):
@@ -47,7 +47,7 @@ jobs:
   serial: true
   plan:
   - get: resource-tutorial
-  - put: resource-41-docker-image
+  - put: resource-51-docker-image
     params:
       build: resource-tutorial/51_dummy_resource_docker_image/docker
 
@@ -57,13 +57,13 @@ resources:
   source:
     uri: https://github.com/drnic/concourse-tutorial.git
 
-- name: resource-41-docker-image
+- name: resource-51-docker-image
   type: docker-image
   source:
     email: DOCKER_EMAIL
     username: DOCKER_USERNAME
     password: DOCKER_PASSWORD
-    repository: drnic/resource-41-docker-image
+    repository: drnic/resource-51-docker-image
 ```
 
 Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use it as the input/`get` resource called `resource-tutorial`.
@@ -83,10 +83,10 @@ meta:
 The `run.sh` will create the pipeline.yml and upload it to Concourse:
 
 ```
-./41_*/run.sh stub.yml
+./51_*/run.sh stub.yml
 ```
 
-This will create a docker image `<username>/resource-41-docker-image` on Docker Hub.
+This will create a docker image `<username>/resource-51-docker-image` on Docker Hub.
 
 Worker references remote docker image
 -------------------------------------
@@ -102,13 +102,13 @@ Where we had added the following `resource_type` in section 50:
 Change it to the following (replacing `<username>` with your Docker Hub username):
 
 ```
-{"image":"docker:///<username>/resource-41-docker-image","type":"dummy"}
+{"image":"docker:///<username>/resource-51-docker-image","type":"dummy"}
 ```
 
 Or use a pre-existing Docker image:
 
 ```
-{"image":"docker:///drnic/resource-41-docker-image","type":"dummy"}
+{"image":"docker:///drnic/resource-51-docker-image","type":"dummy"}
 ```
 
 Restart the monit process to re-register the `dummy` resource type:
