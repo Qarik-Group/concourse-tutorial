@@ -26,8 +26,9 @@ Once the page loads in your browser, click to download the `fly` CLI appropriate
 
 Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 ```
-mv ~/Downloads/fly /usr/local/bin/fly
-chmod 0755 /usr/local/bin/fly
+sudo mkdir -p /usr/local/bin
+sudo mv ~/Downloads/fly /usr/local/bin
+sudo chmod 0755 /usr/local/bin/fly
 ```
 
 Target Concourse
