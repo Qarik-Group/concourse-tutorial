@@ -70,7 +70,7 @@ Since the source `Dockerfile` is actually within this tutorial's own git repo, w
 
 This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/51_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `51_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
 
-Your `stub.yml` now needs your Docker Hub account credentials (see `stub.example.yml`\):
+Your `credentials.yml` now needs your Docker Hub account credentials (see `credentials.example.yml`\):
 
 ```yaml
 meta:
@@ -83,7 +83,7 @@ meta:
 The `run.sh` will create the pipeline.yml and upload it to Concourse:
 
 ```
-./51_*/run.sh stub.yml
+./51_*/run.sh credentials.yml
 ```
 
 This will create a docker image `<username>/resource-51-docker-image` on Docker Hub.
