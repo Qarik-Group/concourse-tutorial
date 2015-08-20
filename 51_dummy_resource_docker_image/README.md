@@ -72,13 +72,13 @@ Since the source `Dockerfile` is actually within this tutorial's own git repo, w
 
 This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/51_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `51_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
 
-Your `credentials.yml` now needs your Docker Hub account credentials (see `credentials.example.yml`\):
+Your `credentials.yml` now needs your Docker Hub account credentials (see `credentials.example.yml`):
 
 ```yaml
 docker-hub-email: EMAIL
 docker-hub-username: USERNAME
 docker-hub-password: PASSWORD
-docker-hub-image-dummy-resource: drnic/concourse-dummy-resource
+docker-hub-image-dummy-resource: USERNAME/51_dummy_resource_docker_image
 ```
 
 The `run.sh` script will create the pipeline.yml and upload it to Concourse:
@@ -87,7 +87,9 @@ The `run.sh` script will create the pipeline.yml and upload it to Concourse:
 ./51_*/run.sh credentials.yml
 ```
 
-This will create a docker image `<username>/resource-51-docker-image` on Docker Hub.
+You can also trigger the pipeline in the UI using the (+) icon.
+
+This will create a docker image `USERNAME/resource-51-docker-image` on Docker Hub.
 
 Worker references remote docker image
 -------------------------------------
@@ -100,10 +102,10 @@ Where we had added the following `resource_type` in section 50:
 {"image":"/var/vcap/packages/dummy","type":"dummy"}
 ```
 
-Change it to the following (replacing `<username>` with your Docker Hub username):
+Change it to the following (replacing `USERNAME` with your Docker Hub username):
 
 ```
-{"image":"docker:///<username>/resource-51-docker-image","type":"dummy"}
+{"image":"docker:///USERNAME/resource-51-docker-image","type":"dummy"}
 ```
 
 Or use a pre-existing Docker image:
