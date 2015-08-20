@@ -3,32 +3,34 @@
 
 In section 50, we hacked in the core idea of a resource type into the worker VM (which is the shared Vagrant VM):
 
-1.	manually created a `dummy` rootfs with a simple/dummy `opt/resource/out` script that satisfies concourse's API
-2.	edited `/var/vcap/jobs/groundcrew/config/worker.json` and `monit restart beacon`
+1.	manually created a `dummy` rootfs with a simple/dummy `opt/resource/{check,in,out}` scripts that satisfy Concourse's API
+2.	edited `/var/vcap/jobs/groundcrew/config/worker.json` and ran `monit restart beacon`
 3.	ran a pipeline that did a `put` to our `dummy` resource type
 
 Create docker image
 -------------------
 
-As documented http://concourse.ci/implementing-resources.html: a resource type is implemented by a container image with three scripts:
+As documented in http://concourse.ci/implementing-resources.html: a resource type is implemented by a container image with three scripts:
 
 -	`/opt/resource/check` for checking for new versions of the resource
 -	`/opt/resource/in` for pulling a version of the resource down
 -	`/opt/resource/out` for idempotently pushing a version up
 
-In section 50 we hacked in a simple `/opt/resource/out` script into a container image at `/var/vcap/package/dummy` on the Vagrant VM.
+In section 50 we created simple `/opt/resource/{check, in, out}` scripts and put them into a container image at `/var/vcap/package/dummy` on the Vagrant VM.
 
-In this section we will create a normal Docker image and host it on Docker Hub; then use that docker image in our worker.
+In this section we will create a normal Docker image, host it on Docker Hub, and use it in our worker.
 
 Define a docker image
 ---------------------
 
-This section's subfolder `docker` containers a `Dockerfile` to embed our dummy `out` script into `/opt/resource/out` within the container:
+This section's subfolder `docker` containers a `Dockerfile` to add our dummy `check`, `in`, and `out` scripts into `/opt/resource/` within the container:
 
 ```dockerfile
 FROM busybox
 
-ADD out /opt/resource/out
+COPY check /opt/resource/check
+COPY in /opt/resource/in
+COPY out /opt/resource/out
 ```
 
 Create a docker container image
@@ -60,10 +62,10 @@ resources:
 - name: resource-51-docker-image
   type: docker-image
   source:
-    email: DOCKER_EMAIL
-    username: DOCKER_USERNAME
-    password: DOCKER_PASSWORD
-    repository: drnic/resource-51-docker-image
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-hub-image-dummy-resource}}
 ```
 
 Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use it as the input/`get` resource called `resource-tutorial`.
@@ -73,14 +75,13 @@ This means the `docker` subfolder in this tutorial section will be available at 
 Your `credentials.yml` now needs your Docker Hub account credentials (see `credentials.example.yml`\):
 
 ```yaml
-meta:
-  docker:
-    email: EMAIL
-    username: USERNAME
-    password: PASSWORD
+docker-hub-email: EMAIL
+docker-hub-username: USERNAME
+docker-hub-password: PASSWORD
+docker-hub-image-dummy-resource: drnic/concourse-dummy-resource
 ```
 
-The `run.sh` will create the pipeline.yml and upload it to Concourse:
+The `run.sh` script will create the pipeline.yml and upload it to Concourse:
 
 ```
 ./51_*/run.sh credentials.yml
