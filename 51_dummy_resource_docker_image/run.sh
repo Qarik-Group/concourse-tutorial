@@ -14,7 +14,7 @@ realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 
-if [[ "${stub}X" == "X" ]]; then
+if [[ -z ${stub} ]]; then
   echo "USAGE: run.sh path/to/credentials.yml"
   exit 1
 fi
