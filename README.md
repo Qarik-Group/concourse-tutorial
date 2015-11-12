@@ -39,7 +39,8 @@ In the spirit of declaring absolutely everything you do to get absolutely the sa
 First, alias it with a name `tutorial` (this name is used by all the tutorial wrapper scripts):
 
 ```
-fly save-target tutorial --api http://192.168.100.4:8080
+fly --target tutorial login  --concourse-url http://192.168.100.4:8080 sync
+
 ```
 
 You can now see this saved target Concourse API in a local file:
@@ -208,7 +209,8 @@ run:
 
 ```
 cd ../02_job_hello_world
-fly -t tutorial configure -c pipeline.yml --paused=false 02helloworld
+fly set-pipeline -t tutorial -c pipeline.yml -p 02helloworld
+fly unpause-pipeline -p 02helloworld
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
@@ -282,13 +284,14 @@ Our `plan:` specifies that first we need to `get` the resource `resource-tutoria
 
 Second we use the `01_task_hello_world/task_hello_world.yml` file from `resource-tutorial` as the task configuration.
 
-Apply the updated pipeline using `fly c -c pipeline.yml`.
+Apply the updated pipeline using `fly sp -t tutorial -c pipeline.yml -p 03_resource_job`. #TODO find out how to do that better
 
 Or run the pre-created pipeline from the tutorial:
 
 ```
 cd ../03_resource_job
-fly -t tutorial c -c pipeline.yml --paused=false 03_resource_job
+fly set-pipeline -t tutorial -c pipeline.yml -p 03_resource_job
+fly unpause-pipeline -t tutorial -p 03_resource_job
 ```
 
 ![resource-job](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
@@ -326,7 +329,7 @@ The `job-hello-world` had terminal output from its resource fetch of a git repo 
 You can also view this output from the terminal with `fly`:
 
 ```
-fly -t tutorial watch -p 03_resource_job -j job-hello-world
+fly -t tutorial watch -j 03_resource_job/job-hello-world
 ```
 
 The output will be similar to:
@@ -353,7 +356,7 @@ curl http://192.168.100.4:8080/pipelines/03_resource_job/jobs/job-hello-world/bu
 You can then watch the output in your terminal using `fly watch` from above:
 
 ```
-fly -t tutorial watch -p 03_resource_job -j job-hello-world
+fly -t tutorial watch -j 03_resource_job/job-hello-world
 ```
 
 ### 06 - Triggering jobs - the `time` resource
