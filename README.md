@@ -284,13 +284,14 @@ Our `plan:` specifies that first we need to `get` the resource `resource-tutoria
 
 Second we use the `01_task_hello_world/task_hello_world.yml` file from `resource-tutorial` as the task configuration.
 
-Apply the updated pipeline using `fly c -c pipeline.yml`.
+Apply the updated pipeline using `fly sp -t tutorial -c pipeline.yml -p 03_resource_job`. #TODO find out how to do that better
 
 Or run the pre-created pipeline from the tutorial:
 
 ```
 cd ../03_resource_job
-fly -t tutorial c -c pipeline.yml --paused=false 03_resource_job
+fly set-pipeline -t tutorial -c pipeline.yml -p 03_resource_job
+fly unpause-pipeline -t tutorial -p 03_resource_job
 ```
 
 ![resource-job](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
