@@ -329,7 +329,7 @@ The `job-hello-world` had terminal output from its resource fetch of a git repo 
 You can also view this output from the terminal with `fly`:
 
 ```
-fly -t tutorial watch -p 03_resource_job -j job-hello-world
+fly -t tutorial watch -j 03_resource_job/job-hello-world
 ```
 
 The output will be similar to:
@@ -356,7 +356,7 @@ curl http://192.168.100.4:8080/pipelines/03_resource_job/jobs/job-hello-world/bu
 You can then watch the output in your terminal using `fly watch` from above:
 
 ```
-fly -t tutorial watch -p 03_resource_job -j job-hello-world
+fly -t tutorial watch -j 03_resource_job/job-hello-world
 ```
 
 ### 06 - Triggering jobs - the `time` resource
