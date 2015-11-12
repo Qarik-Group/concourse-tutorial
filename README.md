@@ -39,7 +39,8 @@ In the spirit of declaring absolutely everything you do to get absolutely the sa
 First, alias it with a name `tutorial` (this name is used by all the tutorial wrapper scripts):
 
 ```
-fly save-target tutorial --api http://192.168.100.4:8080
+fly --target tutorial login  --concourse-url http://192.168.100.4:8080 sync
+
 ```
 
 You can now see this saved target Concourse API in a local file:
@@ -59,7 +60,7 @@ targets:
     cert: ""
 ```
 
-When we use the `fly` command we will target this Concourse API using `fly -t tutorial`.
+When we use the `fly` command we will target this Concourse API using `fly -t tutorial sync`.
 
 > @alexsuraci: I promise you'll end up liking it more than having an implicit target state :) Makes reusing commands from shell history much less dangerous (rogue fly configure can be bad)
 
