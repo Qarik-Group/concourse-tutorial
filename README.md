@@ -60,7 +60,7 @@ targets:
     cert: ""
 ```
 
-When we use the `fly` command we will target this Concourse API using `fly -t tutorial sync`.
+When we use the `fly` command we will target this Concourse API using `fly -t tutorial`.
 
 > @alexsuraci: I promise you'll end up liking it more than having an implicit target state :) Makes reusing commands from shell history much less dangerous (rogue fly configure can be bad)
 
