@@ -231,7 +231,7 @@ jobs:
           - hello world
 ```
 
-You will be prompted to apply any configuration changes each time you run `fly configure` (or its alias `fly c`)
+You will be prompted to apply any configuration changes each time you run `fly set-pipeline` (or its alias `fly sp`)
 
 ```
 apply configuration? (y/n):
@@ -265,7 +265,7 @@ resources:
 - name: resource-tutorial
   type: git
   source:
-    uri: https://github.com/drnic/concourse-tutorial.git
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
 ```
 
 Now we can consume that resource in our job. Update it to:
@@ -284,13 +284,15 @@ Our `plan:` specifies that first we need to `get` the resource `resource-tutoria
 
 Second we use the `01_task_hello_world/task_hello_world.yml` file from `resource-tutorial` as the task configuration.
 
-Apply the updated pipeline using `fly sp -t tutorial -c pipeline.yml -p 03_resource_job`. #TODO find out how to do that better
+Apply the updated pipeline using `fly set-pipeline -t tutorial -c pipeline.yml -p 03_resource_job`. #TODO find out how to do that better
+
+Note: `fly` has shorter aliases for it's commands, `fly sp` is shorthand for `fly set-pipeline`
 
 Or run the pre-created pipeline from the tutorial:
 
 ```
 cd ../03_resource_job
-fly set-pipeline -t tutorial -c pipeline.yml -p 03_resource_job
+fly sp -t tutorial -c pipeline.yml -p 03_resource_job
 fly unpause-pipeline -t tutorial -p 03_resource_job
 ```
 
