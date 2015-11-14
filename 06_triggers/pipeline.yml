@@ -16,7 +16,7 @@ resources:
 - name: resource-tutorial
   type: git
   source:
-    uri: https://github.com/drnic/concourse-tutorial.git
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
 
 - name: my-timer
   type: time
