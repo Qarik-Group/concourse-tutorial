@@ -210,7 +210,7 @@ run:
 ```
 cd ../02_job_hello_world
 fly set-pipeline -t tutorial -c pipeline.yml -p 02helloworld
-fly unpause-pipeline -p 02helloworld
+fly unpause-pipeline -t tutorial -p 02helloworld
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
