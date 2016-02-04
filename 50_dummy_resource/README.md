@@ -50,7 +50,7 @@ Now create the `in`, `out`, and `check` files. For now, put the following in all
 ```bash
 #!/bin/sh
 
-echo '{"version": {"ref": 123}}'
+echo '{"version": {"ref": "123"}}'
 ```
 
 And make them executable:
