@@ -13,7 +13,8 @@ jobs:
       manifest: resource-manifest/manifest.yml
       releases:
         - resource-bosh-release-redis/*.tgz
-      stemcells: []
+      stemcells:
+        - resource-bosh-stemcell/*.tgz
 resources:
 - name: resource-manifest
   type: git
