@@ -393,7 +393,13 @@ The output will look like:
 
 The net result is that a timer of `2m` will trigger every 2 to 3 minutes.
 
-### 20 - Available concourse resources
+## Continuing the tutorial
+
+This tutorial now leaves this README and goes out to the dozens of subfolders. Each has its own README.
+
+Why are there numerical gaps between the section numbers? Because renumbering is hard and so I just left gaps. If we had a cool way to renumber the sections then perhaps wouldn't need the gaps. Sorry :)
+
+### Available concourse resources
 
 In addition to the `git` resource and the `time` resource there are many ways to interact with the external world: getting objects/data or putting objects/data.
 
