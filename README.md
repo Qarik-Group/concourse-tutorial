@@ -389,9 +389,26 @@ The output will look like:
 
 ### 06 - Triggering jobs - the `time` resource
 
+If you want a job to trigger every few minutes then there is the `time` resource.
+
+```
+cd ../06_triggers
+fly sp -t tutorial -c pipeline.yml -p helloworld
+```
+
 "resources are checked every minute, but there's a shorter (10sec) interval for determining when a build should run; time resource is to just ensure a build runs on some rough periodicity; we use it to e.g. continuously run integration/acceptance tests to weed out flakiness" - alex
 
 The net result is that a timer of `2m` will trigger every 2 to 3 minutes.
+
+Wait a few minutes and you will see the job automatically restart.
+
+### Deleting pipelines
+
+You can delete the `helloworld` pipeline:
+
+```
+fly destroy-pipeline -t tutorial -p helloworld
+```
 
 ## Continuing the tutorial
 
