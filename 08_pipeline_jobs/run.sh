@@ -10,8 +10,9 @@ echo "Concourse Pipeline ${pipeline}"
 echo "Tutorial $(basename $DIR)"
 
 pushd $DIR
-  yes y | fly -t ${fly_target} configure -c pipeline.yml --paused=false ${pipeline}
+  yes y | fly sp -t ${fly_target} configure -c pipeline.yml -p ${pipeline}
+  fly unpause-pipeline --pipeline ${pipeline}
   curl $ATC_URL/pipelines/${pipeline}/jobs/job-fetch-resource/builds -X POST
-  fly -t ${fly_target} watch -p ${pipeline} -j job-fetch-resource
-  fly -t ${fly_target} watch -p ${pipeline} -j job-run-task
+  fly -t ${fly_target} watch -j ${pipeline}/job-fetch-resource
+  fly -t ${fly_target} watch -j ${pipeline}/job-run-task
 popd

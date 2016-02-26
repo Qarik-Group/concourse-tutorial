@@ -33,7 +33,8 @@ if [[ "${stage}" != "get-version" && "${stage}" != "display-version" \
 fi
 
 pushd $DIR
-  yes y | fly -t ${fly_target} configure -c pipeline-${stage}.yml --vars-from ${stub}
+  yes y | fly sp -t ${fly_target} configure -c pipeline-${stage}.yml -p main --load-vars-from ${stub}
+  fly unpause-pipeline --pipeline main
   curl $ATC_URL/pipelines/main/jobs/job-bump-version/builds -X POST
-  fly -t ${fly_target} watch -j job-bump-version
+  fly -t ${fly_target} watch -j main/job-bump-version
 popd

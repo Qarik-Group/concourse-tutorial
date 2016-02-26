@@ -25,7 +25,8 @@ if [[ "${stage}" != "show" && "${stage}" != "save" ]]; then
 fi
 
 pushd $DIR
-  yes y | fly -t ${fly_target} configure -c pipeline-base-${stage}.yml
+  yes y | fly sp -t ${fly_target} configure -c pipeline-base-${stage}.yml -p main
+  fly unpause-pipeline --pipeline main
   curl $ATC_URL/pipelines/main/jobs/job-spiff-merge/builds -X POST
-  fly -t ${fly_target} watch -j job-spiff-merge
+  fly -t ${fly_target} watch -j main/job-spiff-merge
 popd

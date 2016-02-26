@@ -34,12 +34,13 @@ fi
 
 
 pushd $DIR
-  yes y | fly -t ${fly_target} configure -c pipeline-${stage}.yml --vars-from ${stub}
+  yes y | fly sp -t ${fly_target} configure -c pipeline-${stage}.yml -p main --load-vars-from ${stub}
+  fly unpause-pipeline --pipeline main
   if [[ "${stage}" == "build-task-image" ]]; then
     curl $ATC_URL/pipelines/main/jobs/job-build-task-image/builds -X POST
-    fly -t ${fly_target} watch -j job-build-task-image
+    fly -t ${fly_target} watch -j main/job-build-task-image
   else
     curl $ATC_URL/pipelines/main/jobs/job-deploy/builds -X POST
-    fly -t ${fly_target} watch -j job-deploy
+    fly -t ${fly_target} watch -j main/job-deploy
   fi
 popd

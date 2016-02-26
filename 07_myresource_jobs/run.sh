@@ -15,7 +15,8 @@ if [[ "${pipeline}" != "simple" && "${pipeline}" != "renamed" ]]; then
 fi
 
 pushd $DIR
-  yes y | fly -t ${fly_target} configure -c pipeline-${pipeline}-resource.yml --paused=false ${pipelinename}
+  yes y | fly sp -t ${fly_target} configure -c pipeline-${pipeline}-resource.yml -p ${pipelinename}
+  fly unpause-pipeline --pipeline ${pipelinename}
   curl $ATC_URL/pipelines/${pipelinename}/jobs/job-hello-world/builds -X POST
-  fly -t ${fly_target} watch -p ${pipelinename} -j job-hello-world
+  fly -t ${fly_target} watch -j ${pipelinename}/job-hello-world
 popd
