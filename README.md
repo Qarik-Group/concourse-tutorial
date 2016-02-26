@@ -39,8 +39,8 @@ In the spirit of declaring absolutely everything you do to get absolutely the sa
 First, alias it with a name `tutorial` (this name is used by all the tutorial wrapper scripts):
 
 ```
-fly --target tutorial login  --concourse-url http://192.168.100.4:8080 sync
-
+fly --target tutorial login  --concourse-url http://192.168.100.4:8080
+fly -t tutorial sync
 ```
 
 You can now see this saved target Concourse API in a local file:
@@ -55,9 +55,9 @@ Shows a simple YAML file with the API, credentials etc:
 targets:
   tutorial:
     api: http://192.168.100.4:8080
-    username: ""
-    password: ""
-    cert: ""
+    token:
+      type: ""
+      value: ""
 ```
 
 When we use the `fly` command we will target this Concourse API using `fly -t tutorial`.
