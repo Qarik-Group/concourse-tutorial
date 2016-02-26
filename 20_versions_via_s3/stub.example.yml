@@ -1,11 +1,8 @@
-meta:
-  pivotal:
-    api: https://api.run.pivotal.io
-    username: EMAIL
-    password: PASSWORD
-    organization: ORG
-    space: SPACE
-    skip_cert_check: false
-  aws:
-    access_key_id: ACCESS
-    secret_access_key: SECRET
+cf-api: https://api.run.pivotal.io
+cf-username: EMAIL
+cf-password: PASSWORD
+cf-organization: ORG
+cf-space: SPACE
+cf-skip-cert-check: false
+aws-access-key-id: ACCESS
+aws-secret-access-key: SECRET
