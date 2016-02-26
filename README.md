@@ -8,7 +8,7 @@ Getting started
 
 Install Vagrant/Virtualbox.
 
-Fetch this tutorial and start a server
+Fetch this tutorial and start a local Concourse server:
 
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
