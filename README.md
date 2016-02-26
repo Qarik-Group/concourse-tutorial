@@ -77,8 +77,7 @@ fly -t tutorial execute -c task_hello_world.yml
 The output starts with
 
 ```
-Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
--                    100% |*******************************| 10240   0:00:00 ETA
+executing build 1
 initializing with docker:///busybox
 ```
 
@@ -123,9 +122,13 @@ run:
 This task file is provided for convenience:
 
 ```
-$ fly -t tutorial execute -c task_ubuntu_uname.yml
-Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
--                    100% |*******************************| 10240   0:00:00 ETA
+fly -t tutorial execute -c task_ubuntu_uname.yml
+```
+
+The output looks like:
+
+```
+executing build 2
 initializing with docker:///ubuntu#14.04
 running uname -a
 Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
@@ -147,11 +150,10 @@ When you execute a task file directly via `fly`, it will upload the current fold
 
 ```
 $ fly -t tutorial execute -c task_show_uname.yml
-Connecting to 192.168.100.4:8080 (192.168.100.4:8080)
--                    100% |*******************************| 10240   0:00:00 ETA
+executing build 3
 initializing with docker:///busybox
 running ./task_show_uname.sh
-Linux mjgia714eg3 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 GNU/Linux
+Linux djcb7scpeq0 3.19.0-49-generic #55~14.04.1-Ubuntu SMP Fri Jan 22 11:24:31 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 succeeded
 ```
 
@@ -164,8 +166,7 @@ platform: linux
 image: docker:///busybox
 
 inputs:
-- name: 01_task_hello_world
-  path: .
+- {name: 01_task_hello_world, path: .}
 
 run:
   path: ./task_show_uname.sh
@@ -185,16 +186,13 @@ Consider the `inputs:` snippet above:
 
 ```yaml
 inputs:
-- name: 01_task_hello_world
-  path: .
+- {name: 01_task_hello_world, path: .}
 ```
 
 This is saying:
 
 1.	I want to receive an input folder called `01_task_hello_world`
 2.	I want it to be placed in the folder `.` (that is, the root folder of the task when its running)
-
-By default, without `path:` an input will be placed in a folder with the same name as the input itself.
 
 Given the list of `inputs`, we now know that the `task_show_uname.sh` script (which is in the same folder) will be available in the root folder of the running task.
 
@@ -203,6 +201,20 @@ This allows us to invoke it:
 ```yaml
 run:
   path: ./task_show_uname.sh
+```
+
+By default, without `path:` an input will be placed in a folder with the same name as the input itself.
+
+That is the following task gives the same results as above:
+
+```yaml
+platform: linux
+image: docker:///busybox
+
+inputs:
+- {name: 01_task_hello_world}
+run:
+  path: ./01_task_hello_world/task_show_uname.sh
 ```
 
 ### 02 - Hello World job
