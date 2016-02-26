@@ -1,0 +1,37 @@
+---
+groups:
+- name: image
+  jobs:
+  - build-task-image
+
+jobs:
+- name: build-task-image
+  serial: true
+  plan:
+  - get: repo-image
+    trigger: true
+  - put: ciimage
+    params:
+      build: repo-image/ci/ci_image
+
+resources:
+- name: repo
+  type: git
+  source:
+    uri: git@github.com:starkandwayne/concourse-tutorial.git
+    branch: {{tile-branch}}
+    private_key: {{github-key}}
+- name: repo-image
+  type: git
+  source:
+    uri: git@github.com:starkandwayne/concourse-tutorial.git
+    branch: {{tile-branch}}
+    private_key: {{github-key}}
+    paths: [ci/ci_image/*]
+- name: ciimage
+  type: docker-image
+  source:
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: starkandwayne/concourse-tutorial-ci
