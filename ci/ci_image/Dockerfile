@@ -1,9 +1,10 @@
 FROM concourse/concourse-ci
 # https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
 
-RUN apt-get update && apt-get install zip unzip curl wget bzr python-pip -y && \
-    pip --no-input install awscli && \
+RUN apt-get update && apt-get install zip unzip curl wget bzr vagrant file -y && \
     apt-get clean
+
+RUN vagrant plugin install vagrant-aws
 
 ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/bin/jq
 RUN chmod 775 /usr/bin/jq
@@ -22,4 +23,3 @@ ENV GOPATH /gopath
 ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
 
 RUN go get github.com/bronze1man/yaml2json
-RUN gem install fog mime-types --no-ri --no-rdoc
