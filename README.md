@@ -11,7 +11,7 @@ Install Vagrant/Virtualbox.
 Fetch this tutorial and start a server
 
 ```
-git clone git@github.com:starkandwayne/concourse-tutorial.git
+git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial
 vagrant up
 ```
