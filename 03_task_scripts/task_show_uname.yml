@@ -2,7 +2,7 @@ platform: linux
 image: docker:///busybox
 
 inputs:
-- {name: 01_task_hello_world, path: .}
+- name: 03_task_scripts
 
 run:
-  path: ./task_show_uname.sh
+  path: ./03_task_scripts/task_show_uname.sh

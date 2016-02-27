@@ -216,101 +216,43 @@ The `inputs` feature of a task allows us to pass in two types of inputs:
 * requirements/dependencies to be processed/tested/compiled
 * task scripts to be executed to perform complex behavior
 
-A common pattern is for Concourse tasks to `run:` complex shell scripts rather than directly invoking commands as we did above (we ran `echo` command with arguments `hello` and `world`).
+A common pattern is for Concourse tasks to `run:` complex shell scripts rather than directly invoking commands as we did above (we ran `uname` command with arguments `-a`).
 
-As your tasks and task scripts build up into complex pipelines you will appreciate the following pattern:
+Let's refactor `01_task_hello_world/task_ubuntu_uname.yml` into a new task `03_task_scripts/task_show_uname.yml` with a separated task script `03_task_scripts/task_show_uname.sh`
 
--	Give your task files and task shell scripts the same base name
-
-In the `01_task_hello_world` folder you can see two files:
-
--	`task_show_uname.yml`
--	`task_show_uname.sh`
+```
+cd ../03_task_scripts
+fly -t tutorial e -c task_show_uname.yml
+```
 
 The former specifies the latter as its task script:
 
 ```
 run:
-  path: ./task_show_uname.sh
+  path: ./03_task_scripts/task_show_uname.sh
 ```
 
-_Where does the `./task_show_uname.sh` file come from?_
+_Where does the `./03_task_scripts/task_show_uname.sh` file come from?_
 
-When you `fly execute` a task file it will upload the current folder as an input to the task. Since the folder also contains `task_show_uname.sh` it is available to the task container to run:
+From section 2 we learned that we could pass `inputs` into the task. The task configuration `03_task_scripts/task_show_uname.yml` specifies one input:
 
 ```
-$ fly -t tutorial execute -c task_show_uname.yml
-executing build 3
-initializing with docker:///busybox
-running ./task_show_uname.sh
-Linux djcb7scpeq0 3.19.0-49-generic #55~14.04.1-Ubuntu SMP Fri Jan 22 11:24:31 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-succeeded
-```
-
-The output above `running ./task_show_uname.sh` shows that the `task_show_uname.yml` task delegated to a task script to perform the task work.
-
-The `task_show_uname.yml` task is:
-
-```yaml
-platform: linux
-image: docker:///busybox
-
 inputs:
-- {name: 01_task_hello_world, path: .}
-
-run:
-  path: ./task_show_uname.sh
+- name: 03_task_scripts
 ```
 
-The new concept above is `inputs:`.
+Since input `03_task_scripts` matches the current directory `03_task_scripts` we did not need to specify `fly execute -i 03_task_scripts=.`.
 
-In order for a task to run a task script, it must be given access to the task script. In order for a task to process data files, it must be given access to those data files.
+The current directory was uploaded to the Concourse task container and placed inside the `03_task_scripts` directory.
 
-In Concourse these are `inputs` to a task.
+Therefore its file `task_show_uname.sh` is available within the Concourse task container at `03_task_scripts/task_show_uname.sh`.
 
-Given that we are running the task directly from the `fly` CLI, and we're running it from our host machine inside the `01_task_hello_world` folder, then the current host machine folder will be uploaded to Concourse and made available as an input called `01_task_hello_world`.
+The only further requirement is that `task_show_uname.sh` is an executable script.
 
-Later when we look at Jobs with inputs, tasks and outputs we'll return to passing `inputs` into tasks within a Job.
-
-Consider the `inputs:` snippet above:
-
-```yaml
-inputs:
-- {name: 01_task_hello_world, path: .}
-```
-
-This is saying:
-
-1.	I want to receive an input folder called `01_task_hello_world`
-2.	I want it to be placed in the folder `.` (that is, the root folder of the task when its running)
-
-Given the list of `inputs`, we now know that the `task_show_uname.sh` script (which is in the same folder) will be available in the root folder of the running task.
-
-This allows us to invoke it:
-
-```yaml
-run:
-  path: ./task_show_uname.sh
-```
-
-By default, without `path:` an input will be placed in a folder with the same name as the input itself.
-
-That is the following task gives the same results as above:
-
-```yaml
-platform: linux
-image: docker:///busybox
-
-inputs:
-- {name: 01_task_hello_world}
-run:
-  path: ./01_task_hello_world/task_show_uname.sh
-```
-
-### 02 - Basic pipeline
+### 04 - Basic pipeline
 
 ```
-cd ../02_job_hello_world
+cd ../04_basic_pipeline
 fly set-pipeline -t tutorial -c pipeline.yml -p helloworld
 fly unpause-pipeline -t tutorial -p helloworld
 ```
