@@ -427,7 +427,7 @@ If a pipeline is not performing new behaviour then it might be you skipped one o
 
 The `job-hello-world` had terminal output from its resource fetch of a git repo and of the `hello-world` task running.
 
-You can also view this output from the terminal with `fly`:
+In addition to the Concourse web ui you can also view this output from the terminal with `fly`:
 
 ```
 fly -t tutorial watch -j helloworld/job-hello-world
@@ -443,21 +443,8 @@ hello world
 succeeded
 ```
 
-### 05 - Trigger a Job via the Concourse API
+The `--build NUM` option allows you to see the output of a specific build number, rather than the latest build output.
 
-Our concourse in vagrant has an API running at `http://192.168.100.4:8080`. The `fly` CLI targets this endpoint by default.
-
-We can trigger a job to be run using that API. For example, using `curl`:
-
-```
-curl http://192.168.100.4:8080/pipelines/helloworld/jobs/job-hello-world/builds -X POST
-```
-
-You can then watch the output in your terminal using `fly watch` from above:
-
-```
-fly -t tutorial watch -j helloworld/job-hello-world
-```
 
 You can see the results of recent builds across all pipelines with `fly builds`:
 
@@ -475,7 +462,31 @@ The output will look like:
 1   one-off                       n/a    succeeded  2016-02-26@17:13:34+1000  2016-02-26@17:14:11+1000  37s
 ```
 
-### 06 - Triggering jobs - the `time` resource
+### 07 - Trigger jobs with the Concourse API
+
+There are three ways for a job to be triggered:
+
+* Clicking the `+` button on the web UI of a job (as we did in previous sections)
+* Input resource triggering a job (see section 8 below)
+* Sending `POST` HTTP request to Concourse API
+
+NOTE: As at writing there is not a `fly` command to trigger a job to run.
+
+Currently our Concourse in Vagrant has an API running at `http://192.168.100.4:8080`. If you do not remember the API endpoint it might be stored in the `~/.flyrc` file.
+
+We can trigger a job to be run using that API. For example, using `curl`:
+
+```
+curl http://192.168.100.4:8080/pipelines/helloworld/jobs/job-hello-world/builds -X POST
+```
+
+Whilst the job is running, and after it has completed, you can then watch the output in your terminal using `fly watch`:
+
+```
+fly -t tutorial watch -j helloworld/job-hello-world
+```
+
+### 08 - Triggering jobs with resources
 
 If you want a job to trigger every few minutes then there is the `time` resource.
 
