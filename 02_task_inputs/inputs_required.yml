@@ -1,0 +1,11 @@
+---
+platform: linux
+
+image: docker:///busybox
+
+inputs:
+- name: some-important-input
+
+run:
+  path: ls
+  args: ['-alR']

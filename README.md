@@ -1,10 +1,8 @@
-Concourse Tutorial
-==================
+# Concourse Tutorial
 
 Learn to use https://concourse.ci with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
 
-Getting started
----------------
+## Getting started
 
 Install Vagrant/Virtualbox.
 
@@ -36,7 +34,7 @@ Target Concourse
 
 In the spirit of declaring absolutely everything you do to get absolutely the same result every time, the `fly` CLI requires that you specify the target API for every `fly` request.
 
-First, alias it with a name `tutorial` (this name is used by all the tutorial wrapper scripts):
+First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts):
 
 ```
 fly --target tutorial login  --concourse-url http://192.168.100.4:8080
@@ -69,6 +67,8 @@ Tutorials
 
 ### 01 - Hello World task
 
+The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
+
 ```
 cd 01_task_hello_world
 fly -t tutorial execute -c task_hello_world.yml
@@ -98,7 +98,7 @@ run:
 
 At this point in the output above it is downloading a Docker image `busybox`. It will only need to do this once; though will recheck every time that it has the latest `busybox` image.
 
-Eventually it will continue:
+Eventually it will continue and invoke the command `echo hello world` successfully:
 
 ```
 running echo hello world
@@ -135,18 +135,108 @@ Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 
 succeeded
 ```
 
-A common pattern is for Concourse tasks to `run:` wrapper shell scripts, rather than directly invoking commands.
+The reason that you can select any base `image` (or `image_resource` when [configuring a task](http://concourse.ci/running-tasks.html)) is that this allows your task to have any prepared dependencies that it needs to run. Instead of installing dependencies each time during a task you might choose to pre-bake them into an `image` to make your tasks much faster.
 
-As your tasks and wrapper scripts build up into complex pipelines you will appreciate the following pattern:
+### 02 - Task inputs
 
--	Give your task files and wrapper shell scripts the same base name
+In the previous section the only inputs to the task container were the `image` used. Base images, such as Docker images, are relatively static and relatively big, slow things to create. So Concourse supports `inputs` into tasks to pass in files/folders for processing.
+
+Consider the working directory of a task that explicitly has no inputs:
+
+```
+cd ../02_task_inputs
+fly -t tutorial e -c no_inputs.yml
+```
+
+The task runs `ls -al` to show the (empty) contents of the working folder inside the container:
+
+```
+running ls -al
+total 8
+drwxr-xr-x    2 root     root          4096 Feb 27 07:23 .
+drwxr-xr-x    3 root     root          4096 Feb 27 07:23 ..
+```
+
+In the example task `inputs_required.yml` we add a single input:
+
+```
+inputs:
+- name: some-important-input
+```
+
+When we try to execute the task:
+
+```
+fly -t tutorial e -c inputs_required.yml
+```
+
+It will fail:
+
+```
+error: missing required input `some-important-input`
+```
+
+Commonly if wanting to run `fly execute` we will want to pass in the local folder (`.`). Use `-i name=path` option to configure each of the required `inputs`:
+
+```
+fly -t tutorial e -c inputs_required.yml -i some-important-input=.
+```
+
+Now the `fly execute` command will upload the `.` directory as an input to the container. It will be made available at the path `some-important-input`:
+
+```
+running ls -alR
+.:
+total 8
+drwxr-xr-x    3 root     root          4096 Feb 27 07:27 .
+drwxr-xr-x    3 root     root          4096 Feb 27 07:27 ..
+drwxr-xr-x    1 501      20              64 Feb 27 07:27 some-important-input
+
+./some-important-input:
+total 12
+drwxr-xr-x    1 501      20              64 Feb 27 07:27 .
+drwxr-xr-x    3 root     root          4096 Feb 27 07:27 ..
+-rw-r--r--    1 501      20             112 Feb 27 07:30 input_parent_dir.yml
+-rw-r--r--    1 501      20             118 Feb 27 07:27 inputs_required.yml
+-rw-r--r--    1 501      20              79 Feb 27 07:18 no_inputs.yml
+```
+
+The `fly execute -i` option can be removed if the current directory is the same name as the required input.
+
+The task `input_parent_dir.yml` contains an input `02_task_inputs` which is also the current directory. So the following command will work and return the same results as above:
+
+```
+fly -t tutorial e -c input_parent_dir.yml
+```
+
+### 03 - Task scripts
+
+The `inputs` feature of a task allows us to pass in two types of inputs:
+
+* requirements/dependencies to be processed/tested/compiled
+* task scripts to be executed to perform complex behavior
+
+A common pattern is for Concourse tasks to `run:` complex shell scripts rather than directly invoking commands as we did above (we ran `echo` command with arguments `hello` and `world`).
+
+As your tasks and task scripts build up into complex pipelines you will appreciate the following pattern:
+
+-	Give your task files and task shell scripts the same base name
 
 In the `01_task_hello_world` folder you can see two files:
 
 -	`task_show_uname.yml`
 -	`task_show_uname.sh`
 
-When you execute a task file directly via `fly`, it will upload the current folder as an input to the task. This means the wrapper shell script is available for execution:
+The former specifies the latter as its task script:
+
+```
+run:
+  path: ./task_show_uname.sh
+```
+
+_Where does the `./task_show_uname.sh` file come from?_
+
+When you `fly execute` a task file it will upload the current folder as an input to the task. Since the folder also contains `task_show_uname.sh` it is available to the task container to run:
 
 ```
 $ fly -t tutorial execute -c task_show_uname.yml
@@ -157,7 +247,7 @@ Linux djcb7scpeq0 3.19.0-49-generic #55~14.04.1-Ubuntu SMP Fri Jan 22 11:24:31 U
 succeeded
 ```
 
-The output above `running ./task_show_uname.sh` shows that the `task_show_uname.yml` task delegated to a wrapper script to perform the task work.
+The output above `running ./task_show_uname.sh` shows that the `task_show_uname.yml` task delegated to a task script to perform the task work.
 
 The `task_show_uname.yml` task is:
 
@@ -174,7 +264,7 @@ run:
 
 The new concept above is `inputs:`.
 
-In order for a task to run a wrapper script, it must be given access to the wrapper script. In order for a task to process data files, it must be given access to those data files.
+In order for a task to run a task script, it must be given access to the task script. In order for a task to process data files, it must be given access to those data files.
 
 In Concourse these are `inputs` to a task.
 
@@ -217,7 +307,7 @@ run:
   path: ./01_task_hello_world/task_show_uname.sh
 ```
 
-### 02 - Hello World job
+### 02 - Basic pipeline
 
 ```
 cd ../02_job_hello_world
@@ -311,7 +401,7 @@ fly sp -t tutorial -c pipeline.yml -p helloworld
 
 After manually triggering the job via the UI, the output will look like:
 
-![job-task-from-wrapper](http://cl.ly/image/0Q3m223v2l3M/job-task-from-wrapper.png)
+![job-task-from-task](http://cl.ly/image/0Q3m223v2l3M/job-task-from-task.png)
 
 The `job-hello-world` job now has two steps in its build plan.
 
@@ -329,7 +419,7 @@ The downside is that the `pipeline.yml` no longer explains exactly what commands
 
 Consider comprehension of other team members when making these choices. "What does this pipeline actually do?!"
 
-One idea is to consider how you name your task files, and thus how you name the wrapper scripts that they invoke.
+One idea is to consider how you name your task files, and thus how you name the task scripts that they invoke.
 
 Consider using (long) names that describe their purpose/behavior.
 

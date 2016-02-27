@@ -1,0 +1,8 @@
+---
+platform: linux
+
+image: docker:///busybox
+
+run:
+  path: ls
+  args: ['-al']
