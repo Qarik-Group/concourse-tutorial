@@ -251,10 +251,11 @@ The only further requirement is that `task_show_uname.sh` is an executable scrip
 
 ### 04 - Basic pipeline
 
+1% of tasks that Concourse runs are via `fly execute`. 99% of tasks that Concourse runs are within "pipelines".
+
 ```
 cd ../04_basic_pipeline
-fly set-pipeline -t tutorial -c pipeline.yml -p helloworld
-fly unpause-pipeline -t tutorial -p helloworld
+fly -t tutorial set-pipeline -c pipeline.yml -p helloworld
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
@@ -278,7 +279,7 @@ jobs:
 You will be prompted to apply any configuration changes each time you run `fly set-pipeline` (or its alias `fly sp`)
 
 ```
-apply configuration? (y/n):
+apply configuration? [yN]:
 ```
 
 Press `y`.
@@ -287,16 +288,30 @@ You should see:
 
 ```
 pipeline created!
-you can view your pipeline here: http://192.168.100.4:8080/pipelines/02helloworld
+you can view your pipeline here: http://192.168.100.4:8080/pipelines/helloworld
+
+the pipeline is currently paused. to unpause, either:
+  - run the unpause-pipeline command
+  - click play next to the pipeline in the web ui
 ```
 
-Go back to your browser, refresh the page and start the job manually. Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
+As suggested, un-pause a pipeline from the `fly` CLI:
+
+```
+fly -t tutorial unpause-pipeline -p helloworld
+```
+
+Next, as suggested, visit the web UI http://192.168.100.4:8080/pipelines/helloworld.
+
+Your first pipeline is unimpressive - a single job `job-hello-world` with no inputs from the left and no outputs to its right, no jobs feeding into it, nor jobs feeding from it. It is the most basic pipeline. The job is gray colour because it has never been run before.
+
+Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
 
 ![job](http://cl.ly/image/3i2e0k0v3O2l/02-job-hello-world.gif)
 
-Clicking the top-left "Home" icon will show the status of our pipeline.
+Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
 
-### 03 - Tasks extracted into resources
+### 05 - Tasks extracted into resources
 
 It is easy to iterate on a job's tasks by configuring them in the `pipeline.yml` as above. Eventually you might want to colocate a job task with one of the resources you are already pulling in.
 
