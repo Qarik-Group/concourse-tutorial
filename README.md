@@ -731,7 +731,7 @@ git add .
 git commit -m "Bumped date"
 ```
 
-First, it copied the input resource `resource-gist` into the output resource `updated-gist`. The modifications are subsequently made to the `updated-gist` directory, including a `git commit`. It is this `updated-gist` and its additional `git commit` that is subsequently pushed back to the gist by the pipeline step:
+First, it copied the input resource `resource-gist` into the output resource `updated-gist` (using `git clone` as the preferred `git` way to do this). The modifications are subsequently made to the `updated-gist` directory, including a `git commit`. It is this `updated-gist` and its additional `git commit` that is subsequently pushed back to the gist by the pipeline step:
 
 ```yaml
 - put: resource-gist
@@ -744,7 +744,7 @@ The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have ins
 
 ### 13 - Actual pipeline - passing resources between jobs
 
-In all previous sections our pipelines have only had a single job. For all their wonderfulness, they haven't yet felt like actual piplines. Jobs passing results between jobs. This is where Concourse shines even brighter.
+In all previous sections our pipelines have only had a single job. For all their wonderfulness, they haven't yet felt like actual pipelines. Jobs passing results between jobs. This is where Concourse shines even brighter.
 
 
 ## Continuing the tutorial
