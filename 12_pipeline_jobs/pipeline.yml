@@ -1,0 +1,28 @@
+---
+jobs:
+- name: job-fetch-resource
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: resource-gist
+      trigger: true
+  - task: hello-world
+    file: resource-gist/hello-world.yml
+
+- name: job-run-task
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: resource-gist
+      trigger: true
+      passed: [job-fetch-resource]
+  - task: meta
+    file: resource-gist/display-other-task.yml
+
+resources:
+- name: resource-gist
+  type: git
+  source:
+    uri: https://gist.github.com/14e2e4716f7fc5f0e2e9.git

@@ -4,11 +4,10 @@ jobs:
   public: true
   serial: true
   plan:
-  - aggregate:
-    - get: resource-tutorial
-      trigger: false
-    - get: my-timer
-      trigger: true
+  - get: resource-tutorial
+    trigger: false
+  - get: my-timer
+    trigger: true
   - task: hello-world
     file: resource-tutorial/01_task_hello_world/task_hello_world.yml
 
