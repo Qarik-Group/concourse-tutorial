@@ -701,6 +701,10 @@ fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
 
 Revisit the dashboard UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
 
+After running the `job-bump-date` job, refresh your gist:
+
+![bumped](http://cl.ly/2w0E3U0y0735/download/Image%202016-02-28%20at%208.47.54%20pm.png)
+
 The `bump-timestamp-file.yml` uses a different base image `docker:///concourse/concourse-ci`. The reason is that we need access to the `git` CLI, and specifically the `git clone` command. The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
 
 ### 13 - Actual pipeline - passing resources between jobs

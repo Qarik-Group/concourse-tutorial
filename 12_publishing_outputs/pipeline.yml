@@ -12,7 +12,7 @@ resources:
     private_key: {{github-private-key}}
 
 jobs:
-- name: job-bump-file
+- name: job-bump-date
   serial: true
   plan:
   - get: resource-tutorial
