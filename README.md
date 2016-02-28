@@ -653,7 +653,36 @@ This is a demonstration that if a task includes `outputs` then those output dire
 
 So far we have used the `git` resource to fetch down a git repository, and used `git` & `time` resources as triggers. The `git` resource can also be used to push a modified git repository to a remote endpoint (possibly different than where the git repo was originally cloned from).
 
+```
+cd ../12_publishing_outputs
+fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+fly up -t tutorial -p publishing-outputs
+```
 
+Pipeline dashboard http://192.168.100.4:8080/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
+
+![broken-resource](http://cl.ly/330n473y3X1s/download/Image%202016-02-28%20at%206.33.26%20pm.png)
+
+The `pipeline.yml` does not yet have a git repo nor its write-access private key credentials.
+
+Create a Github Gist with a single file `bumpme` with an integer value, and press "Create public gist":
+
+![gist](http://cl.ly/3P1m1m272B2h/download/Image%202016-02-28%20at%206.35.10%20pm.png)
+
+Copy the "SSH" git URL into the pipeline:
+
+![ssh](http://cl.ly/2m303j1r3E3b/download/Image%202016-02-28%20at%206.36.52%20pm.png)
+
+```yaml
+---
+resources:
+- name: resource-gist
+  type: git
+  source:
+    uri: git@gist.github.com:0c2e172346cb8b0197a9.git
+    branch: master
+    private_key:
+```
 
 ## Continuing the tutorial
 

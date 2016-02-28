@@ -1,0 +1,18 @@
+---
+resources:
+- name: resource-gist
+  type: git
+  source:
+    uri:
+    branch:
+    private_key:
+
+jobs:
+- name: job-bump-file
+  serial: true
+  plan:
+  - get: resource-gist
+  - task: bump-timestamp-file
+    file: resource-gist/bump-timestamp-file.yml
+  - put: resource-gist
+    params: {repository: updated-gist}
