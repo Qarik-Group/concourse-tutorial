@@ -563,6 +563,15 @@ Consider a simple application that has unit tests. In order to run those tests i
 
 For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the Docker image https://hub.docker.com/_/golang/
 
+```
+cd ../10_job_inputs
+fly sp -t tutorial -c pipeline.yml -p simple-app -n
+fly up -t tutorial -p simple-app
+```
+
+View the pipeline UI http://192.168.100.4:8080/pipelines/simple-app and notice that the job automatically starts.
+
+The job will pause on the first run at `golang-test-web-app` task because it is downloading the `docker:///golang` image for the first time. This can take a long time initially as `golang:1.6` is 744Mb at time of writing (see Docker image size via https://imagelayers.io/?images=golang:1.6)
 
 ### 11 - Publishing outputs
 

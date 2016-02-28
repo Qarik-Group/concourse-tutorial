@@ -6,7 +6,7 @@ jobs:
   - get: resource-tutorial
   - get: resource-app
     trigger: true
-  - task: golang-test-web-app
+  - task: web-app
     file: resource-tutorial/10_job_inputs/task_run_tests.yml
 
 resources:
