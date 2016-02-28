@@ -651,7 +651,7 @@ This is a demonstration that if a task includes `outputs` then those output dire
 
 ### 12 - Publishing outputs
 
-So far we have used the `git` resource to fetch down a git repository, and used `git` & `time` resources as triggers. The `git` resource can also be used to push a modified git repository to a remote endpoint (possibly different than where the git repo was originally cloned from).
+So far we have used the `git` resource to fetch down a git repository, and used `git` & `time` resources as triggers. The [`git` resource](https://github.com/concourse/git-resource) can also be used to push a modified git repository to a remote endpoint (possibly different than where the git repo was originally cloned from).
 
 ```
 cd ../12_publishing_outputs
@@ -700,6 +700,9 @@ fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
 ```
 
 Revisit the dashboard UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
+
+The `bump-timestamp-file.yml` uses a different base image `docker:///concourse/concourse-ci`. The reason is that we need access to the `git` CLI, and specifically the `git clone` command. The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
+
 
 ## Continuing the tutorial
 
