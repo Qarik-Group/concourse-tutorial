@@ -571,7 +571,14 @@ fly up -t tutorial -p simple-app
 
 View the pipeline UI http://192.168.100.4:8080/pipelines/simple-app and notice that the job automatically starts.
 
-The job will pause on the first run at `golang-test-web-app` task because it is downloading the `docker:///golang` image for the first time. This can take a long time initially as `golang:1.6` is 744Mb at time of writing (see Docker image size via https://imagelayers.io/?images=golang:1.6)
+The job will pause on the first run at `web-app-tests` task because it is downloading the `docker:///iron/go#1.6` image for the first time.
+
+The `web-app-tests` output below corresponds to the Go language test output (in case you've not seen it before):
+
+```
+ok  	github.com/cloudfoundry-community/simple-go-web-app	0.003s
+```
+
 
 ### 11 - Publishing outputs
 

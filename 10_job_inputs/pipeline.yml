@@ -6,7 +6,7 @@ jobs:
   - get: resource-tutorial
   - get: resource-app
     trigger: true
-  - task: web-app
+  - task: web-app-tests
     file: resource-tutorial/10_job_inputs/task_run_tests.yml
 
 resources:
