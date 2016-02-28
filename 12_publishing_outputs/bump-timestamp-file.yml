@@ -1,7 +1,7 @@
 ---
 platform: linux
 
-image: docker:///ubuntu#14.04
+image: docker:///concourse/concourse-ci
 
 inputs:
   - name: resource-tutorial
