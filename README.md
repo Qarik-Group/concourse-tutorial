@@ -709,7 +709,14 @@ This pipeline is an example of updating a resource. It has pushed up new git com
 
 _Where did the new commit come from?_
 
-The `bump-timestamp-file` task ran the `bump-timestamp-file.sh` script:
+The `bump-timestamp-file.yml` task file describes a single output `updated-gist`:
+
+```yaml
+outputs:
+  - name: updated-gist
+```
+
+The `bump-timestamp-file` task runs the following `bump-timestamp-file.sh` script:
 
 ```bash
 git clone resource-gist updated-gist
@@ -733,7 +740,7 @@ First, it copied the input resource `resource-gist` into the output resource `up
 
 The `updated-gist` output from the `bump-timestamp-file` task becomes the `updated-gist` input to the `resource-gist` resource (see the [`git` resource](https://github.com/concourse/git-resource) for additional configuration) because their names match.
 
-The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `docker:///concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile 
+The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `docker:///concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
 
 ### 13 - Actual pipeline - passing resources between jobs
 
