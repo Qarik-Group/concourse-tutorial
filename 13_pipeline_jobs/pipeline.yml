@@ -1,28 +1,39 @@
 ---
-jobs:
-- name: job-fetch-resource
-  public: true
-  serial: true
-  plan:
-  - aggregate:
-    - get: resource-gist
-      trigger: true
-  - task: hello-world
-    file: resource-gist/hello-world.yml
-
-- name: job-run-task
-  public: true
-  serial: true
-  plan:
-  - aggregate:
-    - get: resource-gist
-      trigger: true
-      passed: [job-fetch-resource]
-  - task: meta
-    file: resource-gist/display-other-task.yml
-
 resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
 - name: resource-gist
   type: git
   source:
-    uri: https://gist.github.com/14e2e4716f7fc5f0e2e9.git
+    uri: {{gist-url}}
+    branch: master
+    private_key: {{github-private-key}}
+
+jobs:
+- name: job-bump-date
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - get: resource-gist
+  - task: bump-timestamp-file
+    file: resource-tutorial/12_publishing_outputs/bump-timestamp-file.yml
+  - put: resource-gist
+    params: {repository: updated-gist}
+
+- name: job-show-date
+  plan:
+  - get: resource-tutorial
+  - get: resource-gist
+    passed: [job-bump-date]
+    trigger: true
+  - task: show-date
+    config:
+      platform: linux
+      image: docker:///busybox
+      inputs:
+        - name: resource-gist
+      run:
+        path: cat
+        args: [resource-gist/bumpme]
