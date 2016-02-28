@@ -705,7 +705,35 @@ After running the `job-bump-date` job, refresh your gist:
 
 ![bumped](http://cl.ly/2w0E3U0y0735/download/Image%202016-02-28%20at%208.47.54%20pm.png)
 
-The `bump-timestamp-file.yml` uses a different base image `docker:///concourse/concourse-ci`. The reason is that we need access to the `git` CLI, and specifically the `git clone` command. The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
+This pipeline is an example of updating a resource. It has pushed up new git commits to the git repo (your github gist).
+
+_Where did the new commit come from?_
+
+The `bump-timestamp-file` task ran the `bump-timestamp-file.sh` script:
+
+```bash
+git clone resource-gist updated-gist
+
+cd updated-gist
+echo $(date) > bumpme
+
+git config --global user.email "nobody@concourse.ci"
+git config --global user.name "Concourse"
+
+git add .
+git commit -m "Bumped date"
+```
+
+First, it copied the input resource `resource-gist` into the output resource `updated-gist`. The modifications are subsequently made to the `updated-gist` directory, including a `git commit`. It is this `updated-gist` and its additional `git commit` that is subsequently pushed back to the gist by the pipeline step:
+
+```yaml
+- put: resource-gist
+  params: {repository: updated-gist}
+```
+
+The `updated-gist` output from the `bump-timestamp-file` task becomes the `updated-gist` input to the `resource-gist` resource (see the [`git` resource](https://github.com/concourse/git-resource) for additional configuration) because their names match.
+
+The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `docker:///concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile 
 
 ### 13 - Actual pipeline - passing resources between jobs
 
