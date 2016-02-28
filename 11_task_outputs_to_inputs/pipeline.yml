@@ -12,3 +12,5 @@ jobs:
   - get: resource-tutorial
   - task: create-some-files
     file: resource-tutorial/11_task_outputs_to_inputs/create_some_files.yml
+  - task: show-files
+    file: resource-tutorial/11_task_outputs_to_inputs/show_files.yml
