@@ -580,9 +580,35 @@ ok  	github.com/cloudfoundry-community/simple-go-web-app	0.003s
 ```
 
 
-### 11 - Publishing outputs
+### 11 - Passing task outputs to another task
 
-So far we have used the `git` resource to fetch down a git repository, in which it contained the task file and task scripts.
+In section 10 our task `web-app-tests` consumed an input resource and ran a script that ran some unit tests. The task did not create anything new. Some tasks will want to create something that is then passed to another task for further processing (this section); and some tasks will create something that is pushed back out to the external world (next section).
+
+So far our pipelines' tasks' inputs have only come from resources using `get: resource-tutorial` build plan steps.
+
+A task's `inputs` can also come from the `outputs` of previous tasks. All a task needs to do is declare that it publishes `outputs`, and subsequent steps can consume those as `inputs` by the same name.
+
+A task file declares it will publish outputs with the `outputs` section:
+
+```
+outputs:
+- name: binaries
+  path: path/to/dir/containing/binaries
+```
+
+If a task included the above `outputs` section then it's `run:` command would be responsible for creating `path/to/dir/containing/binaries` and populating that directory with interesting files.
+
+Subsequent tasks (discussed in this section) or resources (discussed in the next section) could reference these interesting files within the `binaries/` directory.
+
+```
+cd ../11_task_outputs_to_inputs
+fly sp -t tutorial -c pipeline.yml -p pass-files -n
+fly up -t tutorial -p pass-files
+```
+
+### 12 - Publishing outputs
+
+So far we have used the `git` resource to fetch down a git repository. The `git` resource can also be used to push
 
 ## Continuing the tutorial
 

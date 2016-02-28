@@ -1,0 +1,14 @@
+---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+
+jobs:
+- name: job-pass-files
+  public: true
+  plan:
+  - get: resource-tutorial
+  - task: create-some-files
+    file: resource-tutorial/11_task_outputs_to_inputs/create_some_files.yml
