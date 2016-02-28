@@ -10,7 +10,7 @@ jobs:
     - task: golang-test-web-app
       config:
         platform: linux
-        image: docker:///golang#1.4.2
+        image: docker:///golang#1.6
         inputs:
           - name: resource-web-app
         run:

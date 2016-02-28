@@ -5,7 +5,6 @@ jobs:
   serial: true
   plan:
   - get: resource-tutorial
-    trigger: false
   - get: my-timer
     trigger: true
   - task: hello-world

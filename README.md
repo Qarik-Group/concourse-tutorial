@@ -551,6 +551,23 @@ You can delete the `helloworld` pipeline:
 fly destroy-pipeline -t tutorial -p helloworld
 ```
 
+### 10 - Using resource inputs in job tasks
+
+Note, the topic of running unit tests in your pipeline will be covered in more detail in future sections.
+
+Consider a simple application that has unit tests. In order to run those tests inside a pipeline we need:
+
+* a `resource` containing the task script that knows how to run the tests
+* a `resource` containing the application source code
+* a task `image` that contains any dependencies
+
+For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the Docker image https://hub.docker.com/_/golang/
+
+
+### 11 - Publishing outputs
+
+So far we have used the `git` resource to fetch down a git repository, in which it contained the task file and task scripts.
+
 ## Continuing the tutorial
 
 This tutorial now leaves this README and goes out to the dozens of subfolders. Each has its own README.

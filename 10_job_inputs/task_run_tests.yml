@@ -1,0 +1,11 @@
+---
+platform: linux
+
+image: docker:///golang#1.6
+
+inputs:
+- name: resource-tutorial
+- name: resource-app
+
+run:
+  path: ./resource-tutorial/10_job_inputs/task_run_tests.sh

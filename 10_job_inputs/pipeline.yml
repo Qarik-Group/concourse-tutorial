@@ -1,0 +1,20 @@
+---
+jobs:
+- name: job-test-app
+  public: true
+  plan:
+  - get: resource-tutorial
+  - get: resource-app
+    trigger: true
+  - task: golang-test-web-app
+    file: resource-tutorial/10_job_inputs/task_run_tests.yml
+
+resources:
+- name: resource-app
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry-community/simple-go-web-app.git
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
