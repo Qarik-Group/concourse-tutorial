@@ -11,6 +11,7 @@ Fetch this tutorial and start a local Concourse server:
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial
+vagrant box add concourse/lite --box-version $(cat VERSION)
 vagrant up
 ```
 
