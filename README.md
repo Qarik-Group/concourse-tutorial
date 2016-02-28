@@ -665,7 +665,7 @@ Pipeline dashboard http://192.168.100.4:8080/pipelines/publishing-outputs shows 
 
 The `pipeline.yml` does not yet have a git repo nor its write-access private key credentials.
 
-Create a Github Gist with a single file `bumpme` with an integer value, and press "Create public gist":
+Create a Github Gist with a single file `bumpme`, and press "Create public gist":
 
 ![gist](http://cl.ly/3P1m1m272B2h/download/Image%202016-02-28%20at%206.35.10%20pm.png)
 
@@ -702,6 +702,10 @@ fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
 Revisit the dashboard UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
 
 The `bump-timestamp-file.yml` uses a different base image `docker:///concourse/concourse-ci`. The reason is that we need access to the `git` CLI, and specifically the `git clone` command. The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
+
+### 13 - Actual pipeline - passing resources between jobs
+
+In all previous sections our pipelines have only had a single job. For all their wonderfulness, they haven't yet felt like actual piplines. Jobs passing results between jobs. This is where Concourse shines even brighter.
 
 
 ## Continuing the tutorial
