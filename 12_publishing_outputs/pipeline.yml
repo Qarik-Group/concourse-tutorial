@@ -1,18 +1,23 @@
 ---
 resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
 - name: resource-gist
   type: git
   source:
-    uri:
-    branch:
-    private_key:
+    uri: {{gist-url}}
+    branch: master
+    private_key: {{github-private-key}}
 
 jobs:
 - name: job-bump-file
   serial: true
   plan:
+  - get: resource-tutorial
   - get: resource-gist
   - task: bump-timestamp-file
-    file: resource-gist/bump-timestamp-file.yml
+    file: resource-tutorial/12_publishing_outputs/bump-timestamp-file.yml
   - put: resource-gist
     params: {repository: updated-gist}

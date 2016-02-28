@@ -1,0 +1,10 @@
+---
+platform: linux
+
+image: docker:///ubuntu#14.04
+
+inputs:
+  - name: resource-tutorial
+
+run:
+  path: resource-tutorial/12_publishing_outputs/bump-timestamp-file.sh

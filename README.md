@@ -669,11 +669,13 @@ Create a Github Gist with a single file `bumpme` with an integer value, and pres
 
 ![gist](http://cl.ly/3P1m1m272B2h/download/Image%202016-02-28%20at%206.35.10%20pm.png)
 
-Copy the "SSH" git URL into the pipeline:
+Copy the "SSH" git URL:
 
 ![ssh](http://cl.ly/2m303j1r3E3b/download/Image%202016-02-28%20at%206.36.52%20pm.png)
 
-```yaml
+And paste it into the `pipeline.yml` file:
+
+```
 ---
 resources:
 - name: resource-gist
@@ -681,8 +683,23 @@ resources:
   source:
     uri: git@gist.github.com:0c2e172346cb8b0197a9.git
     branch: master
-    private_key:
+    private_key: |-
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpQIBAAKCAQEAuvUl9YU...
+      ...
+      HBstYQubAQy4oAEHu8osRhH...
+      -----END RSA PRIVATE KEY-----
 ```
+
+Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registered with github) into the `private_key` section.
+
+Update the pipeline:
+
+```
+fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+```
+
+Revisit the dashboard UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
 
 ## Continuing the tutorial
 
