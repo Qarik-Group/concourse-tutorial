@@ -5,6 +5,10 @@ image: docker:///ubuntu#14.04
 
 inputs:
   - name: resource-tutorial
+  - name: resource-gist
+
+outputs:
+  - name: updated-gist
 
 run:
   path: resource-tutorial/12_publishing_outputs/bump-timestamp-file.sh
