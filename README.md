@@ -541,7 +541,9 @@ Why does `time` resource configured with `interval: 2m` trigger "approximately" 
 
 The net result is that a timer of `2m` will trigger every 2 to 3 minutes.
 
-### Deleting pipelines
+### 09 - Destroying pipelines
+
+The current `helloworld` pipeline will now keep triggering every 2-3 minutes for ever. If you want to destroy a pipeline - and lose all its build history - then may the power be granted to you.
 
 You can delete the `helloworld` pipeline:
 
