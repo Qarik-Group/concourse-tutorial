@@ -561,7 +561,7 @@ Consider a simple application that has unit tests. In order to run those tests i
 * an input `resource` containing the task script that knows how to run the tests
 * an input `resource` containing the application source code
 
-For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the `docker:///golang#1.6-alpine` image https://hub.docker.com/_/golang/
+For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the `docker:///golang#1.6-alpine` image from https://hub.docker.com/_/golang/ (see https://imagelayers.io/?images=golang:1.6-alpine for size of layers)
 
 The task file `task_run_tests.yml` includes:
 
@@ -573,6 +573,8 @@ inputs:
 - name: resource-app
   path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
 ```
+
+The `resource-app` resource will place the inbound files for the input into an alternate path. By default we have seen that inputs store their contents in a folder of the same name. The reason for using an alternate path in this example is specific to building & testing Go language applications and is outside the scope of the section.
 
 To run this task within a pipeline:
 
@@ -649,7 +651,9 @@ This is a demonstration that if a task includes `outputs` then those output dire
 
 ### 12 - Publishing outputs
 
-So far we have used the `git` resource to fetch down a git repository. The `git` resource can also be used to push
+So far we have used the `git` resource to fetch down a git repository, and used `git` & `time` resources as triggers. The `git` resource can also be used to push a modified git repository to a remote endpoint (possibly different than where the git repo was originally cloned from).
+
+
 
 ## Continuing the tutorial
 
