@@ -557,11 +557,24 @@ Note, the topic of running unit tests in your pipeline will be covered in more d
 
 Consider a simple application that has unit tests. In order to run those tests inside a pipeline we need:
 
-* a `resource` containing the task script that knows how to run the tests
-* a `resource` containing the application source code
 * a task `image` that contains any dependencies
+* an input `resource` containing the task script that knows how to run the tests
+* an input `resource` containing the application source code
 
-For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the Docker image https://hub.docker.com/_/golang/
+For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the `docker:///golang#1.6-alpine` image https://hub.docker.com/_/golang/
+
+The task file `task_run_tests.yml` includes:
+
+```yaml
+image: docker:///golang#1.6-alpine
+
+inputs:
+- name: resource-tutorial
+- name: resource-app
+  path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
+```
+
+To run this task within a pipeline:
 
 ```
 cd ../10_job_inputs
@@ -571,7 +584,7 @@ fly up -t tutorial -p simple-app
 
 View the pipeline UI http://192.168.100.4:8080/pipelines/simple-app and notice that the job automatically starts.
 
-The job will pause on the first run at `web-app-tests` task because it is downloading the `docker:///iron/go#1.6` image for the first time.
+The job will pause on the first run at `web-app-tests` task because it is downloading the `docker:///golang#1.6-alpine` image for the first time.
 
 The `web-app-tests` output below corresponds to the Go language test output (in case you've not seen it before):
 
