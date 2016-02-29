@@ -1,14 +1,4 @@
 ---
-jobs:
-- name: job-deploy-app
-  serial: true
-  plan:
-  - {get: resource-web-app, trigger: true}
-  - put: resource-deploy-web-app
-    params:
-      manifest: resource-web-app/manifest.yml
-      path: resource-web-app
-
 resources:
 - name: resource-web-app
   type: git
@@ -24,3 +14,13 @@ resources:
     organization: {{cf-organization}}
     space: {{cf-space}}
     skip_cert_check: true
+
+jobs:
+- name: job-deploy-app
+  serial: true
+  plan:
+  - {get: resource-web-app, trigger: true}
+  - put: resource-deploy-web-app
+    params:
+      manifest: resource-web-app/manifest.yml
+      path: resource-web-app
