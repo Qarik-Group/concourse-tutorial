@@ -14,3 +14,21 @@ To the `deploy-app` pipeline with the additional trigger and unit test steps:
 cd ../16_run_tests_before_deploy
 fly sp -t tutorial -c pipeline.yml -p deploy-app -n -l ../credentials.yml
 ```
+
+For convenience to us both, we're reusing the same task files from section 10 to run the tests for the :
+
+```yaml
+- name: job-deploy-app
+  public: true
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - get: resource-app
+    trigger: true
+  - task: web-app-tests
+    file: resource-tutorial/10_job_inputs/task_run_tests.yml
+  - put: resource-deploy-web-app
+    params:
+      manifest: resource-app/manifest.yml
+      path: resource-app
+```

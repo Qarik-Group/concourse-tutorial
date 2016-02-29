@@ -31,5 +31,5 @@ jobs:
     file: resource-tutorial/10_job_inputs/task_run_tests.yml
   - put: resource-deploy-web-app
     params:
-      manifest: resource-web-app/manifest.yml
-      path: resource-web-app
+      manifest: resource-app/manifest.yml
+      path: resource-app
