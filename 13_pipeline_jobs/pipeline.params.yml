@@ -7,9 +7,9 @@ resources:
 - name: resource-gist
   type: git
   source:
-    uri:
+    uri: {{gist-url}}
     branch: master
-    private_key:
+    private_key: {{github-private-key}}
 
 jobs:
 - name: job-bump-date

@@ -7,9 +7,9 @@ resources:
 - name: resource-gist
   type: git
   source:
-    uri:
+    uri: {{gist-url}}
     branch: master
-    private_key:
+    private_key: {{github-private-key}}
 
 jobs:
 - name: job-bump-date
@@ -21,19 +21,3 @@ jobs:
     file: resource-tutorial/12_publishing_outputs/bump-timestamp-file.yml
   - put: resource-gist
     params: {repository: updated-gist}
-
-- name: job-show-date
-  plan:
-  - get: resource-tutorial
-  - get: resource-gist
-    passed: [job-bump-date]
-    trigger: true
-  - task: show-date
-    config:
-      platform: linux
-      image: docker:///busybox
-      inputs:
-        - name: resource-gist
-      run:
-        path: cat
-        args: [resource-gist/bumpme]
