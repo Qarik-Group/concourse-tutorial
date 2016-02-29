@@ -1,16 +1,13 @@
 ---
 jobs:
 - name: job-deploy-app
-  public: true
   serial: true
   plan:
-  - aggregate:
-    - get: resource-web-app
-  - aggregate:
-    - put: resource-deploy-web-app
-      params:
-        manifest: resource-web-app/manifest.yml
-        path: resource-web-app
+  - {get: resource-web-app, trigger: true}
+  - put: resource-deploy-web-app
+    params:
+      manifest: resource-web-app/manifest.yml
+      path: resource-web-app
 
 resources:
 - name: resource-web-app
@@ -21,9 +18,9 @@ resources:
 - name: resource-deploy-web-app
   type: cf
   source:
-    api: https://api.run.pivotal.io
+    api: {{cf-api}}
     username: {{cf-username}}
     password: {{cf-password}}
     organization: {{cf-organization}}
     space: {{cf-space}}
-    skip_cert_check: false
+    skip_cert_check: true
