@@ -25,6 +25,15 @@ The following sections are found in subfolders of this repository and the tutori
 * [16 - Run tests, then deploy application](https://github.com/starkandwayne/concourse-tutorial/tree/master/16_run_tests_before_deploy)
 * [20 - Versions and build numbers](https://github.com/starkandwayne/concourse-tutorial/tree/master/20_versions_and_buildnumbers)
 
+## Thanks
+
+Thanks to Alex Suraci for inventing Concourse CI, and to Pivotal for sponsoring him and a team of developers to work on it for over a year (2014 onwards).
+
+At Stark & Wayne we started this tutorial as we were learning Concourse in early 2015, and we've been using Concourse in production since mid-2015 internally and at nearly all client projects.
+
+Thanks to everyone who has worked through this tutorial and found it useful. I love learning that you're enjoying the tutorial and enjoying Concourse.
+
+Thanks for all the pull requests to help fix regressions with some Concourse versions that came out with "backwards incompatible change".
 
 ## Getting started
 
