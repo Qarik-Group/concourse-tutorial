@@ -178,6 +178,8 @@ This `version` file is stored outside of Concourse (as all resources are), but i
 
 Now, if you run the job `job-versioning` over and over it will progressively increase the `rc` attribute.
 
+![again](http://cl.ly/27460R2F3i3Z/download/Image%202016-03-01%20at%201.32.54%20pm.png)
+
 ## Bonus exercise
 
 Create an additional job, called `bump-patch`, in the pipeline that bumps the `resource-version` value's `patch` attribute.
