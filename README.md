@@ -2,6 +2,30 @@
 
 Learn to use https://concourse.ci with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
 
+## Sections
+
+* [01 - Hello World task](https://github.com/starkandwayne/concourse-tutorial#01---hello-world-task)
+* [02 - Task inputs](https://github.com/starkandwayne/concourse-tutorial#02---task-inputs)
+* [03 - Task scripts](https://github.com/starkandwayne/concourse-tutorial#03---task-scripts)
+* [04 - Basic pipeline](https://github.com/starkandwayne/concourse-tutorial#04---basic-pipeline)
+* [05 - Tasks extracted into Resources](https://github.com/starkandwayne/concourse-tutorial#05---tasks-extracted-into-resources)
+* [06 - View job output in terminal](https://github.com/starkandwayne/concourse-tutorial#06---view-job-output-in-terminal)
+* [07 - Trigger jobs with the Concourse API](https://github.com/starkandwayne/concourse-tutorial#07---trigger-jobs-with-the-concourse-api)
+* [08 - Triggering jobs with resources](https://github.com/starkandwayne/concourse-tutorial#08---triggering-jobs-with-resources)
+* [09 - Destroying pipelines](https://github.com/starkandwayne/concourse-tutorial#09---destroying-pipelines)
+* [10 - Using resource inputs in job tasks](https://github.com/starkandwayne/concourse-tutorial#10---using-resource-inputs-in-job-tasks)
+* [11 - Passing task outputs to another task](https://github.com/starkandwayne/concourse-tutorial#11---passing-task-outputs-to-another-task)
+* [12 - Publishing outputs](https://github.com/starkandwayne/concourse-tutorial#12---publishing-outputs)
+* [13 - Actual pipeline - passing resources between jobs](https://github.com/starkandwayne/concourse-tutorial#13---actual-pipeline---passing-resources-between-jobs)
+* [14 - Parameterized pipelines](https://github.com/starkandwayne/concourse-tutorial#14---parameterized-pipelines)
+
+The following sections are found in subfolders of this repository and the tutorial continues in their README:
+
+* [15 - Deploy application to Cloud](https://github.com/starkandwayne/concourse-tutorial/tree/master/15_deploy_cloudfoundry_app)
+* [16 - Run tests, then deploy application](https://github.com/starkandwayne/concourse-tutorial/tree/master/16_run_tests_before_deploy)
+* [20 - Versions and build numbers](https://github.com/starkandwayne/concourse-tutorial/tree/master/20_versions_and_buildnumbers)
+
+
 ## Getting started
 
 Install Vagrant/Virtualbox.
@@ -832,10 +856,6 @@ fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n -l ../credentials.ym
 This tutorial now leaves this README and goes out to the dozens of subfolders. Each has its own README.
 
 Why are there numerical gaps between the section numbers? Because renumbering is hard and so I just left gaps. If we had a cool way to renumber the sections then perhaps wouldn't need the gaps. Sorry :)
-
-* [15 - Deploy application to Cloud Foundry](https://github.com/starkandwayne/concourse-tutorial/tree/master/15_deploy_cloudfoundry_app)
-* [16 - Run tests, then deploy application](https://github.com/starkandwayne/concourse-tutorial/tree/master/16_run_tests_before_deploy)
-* [20 - Versions and build numbers](https://github.com/starkandwayne/concourse-tutorial/tree/master/20_versions_and_buildnumbers)
 
 
 ### Available concourse resources
