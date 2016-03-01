@@ -60,7 +60,8 @@ Add `git-uri-bump-semver` to your tutorial's `credentials.yml` file and deploy t
 
 ```
 cd ../20_versions_and_buildnumbers
-fly sp -t tutorial -p versioning -n -l ../credentials.yml -c pipeline-get-version.yml
+fly sp -t tutorial -p versioning -n -l ../credentials.yml \
+  -c pipeline-get-version.yml
 fly up -t tutorial -p versioning
 ```
 
@@ -97,7 +98,8 @@ jobs:
 Update our `versioning` pipeline:
 
 ```
-fly sp -t tutorial -p versioning -n -l ../credentials.yml -c pipeline-display-version.yml
+fly sp -t tutorial -p versioning -n -l ../credentials.yml \
+  -c pipeline-display-version.yml
 ```
 
 Then re-run the `job-versioning` job:
@@ -131,10 +133,57 @@ plan:
   params: {pre: rc}
 ```
 
+Apply this change to our pipeline:
+
+```
+fly sp -t tutorial -p versioning -n -l ../credentials.yml \
+  -c pipeline-bump.yml
+```
+
+Run the job to see the output in the image above.
+
 ## Saving new version
 
 If you re-run the `job-versioning` job you observe that the value of the `version` resource has no actually changed:
 
 ![unchanged](http://cl.ly/3E363z3i1c0v/download/Image%202016-03-01%20at%201.06.49%20pm.png)
 
-Finally, if the new `version` of some software or an artifact is sufficient then the job can update the version via `put: resource-version` step.
+Most Concourse resources, including `semver`, support way of updating an external thing.
+
+From the [`out` section](https://github.com/concourse/semver-resource#out-set-the-version-or-bump-the-current-one) of `semver` resource, to update the `version` value we need to specify the `file:` path to a preceding container.
+
+In our pipeline above we observed that the `version` value is in the `resource-version/number` file.
+
+To `put:` this value back up to `version` file, we add the following step to our job:
+
+```yaml
+  - put: resource-version
+    params: {file: resource-version/number}
+```
+
+Apply this change to our pipeline:
+
+```
+fly sp -t tutorial -p versioning -n -l ../credentials.yml \
+  -c pipeline-bump-then-save.yml
+```
+
+![bump-then-save](http://cl.ly/0G2x2n2W3q3y/download/Image%202016-03-01%20at%201.17.10%20pm.png)
+
+Now, if you look in your git repository's `version` branch, there is now a `version` file that contains the `initial_version` with its `rc` attribute bumped:
+
+![saved-file](http://cl.ly/2T0f3F1V3T0z/download/Image%202016-03-01%20at%201.19.43%20pm.png)
+
+This `version` file is stored outside of Concourse (as all resources are), but its not really for the direct benefit of any other system. Only your pipeline is the user of this value - via the `semver` resource.
+
+Now, if you run the job `job-versioning` over and over it will progressively increase the `rc` attribute.
+
+## Bonus exercise
+
+Create an additional job, called `bump-patch`, in the pipeline that bumps the `resource-version` value's `patch` attribute.
+
+That is, regardless of the `rc` attribute (`0.0.1-rc.1` or `0.0.1-rc.2`), update the version to `0.0.2`.
+
+See the [Version Bumping Semantics](https://github.com/concourse/semver-resource#version-bumping-semantics) readme for inforamtion on how to do this.
+
+Next, create similar jobs called `bump-minor` and `bump-major`.
