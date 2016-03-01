@@ -833,6 +833,11 @@ This tutorial now leaves this README and goes out to the dozens of subfolders. E
 
 Why are there numerical gaps between the section numbers? Because renumbering is hard and so I just left gaps. If we had a cool way to renumber the sections then perhaps wouldn't need the gaps. Sorry :)
 
+* [15 - Deploy application to Cloud Foundry](https://github.com/starkandwayne/concourse-tutorial/tree/master/15_deploy_cloudfoundry_app)
+* [16 - Run tests, then deploy application](https://github.com/starkandwayne/concourse-tutorial/tree/master/16_run_tests_before_deploy)
+* [20 - Versions and build numbers](https://github.com/starkandwayne/concourse-tutorial/tree/master/20_versions_and_buildnumbers)
+
+
 ### Available concourse resources
 
 In addition to the `git` resource and the `time` resource there are many ways to interact with the external world: getting objects/data or putting objects/data.
