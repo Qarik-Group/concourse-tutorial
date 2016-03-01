@@ -112,6 +112,29 @@ The `semver`-resource can be bumped when it is first fetched down. See [examples
 
 Its new value only exists within the job's build plan, being passed between containers via `inputs` into tasks.
 
+![bump](http://cl.ly/2b0o3Y3Y3A2E/download/Image%202016-03-01%20at%201.02.34%20pm.png)
+
+There are [two options](https://github.com/concourse/semver-resource#version-bumping-semantics) for bumping a `semver` value when fetching it:
+
+* `bump`: Optional. Bump the version number semantically. The value must be one of:
+  * `major`: Bump the major version number, e.g. `1.0.0` -> `2.0.0`.
+  * `minor`: Bump the minor version number, e.g. `0.1.0` -> `0.2.0`.
+  * `patch`: Bump the patch version number, e.g. `0.0.1` -> `0.0.2`.
+  * `final`: Promote the version to a final version, e.g. `1.0.0-rc.1` -> `1.0.0`.
+* `pre`: Optional. When bumping, bump to a prerelease (e.g. `rc` or `alpha`), or bump an existing prerelease.
+
+In the pipeline example above we `pre` bumped the `rc` number:
+
+```yaml
+plan:
+- get: resource-version
+  params: {pre: rc}
+```
+
 ## Saving new version
+
+If you re-run the `job-versioning` job you observe that the value of the `version` resource has no actually changed:
+
+![unchanged](http://cl.ly/3E363z3i1c0v/download/Image%202016-03-01%20at%201.06.49%20pm.png)
 
 Finally, if the new `version` of some software or an artifact is sufficient then the job can update the version via `put: resource-version` step.

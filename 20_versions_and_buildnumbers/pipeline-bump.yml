@@ -1,0 +1,28 @@
+---
+resources:
+- name: resource-version
+  type: semver
+  source:
+    driver: git
+    initial_version: 0.0.1
+    uri: {{git-uri-bump-semver}}
+    branch: version
+    file: version
+    private_key: {{github-private-key}}
+
+jobs:
+- name: job-versioning
+  public: true
+  serial: true
+  plan:
+  - get: resource-version
+    params: {pre: rc}
+  - task: display-version
+    config:
+      platform: linux
+      image: docker:///busybox
+      inputs:
+      - name: resource-version
+      run:
+        path: cat
+        args: [resource-version/number]
