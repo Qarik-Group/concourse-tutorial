@@ -25,9 +25,13 @@ A simple way to get started is to use the same `git` repository you might be alr
 To setup this new branch in your repository you could run:
 
 ```
-git checkout -b version
-git rm -rf *
-git commit -m "remove unnecessary files for version branch"
+git checkout --orphan version
+git rm --cached -r .
+rm -rf *
+rm .gitignore .gitmodules
+touch version
+git add .
+git commit -m "new branch"
 git push origin version
 ```
 
