@@ -13,7 +13,9 @@ jobs:
   - task: ls
     config:
       platform: linux
-      image: docker:///ubuntu#14.04
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu, tag: "14.04"}
       inputs:
       - name: bosh-stemcell-aws
       - name: bosh-release-redis
@@ -23,7 +25,9 @@ jobs:
   - task: files-bosh-stemcell-aws
     config:
       platform: linux
-      image: docker:///ubuntu#14.04
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu, tag: "14.04"}
       inputs:
       - name: bosh-stemcell-aws
       run:
@@ -32,7 +36,9 @@ jobs:
   - task: files-bosh-release-redis
     config:
       platform: linux
-      image: docker:///ubuntu#14.04
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu, tag: "14.04"}
       inputs:
       - name: bosh-release-redis
       run:

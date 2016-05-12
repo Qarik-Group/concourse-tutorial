@@ -42,7 +42,7 @@ Also included are files `tag` and `version`.
 The example job also outputs the contents of this file:
 
 ```
-initializing with docker:///ubuntu#14.04
+initializing
 running cat github-release-spiff/version
 1.0.6
 ```

@@ -53,7 +53,9 @@ The task `ls-abc-xyz` declares explicitly that it wants both resources via its `
 - task: ls-abc-xyz
   config:
     platform: linux
-    image: docker:///ubuntu#14.04
+    image_resource:
+      type: docker-image
+      source: {repository: ubuntu, tag: "14.04"}
     inputs:
     - name: gist-abc
     - name: gist-xyz
@@ -69,7 +71,7 @@ We can demonstrate that a task only has access to resource inputs that it specif
 ```
 $ run.sh ls-abc
 ...
-initializing with docker:///ubuntu#14.04
+initializing
 running ls -opR .
 .:
 total 4
@@ -88,7 +90,7 @@ Bonus - pretty print via resource script
 ```
 $ ./run.sh pretty-ls
 ...
-initializing with docker:///ubuntu#14.04
+initializing
 running bash pretty-ls/pretty_ls.sh .
 ./gist-abc
 ./gist-xyz
@@ -100,7 +102,7 @@ running bash pretty-ls/pretty_ls.sh .
 ./gist-xyz/y.md
 ./gist-xyz/z.md
 ./pretty-ls/pretty_ls.sh
-initializing with docker:///ubuntu#14.04
+initializing
 running bash pretty-ls/pretty_ls.sh .
 ./gist-xyz
 ./pretty-ls

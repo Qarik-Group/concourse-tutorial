@@ -6,7 +6,9 @@ jobs:
   - task: hello-world
     config:
       platform: linux
-      image: docker:///busybox
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
       run:
         path: echo
         args: [hello world]
