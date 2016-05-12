@@ -14,14 +14,18 @@ jobs:
   - task: spiff-help
     config:
       platform: linux
-      image: docker:///drnic/spiff
+      image_resource:
+        type: docker-image
+        source: {repository: drnic/spiff}
       run:
         path: spiff
         args: ["-h"]
   - task: spiff-merge
     config:
       platform: linux
-      image: docker:///drnic/spiff
+      image_resource:
+        type: docker-image
+        source: {repository: drnic/spiff}
       inputs:
       - name: redis-release
       - name: stub

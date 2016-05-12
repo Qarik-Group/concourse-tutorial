@@ -10,7 +10,9 @@ jobs:
   - task: bosh-init-cli-build
     config:
       platform: linux
-      image: docker:///concourse/static-golang
+      image_resource:
+        type: docker-image
+        source: {repository: concourse/static-golang}
       inputs:
         - name: bosh-init
           path: gopath/src/github.com/cloudfoundry/bosh-init
@@ -32,7 +34,9 @@ jobs:
   - task: prepare-aws-docker-image
     config:
       platform: linux
-      image: docker:///concourse/static-golang
+      image_resource:
+        type: docker-image
+        source: {repository: concourse/static-golang}
       inputs:
         - name: s3-bosh-init
         - name: cpi
@@ -55,7 +59,9 @@ jobs:
   - task: prepare-openstack-docker-image
     config:
       platform: linux
-      image: docker:///concourse/static-golang
+      image_resource:
+        type: docker-image
+        source: {repository: concourse/static-golang}
       inputs:
         - name: s3-bosh-init
         - name: cpi

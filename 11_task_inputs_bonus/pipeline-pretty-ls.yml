@@ -10,7 +10,9 @@ jobs:
   - task: pretty-ls-abc-xyz
     config:
       platform: linux
-      image: docker:///ubuntu#14.04
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu, tag: "14.04"}
       inputs:
       - name: pretty-ls
       - name: gist-abc
@@ -21,7 +23,9 @@ jobs:
   - task: pretty-ls-xyz
     config:
       platform: linux
-      image: docker:///ubuntu#14.04
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu, tag: "14.04"}
       inputs:
       - name: pretty-ls
       - name: gist-xyz

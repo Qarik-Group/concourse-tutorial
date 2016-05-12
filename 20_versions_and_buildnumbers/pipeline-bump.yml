@@ -20,7 +20,9 @@ jobs:
   - task: display-version
     config:
       platform: linux
-      image: docker:///busybox
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
       inputs:
       - name: resource-version
       run:

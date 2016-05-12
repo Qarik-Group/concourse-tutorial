@@ -112,10 +112,10 @@ The output starts with
 
 ```
 executing build 1
-initializing with docker:///busybox
+initializing
 ```
 
-Every task in Concourse runs within a "container" (as best available on the target platform). The `task_hello_world.yml` configuration shows that we are running on a `linux` platform using a container image defined by `docker:///busybox`.
+Every task in Concourse runs within a "container" (as best available on the target platform). The `task_hello_world.yml` configuration shows that we are running on a `linux` platform using the `busybox` container image.
 
 Within this container it will run the command `echo hello world`:
 
@@ -123,7 +123,9 @@ Within this container it will run the command `echo hello world`:
 ---
 platform: linux
 
-image: docker:///busybox
+image_resource:
+  type: docker-image
+  source: {repository: busybox}
 
 run:
   path: echo
@@ -140,13 +142,15 @@ hello world
 succeeded
 ```
 
-Try changing the `image:` and the `run:` and run a different task:
+Try changing the `image_resource:` and the `run:` and run a different task:
 
 ```yaml
 ---
 platform: linux
 
-image: docker:///ubuntu#14.04
+image_resource:
+  type: docker-image
+  source: {repository: ubuntu, tag: "14.04"}
 
 run:
   path: uname
@@ -163,7 +167,7 @@ The output looks like:
 
 ```
 executing build 2
-initializing with docker:///ubuntu#14.04
+initializing
 running uname -a
 Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 succeeded
@@ -303,7 +307,9 @@ jobs:
     - task: hello-world
       config:
         platform: linux
-        image: docker:///busybox
+        image_resource:
+          type: docker-image
+          source: {repository: busybox}
         run:
           path: echo
           args:
@@ -471,7 +477,7 @@ The output will be similar to:
 
 ```
 using version of resource found in cache
-initializing with docker:///busybox
+initializing
 running echo hello world
 hello world
 succeeded
@@ -595,12 +601,14 @@ Consider a simple application that has unit tests. In order to run those tests i
 * an input `resource` containing the task script that knows how to run the tests
 * an input `resource` containing the application source code
 
-For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the `docker:///golang#1.6-alpine` image from https://hub.docker.com/_/golang/ (see https://imagelayers.io/?images=golang:1.6-alpine for size of layers)
+For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the `golang:1.6-alpine` image from https://hub.docker.com/_/golang/ (see https://imagelayers.io/?images=golang:1.6-alpine for size of layers)
 
 The task file `task_run_tests.yml` includes:
 
 ```yaml
-image: docker:///golang#1.6-alpine
+image_resource:
+  type: docker-image
+  source: {repository: golang, tag: 1.6-alpine}
 
 inputs:
 - name: resource-tutorial
@@ -620,7 +628,7 @@ fly up -t tutorial -p simple-app
 
 View the pipeline UI http://192.168.100.4:8080/pipelines/simple-app and notice that the job automatically starts.
 
-The job will pause on the first run at `web-app-tests` task because it is downloading the `docker:///golang#1.6-alpine` image for the first time.
+The job will pause on the first run at `web-app-tests` task because it is downloading the `golang:1.6-alpine` image for the first time.
 
 The `web-app-tests` output below corresponds to the Go language test output (in case you've not seen it before):
 
@@ -774,7 +782,7 @@ First, it copied the input resource `resource-gist` into the output resource `up
 
 The `updated-gist` output from the `bump-timestamp-file` task becomes the `updated-gist` input to the `resource-gist` resource (see the [`git` resource](https://github.com/concourse/git-resource) for additional configuration) because their names match.
 
-The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `docker:///concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
+The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
 
 ### 13 - Actual pipeline - passing resources between jobs
 
@@ -794,7 +802,9 @@ Update the `publishing-outputs` pipeline with a second job `job-show-date` which
   - task: show-date
     config:
       platform: linux
-      image: docker:///busybox
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
       inputs:
         - name: resource-gist
       run:

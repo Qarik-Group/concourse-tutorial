@@ -14,7 +14,9 @@ jobs:
   - task: spiff-merge
     config:
       platform: linux
-      image: docker:///drnic/spiff
+      image_resource:
+        type: docker-image
+        source: {repository: drnic/spiff}
       inputs:
       - name: redis-release
       - name: stub
@@ -29,7 +31,9 @@ jobs:
   - task: show-manifest
     config:
       platform: linux
-      image: docker:///drnic/spiff
+      image_resource:
+        type: docker-image
+        source: {repository: drnic/spiff}
       inputs:
       - name: spiff-merge
       run:

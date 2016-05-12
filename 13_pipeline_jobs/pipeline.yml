@@ -31,7 +31,9 @@ jobs:
   - task: show-date
     config:
       platform: linux
-      image: docker:///busybox
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
       inputs:
         - name: resource-gist
       run:
