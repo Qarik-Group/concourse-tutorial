@@ -57,6 +57,7 @@ Once the page loads in your browser, click to download the `fly` CLI appropriate
 ![cli](http://cl.ly/image/1r462S1m1j1H/fly_cli.png)
 
 Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
+
 ```
 sudo mkdir -p /usr/local/bin
 sudo mv ~/Downloads/fly /usr/local/bin
