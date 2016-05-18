@@ -7,8 +7,8 @@ resources:
 - name: resource-gist
   type: git
   source:
-    uri:
     branch: master
+    uri:
     private_key:
 
 jobs:
