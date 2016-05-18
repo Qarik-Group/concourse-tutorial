@@ -7,7 +7,4 @@ image_resource:
 
 run:
   path: echo
-  args:
-  - cf
-  - summit
-  - 2016
+  args: [hello world]
