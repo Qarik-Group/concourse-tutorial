@@ -240,6 +240,12 @@ drwxr-xr-x    3 root     root          4096 Feb 27 07:27 ..
 -rw-r--r--    1 501      20              79 Feb 27 07:18 no_inputs.yml
 ```
 
+To pass in a different directory as an input, provide its absolute or relative path:
+
+```
+fly -t tutorial e -c inputs_required.yml -i some-important-input=../01_task_hello_world
+```
+
 The `fly execute -i` option can be removed if the current directory is the same name as the required input.
 
 The task `input_parent_dir.yml` contains an input `02_task_inputs` which is also the current directory. So the following command will work and return the same results as above:
