@@ -707,7 +707,7 @@ Pipeline dashboard http://192.168.100.4:8080/pipelines/publishing-outputs shows 
 
 The `pipeline.yml` does not yet have a git repo nor its write-access private key credentials.
 
-Create a Github Gist with a single file `bumpme`, and press "Create public gist":
+[Create a Github Gist](https://gist.github.com/) with a single file `bumpme`, and press "Create public gist":
 
 ![gist](http://cl.ly/3P1m1m272B2h/download/Image%202016-02-28%20at%206.35.10%20pm.png)
 
