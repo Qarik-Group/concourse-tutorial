@@ -7,8 +7,8 @@ resources:
 - name: resource-gist
   type: git
   source:
-    uri: {{gist-url}}
     branch: master
+    uri: {{gist-url}}
     private_key: {{github-private-key}}
 
 jobs:
