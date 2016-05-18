@@ -505,13 +505,12 @@ The output will look like:
 
 ### 07 - Trigger jobs with the Concourse API
 
-There are three ways for a job to be triggered:
+There are four ways for a job to be triggered:
 
 * Clicking the `+` button on the web UI of a job (as we did in previous sections)
 * Input resource triggering a job (see section 8 below)
+* `fly trigger-job` command
 * Sending `POST` HTTP request to Concourse API
-
-NOTE: As at writing there is not a `fly` command to trigger a job to run.
 
 Currently our Concourse in Vagrant has an API running at `http://192.168.100.4:8080`. If you do not remember the API endpoint it might be stored in the `~/.flyrc` file.
 
