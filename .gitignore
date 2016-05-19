@@ -2,3 +2,4 @@
 .vagrant
 stub.yml
 credentials.yml
+tmp
