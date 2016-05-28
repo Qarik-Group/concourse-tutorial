@@ -11,4 +11,5 @@ cat > pivnet-message/message << EOF
 *${release_type}* ${version}
 ${description}
 https://network.pivotal.io/products/${slug}
+$(cat pivnet-stemcells/metadata.json | jq .)
 EOF

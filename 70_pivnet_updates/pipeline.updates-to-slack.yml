@@ -30,13 +30,13 @@ jobs:
 - name: stemcells
   public: true
   plan:
+  - get: tutorial-scripts
   - get: pivnet-stemcells
     trigger: true
   - task: create-notification-message
     file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml
-    config:
-      params:
-        slug: stemcells
+    params:
+      slug: stemcells
   - put: pivnet-slack
     params:
       channel: '#drnic-bot-test'
