@@ -53,6 +53,7 @@ jobs:
       username: pivnet
       icon_url: https://d213dhlpdb53mu.cloudfront.net/assets/default_product_logo@2x-6b09670ce75d6df582d73aab7dad2cad.png
       text_file: pivnet-message/message
+      silent: true
 
 - name: elastic-runtime
   public: true
@@ -70,6 +71,7 @@ jobs:
       username: pivnet
       icon_url: https://d213dhlpdb53mu.cloudfront.net/assets/default_product_logo@2x-6b09670ce75d6df582d73aab7dad2cad.png
       text_file: pivnet-message/message
+      silent: true
 
 - name: ops-manager
   public: true
@@ -87,3 +89,4 @@ jobs:
       username: pivnet
       icon_url: https://d213dhlpdb53mu.cloudfront.net/assets/default_product_logo@2x-6b09670ce75d6df582d73aab7dad2cad.png
       text_file: pivnet-message/message
+      silent: true
