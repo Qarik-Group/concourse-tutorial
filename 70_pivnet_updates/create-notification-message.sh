@@ -8,7 +8,7 @@ echo $release_type
 echo $description
 
 cat > pivnet-message/message << EOF
-*${release_type}* ${version}
+*${slug}* - ${release_type} ${version}
 ${description}
 https://network.pivotal.io/products/${slug}
 EOF
