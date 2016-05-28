@@ -17,6 +17,11 @@ resources:
   source:
     api_token: {{pivnet-api-token}}
     product_slug: stemcells
+- name: pivnet-elastic-runtime
+  type: pivnet
+  source:
+    api_token: {{pivnet-api-token}}
+    product_slug: elastic-runtime
 - name: pivnet-slack
   type: slack-notification
   source:
@@ -37,6 +42,23 @@ jobs:
     file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml
     params:
       slug: stemcells
+  - put: pivnet-slack
+    params:
+      channel: '#drnic-bot-test'
+      username: pivnet
+      icon_url: https://d213dhlpdb53mu.cloudfront.net/assets/default_product_logo@2x-6b09670ce75d6df582d73aab7dad2cad.png
+      text_file: pivnet-message/message
+
+- name: elastic-runtime
+  public: true
+  plan:
+  - get: tutorial-scripts
+  - get: pivnet-elastic-runtime
+    trigger: true
+  - task: create-notification-message
+    file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml
+    params:
+      slug: elastic-runtime
   - put: pivnet-slack
     params:
       channel: '#drnic-bot-test'
