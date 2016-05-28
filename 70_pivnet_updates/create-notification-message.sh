@@ -1,8 +1,8 @@
 #!/bin/bash
 
-version=$(cat pivnet-stemcells/metadata.json | jq -r ".Release.Version")
-release_type=$(cat pivnet-stemcells/metadata.json | jq -r ".Release.ReleaseType")
-description=$(cat pivnet-stemcells/metadata.json | jq -r ".Release.Description")
+version=$(cat pivnet-release/metadata.json | jq -r ".Release.Version")
+release_type=$(cat pivnet-release/metadata.json | jq -r ".Release.ReleaseType")
+description=$(cat pivnet-release/metadata.json | jq -r ".Release.Description")
 
 echo $release_type
 echo $description
