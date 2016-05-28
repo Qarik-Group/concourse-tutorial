@@ -36,7 +36,8 @@ jobs:
   public: true
   plan:
   - get: tutorial-scripts
-  - get: pivnet-stemcells
+  - get: pivnet-release
+    release: pivnet-stemcells
     trigger: true
   - task: create-notification-message
     file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml
@@ -53,7 +54,8 @@ jobs:
   public: true
   plan:
   - get: tutorial-scripts
-  - get: pivnet-elastic-runtime
+  - get: pivnet-release
+    release: pivnet-elastic-runtime
     trigger: true
   - task: create-notification-message
     file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml

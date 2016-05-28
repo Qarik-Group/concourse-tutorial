@@ -3,7 +3,7 @@ image_resource:
   type: docker-image
   source: {repository: cfcommunity/script-resource}
 inputs:
-- name: pivnet-stemcells
+- name: pivnet-release
 - name: tutorial-scripts
 params:
   slug:
