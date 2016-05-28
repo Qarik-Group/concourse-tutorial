@@ -1,0 +1,45 @@
+---
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
+
+resources:
+- name: pivnet-stemcells
+  type: pivnet
+  source:
+    api_token: {{pivnet-api-token}}
+    product_slug: stemcells
+- name: pivnet-slack
+  type: slack-notification
+  source:
+    url: {{pivnet-slack-incoming}}
+- name: tutorial-scripts
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+
+jobs:
+- name: stemcells
+  public: true
+  plan:
+  - get: pivnet-stemcells
+    trigger: true
+  - task: create-notification-message
+    file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml
+    config:
+      params:
+        slug: stemcells
+  - put: pivnet-slack
+    params:
+      channel: '#drnic-bot-test'
+      username: pivnet
+      icon_url: https://d213dhlpdb53mu.cloudfront.net/assets/default_product_logo@2x-6b09670ce75d6df582d73aab7dad2cad.png
+      text_file: pivnet-message/message
