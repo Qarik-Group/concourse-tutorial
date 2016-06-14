@@ -62,16 +62,18 @@ jobs:
   - get: pivnet-release
     resource: pivnet-elastic-runtime
     trigger: true
-  - task: create-notification-message
-    file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml
-    params:
-      slug: elastic-runtime
-  - put: pivnet-slack
-    params:
-      username: pivnet
-      icon_url: https://d213dhlpdb53mu.cloudfront.net/assets/default_product_logo@2x-6b09670ce75d6df582d73aab7dad2cad.png
-      text_file: pivnet-message/message
-      silent: true
+  - task: unpack-tile
+    file: tutorial-scripts/70_pivnet_updates/unpack-tile.yml
+  # - task: create-notification-message
+  #   file: tutorial-scripts/70_pivnet_updates/create-notification-message.yml
+  #   params:
+  #     slug: elastic-runtime
+  # - put: pivnet-slack
+  #   params:
+  #     username: pivnet
+  #     icon_url: https://d213dhlpdb53mu.cloudfront.net/assets/default_product_logo@2x-6b09670ce75d6df582d73aab7dad2cad.png
+  #     text_file: pivnet-message/message
+  #     silent: true
 
 - name: ops-manager
   public: true
