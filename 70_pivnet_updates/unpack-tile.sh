@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ls -laRt tile/*
+ls -laRt pivnet-release/*

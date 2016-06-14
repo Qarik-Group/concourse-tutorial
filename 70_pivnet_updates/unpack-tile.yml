@@ -3,7 +3,7 @@ image_resource:
   type: docker-image
   source: {repository: cfcommunity/script-resource}
 inputs:
-- name: tile
+- name: pivnet-release
 - name: tutorial-scripts
 outputs:
 - name: tile-contents
