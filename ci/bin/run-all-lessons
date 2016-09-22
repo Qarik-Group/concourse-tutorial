@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -eu
+
+source ci/lib/pretty-output.sh
+source ci/lib/shared-functions.sh
+
+export fly_target=${fly_target:-tutorial}
+
+announce-started
+ensure-rvm
+ensure-fly
+ensure-bosh-cli
+bosh-login
+check-concourse
+ensure-credentials-yml
+
+announce-task "Running all lessons"
+for f in */run.sh
+do
+  run-cmd pushd `dirname $f`
+  run-cmd ./run.sh
+  run-cmd popd
+done
+
+announce-success

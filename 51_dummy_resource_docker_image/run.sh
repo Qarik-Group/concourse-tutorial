@@ -14,15 +14,20 @@ realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 
-if [[ -z ${stub} ]]; then
+usage() {
   echo "USAGE: run.sh path/to/credentials.yml"
   exit 1
+}
+
+
+if [ -z "${stub}" ]; then
+  stub="../credentials.yml"
 fi
 stub=$(realpath $stub)
-if [[ ! -f ${stub} ]]; then
-  echo "USAGE: run.sh path/to/credentials.yml"
-  exit 1
+if [ ! -f ${stub} ]; then
+  usage
 fi
+
 
 pushd $DIR
   fly sp -t ${fly_target} configure -c pipeline.yml -p main --load-vars-from ${stub} -n

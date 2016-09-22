@@ -35,7 +35,7 @@ resources:
 - name: resource-redis-bosh-deployment
   type: bosh-deployment
   source:
-    target: {{bosh-target}}
+    target: {{bosh-director}}
     username: {{bosh-username}}
     password: {{bosh-password}}
     deployment: redis # from the manifest.yml in resource-manifest

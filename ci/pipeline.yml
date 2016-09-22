@@ -1,31 +1,116 @@
 ---
-groups:
-- name: image
-  jobs:
-  - build-task-image
-
 jobs:
 - name: build-task-image
   serial: true
   plan:
   - get: repo-image
     trigger: true
-  - put: ciimage
+  - put: ci-image
     params:
       build: repo-image/ci/ci_image
+
+- name: deploy-concourse
+  serial: true
+  plan:
+  - aggregate:
+    - get: repo
+      trigger: true
+    - get: ci-image
+      passed: [build-task-image]
+      trigger: true
+  - task: deploy-concourse
+    image: ci-image
+    config:
+      platform: linux
+      inputs:
+        - { name: repo }
+      run:
+        dir: repo
+        path: ci/bin/deploy-concourse
+    params:
+      bosh_director: {{ci-bosh-director}}
+      bosh_username: {{ci-bosh-username}}
+      bosh_password: {{ci-bosh-password}}
+
+- name: run-all-lessons
+  plan:
+  - aggregate:
+    - get: repo
+      passed: [deploy-concourse]
+      trigger: true
+    - get: ci-image
+      passed: [deploy-concourse]
+      trigger: false
+  - task: create-credentials-yml
+    image: ci-image
+    config:
+      platform: linux
+      inputs:
+        - { name: repo }
+      outputs:
+        - { name: credentials }
+      run:
+        dir: repo
+        path: ci/bin/create-credentials-yml
+    params:
+      bosh_director: {{ci-bosh-director}}
+      bosh_username: {{ci-bosh-username}}
+      bosh_password: {{ci-bosh-password}}
+      gist_url: {{gist-url}}
+      github_private_key: {{github-private-key}}
+      docker_hub_username: {{docker-hub-username}}
+      docker_hub_password: {{docker-hub-password}}
+      docker_hub_email: {{docker-hub-email}}
+      docker_hub_image_hello_world: {{docker-hub-image-hello-world}}
+      cf_api: {{cf-api}}
+      cf_username: {{cf-username}}
+      cf_password: {{cf-password}}
+      cf_organization: {{cf-organization}}
+      cf_space: {{cf-space}}
+      git_uri_bump_semver: {{git-uri-bump-semver}}
+      bosh_director: {{bosh-director}}
+      bosh_username: {{bosh-username}}
+      bosh_password: {{bosh-password}}
+      bosh_stemcell_name: {{bosh-stemcell-name}}
+      docker_hub_image_47_tasks: {{docker-hub-image-47-tasks}}
+      docker_hub_image_47_tasks_repository: {{docker-hub-image-47-tasks-repository}}
+      section_47_git_redis_manifest: {{section-47-git-redis-manifest}}
+      section_47_git_redis_name: {{section-47-git-redis-name}}
+      docker_hub_image_dummy_resource: {{docker-hub-image-dummy-resource}}
+      pivnet_api_token: {{pivnet-api-token}}
+      aws_access_key_id: {{aws-access-key-id}}
+      aws_secret_access_key: {{aws-secret-access-key}}
+      aws_region_name: {{aws-region-name}}
+      aws_bosh_init_bucket: {{aws-bosh-init-bucket}}
+  - task: run-all-lessons
+    image: ci-image
+    config:
+      platform: linux
+      inputs:
+        - { name: repo }
+        - { name: credentials }
+      run:
+        dir: repo
+        path: ci/bin/run-all-lessons
+    params:
+      bosh_director: {{ci-bosh-director}}
+      bosh_username: {{ci-bosh-username}}
+      bosh_password: {{ci-bosh-password}}
 
 resources:
 - name: repo
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: set-up-ci
+    ignore_paths: [ci/ci_image/*]
 - name: repo-image
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
     branch: set-up-ci
     paths: [ci/ci_image/*]
-- name: ciimage
+- name: ci-image
   type: docker-image
   source:
     email: {{docker-hub-email}}

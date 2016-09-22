@@ -1,7 +1,6 @@
 #!/bin/bash
 
-
-# set -ex
+set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 export ATC_URL=${ATC_URL:-"http://192.168.100.4:8080"}
@@ -19,16 +18,16 @@ usage() {
   exit 1
 }
 
-stage=$1; shift
+stage=$1
 if [ -z "${stage}" ]; then
   ./run.sh show
-  # ./run.sh save
+  ./run.sh save
   exit 0
 elif [[ "${stage}" != "show" && "${stage}" != "save" ]]; then
   usage
 fi
 
-echo bar
+echo "Stage: ${stage}"
 
 pushd $DIR
   fly sp -t ${fly_target} configure -c pipeline-base-${stage}.yml -p main -n

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -eu
+
+source ci/lib/pretty-output.sh
+source ci/lib/shared-functions.sh
+
+announce-started
+ensure-rvm
+ensure-fly
+bosh-login
+deploy-concourse
+check-concourse
+
+announce-success

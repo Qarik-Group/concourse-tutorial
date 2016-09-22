@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ -e "./credentials.yml" ]; then
-  stub="./credentials.yml"
+if [ -e "../credentials.yml" ]; then
+  stub="../credentials.yml"
 else
   stub=$1; shift
 fi

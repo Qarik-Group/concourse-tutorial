@@ -20,7 +20,7 @@ The `credentials.yml` now needs the target and credentials for a BOSH:
 
 ```yaml
 ---
-bosh-target: https://54.2.3.4:25555
+bosh-director: https://54.2.3.4:25555
 bosh-username: admin
 bosh-password: admin
 bosh-stemcell-name: bosh-warden-boshlite-ubuntu-trusty-go_agent
@@ -53,7 +53,7 @@ For a normal BOSH with built-in SSL, you will need to set `source.ignore_ssl` to
 - name: resource-redis-bosh-deployment
   type: bosh-deployment
   source:
-    target: bosh-target
+    target: bosh-director
     username: bosh-username
     password: bosh-password
     deployment: redis
