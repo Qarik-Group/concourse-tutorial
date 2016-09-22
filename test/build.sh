@@ -7,7 +7,10 @@ set -e
 for file in *
 do
   if [ -x ${file}/run.sh ]; then
-    ${file}/run.sh
+    echo "--- ${file} ---"
+    pushd ${file}
+    ./run.sh
+    popd
   fi
 done
 

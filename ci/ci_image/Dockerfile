@@ -1,6 +1,6 @@
 FROM ubuntu:15.10
 
-RUN apt-get update && apt-get install git zip unzip curl wget vagrant file zlib1g libxml2 -y && \
+RUN apt-get update && apt-get install git zip unzip curl wget vagrant file zlib1g-dev libxml2 -y && \
     apt-get clean
 
 # RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \
