@@ -18,15 +18,11 @@ resources:
 - name: repo
   type: git
   source:
-    uri: git@github.com:starkandwayne/concourse-tutorial.git
-    branch: {{tile-branch}}
-    private_key: {{github-key}}
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
 - name: repo-image
   type: git
   source:
-    uri: git@github.com:starkandwayne/concourse-tutorial.git
-    branch: {{tile-branch}}
-    private_key: {{github-key}}
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
     paths: [ci/ci_image/*]
 - name: ciimage
   type: docker-image
