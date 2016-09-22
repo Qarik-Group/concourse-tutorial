@@ -3,9 +3,17 @@
 set -e
 # set -x
 
-./01_*/run.sh
-./02_*/run.sh
-./03_*/run.sh
+
+for file in *
+do
+  if [ -x ${file}/run.sh ]; then
+    ${file}/run.sh
+  fi
+done
+
+# ./01_*/run.sh
+# ./02_*/run.sh
+# ./03_*/run.sh
 # ./06_*/run.sh
 # ./07_*/run.sh simple
 # ./07_*/run.sh renamed
