@@ -14,8 +14,8 @@ realpath() {
 }
 
 pushd $DIR
-  yes y | fly sp -t ${fly_target} configure -c pipeline.yml -p main
-  fly unpause-pipeline --pipeline main
+  fly sp -t ${fly_target} configure -c pipeline.yml -p main -n
+  fly -t ${fly_target} unpause-pipeline --pipeline main
   curl $ATC_URL/pipelines/main/jobs/job-github-release/builds -X POST
   fly -t ${fly_target} watch -j main/job-github-release
 popd
