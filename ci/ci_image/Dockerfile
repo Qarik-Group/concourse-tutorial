@@ -1,5 +1,4 @@
-FROM concourse/bosh-cli
-# https://github.com/concourse/concourse/blob/master/ci/dockerfiles/bosh-cli/Dockerfile
+FROM ubuntu:15.10
 
 RUN apt-get update && apt-get install zip unzip curl wget vagrant file -y && \
     apt-get clean
