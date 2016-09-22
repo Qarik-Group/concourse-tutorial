@@ -23,6 +23,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: set-up-ci
     paths: [ci/ci_image/*]
 - name: ciimage
   type: docker-image
