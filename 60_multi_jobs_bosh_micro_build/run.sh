@@ -36,8 +36,8 @@ fi
 
 
 pushd $DIR
-  yes y | fly sp -t ${fly_target} configure -c pipeline-${stage}.yml -p main --load-vars-from ${stub}
-  fly unpause-pipeline --pipeline main
+  fly sp -t ${fly_target} configure -c pipeline-${stage}.yml -p main --load-vars-from ${stub} -n
+  fly -t ${fly_target} unpause-pipeline --pipeline main
   if [[ "${stage}" == "build-cli" || "${stage}" == "build-save" ]]; then
     curl $ATC_URL/pipelines/main/jobs/job-build-bosh-init-cli/builds -X POST
     fly -t ${fly_target} watch -j main/job-build-bosh-init-cli

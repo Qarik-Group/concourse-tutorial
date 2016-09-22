@@ -12,8 +12,8 @@ realpath() {
 }
 
 pushd $DIR
-  yes y | fly sp -t ${fly_target} configure -c pipeline.yml -p job-dummy
-  fly unpause-pipeline --pipeline job-dummy
+  fly sp -t ${fly_target} configure -c pipeline.yml -p job-dummy -n
+  fly -t ${fly_target} unpause-pipeline --pipeline job-dummy
   curl ${ATC_URL}/pipelines/job-dummy/jobs/job-dummy/builds -X POST
   fly -t ${fly_target} watch -j job-dummy/job-dummy
 popd
