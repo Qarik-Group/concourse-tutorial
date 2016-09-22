@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install git zip unzip curl wget vagrant file -y &&
 # RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 # RUN /bin/bash -l -c "rvm use 2.2 --default"
 
+RUN ruby --version
+RUN gem install nokogiri -v '1.6.8'
 RUN vagrant plugin install vagrant-aws
 
 ADD https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 /usr/bin/jq
