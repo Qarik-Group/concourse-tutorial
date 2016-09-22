@@ -3,87 +3,9 @@
 
 This section includes a pipeline using a new resource called `dummy`.
 
-Failing to find new resource
-----------------------------
-
 ```
-./50_*/run.sh
-```
-
-Will include an error that looks like:
-
-```
-no workers satisfying: resource type 'dummy'
-
-available workers:
-  - platform 'linux'
-errored
-```
-
-Your concourse does not yet have a resource registered called `dummy`.
-
-Create dummy resource
----------------------
-
-```
-vagrant ssh
-```
-
-Change to root user:
-
-```
-sudo su -
-```
-
-In `/var/vcap/packages` create `dummy` and copy another resource package (a rootfs) into it and create a `opt/resources/out`
-
-```
-cd /var/vcap/packages
-mkdir dummy
-cp -r time_resource/* dummy/
-cd dummy/opt/resource
-rm *
-```
-
-Now create the `in`, `out`, and `check` files. For now, put the following in all the files:
-
-```bash
-#!/bin/sh
-
-echo '{"version": {"ref": "123"}}'
-```
-
-And make them executable:
-
-```
-chmod +x *
-```
-
-Add new resource type into worker
----------------------------------
-
-```
-vi /var/vcap/jobs/groundcrew/config/worker.json
-```
-
-The top-level of this JSON are the keys: `platform`, `tags`, `addr`, and `resource_types`. We want to add our new resource type to the latter's list.
-
-Add to the tail:
-
-```
-,{"image":"/var/vcap/packages/dummy","type":"dummy"}]}
-```
-
-Exit and restart the `beacon` monit process (see `/var/vcap/jobs/groundcrew/monit` for definition):
-
-```
-monit restart beacon
-```
-
-From the host machine, the new resource type will now be registered with Concourse ATC's API:
-
-```
-curl http://192.168.100.4:8080/api/v1/workers
+cd ../52_dummy_resource
+./run.sh
 ```
 
 Run a job that uses resource type
@@ -106,7 +28,8 @@ resources:
 Deploy the pipeline:
 
 ```
-fly -t tutorial configure -c pipeline.yml job-dummy --paused=false
+cd ../52_dummy_resource
+./run.sh
 ```
 
 *What to do if your pipeline deploys in the paused state*

@@ -14,8 +14,8 @@ resources:
 - name: resource-tutorial-section-47
   type: git
   source:
-    uri: https://github.com/drnic/concourse-tutorial.git
-    branch: 47_spiff_merge_redis_to_bosh_lite
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: update-for-2.2.1
 
 - name: task-docker-image
   type: docker-image

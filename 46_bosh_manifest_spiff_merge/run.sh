@@ -1,8 +1,7 @@
 #!/bin/bash
 
-stage=$1; shift
 
-set -e
+# set -ex
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 export ATC_URL=${ATC_URL:-"http://192.168.100.4:8080"}
@@ -20,13 +19,20 @@ usage() {
   exit 1
 }
 
-if [[ "${stage}" != "show" && "${stage}" != "save" ]]; then
+stage=$1; shift
+if [ -z "${stage}" ]; then
+  ./run.sh show
+  # ./run.sh save
+  exit 0
+elif [[ "${stage}" != "show" && "${stage}" != "save" ]]; then
   usage
 fi
 
+echo bar
+
 pushd $DIR
-  yes y | fly sp -t ${fly_target} configure -c pipeline-base-${stage}.yml -p main
-  fly unpause-pipeline --pipeline main
-  curl $ATC_URL/pipelines/main/jobs/job-spiff-merge/builds -X POST
+  fly sp -t ${fly_target} configure -c pipeline-base-${stage}.yml -p main -n
+  fly -t ${fly_target} unpause-pipeline --pipeline main
+  fly -t ${fly_target} trigger-job -j main/job-spiff-merge
   fly -t ${fly_target} watch -j main/job-spiff-merge
 popd
