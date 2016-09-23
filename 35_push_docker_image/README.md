@@ -62,7 +62,7 @@ This means the `docker` subfolder in this tutorial section will be available at 
 Running the pipeline
 --------------------
 
-Your `stub.yml` now needs your Docker Hub account credentials (see `stub.example.yml`\):
+Your `credentials.yml` now needs your Docker Hub account credentials (see `credentials.example.yml`\):
 
 ```yaml
 meta:
@@ -72,10 +72,12 @@ meta:
     password: PASSWORD
 ```
 
-The `run.sh` will create the pipeline.yml and upload it to Concourse:
+The `run.sh` will create the pipeline.yml and upload it to Concourse,
+and trigger the job:
 
 ```
-./41_*/run.sh stub.yml
+cd ../35_push_docker_image
+./run.sh ../credentials.yml
 ```
 
 This will create a docker image `<username>/hello-world` on Docker Hub.

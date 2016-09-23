@@ -46,3 +46,12 @@ initializing
 running cat github-release-spiff/version
 1.0.6
 ```
+
+The `run.sh` will create the pipeline.yml and upload it to Concourse,
+and trigger the job:
+
+```
+cd ../40_github_release_input
+./run.sh
+
+```

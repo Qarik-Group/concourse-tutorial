@@ -511,7 +511,7 @@ The output will look like:
 
 ### 07 - Trigger jobs with `fly`
 
-There are four ways for a job to be triggered:
+There are three ways for a job to be triggered:
 
 * Clicking the `+` button on the web UI of a job (as we did in previous sections)
 * Input resource triggering a job (see section 8 below)
@@ -817,6 +817,7 @@ Update the `publishing-outputs` pipeline with a second job `job-show-date` which
 Update the pipeline:
 
 ```
+cd ../13_pipeline_jobs
 fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
 ```
 
