@@ -94,3 +94,9 @@ Example
 -------
 
 The `pipeline.yml` for this tutorial section demonstrates both fetching stemcells and releases and shows the example output above.
+
+
+```
+cd ../44_bosh_io
+./run.sh
+```

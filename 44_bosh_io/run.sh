@@ -16,6 +16,6 @@ realpath() {
 pushd $DIR
   fly sp -t ${fly_target} configure -c pipeline.yml -p main -n
   fly -t ${fly_target} unpause-pipeline --pipeline main
-  curl $ATC_URL/pipelines/main/jobs/job-bosh-stemcell-release/builds -X POST
+  fly -t ${fly_target} trigger-job -j main/job-bosh-stemcell-release
   fly -t ${fly_target} watch -j main/job-bosh-stemcell-release
 popd

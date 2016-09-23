@@ -7,7 +7,8 @@ Failing to find new resource
 ----------------------------
 
 ```
-./50_*/run.sh
+cd ../50_dummy_resource
+./run.sh
 ```
 
 Will include an error that looks like:
@@ -38,9 +39,10 @@ sudo su -
 In `/var/vcap/packages` create `dummy` and copy another resource package (a rootfs) into it and create a `opt/resources/out`
 
 ```
+/tmp/concourse/2.2.1/linux/resources
 cd /var/vcap/packages
 mkdir dummy
-cp -r time_resource/* dummy/
+cp -r time/* dummy/
 cd dummy/opt/resource
 rm *
 ```
