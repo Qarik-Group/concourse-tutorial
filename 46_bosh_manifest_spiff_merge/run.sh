@@ -34,6 +34,6 @@ echo bar
 pushd $DIR
   fly sp -t ${fly_target} configure -c pipeline-base-${stage}.yml -p main -n
   fly -t ${fly_target} unpause-pipeline --pipeline main
-  curl $ATC_URL/pipelines/main/jobs/job-spiff-merge/builds -X POST
+  fly -t ${fly_target} trigger-job -j main/job-spiff-merge
   fly -t ${fly_target} watch -j main/job-spiff-merge
 popd

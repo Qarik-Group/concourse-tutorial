@@ -26,10 +26,18 @@ bosh-password: admin
 bosh-stemcell-name: bosh-warden-boshlite-ubuntu-trusty-go_agent
 ```
 
+You will need to update the manifest with the UUID of your bosh.
+
+- Fork the manifest gist at https://gist.github.com/drnic/3ff87c465d483543c53d
+- Determine the UUID of your bosh with `bosh status --uuid`
+- Update line 2 of the manifest with your UUID
+- Update resource-manifest `pipeline.yml` with the URL of your forked gist
+
 Push the pipeline to Concourse with:
 
 ```
-./45_*/run.sh credentials.yml
+cd ../45_bosh_deploy
+./run.sh ../credentials.yml
 ```
 
 Since `bosh deploy` is a no-op if the manifest doesn't change, re-running the pipeline job succeeds:

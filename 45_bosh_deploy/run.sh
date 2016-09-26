@@ -1,11 +1,8 @@
 #!/bin/bash
 
 
-echo -e "\nSkipping BOSH tests until we have a bosh to run against.\n"
-exit
-
-if [ -e "./credentials.yml" ]; then
-  stub="./credentials.yml"
+if [ -e "../credentials.yml" ]; then
+  stub="../credentials.yml"
 else
   stub=$1; shift
 fi
@@ -35,6 +32,6 @@ fi
 pushd $DIR
   fly sp -t ${fly_target} configure -c pipeline.yml -p main --load-vars-from ${stub} -n
   fly -t ${fly_target} unpause-pipeline --pipeline main
-  curl $ATC_URL/pipelines/main/jobs/job-deploy/builds -X POST
+  fly -t ${fly_target} trigger-job -j main/job-deploy
   fly -t ${fly_target} watch -j main/job-deploy
 popd
