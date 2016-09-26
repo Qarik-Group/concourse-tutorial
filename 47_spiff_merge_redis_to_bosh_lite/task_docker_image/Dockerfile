@@ -1,5 +1,8 @@
 FROM ubuntu:15.10
-# https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
+
+
+RUN apt-get install curl -y && \
+    apt-get clean
 RUN curl -L -O 'https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64.zip' \
  && unzip spiff_linux_amd64.zip \
  && mv spiff /usr/local/bin/spiff \
