@@ -1,3 +1,5 @@
+section-47-git-redis-manifest: git@gist.github.com:/395869dfd717644becf1.git
+section-47-git-redis-name: redis-warden
 ---
 jobs:
 - name: job-deploy

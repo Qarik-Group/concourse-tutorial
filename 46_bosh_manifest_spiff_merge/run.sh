@@ -1,8 +1,7 @@
 #!/bin/bash
 
 
-
-set -ex
+# set -ex
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 export ATC_URL=${ATC_URL:-"http://192.168.100.4:8080"}
