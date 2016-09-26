@@ -1,9 +1,10 @@
 FROM ubuntu:15.10
 
 
-RUN apt-get install curl -y && \
+RUN apt-get update && \
+    apt-get install wget -y && \
     apt-get clean
-RUN curl -L -O 'https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64.zip' \
+RUN wget 'https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64.zip' \
  && unzip spiff_linux_amd64.zip \
  && mv spiff /usr/local/bin/spiff \
  && chmod u+x /usr/local/bin/spiff \
