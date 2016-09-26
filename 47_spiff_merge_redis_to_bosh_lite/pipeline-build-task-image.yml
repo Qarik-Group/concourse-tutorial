@@ -15,7 +15,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: master
+    branch: update-for-2.2.1
 
 - name: task-docker-image
   type: docker-image

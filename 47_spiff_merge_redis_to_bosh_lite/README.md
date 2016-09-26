@@ -29,7 +29,9 @@ bosh-stemcell-name: bosh-warden-boshlite-ubuntu-trusty-go_agent
 Push the pipeline to Concourse with:
 
 ```
-./45_*/run.sh credentials.yml
+cd ../47_spiff_merge_redis_to_bosh_lite
+./run.sh ../credentials.yml build-task-image
+./run.sh ../credentials.yml bosh-deplou
 ```
 
 Since `bosh deploy` is a no-op if the manifest doesn't change, re-running the pipeline job succeeds:

@@ -13,5 +13,5 @@ Successful job:
 
 ```
 cd ../46_bosh_manifest_spiff_merge
-./run show
-./run save
+./run.sh show
+./run.sh save
