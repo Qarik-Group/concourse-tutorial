@@ -25,8 +25,8 @@ if [[ ! -f ${stub} ]]; then
 fi
 
 pushd $DIR
-  yes y | fly sp -t ${fly_target} configure -c pipeline.yml -p main --load-vars-from ${stub}
-  fly unpause-pipeline --pipeline main
-  curl $ATC_URL/pipelines/main/jobs/job-publish/builds -X POST
+  fly sp -t ${fly_target} configure -c pipeline.yml -p main --load-vars-from ${stub} -n
+  fly -t ${fly_target}  unpause-pipeline --pipeline main
+  fly -t ${fly_target} trigger-job -j main/job-publish
   fly -t ${fly_target} watch -j main/job-publish
 popd

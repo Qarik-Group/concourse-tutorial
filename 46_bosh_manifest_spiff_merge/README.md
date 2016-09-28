@@ -10,3 +10,8 @@ Pipeline example:
 Successful job:
 
 ![successful-job](http://cl.ly/image/41230L1m2K3j/job-spiff-merge__1_-_Concourse.png)
+
+```
+cd ../46_bosh_manifest_spiff_merge
+./run.sh show
+./run.sh save

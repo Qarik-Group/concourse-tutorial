@@ -1,4 +1,4 @@
 #!/bin/sh
 
-echo '{"version": {"ref": 123}}'
+echo '{"version": {"ref": "123"}}'
 

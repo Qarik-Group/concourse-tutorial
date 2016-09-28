@@ -19,7 +19,7 @@ resources:
 - name: resource-manifest
   type: git
   source:
-    uri: https://gist.github.com/395869dfd717644becf1.git # bosh-lite example
+    uri: https://gist.github.com/mkb/30c002a6ed185ed1bb100edbfa8b8ac9
     # uri: https://gist.github.com/3ff87c465d483543c53d.git # AWS example
 
 - name: resource-bosh-stemcell
@@ -38,5 +38,5 @@ resources:
     target: {{bosh-target}}
     username: {{bosh-username}}
     password: {{bosh-password}}
-    deployment: redis-warden # from the manifest.yml in resource-manifest
+    deployment: redis # from the manifest.yml in resource-manifest
     ignore_ssl: true

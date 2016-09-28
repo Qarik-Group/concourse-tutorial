@@ -48,3 +48,10 @@ jobs:
   plan:
   - {get: pivnet-stemcells, trigger: true}
 ```
+
+**NOTE:** These downloads can take quite a while.
+
+```
+cd ../70_pivnet_updates
+./run.sh ../credentials.yml
+```

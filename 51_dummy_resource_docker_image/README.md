@@ -1,12 +1,6 @@
 51 - Dummy resource via Docker image
 ====================================
 
-In section 50, we hacked in the core idea of a resource type into the worker VM (which is the shared Vagrant VM):
-
-1.	manually created a `dummy` rootfs with a simple/dummy `opt/resource/{check,in,out}` scripts that satisfy Concourse's API
-2.	edited `/var/vcap/jobs/groundcrew/config/worker.json` and ran `monit restart beacon`
-3.	ran a pipeline that did a `put` to our `dummy` resource type
-
 Create docker image
 -------------------
 
@@ -16,9 +10,9 @@ As documented in http://concourse.ci/implementing-resources.html: a resource typ
 -	`/opt/resource/in` for pulling a version of the resource down
 -	`/opt/resource/out` for idempotently pushing a version up
 
-In section 50 we created simple `/opt/resource/{check, in, out}` scripts and put them into a container image at `/var/vcap/package/dummy` on the Vagrant VM.
+For this exercise we have simple `/opt/resource/{check, in, out}` scripts which we can put into a container image at `/opt/resource` on the Vagrant VM.
 
-In this section we will create a normal Docker image, host it on Docker Hub, and use it in our worker.
+We will create a normal Docker image, host it on Docker Hub, and use it in our worker.
 
 Define a docker image
 ---------------------
@@ -84,53 +78,10 @@ docker-hub-image-dummy-resource: USERNAME/51_dummy_resource_docker_image
 The `run.sh` script will create the pipeline.yml and upload it to Concourse:
 
 ```
-./51_*/run.sh credentials.yml
+cd ../51_dummy_resource_docker_image
+./run.sh ../credentials.yml
 ```
 
 You can also trigger the pipeline in the UI using the (+) icon.
 
-This will create a docker image `USERNAME/resource-51-docker-image` on Docker Hub.
-
-Worker references remote docker image
--------------------------------------
-
-On the Vagrant VM (or Worker VM) change `/var/vcap/jobs/groundcrew/config/worker.json`.
-
-Where we had added the following `resource_type` in section 50:
-
-```
-{"image":"/var/vcap/packages/dummy","type":"dummy"}
-```
-
-Change it to the following (replacing `USERNAME` with your Docker Hub username):
-
-```
-{"image":"docker:///USERNAME/resource-51-docker-image","type":"dummy"}
-```
-
-Or use a pre-existing Docker image:
-
-```
-{"image":"docker:///drnic/resource-51-docker-image","type":"dummy"}
-```
-
-Restart the monit process to re-register the `dummy` resource type:
-
-```
-monit restart beacon
-```
-
-The folder `/var/vcap/packages/dummy` can now be deleted:
-
-```
-rm -rf /var/vcap/packages/dummy
-```
-
-Re-run pipeline to use dummy resource type
-------------------------------------------
-
-The pipeline in section 50 can now be reused to use test our `dummy` resource type:
-
-```
-./50_*/run.sh
-```
+In the next section we'll use our new resource in a pipeline.

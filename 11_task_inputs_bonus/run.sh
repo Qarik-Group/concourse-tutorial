@@ -13,15 +13,20 @@ usage() {
 }
 
 stage=$1; shift
-if [[ "${stage}" != "ls-abc-xyz" && "${stage}" != "ls-abc" \
+if [ -z "${stage}" ];then
+ ./run.sh ls-abc-xyz
+ ./run.sh ls-abc
+ ./run.sh pretty-ls
+ exit 0
+elif [[ "${stage}" != "ls-abc-xyz" && "${stage}" != "ls-abc" \
   && "${stage}" != "pretty-ls" ]]; then
   usage
 fi
 
-
+set -uex
 pushd $DIR
-  yes y | fly sp -t ${fly_target} configure -c pipeline-${stage}.yml -p main
-  fly unpause-pipeline --pipeline main
+  fly sp -t ${fly_target} configure -c pipeline-${stage}.yml -p main -n
+  fly -t ${fly_target_ unpause-pipeline --pipeline main
   curl $ATC_URL/pipelines/main/jobs/job-with-inputs/builds -X POST
   fly -t ${fly_target} watch -j main/job-with-inputs
 popd

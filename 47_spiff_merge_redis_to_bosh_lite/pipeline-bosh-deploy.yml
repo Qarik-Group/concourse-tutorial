@@ -21,7 +21,7 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: {{docker-hub-image-47-tasks-image}}}
+        source: {repository: {{docker-hub-image-47-tasks}}}
       inputs:
       - name: stub
       - name: redis-release
@@ -39,7 +39,7 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: {{docker-hub-image-47-tasks-image}}}
+        source: {repository: {{docker-hub-image-47-tasks}}}
       inputs:
       - name: spiff-merge
       run:

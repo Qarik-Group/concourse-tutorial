@@ -1,8 +1,13 @@
 #!/bin/bash
 
-stub=$1; shift
 
-set -e
+if [ -e "./credentials.yml" ]; then
+  stub="./credentials.yml"
+else
+  stub=$1; shift
+fi
+
+set -uex
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 export ATC_URL=${ATC_URL:-"http://192.168.100.4:8080"}
@@ -26,8 +31,8 @@ if [[ ! -f ${stub} ]]; then
 fi
 
 pushd $DIR
-  yes y | fly sp -t ${fly_target} configure -c pipeline.yml -p main --load-vars-from ${stub}
-  fly unpause-pipeline --pipeline main
-  curl $ATC_URL/pipelines/main/jobs/job-publish/builds -X POST
+  fly sp -t ${fly_target} configure -c pipeline.yml -p main --load-vars-from ${stub} -n
+  fly -t ${fly_target} unpause-pipeline --pipeline main
+  fly -t ${fly_target} trigger-job -j main/job-publish
   fly -t ${fly_target} watch -j main/job-publish
 popd

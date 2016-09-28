@@ -7,3 +7,9 @@ jobs:
 resources:
 - name: resource-dummy
   type: dummy
+
+resource_types:
+- name: dummy
+  type: docker-image
+  source:
+    repository: starkandwayne/dummy-concourse-resource
