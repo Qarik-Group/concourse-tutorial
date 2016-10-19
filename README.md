@@ -654,7 +654,7 @@ outputs:
 - name: some-files
 ```
 
-If a task included the above `outputs` section then it's `run:` command would be responsible for putting interesting files in the `some-files` directory.
+If a task included the above `outputs` section then its `run:` command would be responsible for putting interesting files in the `some-files` directory.
 
 Subsequent tasks (discussed in this section) or resources (discussed in the next section) could reference these interesting files within the `some-files/` directory.
 
@@ -784,7 +784,7 @@ First, it copied the input resource `resource-gist` into the output resource `up
 
 The `updated-gist` output from the `bump-timestamp-file` task becomes the `updated-gist` input to the `resource-gist` resource (see the [`git` resource](https://github.com/concourse/git-resource) for additional configuration) because their names match.
 
-The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
+The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/bosh-cli/Dockerfile
 
 ### 13 - Actual pipeline - passing resources between jobs
 
