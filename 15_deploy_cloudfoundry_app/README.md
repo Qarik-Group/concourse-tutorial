@@ -4,7 +4,7 @@ Whilst Concourse could be used to push applications to any remote system for dep
 
 ![deploy-cf](http://cl.ly/432i0n0k1m3l/download/Image%202016-03-01%20at%208.24.43%20am.png)
 
-*NOTE*: - See later section on using and writing custom resources if you are deploying to a different target environment/platform, such as Herkou.
+*NOTE*: - See later section on using and writing custom resources if you are deploying to a different target environment/platform, such as Heroku.
 
 Add the following key/values to your `credentials.yml` file:
 
