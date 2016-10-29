@@ -30,34 +30,33 @@ The pipeline is below:
 
 ```yaml
 jobs:
-  jobs:
-  - name: job-publish
-    public: true
-    serial: true
-    plan:
-    - get: resource-tutorial
-    - put: hello-world-docker-image
-      params:
-        build: resource-tutorial/35_push_docker_image/docker
+- name: job-publish
+  public: true
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - put: hello-world-docker-image
+    params:
+      build: resource-tutorial/35_push_docker_image/docker
 
-  resources:
-  - name: resource-tutorial
-    type: git
-    source:
-      uri: https://github.com/drnic/concourse-tutorial.git
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
 
 - name: hello-world-docker-image
   type: docker-image
   source:
-    email: DOCKER_EMAIL
-    username: DOCKER_USERNAME
-    password: DOCKER_PASSWORD
-    repository: drnic/hello-world
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-hub-image-hello-world}}
 ```
 
 Since the source `Dockerfile` is actually within this tutorial's own git repo, we will use this tutorial repo as the input resource called `resource-tutorial`. In the job `job-publish` build plan we `get` it first; and it is used by the `hello-world-docker-image` docker-image resource next.
 
-This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/51_dummy_resource_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `51_dummy_resource_docker_image/docker` is the subfolder where the `Dockerfile` is located).
+This means the `docker` subfolder in this tutorial section will be available at folder `resource-tutorial/35_push_docker_image/docker` during the build plan (`resource-tutorial` is the name of the resource within the job build plan; and `35_push_docker_image/docker` is the subfolder where the `Dockerfile` is located).
 
 Running the pipeline
 --------------------
@@ -65,11 +64,10 @@ Running the pipeline
 Your `credentials.yml` now needs your Docker Hub account credentials (see `credentials.example.yml`\):
 
 ```yaml
-meta:
-  docker:
-    email: EMAIL
-    username: USERNAME
-    password: PASSWORD
+docker-hub-email: EMAIL
+docker-hub-username: USERNAME
+docker-hub-password: PASSWORD
+docker-hub-image-hello-world: USERNAME/hello-world
 ```
 
 The `run.sh` will create the pipeline.yml and upload it to Concourse,
