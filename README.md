@@ -727,7 +727,7 @@ resources:
   source:
     uri: git@gist.github.com:0c2e172346cb8b0197a9.git
     branch: master
-    private_key: |-
+    private_key: |
       -----BEGIN RSA PRIVATE KEY-----
       MIIEpQIBAAKCAQEAuvUl9YU...
       ...
@@ -857,7 +857,7 @@ Somewhere secret on laptop create a `credentials.yml` file with keys `gist-url` 
 
 ```
 gist-url: git@gist.github.com:xxxxxxx.git
-github-private-key: |-
+github-private-key: |
   -----BEGIN RSA PRIVATE KEY-----
   MIIEpQIBAAKCAQEAuvUl9YUlDHWBMVcuu0FH9u2gSi83PkL4o9TS+F185qDTlfUY
   fGLxDo/bn8ws8B88oNbRKBZR6yig9anIB4Hym2mSwuMOUAg5qsA9zm5ArXQBGoAr
