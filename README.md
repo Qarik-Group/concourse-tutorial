@@ -170,7 +170,7 @@ The output looks like:
 executing build 2
 initializing
 running uname -a
-Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+Linux 96f1e0d6-ffdb-40e1-5e8b-5ae9a3b36a58 4.2.0-42-generic #49~14.04.1-Ubuntu SMP Wed Jun 29 20:22:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 succeeded
 ```
 
