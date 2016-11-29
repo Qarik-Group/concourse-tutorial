@@ -22,7 +22,9 @@ Vagrant.configure(2) do |config|
   else
     puts "Not found VERSION file, using latest or local concourse/lite"
   end
-
+  config.vm.provider :virtualbox do |v|
+    v.customize ["modifyvm", :id, "--cableconnected1", "on"]
+  end
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
