@@ -847,8 +847,6 @@ fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
 The error output will be like:
 
 ```
-targeting http://192.168.100.4:8080
-
 failed to evaluate variables into template: 2 error(s) occurred:
 
 * unbound variable in template: 'gist-url'
