@@ -664,6 +664,8 @@ fly sp -t tutorial -c pipeline.yml -p pass-files -n
 fly up -t tutorial -p pass-files
 ```
 
+Open http://192.168.100.4:8080/teams/main/pipelines/pass-files in your browser and trigger `job-pass-files`.
+
 In this pipeline's `job-pass-files` there are two task steps `create-some-files` and `show-some-files`:
 
 ![pass-files](http://cl.ly/1j32242g0227/download/Image%202016-02-28%20at%205.14.12%20pm.png)
