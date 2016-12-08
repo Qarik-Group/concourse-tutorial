@@ -14,7 +14,7 @@ resources:
   type: git
   source:
     uri: https://github.com/drnic/concourse-tutorial.git
-    branch: update-for-2.2.1
+    branch: master
 
 - name: resource-docker-image-dummy
   type: docker-image

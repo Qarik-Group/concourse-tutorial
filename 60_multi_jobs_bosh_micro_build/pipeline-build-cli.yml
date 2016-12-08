@@ -47,4 +47,4 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: update-for-2.2.1
+    branch: master
