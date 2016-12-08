@@ -49,10 +49,6 @@ resources:
   type: bosh-io-stemcell
   source:
     name: bosh-aws-xen-ubuntu-trusty-go_agent
-- name: bosh-stemcell-openstack
-  type: bosh-io-stemcell
-  source:
-    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
 - name: bosh-release-redis
   type: bosh-io-release
   source:
