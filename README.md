@@ -515,7 +515,7 @@ There are three ways for a job to be triggered:
 
 * Clicking the `+` button on the web UI of a job (as we did in previous sections)
 * Input resource triggering a job (see section 8 below)
-* `fly trigger-job -j pipeline/jobname` command
+* `fly -t target trigger-job -j pipeline/jobname` command
 
 
 ```
