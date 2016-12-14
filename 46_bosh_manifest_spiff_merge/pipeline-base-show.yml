@@ -36,14 +36,9 @@ jobs:
           - redis-release/templates/deployment.yml
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-aws-ec2.yml
-          - stub/stub.yml
+          - redis-release/templates/stub.yml
 
 resources:
-- name: resource-cf-release-templates
-  type: git
-  source:
-    uri: https://github.com/cloudfoundry/cf-release.git
-
 - name: resource-redis-release-templates
   type: git
   source:

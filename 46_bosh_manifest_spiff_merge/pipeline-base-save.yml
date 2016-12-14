@@ -11,6 +11,7 @@ jobs:
       resource: resource-redis-release-templates
       params:
         submodules: none
+    - get: resource-tutorial
   - task: spiff-merge
     config:
       platform: linux
@@ -20,14 +21,17 @@ jobs:
       inputs:
       - name: redis-release
       - name: stub
+      - name: resource-tutorial
       run:
-        path: spiff-merge-and-save
+        path: resource-tutorial/46_bosh_manifest_spiff_merge/spiff-merge-and-save.sh
         args:
-          - manifest.yml
+          - spiff-merge/manifest.yml
           - redis-release/templates/deployment.yml
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-aws-ec2.yml
-          - stub/stub.yml
+          - redis-release/templates/stub.yml
+      outputs:
+      - name: spiff-merge
   - task: show-manifest
     config:
       platform: linux
@@ -41,15 +45,16 @@ jobs:
         args: ["spiff-merge/manifest.yml"]
 
 resources:
-- name: resource-cf-release-templates
-  type: git
-  source:
-    uri: https://github.com/cloudfoundry/cf-release.git
-
 - name: resource-redis-release-templates
   type: git
   source:
     uri: https://github.com/cloudfoundry-community/redis-boshrelease.git
+
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: fix-46-spiff-merge
 
 - name: resource-deployment-manifest-stub
   type: git
