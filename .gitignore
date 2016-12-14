@@ -3,3 +3,4 @@
 stub.yml
 credentials.yml
 tmp
+vendor/*
