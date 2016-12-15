@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+set -uex
 
 output_manifest=$1; shift
 if [[ "${output_manifest}X" == "X" ]]; then
@@ -6,7 +8,6 @@ if [[ "${output_manifest}X" == "X" ]]; then
   exit 1
 fi
 
-set -e
 
 mkdir -p `dirname $output_manifest`
 spiff merge $@ > $output_manifest
