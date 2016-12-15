@@ -15,7 +15,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: fix-46-spiff-merge
+    branch: master
 
 - name: task-docker-image
   type: docker-image

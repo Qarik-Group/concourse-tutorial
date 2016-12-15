@@ -54,7 +54,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: fix-46-spiff-merge
+    branch: master
 
 - name: resource-deployment-manifest-stub
   type: git
