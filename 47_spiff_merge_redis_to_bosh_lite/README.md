@@ -1,4 +1,4 @@
-45 - BOSH deploy
+47 - Spiff merge redis to BOSH lite
 ================
 
 This section will show how to deploy a simple manifest to an existing BOSH.

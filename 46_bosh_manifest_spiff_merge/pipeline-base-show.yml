@@ -36,7 +36,7 @@ jobs:
           - redis-release/templates/deployment.yml
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-aws-ec2.yml
-          - redis-release/templates/stub.yml
+          - stub/stub.yml
 
 resources:
 - name: resource-redis-release-templates
@@ -47,4 +47,4 @@ resources:
 - name: resource-deployment-manifest-stub
   type: git
   source:
-    uri: https://gist.github.com/638a2e7051071b3bbec7.git
+    uri: https://gist.github.com/mkb/eeb0446c4fe1f9dcfa9128ef1cdd03b0

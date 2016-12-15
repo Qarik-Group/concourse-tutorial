@@ -28,31 +28,17 @@ jobs:
       run:
         path: spiff-merge-and-save
         args:
-          - stub/manifest.yml
+          - spiff-merge/manifest.yml
           - redis-release/templates/deployment.yml
           - redis-release/templates/jobs.yml
           - redis-release/templates/infrastructure-warden.yml
           - stub/stub.yml
-
-  - task: git-add
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: {{docker-hub-image-47-tasks}}}
-      inputs:
+      outputs:
       - name: spiff-merge
-      run:
-        path: git-add-all
-        args: [spiff-merge/stub]
-
-  - put: resource-deployment-manifest-stub-save
-    params:
-      repository: git-add/spiff-merge/stub
 
   - put: resource-bosh-deployment
     params:
-      manifest: spiff-merge/stub/manifest.yml
+      manifest: spiff-merge/manifest.yml
       releases:
         - resource-bosh-release-redis/*.tgz
       stemcells:
@@ -80,7 +66,7 @@ resources:
     uri: {{section-47-git-redis-manifest}}
     branch: master
     private_key: {{github-private-key}}
-    paths: [stub.yml]
+    paths: [manifest.yml]
 
 - name: resource-deployment-manifest-stub-save
   type: git

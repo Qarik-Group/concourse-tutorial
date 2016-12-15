@@ -8,4 +8,5 @@ fi
 
 set -e
 
+mkdir -p `dirname $output_manifest`
 spiff merge $@ > $output_manifest
