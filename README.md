@@ -50,7 +50,7 @@ vagrant up
 
 Open http://192.168.100.4:8080/ in your browser:
 
-[![initial](no-pipelines.png)](http://192.168.100.4:8080/)
+[![initial](no_pipelines.png)](http://192.168.100.4:8080/)
 
 Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
 
