@@ -66,7 +66,7 @@ resources:
     uri: {{section-47-git-redis-manifest}}
     branch: master
     private_key: {{github-private-key}}
-    paths: [manifest.yml]
+    paths: [stub.yml]
 
 - name: resource-deployment-manifest-stub-save
   type: git

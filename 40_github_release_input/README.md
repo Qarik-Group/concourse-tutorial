@@ -53,5 +53,4 @@ and trigger the job:
 ```
 cd ../40_github_release_input
 ./run.sh
-
 ```
