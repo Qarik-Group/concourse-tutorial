@@ -502,11 +502,16 @@ fly -t tutorial builds
 The output will look like:
 
 ```
-5   helloworld/job-hello-world    1      succeeded  2016-02-26@17:25:47+1000  2016-02-26@17:26:01+1000  14s
-4   helloworld/job-hello-world    1      succeeded  2016-02-26@17:24:43+1000  2016-02-26@17:25:02+1000  19s
-3   helloworld/job-hello-world    1      succeeded  2016-02-26@17:22:13+1000  2016-02-26@17:22:23+1000  10s
-2   one-off                       n/a    succeeded  2016-02-26@17:15:02+1000  2016-02-26@17:16:36+1000  1m34s
-1   one-off                       n/a    succeeded  2016-02-26@17:13:34+1000  2016-02-26@17:14:11+1000  37s
+id  pipeline/job                build  status     start                     end                       duration
+9   helloworld/job-hello-world  2      succeeded  2017-01-09@10:42:52-0800  2017-01-09@10:42:56-0800  4s
+8   helloworld/job-hello-world  1      succeeded  2017-01-09@10:42:26-0800  2017-01-09@10:42:28-0800  2s
+7   one-off                     n/a    succeeded  2017-01-09@10:41:25-0800  2017-01-09@10:41:33-0800  8s
+6   one-off                     n/a    succeeded  2017-01-09@10:41:14-0800  2017-01-09@10:41:17-0800  3s
+5   one-off                     n/a    succeeded  2017-01-09@10:41:08-0800  2017-01-09@10:41:11-0800  3s
+4   one-off                     n/a    succeeded  2017-01-09@10:40:57-0800  2017-01-09@10:41:00-0800  3s
+3   one-off                     n/a    succeeded  2017-01-09@10:40:40-0800  2017-01-09@10:40:43-0800  3s
+2   one-off                     n/a    succeeded  2017-01-09@10:40:00-0800  2017-01-09@10:40:28-0800  28s
+1   one-off                     n/a    succeeded  2017-01-09@10:39:41-0800  2017-01-09@10:39:51-0800  10s
 ```
 
 ### 07 - Trigger jobs with `fly`
