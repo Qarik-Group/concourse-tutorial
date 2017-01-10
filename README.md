@@ -10,7 +10,7 @@ Learn to use https://concourse.ci with this linear sequence of tutorials. Learn 
 * [04 - Basic pipeline](https://github.com/starkandwayne/concourse-tutorial#04---basic-pipeline)
 * [05 - Tasks extracted into Resources](https://github.com/starkandwayne/concourse-tutorial#05---tasks-extracted-into-resources)
 * [06 - View job output in terminal](https://github.com/starkandwayne/concourse-tutorial#06---view-job-output-in-terminal)
-* [07 - Trigger jobs with the Concourse API](https://github.com/starkandwayne/concourse-tutorial#07---trigger-jobs-with-the-concourse-api)
+* [07 - Trigger jobs with fly](https://github.com/starkandwayne/concourse-tutorial#07---trigger-jobs-with-fly)
 * [08 - Triggering jobs with resources](https://github.com/starkandwayne/concourse-tutorial#08---triggering-jobs-with-resources)
 * [09 - Destroying pipelines](https://github.com/starkandwayne/concourse-tutorial#09---destroying-pipelines)
 * [10 - Using resource inputs in job tasks](https://github.com/starkandwayne/concourse-tutorial#10---using-resource-inputs-in-job-tasks)
