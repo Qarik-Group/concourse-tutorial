@@ -20,17 +20,24 @@ usage() {
   exit 1
 }
 
-if [[ "${stub}X" == "X" ]]; then
-  usage
+
+if [ -z "${stub}" ]; then
+  stub="../credentials.yml"
 fi
-stub=$(realpath $stub)
 if [[ ! -f ${stub} ]]; then
   usage
 fi
+stub=$(realpath $stub)
 
-if [[ "${stage}" != "build-task-image" && "${stage}" != "bosh-deploy" ]]; then
+if [ -z "${stage}" ]; then
+  ./run.sh ${stub} build-task-image
+  ./run.sh ${stub} bosh-deploy
+  exit 0
+elif [[ "${stage}" != "build-task-image" && "${stage}" != "bosh-deploy" ]]; then
   usage
 fi
+
+echo "Stage: ${stage}"
 
 
 pushd $DIR

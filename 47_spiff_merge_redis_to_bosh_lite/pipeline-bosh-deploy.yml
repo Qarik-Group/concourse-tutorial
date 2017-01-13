@@ -78,7 +78,7 @@ resources:
 - name: resource-bosh-deployment
   type: bosh-deployment
   source:
-    target: {{bosh-target}}
+    target: {{bosh-director}}
     username: {{bosh-username}}
     password: {{bosh-password}}
     deployment: {{section-47-git-redis-name}} # from the manifest.yml in resource-manifest
