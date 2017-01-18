@@ -453,22 +453,22 @@ The name of resources, and later the name of task outputs, determines the name u
 So, `hello-world` can access anything from `resource-tutorial` (this tutorial's `git` repository) under the `resource-tutorial/` path. Since the relative path of `task_hello_world.yml` task file inside this repo is `01_task_hello_world/task_hello_world.yml`, the `task: hello-world` references it by joining the two: `file: resource-tutorial/01_task_hello_world/task_hello_world.yml`
 
 
-There is a benefit and a downside to abstracting tasks into YAML files outside of the pipeline.
+There are benefits and downsides to abstracting tasks into YAML files outside of the pipeline.
 
 One benefit is that the behavior of the task can be kept in sync with the primary input resource (for example, a software project with tasks for running tests, building binaries, etc).
 
+Another benefit of extracting inline tasks into task files is that `pipeline.yml` files can get long and it can be hard to read and comprehend all the YAML. When extracting tasks into separate files we can give them long names so that readers can understand the purpose and expectation of the tasks at a glance.
+
 One downside is that the `pipeline.yml` no longer explains exactly what commands will be invoked. Comprehension of pipeline behavior is potentially reduced.
 
-But one benefit of extracting inline tasks into task files is that `pipeline.yml` files can get long and it can be hard to read and comprehend all the YAML. Instead, give tasks long names so that readers can understand what the purpose and expectation of the task is at a glance.
-
-But one downside of extracting inline tasks into files is that `fly set-pipeline` is no longer the only step to updating a pipeline.
+Also, when we extract inline tasks into files, `fly set-pipeline` is no longer the only step to updating a pipeline.
 
 From now onwards, any change to your pipeline might require you to do one or both:
 
 * `fly set-pipeline` to update Concourse on a change to the job build plan and/or input/output resources
 * `git commit` and `git push` your primary resource that contains the task files and task scripts
 
-If a pipeline is not performing new behaviour then it might be you skipped one of the two steps above.
+If the new behavior you intended is not showing up in the pipeline then you may have skipped one of the two steps above.
 
 ### 06 - View job output in terminal
 
