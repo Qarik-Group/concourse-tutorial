@@ -14,7 +14,7 @@ To the `deploy-app` pipeline with the additional trigger and unit test steps:
 
 ```
 cd ../16_run_tests_before_deploy
-fly sp -t tutorial -c pipeline.yml -p deploy-app -n -l ../credentials.yml
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline deploy-app --non-interactive --load-vars-from ../credentials.yml
 ```
 
 For convenience to us both, we're reusing the same task files from section 10 to run the tests for the :

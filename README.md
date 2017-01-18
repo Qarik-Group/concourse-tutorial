@@ -72,8 +72,8 @@ In the spirit of declaring absolutely everything you do to get absolutely the sa
 First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts):
 
 ```
-fly --target tutorial login  --concourse-url http://192.168.100.4:8080
-fly -t tutorial sync
+fly --target tutorial login --concourse-url http://192.168.100.4:8080
+fly --target tutorial sync
 ```
 
 You can now see this saved target Concourse API in a local file:
@@ -93,7 +93,7 @@ targets:
       value: ""
 ```
 
-When we use the `fly` command we will target this Concourse API using `fly -t tutorial`.
+When we use the `fly` command we will target this Concourse API using `fly --target tutorial`.
 
 > @alexsuraci: I promise you'll end up liking it more than having an implicit target state :) Makes reusing commands from shell history much less dangerous (rogue fly configure can be bad)
 
@@ -106,7 +106,7 @@ The central concept of Concourse is to run tasks. You can run them directly from
 
 ```
 cd 01_task_hello_world
-fly -t tutorial execute -c task_hello_world.yml
+fly --target tutorial execute --config task_hello_world.yml
 ```
 
 The output starts with
@@ -161,7 +161,7 @@ run:
 This task file is provided for convenience:
 
 ```
-fly -t tutorial execute -c task_ubuntu_uname.yml
+fly --target tutorial execute --config task_ubuntu_uname.yml
 ```
 
 The output looks like:
@@ -184,7 +184,7 @@ Consider the working directory of a task that explicitly has no inputs:
 
 ```
 cd ../02_task_inputs
-fly -t tutorial e -c no_inputs.yml
+fly --target tutorial execute --config no_inputs.yml
 ```
 
 The task runs `ls -al` to show the (empty) contents of the working folder inside the container:
@@ -206,7 +206,7 @@ inputs:
 When we try to execute the task:
 
 ```
-fly -t tutorial e -c inputs_required.yml
+fly --target tutorial execute --config inputs_required.yml
 ```
 
 It will fail:
@@ -218,7 +218,7 @@ error: missing required input `some-important-input`
 Commonly if wanting to run `fly execute` we will want to pass in the local folder (`.`). Use `-i name=path` option to configure each of the required `inputs`:
 
 ```
-fly -t tutorial e -c inputs_required.yml -i some-important-input=.
+fly --target tutorial execute --config inputs_required.yml --input some-important-input=.
 ```
 
 Now the `fly execute` command will upload the `.` directory as an input to the container. It will be made available at the path `some-important-input`:
@@ -243,15 +243,15 @@ drwxr-xr-x    3 root     root          4096 Feb 27 07:27 ..
 To pass in a different directory as an input, provide its absolute or relative path:
 
 ```
-fly -t tutorial e -c inputs_required.yml -i some-important-input=../01_task_hello_world
+fly --target tutorial execute --config inputs_required.yml --input some-important-input=../01_task_hello_world
 ```
 
-The `fly execute -i` option can be removed if the current directory is the same name as the required input.
+The `fly execute --input ` option can be removed if the current directory is the same name as the required input.
 
 The task `input_parent_dir.yml` contains an input `02_task_inputs` which is also the current directory. So the following command will work and return the same results as above:
 
 ```
-fly -t tutorial e -c input_parent_dir.yml
+fly --target tutorial execute --config input_parent_dir.yml
 ```
 
 ### 03 - Task scripts
@@ -267,7 +267,7 @@ Let's refactor `01_task_hello_world/task_ubuntu_uname.yml` into a new task `03_t
 
 ```
 cd ../03_task_scripts
-fly -t tutorial e -c task_show_uname.yml
+fly --target tutorial execute --config task_show_uname.yml
 ```
 
 The former specifies the latter as its task script:
@@ -286,7 +286,7 @@ inputs:
 - name: 03_task_scripts
 ```
 
-Since input `03_task_scripts` matches the current directory `03_task_scripts` we did not need to specify `fly execute -i 03_task_scripts=.`.
+Since input `03_task_scripts` matches the current directory `03_task_scripts` we did not need to specify `fly execute --input 03_task_scripts=.`.
 
 The current directory was uploaded to the Concourse task container and placed inside the `03_task_scripts` directory.
 
@@ -300,7 +300,7 @@ The only further requirement is that `task_show_uname.sh` is an executable scrip
 
 ```
 cd ../04_basic_pipeline
-fly -t tutorial set-pipeline -c pipeline.yml -p helloworld
+fly --target tutorial set-pipeline --config pipeline.yml --pipeline helloworld
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
@@ -345,7 +345,7 @@ the pipeline is currently paused. to unpause, either:
 As suggested, un-pause a pipeline from the `fly` CLI:
 
 ```
-fly -t tutorial unpause-pipeline -p helloworld
+fly --target tutorial unpause-pipeline --pipeline helloworld
 ```
 
 Next, as suggested, visit the web UI http://192.168.100.4:8080/pipelines/helloworld.
@@ -380,7 +380,7 @@ The following pipeline will load this task file and run it. We will update the p
 
 ```
 cd ../05_pipeline_task_hello_world
-fly sp -t tutorial -c pipeline.yml -p helloworld
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline helloworld
 ```
 
 The output will show the delta between the two pipelines and request confirmation. Type `y`. If successful, it will show:
@@ -477,7 +477,7 @@ The `job-hello-world` had terminal output from its resource fetch of a git repo 
 In addition to the Concourse web ui you can also view this output from the terminal with `fly`:
 
 ```
-fly -t tutorial watch -j helloworld/job-hello-world
+fly --target tutorial watch --job helloworld/job-hello-world
 ```
 
 The output will be similar to:
@@ -496,7 +496,7 @@ The `--build NUM` option allows you to see the output of a specific build number
 You can see the results of recent builds across all pipelines with `fly builds`:
 
 ```
-fly -t tutorial builds
+fly --target tutorial builds
 ```
 
 The output will look like:
@@ -520,17 +520,17 @@ There are three ways for a job to be triggered:
 
 * Clicking the `+` button on the web UI of a job (as we did in previous sections)
 * Input resource triggering a job (see section 8 below)
-* `fly -t target trigger-job -j pipeline/jobname` command
+* `fly --target target trigger-job --job pipeline/jobname` command
 
 
 ```
-fly -t tutorial trigger-job -j helloworld/job-hello-world
+fly --target tutorial trigger-job --job helloworld/job-hello-world
 ```
 
 Whilst the job is running, and after it has completed, you can then watch the output in your terminal using `fly watch`:
 
 ```
-fly -t tutorial watch -j helloworld/job-hello-world
+fly --target tutorial watch --job helloworld/job-hello-world
 ```
 
 ### 08 - Triggering jobs with resources
@@ -571,7 +571,7 @@ Now upgrade the `helloworld` pipeline with the `time` trigger.
 
 ```
 cd ../08_triggers
-fly sp -t tutorial -c pipeline.yml -p helloworld
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline helloworld
 ```
 
 This adds a new resource named `my-timer` which triggers `job-hello-world` approximately every 2 minutes.
@@ -595,7 +595,7 @@ The current `helloworld` pipeline will now keep triggering every 2-3 minutes for
 You can delete the `helloworld` pipeline:
 
 ```
-fly destroy-pipeline -t tutorial -p helloworld
+fly destroy-pipeline --target tutorial --pipeline helloworld
 ```
 
 ### 10 - Using resource inputs in job tasks
@@ -631,8 +631,8 @@ To run this task within a pipeline:
 
 ```
 cd ../10_job_inputs
-fly sp -t tutorial -c pipeline.yml -p simple-app -n
-fly up -t tutorial -p simple-app
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline simple-app --non-interactive
+fly unpause-pipeline --target tutorial --pipeline simple-app
 ```
 
 View the pipeline UI http://192.168.100.4:8080/pipelines/simple-app and notice that the job automatically starts.
@@ -667,8 +667,8 @@ Subsequent tasks (discussed in this section) or resources (discussed in the next
 
 ```
 cd ../11_task_outputs_to_inputs
-fly sp -t tutorial -c pipeline.yml -p pass-files -n
-fly up -t tutorial -p pass-files
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline pass-files --non-interactive
+fly unpause-pipeline --target tutorial --pipeline pass-files
 ```
 
 Open http://192.168.100.4:8080/teams/main/pipelines/pass-files in your browser and trigger `job-pass-files`.
@@ -708,8 +708,8 @@ So far we have used the `git` resource to fetch down a git repository, and used 
 
 ```
 cd ../12_publishing_outputs
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
-fly up -t tutorial -p publishing-outputs
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline publishing-outputs --non-interactive
+fly unpause-pipeline --target tutorial --pipeline publishing-outputs
 ```
 
 Pipeline dashboard http://192.168.100.4:8080/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
@@ -749,7 +749,7 @@ Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registere
 Update the pipeline:
 
 ```
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline publishing-outputs --non-interactive
 ```
 
 Revisit the dashboard UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
@@ -827,7 +827,7 @@ Update the pipeline:
 
 ```
 cd ../13_pipeline_jobs
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline publishing-outputs --non-interactive
 ```
 
 The dashboard UI displays the additional job and its trigger/non-trigger resources. Importantly, it shows our first pipeline:
@@ -848,7 +848,7 @@ Parameters are all mandatory:
 
 ```
 cd ../14_parameters
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline publishing-outputs --non-interactive
 ```
 
 The error output will be like:
@@ -877,7 +877,7 @@ github-private-key: |
 To pass in your `credentials.yml` file use the `--load-vars-from` or `-l` options:
 
 ```
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n -l ../credentials.yml
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline publishing-outputs --non-interactive --load-vars-from ../credentials.yml
 ```
 
 ## Continuing the tutorial
