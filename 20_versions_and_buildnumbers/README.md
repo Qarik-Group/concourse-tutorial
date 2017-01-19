@@ -46,7 +46,7 @@ In your pipeline you now add a `semver` resource:
     uri: {{git-uri-bump-semver}}
     branch: version
     file: version
-    private_key: {{github-private-key}}    
+    private_key: {{github-private-key}}
 ```
 
 Any place in your pipeline where you want to know the current `semver` you simply `get: resource-version`:
@@ -64,9 +64,9 @@ Add `git-uri-bump-semver` to your tutorial's `credentials.yml` file and deploy t
 
 ```
 cd ../20_versions_and_buildnumbers
-fly sp -t tutorial -p versioning -n -l ../credentials.yml \
-  -c pipeline-get-version.yml
-fly up -t tutorial -p versioning
+fly set-pipeline --target tutorial --pipeline versioning --non-interactive --load-vars-from ../credentials.yml \
+  --config pipeline-get-version.yml
+fly unpause-pipeline --target tutorial --pipeline versioning
 ```
 
 The pipeline is at http://192.168.100.4:8080/pipelines/versioning
@@ -104,8 +104,8 @@ jobs:
 Update our `versioning` pipeline:
 
 ```
-fly sp -t tutorial -p versioning -n -l ../credentials.yml \
-  -c pipeline-display-version.yml
+fly set-pipeline --target tutorial --pipeline versioning --non-interactive --load-vars-from ../credentials.yml \
+  --config pipeline-display-version.yml
 ```
 
 Then re-run the `job-versioning` job:
@@ -142,8 +142,8 @@ plan:
 Apply this change to our pipeline:
 
 ```
-fly sp -t tutorial -p versioning -n -l ../credentials.yml \
-  -c pipeline-bump.yml
+fly set-pipeline --target tutorial --pipeline versioning --non-interactive --load-vars-from ../credentials.yml \
+  --config pipeline-bump.yml
 ```
 
 Run the job to see the output in the image above.
@@ -170,8 +170,8 @@ To `put:` this value back up to `version` file, we add the following step to our
 Apply this change to our pipeline:
 
 ```
-fly sp -t tutorial -p versioning -n -l ../credentials.yml \
-  -c pipeline-bump-then-save.yml
+fly set-pipeline --target tutorial --pipeline versioning --non-interactive --load-vars-from ../credentials.yml \
+  --config pipeline-bump-then-save.yml
 ```
 
 ![bump-then-save](http://cl.ly/0G2x2n2W3q3y/download/Image%202016-03-01%20at%201.17.10%20pm.png)

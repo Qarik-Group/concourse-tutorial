@@ -20,8 +20,8 @@ You can now create the pipeline and unpause it.
 
 ```
 cd ../15_deploy_cloudfoundry_app
-fly sp -t tutorial -c pipeline.yml -p deploy-app -n -l ../credentials.yml
-fly up -t tutorial -p deploy-app
+fly set-pipeline --target tutorial --config pipeline.yml --pipeline deploy-app --non-interactive --load-vars-from ../credentials.yml
+fly unpause-pipeline --target tutorial --pipeline deploy-app
 ```
 
 The `cf` resource assumes that the target organization and space already exist.

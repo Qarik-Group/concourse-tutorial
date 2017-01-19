@@ -10,6 +10,6 @@ director and a Cloud Foundry account.
 
 
 ```
-fly -t ${fly_target} set-pipeline -p concourse-tutorial -c ci/pipeline.yml -l ci/credentials.yml -l credentials.yml
-fly -t ${fly_target} unpause-pipeline -p concourse-tutorial
+fly --target ${fly_target} set-pipeline --pipeline concourse-tutorial --config ci/pipeline.yml -l ci/credentials.yml --load-vars-from credentials.yml
+fly --target ${fly_target} unpause-pipeline --pipeline concourse-tutorial
 ```
