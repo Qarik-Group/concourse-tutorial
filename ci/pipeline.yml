@@ -102,13 +102,13 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: set-up-ci
+    branch: master
     ignore_paths: [ci/ci_image/*]
 - name: repo-image
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: set-up-ci
+    branch: master
     paths: [ci/ci_image/*]
 - name: ci-image
   type: docker-image
