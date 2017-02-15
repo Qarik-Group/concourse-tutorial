@@ -18,9 +18,13 @@ ensure-credentials-yml
 announce-task "Running all lessons"
 for f in */run.sh
 do
-  run-cmd pushd `dirname $f`
+  set +eu
+  run-cmd pushd `dirname $f` || true
+  set -eu
   run-cmd ./run.sh
+  set +eu
   run-cmd popd
+  set -eu
 done
 
 announce-success
