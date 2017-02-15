@@ -34,6 +34,10 @@ function announce-success {
   echo -e "${BGre}Mission accomplished.${RCol}"
 }
 
+function debug {
+  echo -e "${BYel}DEBUG: ${1}${RCol}"
+}
+
 function run-cmd {
   echo -e "\n\n${Cya}${@}${RCol}\n"
   $@
