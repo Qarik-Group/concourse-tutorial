@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export fly_target=${fly_target:-tutorial}
+export tutorial_concourse_url=${tutorial_concourse_url:-"http://10.58.111.191"}
 
 function ensure-rvm {
   announce-task "Making sure RVM is set up..."
@@ -72,7 +73,7 @@ function deploy-concourse {
 
 function check-concourse {
   announce-task "Making sure Concourse is up..."
-  run-cmd fly login -t ${fly_target} -c http://10.58.111.191
+  run-cmd fly login -t ${fly_target} -c ${tutorial_concourse_url}
   run-cmd fly -t ${fly_target} sync
   run-cmd fly -t ${fly_target} pipelines
 }
