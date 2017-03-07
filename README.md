@@ -321,6 +321,7 @@ jobs:
           path: echo
           args:
           - hello world
+          dir: ""
 ```
 
 You will be prompted to apply any configuration changes each time you run `fly set-pipeline` (or its alias `fly sp`)
