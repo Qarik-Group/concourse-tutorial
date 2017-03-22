@@ -746,6 +746,7 @@ resources:
 ```
 
 Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registered with github) into the `private_key` section.
+Be careful, If you don't include the pipe symbol after `private_key: ` you will get an error like `Private keys with passphrases are not supported.`
 
 Update the pipeline:
 
