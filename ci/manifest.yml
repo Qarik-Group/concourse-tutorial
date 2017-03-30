@@ -1,7 +1,7 @@
 ---
 name: concourse-tutorial
 
-director_uuid: 0da328bf-081f-4235-b7f8-a0d0592d258d
+director_uuid: 2a535e7b-333c-4830-8042-521eb4c163bc
 
 releases:
   - name: concourse
