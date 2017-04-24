@@ -4,26 +4,26 @@ Learn to use https://concourse.ci with this linear sequence of tutorials. Learn 
 
 ## Sections
 
-* [01 - Hello World task](https://github.com/starkandwayne/concourse-tutorial#01---hello-world-task)
-* [02 - Task inputs](https://github.com/starkandwayne/concourse-tutorial#02---task-inputs)
-* [03 - Task scripts](https://github.com/starkandwayne/concourse-tutorial#03---task-scripts)
-* [04 - Basic pipeline](https://github.com/starkandwayne/concourse-tutorial#04---basic-pipeline)
-* [05 - Tasks extracted into Resources](https://github.com/starkandwayne/concourse-tutorial#05---tasks-extracted-into-resources)
-* [06 - View job output in terminal](https://github.com/starkandwayne/concourse-tutorial#06---view-job-output-in-terminal)
-* [07 - Trigger jobs with fly](https://github.com/starkandwayne/concourse-tutorial#07---trigger-jobs-with-fly)
-* [08 - Triggering jobs with resources](https://github.com/starkandwayne/concourse-tutorial#08---triggering-jobs-with-resources)
-* [09 - Destroying pipelines](https://github.com/starkandwayne/concourse-tutorial#09---destroying-pipelines)
-* [10 - Using resource inputs in job tasks](https://github.com/starkandwayne/concourse-tutorial#10---using-resource-inputs-in-job-tasks)
-* [11 - Passing task outputs to another task](https://github.com/starkandwayne/concourse-tutorial#11---passing-task-outputs-to-another-task)
-* [12 - Publishing outputs](https://github.com/starkandwayne/concourse-tutorial#12---publishing-outputs)
-* [13 - Actual pipeline - passing resources between jobs](https://github.com/starkandwayne/concourse-tutorial#13---actual-pipeline---passing-resources-between-jobs)
-* [14 - Parameterized pipelines](https://github.com/starkandwayne/concourse-tutorial#14---parameterized-pipelines)
+* [01 - Hello World task](#01---hello-world-task)
+* [02 - Task inputs](#02---task-inputs)
+* [03 - Task scripts](#03---task-scripts)
+* [04 - Basic pipeline](#04---basic-pipeline)
+* [05 - Tasks extracted into Resources](#05---tasks-extracted-into-resources)
+* [06 - View job output in terminal](#06---view-job-output-in-terminal)
+* [07 - Trigger jobs with fly](#07---trigger-jobs-with-fly)
+* [08 - Triggering jobs with resources](#08---triggering-jobs-with-resources)
+* [09 - Destroying pipelines](#09---destroying-pipelines)
+* [10 - Using resource inputs in job tasks](#10---using-resource-inputs-in-job-tasks)
+* [11 - Passing task outputs to another task](#11---passing-task-outputs-to-another-task)
+* [12 - Publishing outputs](#12---publishing-outputs)
+* [13 - Actual pipeline - passing resources between jobs](#13---actual-pipeline---passing-resources-between-jobs)
+* [14 - Parameterized pipelines](#14---parameterized-pipelines)
 
 The following sections are found in subfolders of this repository and the tutorial continues in their README:
 
-* [15 - Deploy application to Cloud](https://github.com/starkandwayne/concourse-tutorial/tree/master/15_deploy_cloudfoundry_app)
-* [16 - Run tests, then deploy application](https://github.com/starkandwayne/concourse-tutorial/tree/master/16_run_tests_before_deploy)
-* [20 - Versions and build numbers](https://github.com/starkandwayne/concourse-tutorial/tree/master/20_versions_and_buildnumbers)
+* [15 - Deploy application to Cloud](15_deploy_cloudfoundry_app/README.md)
+* [16 - Run tests, then deploy application](16_run_tests_before_deploy/README.md)
+* [20 - Versions and build numbers](20_versions_and_buildnumbers/README.md)
 
 ## Thanks
 
