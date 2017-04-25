@@ -24,6 +24,19 @@ The following sections are found in subfolders of this repository and the tutori
 * [15 - Deploy application to Cloud](https://github.com/starkandwayne/concourse-tutorial/tree/master/15_deploy_cloudfoundry_app)
 * [16 - Run tests, then deploy application](https://github.com/starkandwayne/concourse-tutorial/tree/master/16_run_tests_before_deploy)
 * [20 - Versions and build numbers](https://github.com/starkandwayne/concourse-tutorial/tree/master/20_versions_and_buildnumbers)
+* [21 - Versioned artifacts](https://github.com/starkandwayne/concourse-tutorial/tree/master/21_versioned_artifacts)
+* [35 - Push Docker Image](https://github.com/starkandwayne/concourse-tutorial/tree/master/35_push_docker_image)
+* [36 - Pull Docker Image](https://github.com/starkandwayne/concourse-tutorial/tree/master/36_pull_docker_image)
+
+* [40 - Github release input](https://github.com/starkandwayne/concourse-tutorial/tree/master/40_github_release_input)
+* [42 - Run Concourse on BOSH lite AWS](https://github.com/starkandwayne/concourse-tutorial/tree/master/42_run_concourse_on_bosh_lite_aws)
+* [44 - BOSH IO](https://github.com/starkandwayne/concourse-tutorial/tree/master/44_bosh_io)
+* [45 - BOSH deploy](https://github.com/starkandwayne/concourse-tutorial/tree/master/45_bosh_deploy)
+* [46 - BOSH manifest spiff merge](https://github.com/starkandwayne/concourse-tutorial/tree/master/46_bosh_manifest_spiff_merge)
+* [47 - Spiff merge Redis to BOSH lite](https://github.com/starkandwayne/concourse-tutorial/tree/master/47_spiff_merge_redis_to_bosh_lite)
+* [51 - Dummy resource Docker image](https://github.com/starkandwayne/concourse-tutorial/tree/master/51_dummy_resource_docker_image)
+* [52 - Dummy resource](https://github.com/starkandwayne/concourse-tutorial/tree/master/52_dummy_resource)
+* [70 - Pivnet updates](https://github.com/starkandwayne/concourse-tutorial/tree/master/70_pivnet_updates)
 
 ## Thanks
 
