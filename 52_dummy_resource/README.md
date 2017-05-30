@@ -1,4 +1,4 @@
-50 - Dummy resource
+52 - Dummy resource
 ===================
 
 This section includes a pipeline using a new resource called `dummy`.
