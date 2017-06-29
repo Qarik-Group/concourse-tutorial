@@ -4,39 +4,39 @@ Learn to use https://concourse.ci with this linear sequence of tutorials. Learn 
 
 ## Sections
 
-* [01 - Hello World task](https://github.com/starkandwayne/concourse-tutorial#01---hello-world-task)
-* [02 - Task inputs](https://github.com/starkandwayne/concourse-tutorial#02---task-inputs)
-* [03 - Task scripts](https://github.com/starkandwayne/concourse-tutorial#03---task-scripts)
-* [04 - Basic pipeline](https://github.com/starkandwayne/concourse-tutorial#04---basic-pipeline)
-* [05 - Tasks extracted into Resources](https://github.com/starkandwayne/concourse-tutorial#05---tasks-extracted-into-resources)
-* [06 - View job output in terminal](https://github.com/starkandwayne/concourse-tutorial#06---view-job-output-in-terminal)
-* [07 - Trigger jobs with fly](https://github.com/starkandwayne/concourse-tutorial#07---trigger-jobs-with-fly)
-* [08 - Triggering jobs with resources](https://github.com/starkandwayne/concourse-tutorial#08---triggering-jobs-with-resources)
-* [09 - Destroying pipelines](https://github.com/starkandwayne/concourse-tutorial#09---destroying-pipelines)
-* [10 - Using resource inputs in job tasks](https://github.com/starkandwayne/concourse-tutorial#10---using-resource-inputs-in-job-tasks)
-* [11 - Passing task outputs to another task](https://github.com/starkandwayne/concourse-tutorial#11---passing-task-outputs-to-another-task)
-* [12 - Publishing outputs](https://github.com/starkandwayne/concourse-tutorial#12---publishing-outputs)
-* [13 - Actual pipeline - passing resources between jobs](https://github.com/starkandwayne/concourse-tutorial#13---actual-pipeline---passing-resources-between-jobs)
-* [14 - Parameterized pipelines](https://github.com/starkandwayne/concourse-tutorial#14---parameterized-pipelines)
+* [01 - Hello World task](#01---hello-world-task)
+* [02 - Task inputs](#02---task-inputs)
+* [03 - Task scripts](#03---task-scripts)
+* [04 - Basic pipeline](#04---basic-pipeline)
+* [05 - Tasks extracted into Resources](#05---tasks-extracted-into-resources)
+* [06 - View job output in terminal](#06---view-job-output-in-terminal)
+* [07 - Trigger jobs with fly](#07---trigger-jobs-with-fly)
+* [08 - Triggering jobs with resources](#08---triggering-jobs-with-resources)
+* [09 - Destroying pipelines](#09---destroying-pipelines)
+* [10 - Using resource inputs in job tasks](#10---using-resource-inputs-in-job-tasks)
+* [11 - Passing task outputs to another task](#11---passing-task-outputs-to-another-task)
+* [12 - Publishing outputs](#12---publishing-outputs)
+* [13 - Actual pipeline - passing resources between jobs](#13---actual-pipeline---passing-resources-between-jobs)
+* [14 - Parameterized pipelines](#14---parameterized-pipelines)
 
 The following sections are found in subfolders of this repository and the tutorial continues in their README:
 
-* [15 - Deploy application to Cloud](https://github.com/starkandwayne/concourse-tutorial/tree/master/15_deploy_cloudfoundry_app)
-* [16 - Run tests, then deploy application](https://github.com/starkandwayne/concourse-tutorial/tree/master/16_run_tests_before_deploy)
-* [20 - Versions and build numbers](https://github.com/starkandwayne/concourse-tutorial/tree/master/20_versions_and_buildnumbers)
-* [21 - Versioned artifacts](https://github.com/starkandwayne/concourse-tutorial/tree/master/21_versioned_artifacts)
-* [35 - Push Docker Image](https://github.com/starkandwayne/concourse-tutorial/tree/master/35_push_docker_image)
-* [36 - Pull Docker Image](https://github.com/starkandwayne/concourse-tutorial/tree/master/36_pull_docker_image)
+* [15 - Deploy application to Cloud](15_deploy_cloudfoundry_app/README.md)
+* [16 - Run tests, then deploy application](16_run_tests_before_deploy/README.md)
+* [20 - Versions and build numbers](20_versions_and_buildnumbers/README.md)
+* [21 - Versioned artifacts](21_versioned_artifacts/README.md)
+* [35 - Push Docker Image](35_push_docker_image/README.md)
+* [36 - Pull Docker Image](36_pull_docker_image/README.md)
 
-* [40 - Github release input](https://github.com/starkandwayne/concourse-tutorial/tree/master/40_github_release_input)
-* [42 - Run Concourse on BOSH lite AWS](https://github.com/starkandwayne/concourse-tutorial/tree/master/42_run_concourse_on_bosh_lite_aws)
-* [44 - BOSH IO](https://github.com/starkandwayne/concourse-tutorial/tree/master/44_bosh_io)
-* [45 - BOSH deploy](https://github.com/starkandwayne/concourse-tutorial/tree/master/45_bosh_deploy)
-* [46 - BOSH manifest spiff merge](https://github.com/starkandwayne/concourse-tutorial/tree/master/46_bosh_manifest_spiff_merge)
-* [47 - Spiff merge Redis to BOSH lite](https://github.com/starkandwayne/concourse-tutorial/tree/master/47_spiff_merge_redis_to_bosh_lite)
-* [51 - Dummy resource Docker image](https://github.com/starkandwayne/concourse-tutorial/tree/master/51_dummy_resource_docker_image)
-* [52 - Dummy resource](https://github.com/starkandwayne/concourse-tutorial/tree/master/52_dummy_resource)
-* [70 - Pivnet updates](https://github.com/starkandwayne/concourse-tutorial/tree/master/70_pivnet_updates)
+* [40 - Github release input](40_github_release_input/README.md)
+* [42 - Run Concourse on BOSH lite AWS](42_run_concourse_on_bosh_lite_aws/README.md)
+* [44 - BOSH IO](44_bosh_io/README.md)
+* [45 - BOSH deploy](45_bosh_deploy/README.md)
+* [46 - BOSH manifest spiff merge](46_bosh_manifest_spiff_merge/README.md)
+* [47 - Spiff merge Redis to BOSH lite](47_spiff_merge_redis_to_bosh_lite/README.md)
+* [51 - Dummy resource Docker image](51_dummy_resource_docker_image/README.md)
+* [52 - Dummy resource](52_dummy_resource/README.md)
+* [70 - Pivnet updates](70_pivnet_updates/README.md)
 
 ## Thanks
 
@@ -189,6 +189,8 @@ succeeded
 
 The reason that you can select any base `image` (or `image_resource` when [configuring a task](http://concourse.ci/running-tasks.html)) is that this allows your task to have any prepared dependencies that it needs to run. Instead of installing dependencies each time during a task you might choose to pre-bake them into an `image` to make your tasks much faster.
 
+[Go to Top](#concourse-tutorial)
+
 ### 02 - Task inputs
 
 In the previous section the only inputs to the task container were the `image` used. Base images, such as Docker images, are relatively static and relatively big, slow things to create. So Concourse supports `inputs` into tasks to pass in files/folders for processing.
@@ -267,6 +269,8 @@ The task `input_parent_dir.yml` contains an input `02_task_inputs` which is also
 fly --target tutorial execute --config input_parent_dir.yml
 ```
 
+[Go to Top](#concourse-tutorial)
+
 ### 03 - Task scripts
 
 The `inputs` feature of a task allows us to pass in two types of inputs:
@@ -306,6 +310,8 @@ The current directory was uploaded to the Concourse task container and placed in
 Therefore its file `task_show_uname.sh` is available within the Concourse task container at `03_task_scripts/task_show_uname.sh`.
 
 The only further requirement is that `task_show_uname.sh` is an executable script.
+
+[Go to Top](#concourse-tutorial)
 
 ### 04 - Basic pipeline
 
@@ -371,6 +377,8 @@ Click on `job-hello-world` and then click on the large `+` in the top right corn
 ![job](http://cl.ly/image/3i2e0k0v3O2l/02-job-hello-world.gif)
 
 Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
+
+[Go to Top](#concourse-tutorial)
 
 ### 05 - Tasks extracted into Resources
 
@@ -484,6 +492,8 @@ From now onwards, any change to your pipeline might require you to do one or bot
 
 If the new behavior you intended is not showing up in the pipeline then you may have skipped one of the two steps above.
 
+[Go to Top](#concourse-tutorial)
+
 ### 06 - View job output in terminal
 
 The `job-hello-world` had terminal output from its resource fetch of a git repo and of the `hello-world` task running.
@@ -528,6 +538,8 @@ id  pipeline/job                build  status     start                     end 
 1   one-off                     n/a    succeeded  2017-01-09@10:39:41-0800  2017-01-09@10:39:51-0800  10s
 ```
 
+[Go to Top](#concourse-tutorial)
+
 ### 07 - Trigger jobs with `fly`
 
 There are three ways for a job to be triggered:
@@ -546,6 +558,8 @@ Whilst the job is running, and after it has completed, you can then watch the ou
 ```
 fly --target tutorial watch --job helloworld/job-hello-world
 ```
+
+[Go to Top](#concourse-tutorial)
 
 ### 08 - Triggering jobs with resources
 
@@ -602,6 +616,8 @@ Why does `time` resource configured with `interval: 2m` trigger "approximately" 
 
 The net result is that a timer of `2m` will trigger every 2 to 3 minutes.
 
+[Go to Top](#concourse-tutorial)
+
 ### 09 - Destroying pipelines
 
 The current `helloworld` pipeline will now keep triggering every 2-3 minutes for ever. If you want to destroy a pipeline - and lose all its build history - then may the power be granted to you.
@@ -611,6 +627,8 @@ You can delete the `helloworld` pipeline:
 ```
 fly destroy-pipeline --target tutorial --pipeline helloworld
 ```
+
+[Go to Top](#concourse-tutorial)
 
 ### 10 - Using resource inputs in job tasks
 
@@ -659,6 +677,7 @@ The `web-app-tests` output below corresponds to the Go language test output (in 
 ok  	github.com/cloudfoundry-community/simple-go-web-app	0.003s
 ```
 
+[Go to Top](#concourse-tutorial)
 
 ### 11 - Passing task outputs to another task
 
@@ -715,6 +734,7 @@ mkdir: can't create directory 'some-files': File exists
 
 This is a demonstration that if a task includes `outputs` then those output directories are pre-created and do not need creating.
 
+[Go to Top](#concourse-tutorial)
 
 ### 12 - Publishing outputs
 
@@ -810,6 +830,8 @@ The `updated-gist` output from the `bump-timestamp-file` task becomes the `updat
 
 The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/bosh-cli/Dockerfile
 
+[Go to Top](#concourse-tutorial)
+
 ### 13 - Actual pipeline - passing resources between jobs
 
 Finally, it is time to make an actual pipeline - one job passing results to another job upon success.
@@ -853,6 +875,8 @@ The latest `resource-gist` commit fetched down in `job-show-date` will be the ex
 
 ![trigger](http://cl.ly/3x1t0T450g1h/download/pipeline-flow.gif)
 
+[Go to Top](#concourse-tutorial)
+
 ### 14 - Parameterized pipelines
 
 In the preceding sections you were asked to private credentials and personal git URLs into the `pipeline.yml` files. This would make it difficult to share your `pipeline.yml` with anyone who had access to the repository. Not everyone needs nor should have access to the shared secrets.
@@ -894,6 +918,8 @@ To pass in your `credentials.yml` file use the `--load-vars-from` or `-l` option
 ```
 fly set-pipeline --target tutorial --config pipeline.yml --pipeline publishing-outputs --non-interactive --load-vars-from ../credentials.yml
 ```
+
+[Go to Top](#concourse-tutorial)
 
 ## Continuing the tutorial
 
@@ -946,3 +972,5 @@ time
 tracker
 vagrant-cloud
 ```
+
+[Go to Top](#concourse-tutorial)
