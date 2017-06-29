@@ -26,7 +26,7 @@ fi
 set -uex
 pushd $DIR
   fly sp -t ${fly_target} configure -c pipeline-${stage}.yml -p main -n
-  fly -t ${fly_target_ unpause-pipeline --pipeline main
+  fly -t ${fly_target} unpause-pipeline --pipeline main
   curl $ATC_URL/pipelines/main/jobs/job-with-inputs/builds -X POST
   fly -t ${fly_target} watch -j main/job-with-inputs
 popd

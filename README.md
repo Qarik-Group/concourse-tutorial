@@ -24,6 +24,19 @@ The following sections are found in subfolders of this repository and the tutori
 * [15 - Deploy application to Cloud](15_deploy_cloudfoundry_app/README.md)
 * [16 - Run tests, then deploy application](16_run_tests_before_deploy/README.md)
 * [20 - Versions and build numbers](20_versions_and_buildnumbers/README.md)
+* [21 - Versioned artifacts](21_versioned_artifacts/README.md)
+* [35 - Push Docker Image](35_push_docker_image/README.md)
+* [36 - Pull Docker Image](36_pull_docker_image/README.md)
+
+* [40 - Github release input](40_github_release_input/README.md)
+* [42 - Run Concourse on BOSH lite AWS](42_run_concourse_on_bosh_lite_aws/README.md)
+* [44 - BOSH IO](44_bosh_io/README.md)
+* [45 - BOSH deploy](45_bosh_deploy/README.md)
+* [46 - BOSH manifest spiff merge](46_bosh_manifest_spiff_merge/README.md)
+* [47 - Spiff merge Redis to BOSH lite](47_spiff_merge_redis_to_bosh_lite/README.md)
+* [51 - Dummy resource Docker image](51_dummy_resource_docker_image/README.md)
+* [52 - Dummy resource](52_dummy_resource/README.md)
+* [70 - Pivnet updates](70_pivnet_updates/README.md)
 
 ## Thanks
 
