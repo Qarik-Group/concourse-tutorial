@@ -4,7 +4,7 @@ Learn to use https://concourse.ci with this linear sequence of tutorials. Learn 
 
 ## Sections
 
-* [01 - Hello World task](#01---hello-world-task)
+* [01 - Hello World](#01---hello-world)
 * [02 - Task inputs](#02---task-inputs)
 * [03 - Task scripts](#03---task-scripts)
 * [04 - Basic pipeline](#04---basic-pipeline)
@@ -50,32 +50,43 @@ Thanks for all the pull requests to help fix regressions with some Concourse ver
 
 ## Getting started
 
-Install Vagrant/Virtualbox.
+1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
+2. Install [BOSH CLI v2](https://bosh.io/docs/cli-v2.html#install).
+3. Setup a single VM concourse using Virtualbox and BOSH.
 
-Fetch this tutorial and start a local Concourse server:
+Download the `concourse-lite` deployment manifest and then have bosh create a
+Single VM server running concourse on Virtualbox.
+
+```
+wget https://github.com/concourse/concourse/releases/download/v3.5.0/concourse-lite.yml
+bosh create-env concourse-lite.yml
+```
+
+4. Then in your code workspace folder, clone this repository to get example code.
 
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial
-vagrant box add concourse/lite --box-version $(cat VERSION)
-vagrant up
 ```
 
-Open http://192.168.100.4:8080/ in your browser:
+5. Open http://192.168.100.4:8080/ in your browser:
 
 [![initial](no_pipelines.png)](http://192.168.100.4:8080/)
 
-Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
+6. Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
 
 ![cli](fly_cli.png)
 
-Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
+7. Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 
 ```
 sudo mkdir -p /usr/local/bin
 sudo mv ~/Downloads/fly /usr/local/bin
 sudo chmod 0755 /usr/local/bin/fly
 ```
+
+For Windows users, use [this article](https://stackoverflow.com/questions/23400030/windows-7-add-path)
+to see where to add `fly` in to the `PATH`.
 
 Target Concourse
 ----------------
@@ -113,7 +124,7 @@ When we use the `fly` command we will target this Concourse API using `fly --tar
 Tutorials
 ---------
 
-### 01 - Hello World task
+### 01 - Hello World
 
 The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
 
