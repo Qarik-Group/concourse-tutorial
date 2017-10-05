@@ -57,8 +57,21 @@ Thanks for all the pull requests to help fix regressions with some Concourse ver
 Download the `concourse-lite` deployment manifest and then have bosh create a
 Single VM server running concourse on Virtualbox.
 
+### Mac & Linux
+
 ```
 wget https://github.com/concourse/concourse/releases/download/v3.5.0/concourse-lite.yml
+bosh create-env concourse-lite.yml
+```
+
+### Windows
+
+Download the `concourse-lite.yml` file from the  [https://github.com/concourse/concourse/releases/](https://github.com/concourse/concourse/releases/)
+page.
+
+Go to your "Downloads" folder and run in your command line:
+
+```
 bosh create-env concourse-lite.yml
 ```
 
