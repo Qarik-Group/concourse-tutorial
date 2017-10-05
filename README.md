@@ -54,10 +54,10 @@ Thanks for all the pull requests to help fix regressions with some Concourse ver
 2. Install [BOSH CLI v2](https://bosh.io/docs/cli-v2.html#install).
 3. Setup a single VM concourse using Virtualbox and BOSH.
 
-Download the `concourse-lite` deployment manifest and then have bosh create a
-Single VM server running concourse on Virtualbox.
-
 ### Mac & Linux
+
+Download the `concourse-lite` deployment manifest and then have `bosh` create a
+Single VM server running concourse on Virtualbox.
 
 ```
 wget https://github.com/concourse/concourse/releases/download/v3.5.0/concourse-lite.yml
@@ -66,20 +66,13 @@ bosh create-env concourse-lite.yml
 
 ### Windows
 
-Download the `concourse-lite.yml` file from the  [https://github.com/concourse/concourse/releases/](https://github.com/concourse/concourse/releases/)
-page.
-
-Go to your "Downloads" folder and run in your command line:
-
-```
-bosh create-env concourse-lite.yml
-```
-
-4. Then in your code workspace folder, clone this repository to get example code.
+Use the Vagrant box as a pre-compiled build of a Single VM instance of Concourse.
 
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial
+vagrant box add concourse/lite --box-version $(cat VERSION)
+vagrant up
 ```
 
 5. Open http://192.168.100.4:8080/ in your browser:
