@@ -48,13 +48,13 @@ Thanks to everyone who has worked through this tutorial and found it useful. I l
 
 Thanks for all the pull requests to help fix regressions with some Concourse versions that came out with "backwards incompatible change".
 
-## Getting started
+## Getting Started
+
+### Mac & Linux
 
 1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
 2. Install [BOSH CLI v2](https://bosh.io/docs/cli-v2.html#install).
-3. Setup a single VM concourse using Virtualbox and BOSH.
-
-### Mac & Linux
+3. Setup a Single VM concourse using Virtualbox and BOSH.
 
 Download the `concourse-lite` deployment manifest and then have `bosh` create a
 Single VM server running concourse on Virtualbox.
@@ -66,7 +66,7 @@ bosh create-env concourse-lite.yml
 
 ### Windows
 
-Use the Vagrant box as a pre-compiled build of a Single VM instance of Concourse.
+1. Use the Vagrant box as a pre-compiled build of a Single VM instance of Concourse.
 
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
@@ -75,15 +75,17 @@ vagrant box add concourse/lite --box-version $(cat VERSION)
 vagrant up
 ```
 
-5. Open http://192.168.100.4:8080/ in your browser:
+### Test Setup
+
+Open http://192.168.100.4:8080/ in your browser:
 
 [![initial](no_pipelines.png)](http://192.168.100.4:8080/)
 
-6. Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
+Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
 
 ![cli](fly_cli.png)
 
-7. Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
+Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 
 ```
 sudo mkdir -p /usr/local/bin
