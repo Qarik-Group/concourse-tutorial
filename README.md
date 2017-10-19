@@ -4,7 +4,7 @@ Learn to use https://concourse.ci with this linear sequence of tutorials. Learn 
 
 ## Sections
 
-* [01 - Hello World task](#01---hello-world-task)
+* [01 - Hello World](#01---hello-world)
 * [02 - Task inputs](#02---task-inputs)
 * [03 - Task scripts](#03---task-scripts)
 * [04 - Basic pipeline](#04---basic-pipeline)
@@ -48,11 +48,25 @@ Thanks to everyone who has worked through this tutorial and found it useful. I l
 
 Thanks for all the pull requests to help fix regressions with some Concourse versions that came out with "backwards incompatible change".
 
-## Getting started
+## Getting Started
 
-Install Vagrant/Virtualbox.
+### Mac & Linux
 
-Fetch this tutorial and start a local Concourse server:
+1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
+2. Install [BOSH CLI v2](https://bosh.io/docs/cli-v2.html#install).
+3. Setup a Single VM concourse using Virtualbox and BOSH.
+
+Download the `concourse-lite` deployment manifest and then have `bosh` create a
+Single VM server running concourse on Virtualbox.
+
+```
+wget https://github.com/concourse/concourse/releases/download/v3.5.0/concourse-lite.yml
+bosh create-env concourse-lite.yml
+```
+
+### Windows
+
+1. Use the Vagrant box as a pre-compiled build of a Single VM instance of Concourse.
 
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
@@ -60,6 +74,8 @@ cd concourse-tutorial
 vagrant box add concourse/lite --box-version $(cat VERSION)
 vagrant up
 ```
+
+### Test Setup
 
 Open http://192.168.100.4:8080/ in your browser:
 
@@ -76,6 +92,9 @@ sudo mkdir -p /usr/local/bin
 sudo mv ~/Downloads/fly /usr/local/bin
 sudo chmod 0755 /usr/local/bin/fly
 ```
+
+For Windows users, use [this article](https://stackoverflow.com/questions/23400030/windows-7-add-path)
+to see where to add `fly` in to the `PATH`.
 
 Target Concourse
 ----------------
@@ -113,7 +132,7 @@ When we use the `fly` command we will target this Concourse API using `fly --tar
 Tutorials
 ---------
 
-### 01 - Hello World task
+### 01 - Hello World
 
 The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
 
