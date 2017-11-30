@@ -30,7 +30,7 @@ if [[ ! -f ${stub} ]]; then
 fi
 
 pushd $DIR
-  fly sp -t ${fly_target} -c pipeline.yml -p main --load-vars-from ${stub} -n
+  fly sp -t ${fly_target} configure -c pipeline.yml -p main --load-vars-from ${stub} -n
   fly -t ${fly_target} unpause-pipeline --pipeline main
   fly -t ${fly_target} trigger-job -j main/job-deploy
   fly -t ${fly_target} watch -j main/job-deploy
