@@ -898,7 +898,7 @@ The latest `resource-gist` commit fetched down in `job-show-date` will be the ex
 
 ### 14 - Parameterized pipelines
 
-In the preceding sections you were asked to private credentials and personal git URLs into the `pipeline.yml` files. This would make it difficult to share your `pipeline.yml` with anyone who had access to the repository. Not everyone needs nor should have access to the shared secrets.
+In the preceding sections you were asked to add private credentials and personal git URLs into the `pipeline.yml` files. This would make it difficult to share your `pipeline.yml` with anyone who had access to the repository. Not everyone needs nor should have access to the shared secrets.
 
 Concourse pipelines can include `{{parameter}}` parameters for any value in the pipeline YAML file.
 
