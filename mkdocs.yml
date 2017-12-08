@@ -1,20 +1,20 @@
 site_name: Concourse Tutorial by Stark & Wayne
 pages:
-  - Introduction: index.md
-  - Hello World: 01_task_hello_world.md
-  - Task Inputs: 02_task_inputs.md
-  - Task Scripts: 03_task_scripts.md
-  - Basic Pipeline: 04_basic_pipeline.md
-  - Hello World Pipeline: 05_pipeline_task_hello_world.md
-  - Watch Job Output: 06_watch_job_output.md
-  - Trigger Jobs with API: 07_trigger_jobs_with_api.md
-  - Triggers: 08_triggers.md
-  - Destroying Pipelines: 09_destroy_pipelines.md
-  - Job Inputs: 10_job_inputs.md
-  - Outputs to Inputs: 11_task_outputs_to_inputs.md
-  - Publishing Outputs: 12_publishing_outputs.md
-  - Pipeline Jobs: 13_pipeline_jobs.md
-  - Parameters: 14_parameters.md
+  - Introduction: basics/index.md
+  - Hello World: basics/01_task_hello_world.md
+  - Task Inputs: basics/02_task_inputs.md
+  - Task Scripts: basics/03_task_scripts.md
+  - Basic Pipeline: basics/04_basic_pipeline.md
+  - Hello World Pipeline: basics/05_pipeline_task_hello_world.md
+  - Watch Job Output: basics/06_watch_job_output.md
+  - Trigger Jobs with API: basics/07_trigger_jobs_with_api.md
+  - Triggers: basics/08_triggers.md
+  - Destroying Pipelines: basics/09_destroy_pipelines.md
+  - Job Inputs: basics/10_job_inputs.md
+  - Outputs to Inputs: basics/11_task_outputs_to_inputs.md
+  - Publishing Outputs: basics/12_publishing_outputs.md
+  - Pipeline Jobs: basics/13_pipeline_jobs.md
+  - Parameters: basics/14_parameters.md
 
 theme: 'material'
 theme_dir: 'theme-overrides'
