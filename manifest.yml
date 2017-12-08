@@ -6,6 +6,4 @@ applications:
   memory: 64M
   routes:
   - route: concourse-tutorial.cfapps.io
-  - route: concourse-tutorial.com
-  - route: www.concourse-tutorial.com
   stack: cflinuxfs2
