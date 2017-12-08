@@ -2,41 +2,7 @@
 
 Learn to use https://concourse.ci with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
 
-## Sections
-
-* [01 - Hello World](#01---hello-world)
-* [02 - Task inputs](#02---task-inputs)
-* [03 - Task scripts](#03---task-scripts)
-* [04 - Basic pipeline](#04---basic-pipeline)
-* [05 - Tasks extracted into Resources](#05---tasks-extracted-into-resources)
-* [06 - View job output in terminal](#06---view-job-output-in-terminal)
-* [07 - Trigger jobs with fly](#07---trigger-jobs-with-fly)
-* [08 - Triggering jobs with resources](#08---triggering-jobs-with-resources)
-* [09 - Destroying pipelines](#09---destroying-pipelines)
-* [10 - Using resource inputs in job tasks](#10---using-resource-inputs-in-job-tasks)
-* [11 - Passing task outputs to another task](#11---passing-task-outputs-to-another-task)
-* [12 - Publishing outputs](#12---publishing-outputs)
-* [13 - Actual pipeline - passing resources between jobs](#13---actual-pipeline---passing-resources-between-jobs)
-* [14 - Parameterized pipelines](#14---parameterized-pipelines)
-
-The following sections are found in subfolders of this repository and the tutorial continues in their README:
-
-* [15 - Deploy application to Cloud](15_deploy_cloudfoundry_app/README.md)
-* [16 - Run tests, then deploy application](16_run_tests_before_deploy/README.md)
-* [20 - Versions and build numbers](20_versions_and_buildnumbers/README.md)
-* [21 - Versioned artifacts](21_versioned_artifacts/README.md)
-* [35 - Push Docker Image](35_push_docker_image/README.md)
-* [36 - Pull Docker Image](36_pull_docker_image/README.md)
-
-* [40 - Github release input](40_github_release_input/README.md)
-* [42 - Run Concourse on BOSH lite AWS](42_run_concourse_on_bosh_lite_aws/README.md)
-* [44 - BOSH IO](44_bosh_io/README.md)
-* [45 - BOSH deploy](45_bosh_deploy/README.md)
-* [46 - BOSH manifest spiff merge](46_bosh_manifest_spiff_merge/README.md)
-* [47 - Spiff merge Redis to BOSH lite](47_spiff_merge_redis_to_bosh_lite/README.md)
-* [51 - Dummy resource Docker image](51_dummy_resource_docker_image/README.md)
-* [52 - Dummy resource](52_dummy_resource/README.md)
-* [70 - Pivnet updates](70_pivnet_updates/README.md)
+Read the tutorial at https://concoursetutorial.com
 
 ## Thanks
 
@@ -48,6 +14,7 @@ Thanks to everyone who has worked through this tutorial and found it useful. I l
 
 Thanks for all the pull requests to help fix regressions with some Concourse versions that came out with "backwards incompatible change".
 
+<<<<<<< HEAD
 ## Getting Started
 
 ### Mac & Linux
@@ -1002,3 +969,6 @@ vagrant-cloud
 ```
 
 [Go to Top](#concourse-tutorial)
+=======
+Thanks to all the staff at Stark & Wayne who helped to maintain this Concourse Tutorial and its examples over the years.
+>>>>>>> strip out README; point to web app
