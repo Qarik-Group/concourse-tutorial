@@ -1,13 +1,66 @@
 ---
+meta:
+  name:     (( param "Please name your pipeline" ))
+  pipeline: (( grab meta.name ))
+  target:   (( param "Please identify the name of the target Concourse CI" ))
+  url:      (( param "Please specify the full url of the target Concourse CI" ))
+
+  image:
+    name: starkandwayne/concourse
+    tag: latest
+
+  github:
+    uri:          (( concat "git@github.com:" meta.github.owner "/" meta.github.repo ))
+    owner:        (( param "Please specify the name of the user / organization that owns the Github repository" ))
+    repo:         (( param "Please specify the name of the Github repository" ))
+    branch:       master
+    private_key:  (( param "Please generate an SSH Deployment Key for this repo and specify it here" ))
+    access_token: (( param "Please generate a Personal Access Token to be used for creating github releases (do you have a ci-bot?)" ))
+
+  cf:
+    username:         (( param "please provide cf.username" ))
+    password:         (( param "please provide cf.password" ))
+    organization:     (( param "please provide cf.organization" ))
+    space-production: (( param "please provide cf.space-production" ))
+
+groups:
+  - name: (( grab meta.pipeline ))
+    jobs:
+      - production
+
 jobs:
-- name: build-task-image
-  serial: true
-  plan:
-  - get: repo-image
-    trigger: true
-  - put: ci-image
-    params:
-      build: repo-image/ci/ci_image
+  - name: production
+    public: true
+    serial: true
+    plan:
+      - get: git
+        trigger: true
+      - task: mkdocs-build
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: (( grab meta.image.name ))
+              tag:        (( grab meta.image.tag ))
+          inputs:
+            - { name: git }
+          outputs:
+            - { name: site }
+          run:
+            path: ./git/ci/scripts/mkdocs-build
+            args: []
+          params:
+            REPO_ROOT: git
+            SITE_ROOT: site
+      - put: deploy-prod
+        params:
+          manifest: site/manifest.yml
+          path: site
+          current_app_name: (( grab meta.name ))
+
+resource_types: []
+>>>>>>> initial ci
 
 - name: deploy-concourse
   serial: true
@@ -98,22 +151,19 @@ jobs:
       bosh_password: {{ci-bosh-password}}
 
 resources:
-- name: repo
-  type: git
-  source:
-    uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: master
-    ignore_paths: [ci/ci_image/*]
-- name: repo-image
-  type: git
-  source:
-    uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: master
-    paths: [ci/ci_image/*]
-- name: ci-image
-  type: docker-image
-  source:
-    email: {{docker-hub-email}}
-    username: {{docker-hub-username}}
-    password: {{docker-hub-password}}
-    repository: starkandwayne/concourse-tutorial-ci
+  - name: git
+    type: git
+    source:
+      uri:         (( grab meta.github.uri ))
+      branch:      (( grab meta.github.branch ))
+      private_key: (( grab meta.github.private_key ))
+
+  - name: deploy-prod
+    type: cf
+    source:
+      api: https://api.run.pivotal.io
+      skip_cert_check: false
+      username:     (( grab meta.cf.username ))
+      password:     (( grab meta.cf.password ))
+      organization: (( grab meta.cf.organization ))
+      space:        (( grab meta.cf.space-production ))

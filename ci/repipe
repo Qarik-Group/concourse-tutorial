@@ -1,0 +1,114 @@
+#!/bin/bash
+#
+# ci/repipe
+#
+# Script for merging together pipeline configuration files
+# (via Spruce!) and configuring Concourse.
+#
+# author:  James Hunt <james@niftylogic.com>
+#          Dennis Bell <dennis.j.bell@gmail.com>
+# created: 2016-03-04
+
+need_command() {
+	local cmd=${1:?need_command() - no command name given}
+
+	if [[ ! -x "$(command -v $cmd)" ]]; then
+		echo >&2 "${cmd} is not installed."
+		if [[ "${cmd}" == "spruce" ]]; then
+			echo >&2 "Please download it from https://github.com/geofffranks/spruce/releases"
+		fi
+		exit 2
+	fi
+}
+
+NO_FLY=
+SAVE_MANIFEST=
+VALIDATE_PIPELINE=
+NON_INTERACTIVE=
+
+cleanup() {
+    rm -f save-manifest.yml
+    if [[ -n ${SAVE_MANIFEST} && -e .deploy.yml ]]; then
+        mv .deploy.yml save-manifest.yml
+    fi
+    rm -f .deploy.yml
+}
+
+usage() {
+    echo Command line arguments:
+    echo "no-fly            Do not execute any fly commands"
+    echo "save-manifest     Save manifest to file save-manifest"
+    echo "validate          Validatei pipeline instead of set pipeline"
+    echo "validate-strict   Validate pipeline with strict mode"
+    echo "non-interactive   Run set-pipeline in non-interactive mode"
+}
+
+for arg do
+    case "${arg}" in
+        no-fly|no_fly)  NO_FLY="yes" ;;
+        save-manifest|save_manifest) SAVE_MANIFEST="yes" ;;
+        validate) VALIDATE_PIPELINE="normal" ;;
+        validate-strict|validate_strict) VALIDATE_PIPELINE="strict" ;;
+        non-interactive|non_interactive) NON_INTERACTIVE="--non-interactive" ;;
+        help|-h|--help) usage; exit 0 ;;
+        *) echo Invalid argument
+            usage
+            exit 1
+    esac
+done
+
+cd $(dirname $BASH_SOURCE[0])
+echo "Working in $(pwd)"
+need_command spruce
+
+# Allow for target-specific settings
+settings_file="$(ls -1 settings.yml ${CONCOURSE_TARGET:+"settings-${CONCOURSE_TARGET}.yml"} 2>/dev/null | tail -n1)"
+if [[ -z "$settings_file" ]]
+then
+  echo >&2 "Missing local settings in ci/settings.yml${CONCOURSE_TARGET:+" or ci/settings-${CONCOURSE_TARGET}.yml"}!"
+  exit 1
+fi
+
+echo >&2 "Using settings found in ${settings_file}"
+
+set -e
+trap "cleanup" QUIT TERM EXIT INT
+spruce merge pipeline.yml ${settings_file} > .deploy.yml
+PIPELINE=$(spruce json .deploy.yml | jq -r '.meta.pipeline // ""')
+if [[ -z ${PIPELINE} ]]; then
+	echo >&2 "Missing pipeline name in ci/settings.yml!"
+	exit 1
+fi
+
+TARGET_FROM_SETTINGS=$(spruce json .deploy.yml | jq -r '.meta.target // ""')
+if [[ -z ${CONCOURSE_TARGET} ]]; then
+  TARGET=${TARGET_FROM_SETTINGS}
+elif [[ "$CONCOURSE_TARGET" != "$TARGET_FROM_SETTINGS" ]]
+then
+  echo >&2 "Target in {$settings_file} differs from target in \$CONCOURSE_TARGET"
+  echo >&2 "  \$CONCOURSE_TARGET: $CONCOURSE_TARGET"
+  echo >&2 "  Target in file:    $TARGET_FROM_SETTINGS"
+  exit 1
+else
+  TARGET=${CONCOURSE_TARGET}
+fi
+
+if [[ -z ${TARGET} ]]; then
+	echo >&2 "Missing Concourse Target in ci/settings.yml!"
+	exit 1
+fi
+
+fly_cmd="${FLY_CMD:-fly}"
+
+[[ -n ${NO_FLY} ]] && { echo no fly execution requested ; exit 0; }
+
+case "${VALIDATE_PIPELINE}" in
+    normal) fly_opts="validate-pipeline" ;;
+    strict) fly_opts="validate-pipeline --strict" ;;
+    *) fly_opts="set-pipeline ${NON_INTERACTIVE} --pipeline ${PIPELINE}" ;;
+esac
+
+set +x
+$fly_cmd --target ${TARGET} ${fly_opts} --config .deploy.yml
+[[ -n ${VALIDATE_PIPELINE} ]] && exit 0
+$fly_cmd --target ${TARGET} unpause-pipeline --pipeline ${PIPELINE}
