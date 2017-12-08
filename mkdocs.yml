@@ -20,9 +20,7 @@ pages:
     - Deploy Cloud Foundry app: miscellaneous/deploy_cloudfoundry_app.md
     - Run Tests Before Deploy: miscellaneous/run_tests_before_deploy.md
     - Versions and Build Numbers: miscellaneous/versions_and_buildnumbers.md
-    - Versioned Artifacts: miscellaneous/versioned_artifacts.md
     - Push Docker Image: miscellaneous/push_docker_image.md
-    - Pull Docker Image: miscellaneous/pull_docker_image.md
     - GitHub Release Input: miscellaneous/github_release_input.md
     - Pivotal Network Updates: miscellaneous/pivnet_updates.md
 
