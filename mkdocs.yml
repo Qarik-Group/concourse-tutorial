@@ -24,8 +24,6 @@ pages:
     - Push Docker Image: miscellaneous/push_docker_image.md
     - Pull Docker Image: miscellaneous/pull_docker_image.md
     - GitHub Release Input: miscellaneous/github_release_input.md
-    - bosh.io inputs: miscellaneous/bosh_io.md
-    - bosh deploy: miscellaneous/bosh_deploy.md
     - Pivotal Network Updates: miscellaneous/pivnet_updates.md
 
 theme: 'material'
