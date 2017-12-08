@@ -138,10 +138,14 @@ The central concept of Concourse is to run tasks. You can run them directly from
 
 ```
 <<<<<<< HEAD
+<<<<<<< HEAD
 cd 01_task_hello_world
 fly --target tutorial execute --config task_hello_world.yml
 =======
 cd tutorials/01_task_hello_world
+=======
+cd tutorials/basic/01_task_hello_world
+>>>>>>> basic tutorials in subfolder
 fly -t tutorial execute -c task_hello_world.yml
 >>>>>>> move tutorial folders into tutorials/ to simplify root folder
 ```
