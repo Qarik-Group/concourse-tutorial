@@ -1,0 +1,33 @@
+site_name: Concourse Tutorial by Stark & Wayne
+pages:
+  - Introduction: index.md
+  - Hello World: 01-hello-world.md
+
+theme: 'material'
+theme_dir: 'theme-overrides'
+
+extra:
+  palette:
+    primary: 'orange'
+    accent: 'amber'
+  feature:
+    tabs: true
+
+  font:
+    text: 'Bitter' # https://fonts.google.com/specimen/Bitter
+    code: 'Ubuntu Mono'
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.critic
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.superfences
+  - toc(permalink=true)
+
+repo_name: 'help fix the tutorials'
+repo_url: 'https://github.com/starkandwayne/concourse-tutorial'
+edit_uri: edit/master/docs/
+extra_css: [print.css]
