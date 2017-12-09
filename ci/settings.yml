@@ -1,0 +1,18 @@
+meta:
+  name:    concourse-tutorial
+  target:  sw
+  url:     https://ci.starkandwayne.com
+
+  cf:
+    uri: https://api.run.pivotal.io
+    organization: starkandwayne
+    space-production: concourse-tutorial
+    username: (( vault "secret/pipelines/shared/cf/pws/starkandwayne:username" ))
+    password: (( vault "secret/pipelines/shared/cf/pws/starkandwayne:password" ))
+
+  github:
+    owner: starkandwayne
+    repo: concourse-tutorial
+    branch: pretty-web
+    private_key:  (( vault "secret/pipelines/shared/github:private_key" ))
+    access_token: (( vault "secret/pipelines/shared/github:access_token" ))

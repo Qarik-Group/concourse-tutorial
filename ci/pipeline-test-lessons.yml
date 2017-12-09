@@ -1,0 +1,139 @@
+---
+meta:
+  name:     (( param "Please name your pipeline" ))
+  pipeline: (( grab meta.name ))
+  target:   (( param "Please identify the name of the target Concourse CI" ))
+  url:      (( param "Please specify the full url of the target Concourse CI" ))
+
+  image:
+    name: starkandwayne/concourse
+    tag: latest
+
+  github:
+    uri:          (( concat "git@github.com:" meta.github.owner "/" meta.github.repo ))
+    owner:        (( param "Please specify the name of the user / organization that owns the Github repository" ))
+    repo:         (( param "Please specify the name of the Github repository" ))
+    branch:       master
+    private_key:  (( param "Please generate an SSH Deployment Key for this repo and specify it here" ))
+    access_token: (( param "Please generate a Personal Access Token to be used for creating github releases (do you have a ci-bot?)" ))
+
+  cf:
+    username:         (( param "please provide cf.username" ))
+    password:         (( param "please provide cf.password" ))
+    organization:     (( param "please provide cf.organization" ))
+    space-production: (( param "please provide cf.space-production" ))
+
+groups:
+  - name: (( grab meta.pipeline ))
+    jobs:
+      - deploy-concourse
+      - run-all-lessons
+
+jobs:
+
+- name: deploy-concourse
+  serial: true
+  plan:
+  - aggregate:
+    - get: repo
+      trigger: true
+  - task: deploy-concourse
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: (( grab meta.image.name ))
+          tag:        (( grab meta.image.tag ))
+      inputs:
+        - { name: repo }
+      run:
+        dir: repo
+        path: ci/bin/deploy-concourse
+    params:
+      bosh_director: {{ci-bosh-director}}
+      bosh_username: {{ci-bosh-username}}
+      bosh_password: {{ci-bosh-password}}
+
+- name: run-all-lessons
+  plan:
+  - aggregate:
+    - get: repo
+      passed: [deploy-concourse]
+      trigger: true
+    - get: ci-image
+      passed: [deploy-concourse]
+      trigger: false
+  - task: create-credentials-yml
+    image: ci-image
+    config:
+      platform: linux
+      inputs:
+        - { name: repo }
+      outputs:
+        - { name: credentials }
+      run:
+        dir: repo
+        path: ci/bin/create-credentials-yml
+    params:
+      bosh_director: {{ci-bosh-director}}
+      bosh_username: {{ci-bosh-username}}
+      bosh_password: {{ci-bosh-password}}
+      gist_url: {{gist-url}}
+      github_private_key: {{github-private-key}}
+      docker_hub_username: {{docker-hub-username}}
+      docker_hub_password: {{docker-hub-password}}
+      docker_hub_email: {{docker-hub-email}}
+      docker_hub_image_hello_world: {{docker-hub-image-hello-world}}
+      cf_api: {{cf-api}}
+      cf_username: {{cf-username}}
+      cf_password: {{cf-password}}
+      cf_organization: {{cf-organization}}
+      cf_space: {{cf-space}}
+      git_uri_bump_semver: {{git-uri-bump-semver}}
+      bosh_director: {{bosh-director}}
+      bosh_username: {{bosh-username}}
+      bosh_password: {{bosh-password}}
+      bosh_stemcell_name: {{bosh-stemcell-name}}
+      docker_hub_image_47_tasks: {{docker-hub-image-47-tasks}}
+      docker_hub_image_47_tasks_repository: {{docker-hub-image-47-tasks-repository}}
+      section_47_git_redis_manifest: {{section-47-git-redis-manifest}}
+      section_47_git_redis_name: {{section-47-git-redis-name}}
+      docker_hub_image_dummy_resource: {{docker-hub-image-dummy-resource}}
+      pivnet_api_token: {{pivnet-api-token}}
+      aws_access_key_id: {{aws-access-key-id}}
+      aws_secret_access_key: {{aws-secret-access-key}}
+      aws_region_name: {{aws-region-name}}
+      aws_bosh_init_bucket: {{aws-bosh-init-bucket}}
+  - task: run-all-lessons
+    image: ci-image
+    config:
+      platform: linux
+      inputs:
+        - { name: repo }
+        - { name: credentials }
+      run:
+        dir: repo
+        path: ci/bin/run-all-lessons
+    params:
+      bosh_director: {{ci-bosh-director}}
+      bosh_username: {{ci-bosh-username}}
+      bosh_password: {{ci-bosh-password}}
+
+resources:
+  - name: git
+    type: git
+    source:
+      uri:         (( grab meta.github.uri ))
+      branch:      (( grab meta.github.branch ))
+      private_key: (( grab meta.github.private_key ))
+
+  - name: deploy-prod
+    type: cf
+    source:
+      api: https://api.run.pivotal.io
+      skip_cert_check: false
+      username:     (( grab meta.cf.username ))
+      password:     (( grab meta.cf.password ))
+      organization: (( grab meta.cf.organization ))
+      space:        (( grab meta.cf.space-production ))

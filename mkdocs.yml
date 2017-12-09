@@ -1,0 +1,53 @@
+site_name: Concourse Tutorial by Stark & Wayne
+pages:
+  - Basics:
+    - Introduction: index.md
+    - Hello World: basics/01_task_hello_world.md
+    - Task Inputs: basics/02_task_inputs.md
+    - Task Scripts: basics/03_task_scripts.md
+    - Basic Pipeline: basics/04_basic_pipeline.md
+    - Hello World Pipeline: basics/05_pipeline_task_hello_world.md
+    - Watch Job Output: basics/06_watch_job_output.md
+    - Trigger Jobs with API: basics/07_trigger_jobs_with_api.md
+    - Triggers: basics/08_triggers.md
+    - Destroying Pipelines: basics/09_destroy_pipelines.md
+    - Job Inputs: basics/10_job_inputs.md
+    - Outputs to Inputs: basics/11_task_outputs_to_inputs.md
+    - Publishing Outputs: basics/12_publishing_outputs.md
+    - Pipeline Jobs: basics/13_pipeline_jobs.md
+    - Parameters: basics/14_parameters.md
+  - Miscellaneous:
+    - Deploy Cloud Foundry app: miscellaneous/deploy_cloudfoundry_app.md
+    - Run Tests Before Deploy: miscellaneous/run_tests_before_deploy.md
+    - Versions and Build Numbers: miscellaneous/versions_and_buildnumbers.md
+    - Push Docker Image: miscellaneous/push_docker_image.md
+    - GitHub Release Input: miscellaneous/github_release_input.md
+    - Pivotal Network Updates: miscellaneous/pivnet_updates.md
+
+theme:
+  name: 'material'
+  custom_dir: 'theme-overrides'
+  palette:
+    primary: 'orange'
+    accent: 'amber'
+  feature:
+    tabs: true
+
+  font:
+    text: 'Bitter' # https://fonts.google.com/specimen/Bitter
+    code: 'Ubuntu Mono'
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.critic
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.superfences
+  - toc(permalink=true)
+
+repo_name: 'help fix the tutorials'
+repo_url: 'https://github.com/starkandwayne/concourse-tutorial'
+edit_uri: edit/master/
+extra_css: [print.css]
