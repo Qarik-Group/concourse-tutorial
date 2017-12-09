@@ -1,7 +1,7 @@
 site_name: Concourse Tutorial by Stark & Wayne
 pages:
   - Basics:
-    - Introduction: basics/index.md
+    - Introduction: index.md
     - Hello World: basics/01_task_hello_world.md
     - Task Inputs: basics/02_task_inputs.md
     - Task Scripts: basics/03_task_scripts.md
