@@ -24,8 +24,9 @@ pages:
     - GitHub Release Input: miscellaneous/github_release_input.md
     - Pivotal Network Updates: miscellaneous/pivnet_updates.md
 
-theme: 'material'
-theme_dir: 'theme-overrides'
+theme:
+  name: 'material'
+  custom_dir: 'theme-overrides'
 
 extra:
   palette:
