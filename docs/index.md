@@ -4,7 +4,7 @@ Learn to use https://concourse.ci with this linear sequence of tutorials. Learn 
 
 ## Thanks
 
-Thanks to Alex Suraci for inventing Concourse CI, and to Pivotal for sponsoring him and a team of developers to work on it for over a year (2014 onwards).
+Thanks to Alex Suraci for inventing Concourse CI, and to Pivotal for sponsoring him and a team of developers to work since 2014.
 
 At Stark & Wayne we started this tutorial as we were learning Concourse in early 2015, and we've been using Concourse in production since mid-2015 internally and at nearly all client projects.
 
