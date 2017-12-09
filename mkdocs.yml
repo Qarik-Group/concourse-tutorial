@@ -27,8 +27,6 @@ pages:
 theme:
   name: 'material'
   custom_dir: 'theme-overrides'
-
-extra:
   palette:
     primary: 'orange'
     accent: 'amber'
