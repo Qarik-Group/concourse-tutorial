@@ -58,7 +58,7 @@ Your first pipeline is unimpressive - a single job `job-hello-world` with no inp
 
 Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
 
-![job](http://cl.ly/image/3i2e0k0v3O2l/02-job-hello-world.gif)
+![job](/images/02-job-hello-world.gif)
 
 Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
 

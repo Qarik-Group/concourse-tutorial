@@ -32,13 +32,13 @@ configuration updated
 
 The [`helloworld` pipeline](http://192.168.100.4:8080/pipelines/helloworld) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
 
-![pipeline-task-hello-world](http://cl.ly/image/271z3T322l25/03-resource-job.gif)
+![pipeline-task-hello-world](/images/03-resource-job.gif)
 
 This tutorial verbosely prefixes `resource-` to resource names, and `job-` to job names, to help you identify one versus the other whilst learning. Eventually you will know one from the other and can remove the extraneous text.
 
 After manually triggering the job via the UI, the output will look like:
 
-![job-task-from-task](http://cl.ly/image/0Q3m223v2l3M/job-task-from-task.png)
+![job-task-from-task](/images/job-task-from-task.png)
 
 The in-progress or newly-completed `job-hello-world` job UI has three sections:
 
