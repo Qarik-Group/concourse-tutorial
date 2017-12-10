@@ -51,7 +51,7 @@ jobs:
           outputs:
             - { name: site }
           run:
-            path: ./git/ci/scripts/mkdocs-build
+            path: ./git/ci/scripts/mkdocs-build.sh
             args: []
           params:
             REPO_ROOT: git
