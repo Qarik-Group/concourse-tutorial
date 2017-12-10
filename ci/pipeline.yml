@@ -71,8 +71,7 @@ jobs:
       - aggregate:
         - get: git
         - get: concourse
-          resource: concourse-github
-          trigger: true
+          trigger: false
       - name: update-concourse-lite
         task: update-concourse-lite
         config:
@@ -135,9 +134,9 @@ resources:
       organization: (( grab meta.cf.organization ))
       space:        (( grab meta.cf.space-production ))
 
-  - name: concourse-github
+  - name: concourse
     type: github
     source:
-      user:       concourse
+      owner:      concourse
       repository: concourse
       access_token: (( grab meta.github.access_token ))
