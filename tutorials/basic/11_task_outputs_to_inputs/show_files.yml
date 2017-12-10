@@ -10,4 +10,4 @@ inputs:
 - name: some-files
 
 run:
-  path: resource-tutorial/11_task_outputs_to_inputs/show_files.sh
+  path: resource-tutorial/tutorials/basic/11_task_outputs_to_inputs/show_files.sh
