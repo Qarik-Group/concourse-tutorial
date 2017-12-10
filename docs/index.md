@@ -42,7 +42,7 @@ Thanks to all the staff at Stark & Wayne who helped to maintain this Concourse T
     Single VM server running concourse on Virtualbox.
 
     ```
-    wget https://github.com/starkandwayne/concourse-tutorial/tree/master/manifests/concourse-lite.yml
+    wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/develop/manifests/concourse-lite.yml
     bosh create-env manifests/concourse-lite.yml --state tmp/state.json
     ```
 
