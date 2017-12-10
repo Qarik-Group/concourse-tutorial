@@ -4,6 +4,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
 
 jobs:
 - name: job-hello-world
@@ -11,4 +12,4 @@ jobs:
   plan:
   - get: resource-tutorial
   - task: hello-world
-    file: resource-tutorial/01_task_hello_world/task_hello_world.yml
+    file: resource-tutorial/tutorials/basic/01_task_hello_world/task_hello_world.yml
