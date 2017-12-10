@@ -36,7 +36,7 @@ jobs:
     serial: true
     plan:
       - get: git
-        resource: git-master
+        resource: git
         trigger: true
       - task: mkdocs-build
         config:
