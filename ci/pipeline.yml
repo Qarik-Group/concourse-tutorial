@@ -28,6 +28,7 @@ groups:
     jobs:
       - website
       - concourse
+      - master
 
 jobs:
   - name: website
@@ -35,6 +36,7 @@ jobs:
     serial: true
     plan:
       - get: git
+        resource: git-master
         trigger: true
       - task: mkdocs-build
         config:
@@ -88,10 +90,22 @@ jobs:
         params:
           REPO_ROOT: git
           REPO_OUT: pushme
+          CONCOURSE_ROOT: concourse
     - put: git
       params:
         repository: pushme
         rebase: true
+
+  - name: master
+    public: true
+    serial: true
+    plan:
+    - get: git
+    - put: git-master
+      params:
+        repository: git
+        rebase: true
+
 
 resources:
   - name: git
@@ -99,6 +113,13 @@ resources:
     source:
       uri:         (( grab meta.github.uri ))
       branch:      (( grab meta.github.branch ))
+      private_key: (( grab meta.github.private_key ))
+
+  - name: git-master
+    type: git
+    source:
+      uri:         (( grab meta.github.uri ))
+      branch:      master
       private_key: (( grab meta.github.private_key ))
 
   - name: deploy-prod
