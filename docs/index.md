@@ -61,11 +61,11 @@ vagrant up
 
 Open http://192.168.100.4:8080/ in your browser:
 
-[![initial](no_pipelines.png)](http://192.168.100.4:8080/)
+[![initial](/images/dashboard-no-pipelines.png)](http://192.168.100.4:8080/)
 
 Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
 
-![cli](fly_cli.png)
+![cli](/images/fly_cli.png)
 
 Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 
