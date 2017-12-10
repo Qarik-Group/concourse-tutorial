@@ -14,22 +14,37 @@ Thanks to everyone who has worked through this tutorial and found it useful. I l
 
 Thanks for all the pull requests to help fix regressions with some Concourse versions that came out with "backwards incompatible change".
 
-<<<<<<< HEAD
 ## Getting Started
 
 ### Mac & Linux
 
 1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
-2. Install [BOSH CLI v2](https://bosh.io/docs/cli-v2.html#install).
+2. Install [BOSH CLI](https://bosh.io/docs/cli-v2.html#install)
+
+    For Mac:
+
+    ```
+    brew install cloudfoundry/tap/bosh-cli
+    ```
+
+    For Linux:
+
+    ```
+    wget -q -O - https://raw.githubusercontent.com/starkandwayne/homebrew-cf/master/public.key | apt-key add -
+    echo "deb http://apt.starkandwayne.com stable main" | tee /etc/apt/sources.list.d/starkandwayne.list
+    apt-get update
+    apt-get install bosh-cli
+    ```
+
 3. Setup a Single VM concourse using Virtualbox and BOSH.
 
-Download the `concourse-lite` deployment manifest and then have `bosh` create a
-Single VM server running concourse on Virtualbox.
+    Download the `concourse-lite` deployment manifest and then have `bosh` create a
+    Single VM server running concourse on Virtualbox.
 
-```
-wget https://github.com/concourse/concourse/releases/download/v3.5.0/concourse-lite.yml
-bosh create-env concourse-lite.yml
-```
+    ```
+    wget https://github.com/concourse/concourse/releases/download/v3.8.0/concourse-lite.yml
+    bosh create-env concourse-lite.yml
+    ```
 
 ### Windows
 

@@ -1,0 +1,271 @@
+cloud_provider:
+  mbus: https://mbus:p2an3m7idfm6vmqp3w74@192.168.100.4:6868
+  properties:
+    agent:
+      mbus: https://mbus:p2an3m7idfm6vmqp3w74@0.0.0.0:6868
+    blobstore:
+      path: /var/vcap/micro_bosh/data/cache
+      provider: local
+    ntp:
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
+  template:
+    name: virtualbox_cpi
+    release: bosh-virtualbox-cpi
+disk_pools:
+- disk_size: 32768
+  name: disks
+instance_groups:
+- instances: 1
+  jobs:
+  - name: atc
+    properties:
+      external_url: http://192.168.100.4:8080
+      no_really_i_dont_want_any_auth: true
+      postgresql:
+        database: atc
+        host: 127.0.0.1
+        role:
+          name: atc
+          password: elgvaomr3pujocn8qajk
+        sslmode: disable
+      token_signing_key:
+        private_key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEpAIBAAKCAQEA0sx3a3Lhz6/u6mA5DoHen/XnctAPxBtsFlI3je/cdLjM60G9
+          L0Fyj2dEyrz/7QWRFL8Rvk2gyOPDUB1QbmZ/0FFXPhNOfaLraqDSi60CqG4ZKbmo
+          eI9OTGgJZGLSKYfs/P1oZGQaPaUBtqqE9DgQu3TNshCkp5gzbu5vk5ZSE1cLTlq7
+          i7smx80W9hRhuLjeis7QJpJksNvvaAKawxXELLAe8F23h19pje4++mDftwM9FzIq
+          98WQ0rNTvjuxjjys39KDYiV8bADNftRbHSCqS723dfdNOdfj26WmkmhfxkIg8aAF
+          V+bzSwSZ8ZkwA/9Wu4RaJTKHzokFZ4fFTdW+2QIDAQABAoIBAQCn2iopRAQtFWF/
+          /XjRZXY5F1zh3mz/cfqCV5tnCR0ZUGHT3rffHhUzvT5Y1WBQgwNAatidGUEzVbGb
+          ZIw8LKAP6AU5J7RzdDxS3pZopC4eofSldfGBdlMZoioAZnQEn/iEhuAOOGtwtKiF
+          pIhT0yT3r41vAbOqxBYIehIcijD2tgF2qvj1Jhpoqr1whShppbZeWG6//VKSEXAe
+          a8t5rhsAA+nBOmMV7+rWvVaO65BTtUdt7uLhNWfFKigMyKv6oz93k6IjK8NmlQWM
+          M2KfdJQL32S8xMmrcWSAlxmrl0QvxhwpIfLG3dOVEFbLFRkKZMVUqFpmFj6fSa3I
+          gpSal6wBAoGBANtAHL0QGOcLeupqWbJGu70a6V5msuPQqQpH0grRFcDSbfvbIMfn
+          b0s/J4Tf7QVj1bIi/O5cky8b8TBzUT0TkoNZqJ+ysSWflaUqMqemf7L8cRzMIZ2s
+          pvYpbrHuMXo+AQETTvTSDVF535Yk9e7lM1lnE4emmZ3Tu1yGaYLkI0SBAoGBAPYh
+          shts76017kF3jy18hoR3djLzVm1/JBgFtGRCJnNCUwDy7WoRSs4LKAJJz5O1BcMt
+          Hxf6+ku5XlY33R9ngJEgdvLGqdeGeh56oEO5T1gEW9fKppgx2Rz6BS6QTYW+rQnq
+          IP1oEy7EEkzzMQk/a4+iEaDaM6iOQVB4ItS2Y+5ZAoGACKvgdxnL4ldx5ROPuJ1T
+          j4cg87rcGGaISP/OLt9WHOo1r2BbS4y7uh4lUfwJQ81PBlyb5FGFALf6MhBdhizf
+          /pHtOWO33eUR5hZlKnxLUKjrUFhCfBn4AIRi/GaPTmZlY8V/ue8U18QaM7YChBBM
+          l5ycCSFtsfBN2Lr4MVUUkAECgYEAu6gfMnfRGR/IQtPULxsFOJQYY2pSF/Pa4hHf
+          Yp1o0XHc9RlCWB9NCGFLJMt/3x8igJezYEYzdW6kdVnsVphEVuIIrrs3HSLjkr9t
+          15S+4N2Z5KIWeG1xGn2pW8IbyQAC0E9Yzbv+/CXzygWU+ncHHCC2DgyvXDDxrVeb
+          PtC8yikCgYBpVns2/oFLkfm96zRjGBN/XT5GYaQRmBkgu8bDzDfMMzm8RL8odNuF
+          lrCG7+1RJYFz1cTojq3NjiRVX5ePpUzpbKQXSFuwa8BHGcwZW0A8zB6vbu5cazcq
+          F0jS9ggZibTgY5w+Zykf4pKXV2PsYeCv7I60ODkB5nn5H26C/KB+mQ==
+          -----END RSA PRIVATE KEY-----
+        public_key: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0sx3a3Lhz6/u6mA5DoHe
+          n/XnctAPxBtsFlI3je/cdLjM60G9L0Fyj2dEyrz/7QWRFL8Rvk2gyOPDUB1QbmZ/
+          0FFXPhNOfaLraqDSi60CqG4ZKbmoeI9OTGgJZGLSKYfs/P1oZGQaPaUBtqqE9DgQ
+          u3TNshCkp5gzbu5vk5ZSE1cLTlq7i7smx80W9hRhuLjeis7QJpJksNvvaAKawxXE
+          LLAe8F23h19pje4++mDftwM9FzIq98WQ0rNTvjuxjjys39KDYiV8bADNftRbHSCq
+          S723dfdNOdfj26WmkmhfxkIg8aAFV+bzSwSZ8ZkwA/9Wu4RaJTKHzokFZ4fFTdW+
+          2QIDAQAB
+          -----END PUBLIC KEY-----
+    release: concourse
+  - name: tsa
+    properties:
+      authorized_keys:
+      - |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLDPscXjmVgb8jpA+kfJC0JBdOeIbwY5DcxTUo4VOpHQA9VePCgTTwxXGbJc0iJsuZhg8XM5kWHLopG87yA695nFoUgVkK1Rrj+MM2Slp3r00knwa09yrE9k64eeHIAFZKaElzCscrRJaYK46UChazip+3EAOAG1GV95DKz0ROyVNil0SaLoaE7AvVW6sKXo9XvudzY1E5xg2fF1Uv2Oz1Kbz7+LrBbzAN0w9Uis+rz8skGUqomyly7UkVPyS9+3V/9NQyQSmPePgGt3sgPRwAFefv3xQirwOVUfcJYFnHlI95IC0Moc6jIt0/P5y96YtEFMS4P7p/WLhFbxSIaBL3
+      host_key:
+        private_key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEpAIBAAKCAQEAsVykdMOrVGmiX30ZyXmp4uqgmqiba7ChGw7vCejDcKbKIZMC
+          +13spQxcXMJUV+MDnDl5DTELLBglIiLv7PWpANzaqadFng0NHeBtEbLwO5qypu6J
+          NQ4TBL9NsEZGe524EkgE1e9DXZXpuc55JuoFuIyUdw39yr5ATLI+5JE0YWEBP4YN
+          027WVGmMOjnWDPCxzp89g9yZgxl9naGqfjcyXvPNRTlH6fHACErXj7/IG+dcgn8g
+          R9ISMX1ZdCPY1G2DcLqmr886r3MsJ/wm9Usw8Ph/YivIfA5OGyn7mvGoYdmg++/5
+          rSv55brzfhoF0MWX7vr3KPvy0l23K1sGs/KQ1wIDAQABAoIBAHiUz4pC7Vx6ZNYe
+          q0V63bFUatQ7BU91ylInGQTXpugTvSCOXlyfQqADg1fdFpKZ2H6B5Ha/fSUBVV2b
+          +xpS+g+IF3F4M7B8lwpU5lI+IW2kgwlS6x2S8AMuPJc3b/vjAp4LMJ5yCI67uSeF
+          5IA8Yp9RlC5M6NrJ9dUu6etjfQUmWC8E/0wPgSLM/+jDfkWPOkqUjN6LOC5kDJif
+          IEVTAlmC1+tx6suvnHb5nFtiDtq1m1aOB+IZ6D5M16DmI/gvldOVb3i5ir94RH8g
+          Erlrm/2w0SDnnQWjUkDIZIeph/2UnlyAjvd8/B/BDeH/wTOgl+yhfoBl+2yY417p
+          kDbOlcECgYEA32Q/+aAwuXplU9MFHTJxa2sXMxih0phHWS/L587zIIFtghoKzVT2
+          4p298QT8w4rTuIoAx0uQey/CHujDmOJhd6aTtbcTmEOsTwqRoqUQLUVxwiCBN2O8
+          83e/WAZRf3NuD4QmuMhxcM2bOqK7nTJUt3ElUDTrMBClVB1w9aZ/4a8CgYEAy0BX
+          2pm0ZVMZGH5aQfuhCW3nMM32C1OMyZldd0buKezBR/AhIt9KeYsO9hhpMKpU5gVb
+          FCcP3Zt0LeTnqBaFxZVdsMrmf99t8gJitxiCC2hYKTHN4Sh+0E6kgDvDn6PcsAFF
+          xlQZ6hNKdbVBM+ap/ZSCjZfPynDjwTbLY+bSVVkCgYEApVQ1gNLMnMj36wTW2Rf3
+          Fw/n2JoXUZv/2gLkvwfLqjf/yvTpH7QNEAS8iX8ubq31KbOBBf5nzLO40FVmRWTt
+          y7bNxQPcjakwAkOJKz1MbqThn1GdMFgxhGMQit4KPPA5+WPNoJ5ATsLsaoX7okiY
+          qDcl7Wls0mLPaSRs8HEsXeMCgYBNZlJOZ6v/zfZHko5ShD1d9uFMf5JL2+RIPUQP
+          kQ5PHt63w2UK/5c/08m9w6wDIUo1UiLN+NYc4P8MHxhstS76ABhuo8XFOlOHDouD
+          CC01pOW1wkaRkLdCIkCYqKmlWGRJDiMBFLPNpMz9KCoNVrCzZWOWAhLaF8VTpccs
+          YxED+QKBgQCitFftytbxhZ3jK7muUVcyDjLZIsmB4CCJkB/edBRXSxgPeuDByU3f
+          xKBywKeiThsXWny6JTwwmXE/MbrTVjV5wUPbQhp8l5Ha4cVDPpHyTQhcOYRbXD58
+          1N7AyD5x1XcNdWgAjKSbNAWa4fO7NAym0ioY0dXU8Nsg9F41UKW0dw==
+          -----END RSA PRIVATE KEY-----
+        public_key: |
+          ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxXKR0w6tUaaJffRnJeani6qCaqJtrsKEbDu8J6MNwpsohkwL7XeylDFxcwlRX4wOcOXkNMQssGCUiIu/s9akA3Nqpp0WeDQ0d4G0RsvA7mrKm7ok1DhMEv02wRkZ7nbgSSATV70Ndlem5znkm6gW4jJR3Df3KvkBMsj7kkTRhYQE/hg3TbtZUaYw6OdYM8LHOnz2D3JmDGX2doap+NzJe881FOUfp8cAIStePv8gb51yCfyBH0hIxfVl0I9jUbYNwuqavzzqvcywn/Cb1SzDw+H9iK8h8Dk4bKfua8ahh2aD77/mtK/nluvN+GgXQxZfu+vco+/LSXbcrWwaz8pDX
+        public_key_fingerprint: 58:cb:1a:43:28:83:7e:c3:32:11:f1:b6:a9:98:3d:0e
+      token_signing_key:
+        private_key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEpAIBAAKCAQEA0sx3a3Lhz6/u6mA5DoHen/XnctAPxBtsFlI3je/cdLjM60G9
+          L0Fyj2dEyrz/7QWRFL8Rvk2gyOPDUB1QbmZ/0FFXPhNOfaLraqDSi60CqG4ZKbmo
+          eI9OTGgJZGLSKYfs/P1oZGQaPaUBtqqE9DgQu3TNshCkp5gzbu5vk5ZSE1cLTlq7
+          i7smx80W9hRhuLjeis7QJpJksNvvaAKawxXELLAe8F23h19pje4++mDftwM9FzIq
+          98WQ0rNTvjuxjjys39KDYiV8bADNftRbHSCqS723dfdNOdfj26WmkmhfxkIg8aAF
+          V+bzSwSZ8ZkwA/9Wu4RaJTKHzokFZ4fFTdW+2QIDAQABAoIBAQCn2iopRAQtFWF/
+          /XjRZXY5F1zh3mz/cfqCV5tnCR0ZUGHT3rffHhUzvT5Y1WBQgwNAatidGUEzVbGb
+          ZIw8LKAP6AU5J7RzdDxS3pZopC4eofSldfGBdlMZoioAZnQEn/iEhuAOOGtwtKiF
+          pIhT0yT3r41vAbOqxBYIehIcijD2tgF2qvj1Jhpoqr1whShppbZeWG6//VKSEXAe
+          a8t5rhsAA+nBOmMV7+rWvVaO65BTtUdt7uLhNWfFKigMyKv6oz93k6IjK8NmlQWM
+          M2KfdJQL32S8xMmrcWSAlxmrl0QvxhwpIfLG3dOVEFbLFRkKZMVUqFpmFj6fSa3I
+          gpSal6wBAoGBANtAHL0QGOcLeupqWbJGu70a6V5msuPQqQpH0grRFcDSbfvbIMfn
+          b0s/J4Tf7QVj1bIi/O5cky8b8TBzUT0TkoNZqJ+ysSWflaUqMqemf7L8cRzMIZ2s
+          pvYpbrHuMXo+AQETTvTSDVF535Yk9e7lM1lnE4emmZ3Tu1yGaYLkI0SBAoGBAPYh
+          shts76017kF3jy18hoR3djLzVm1/JBgFtGRCJnNCUwDy7WoRSs4LKAJJz5O1BcMt
+          Hxf6+ku5XlY33R9ngJEgdvLGqdeGeh56oEO5T1gEW9fKppgx2Rz6BS6QTYW+rQnq
+          IP1oEy7EEkzzMQk/a4+iEaDaM6iOQVB4ItS2Y+5ZAoGACKvgdxnL4ldx5ROPuJ1T
+          j4cg87rcGGaISP/OLt9WHOo1r2BbS4y7uh4lUfwJQ81PBlyb5FGFALf6MhBdhizf
+          /pHtOWO33eUR5hZlKnxLUKjrUFhCfBn4AIRi/GaPTmZlY8V/ue8U18QaM7YChBBM
+          l5ycCSFtsfBN2Lr4MVUUkAECgYEAu6gfMnfRGR/IQtPULxsFOJQYY2pSF/Pa4hHf
+          Yp1o0XHc9RlCWB9NCGFLJMt/3x8igJezYEYzdW6kdVnsVphEVuIIrrs3HSLjkr9t
+          15S+4N2Z5KIWeG1xGn2pW8IbyQAC0E9Yzbv+/CXzygWU+ncHHCC2DgyvXDDxrVeb
+          PtC8yikCgYBpVns2/oFLkfm96zRjGBN/XT5GYaQRmBkgu8bDzDfMMzm8RL8odNuF
+          lrCG7+1RJYFz1cTojq3NjiRVX5ePpUzpbKQXSFuwa8BHGcwZW0A8zB6vbu5cazcq
+          F0jS9ggZibTgY5w+Zykf4pKXV2PsYeCv7I60ODkB5nn5H26C/KB+mQ==
+          -----END RSA PRIVATE KEY-----
+        public_key: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0sx3a3Lhz6/u6mA5DoHe
+          n/XnctAPxBtsFlI3je/cdLjM60G9L0Fyj2dEyrz/7QWRFL8Rvk2gyOPDUB1QbmZ/
+          0FFXPhNOfaLraqDSi60CqG4ZKbmoeI9OTGgJZGLSKYfs/P1oZGQaPaUBtqqE9DgQ
+          u3TNshCkp5gzbu5vk5ZSE1cLTlq7i7smx80W9hRhuLjeis7QJpJksNvvaAKawxXE
+          LLAe8F23h19pje4++mDftwM9FzIq98WQ0rNTvjuxjjys39KDYiV8bADNftRbHSCq
+          S723dfdNOdfj26WmkmhfxkIg8aAFV+bzSwSZ8ZkwA/9Wu4RaJTKHzokFZ4fFTdW+
+          2QIDAQAB
+          -----END PUBLIC KEY-----
+    release: concourse
+  - name: postgres
+    properties:
+      databases:
+        databases:
+        - name: atc
+        port: 5432
+        roles:
+        - name: atc
+          password: elgvaomr3pujocn8qajk
+    release: postgres
+  - name: groundcrew
+    properties:
+      baggageclaim:
+        url: http://127.0.0.1:7788
+      drain_timeout: 10m
+      tsa:
+        host: 127.0.0.1
+        host_public_key: |
+          ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxXKR0w6tUaaJffRnJeani6qCaqJtrsKEbDu8J6MNwpsohkwL7XeylDFxcwlRX4wOcOXkNMQssGCUiIu/s9akA3Nqpp0WeDQ0d4G0RsvA7mrKm7ok1DhMEv02wRkZ7nbgSSATV70Ndlem5znkm6gW4jJR3Df3KvkBMsj7kkTRhYQE/hg3TbtZUaYw6OdYM8LHOnz2D3JmDGX2doap+NzJe881FOUfp8cAIStePv8gb51yCfyBH0hIxfVl0I9jUbYNwuqavzzqvcywn/Cb1SzDw+H9iK8h8Dk4bKfua8ahh2aD77/mtK/nluvN+GgXQxZfu+vco+/LSXbcrWwaz8pDX
+        port: 2222
+        worker_key:
+          private_key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIEpAIBAAKCAQEAywz7HF45lYG/I6QPpHyQtCQXTniG8GOQ3MU1KOFTqR0APVXj
+            woE08MVxmyXNIibLmYYPFzOZFhy6KRvO8gOveZxaFIFZCtUa4/jDNkpad69NJJ8G
+            tPcqxPZOuHnhyABWSmhJcwrHK0SWmCuOlAoWs4qftxADgBtRlfeQys9ETslTYpdE
+            mi6GhOwL1VurCl6PV77nc2NROcYNnxdVL9js9Sm8+/i6wW8wDdMPVIrPq8/LJBlK
+            qJspcu1JFT8kvft1f/TUMkEpj3j4Brd7ID0cABXn798UIq8DlVH3CWBZx5SPeSAt
+            DKHOoyLdPz+cvemLRBTEuD+6f1i4RW8UiGgS9wIDAQABAoIBAQCIp6zc88FXkKHe
+            T81DS55rzpps8osGgEv/eS4E3FlcyKrfnM2TmzfRD2EdJLzBTlDaezHu0IgoLJ9R
+            iWim0ronY4XwpPkTZEcbxNFE2Ze3UyDdE7YE1xBOzOJAH69H1oo8u6ErLsbKpPeh
+            ZDcqBPwwS4ygPMPOVRR8lMg65nG3f26LG2NkG7RnE6sVvYZjKKrs9PboaL8AMNNP
+            39WBgEUBD5VJXcU6+lyaKX5E06iiCML7uWM8OyyLKC9ppmu3l5MC9P/rjbfRQZaH
+            tUVg0fZBB3pRVNibu1tPgiLeffBuzdQHmr5XInsIp32ZF4xFL74VvoRaMieZwKFg
+            XL9PjtjJAoGBAN7t7qp+EWoXB/d2a5hVGGUfbTlOp57/RGRd/vqEJZ8Owe49JxKJ
+            zoJUAwmBW72MmsDfTZTgurk806E0opPSxmBvfI21Ewb4QUvmR7allkuT7YBVSDeV
+            sJvC3igyhc5U1Nr2EBe5/Onil3AYXtWXGvXwKgAdXDgOoCNjaCl3F8PTAoGBAOks
+            ICU99mUb63AtXhUnSHZ81LayTtmjdmMA6zDGZoH72pqu5ejqrIP63TCO9R1QXYd4
+            pC3GuaI2IXzqqM4DJzrzQIim8slQC69A3XVDwTjj0+DIRDBRSB9twUjF9YuxiSXZ
+            7YU4W8jYa2Xnrri36hTXIElnXPGDZylPdMkK29HNAoGAWcLL2nIwaNslJgrUf92j
+            mPPycqSs8WQvEYqXZB9ZVpYGl/qfhONf9zIElwsy+TtoBEjlYBCsnnFTdRFQdNzl
+            a2b4a8aBBslm4Tyzm2NJBN1nP8kW7uqi1dS8xsqw/cdCfXeeOy90GmhWOZhWdwIE
+            pQoynyEzRI7/A8C+7BM7ymkCgYEAh5rT7xTEETVVjV21E5RO/inHA6FbXhNErHtC
+            TJF12C6Ciechan3garkgnjblsnCklD7DLKQgHYhhnWZTWcxXql8Brvd4xz84LGoK
+            4UHQQ6er91RA4+DBkxWfjRUjomRToKHHEu0d5AaJHzDIWkELb6dU7ZuhYAvNmSbO
+            goVAJhkCgYBpVlxtpSbhdx3OIK4EHdN9XhIabzi25fBqZotuY100ZykJ9ooNprxt
+            Gc5VV6uouMeXgTTsB+hsWczoP4x2aywB5YCmxJqZS730J0cl4abxENDOvWdNwao2
+            lSD4KeGyMJ/DI+pHeIlI3XIPptNLJJwx/7hiBKC8QTUsSeRU9N2kfg==
+            -----END RSA PRIVATE KEY-----
+          public_key: |
+            ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLDPscXjmVgb8jpA+kfJC0JBdOeIbwY5DcxTUo4VOpHQA9VePCgTTwxXGbJc0iJsuZhg8XM5kWHLopG87yA695nFoUgVkK1Rrj+MM2Slp3r00knwa09yrE9k64eeHIAFZKaElzCscrRJaYK46UChazip+3EAOAG1GV95DKz0ROyVNil0SaLoaE7AvVW6sKXo9XvudzY1E5xg2fF1Uv2Oz1Kbz7+LrBbzAN0w9Uis+rz8skGUqomyly7UkVPyS9+3V/9NQyQSmPePgGt3sgPRwAFefv3xQirwOVUfcJYFnHlI95IC0Moc6jIt0/P5y96YtEFMS4P7p/WLhFbxSIaBL3
+          public_key_fingerprint: df:49:f6:e8:0c:b9:0c:c2:39:97:a5:02:06:1a:f6:c8
+    release: concourse
+  - name: baggageclaim
+    properties:
+      log_level: debug
+    release: concourse
+  - name: garden
+    properties:
+      garden:
+        allow_host_access: true
+        listen_address: 0.0.0.0:7777
+        listen_network: tcp
+    release: garden-runc
+  name: concourse
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: default
+    static_ips:
+    - 192.168.100.4
+  - name: outbound
+  persistent_disk_pool: disks
+  resource_pool: vms
+name: concourse
+networks:
+- name: default
+  subnets:
+  - dns:
+    - 8.8.8.8
+    gateway: 192.168.100.1
+    range: 192.168.100.0/24
+    static_ips: 192.168.100.4
+  type: manual
+- cloud_properties:
+    name: outbound
+    type: natnetwork
+  name: outbound
+  type: dynamic
+releases:
+- name: concourse
+  sha1: 361d4ca59030ec1af5f5ad61a31a9c0aa593e819
+  url: https://github.com/concourse/concourse/releases/download/v3.8.0/concourse-3.8.0-3468.11.tgz
+  version: 3.8.0
+- name: garden-runc
+  sha1: 77bfe8bdb2c3daec5b40f5116a6216badabd196c
+  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.0
+  version: 1.9.0
+- name: postgres
+  sha1: 4b5265bfd5f92cf14335a75658658a0db0bca927
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=23
+  version: "23"
+- name: bosh-virtualbox-cpi
+  sha1: 537c77b087eeda859b1eb89553efa6f808214d50
+  url: https://bosh.io/d/github.com/cppforlife/bosh-virtualbox-cpi-release?v=0.0.12
+  version: 0.0.12
+resource_pools:
+- cloud_properties:
+    cpus: 2
+    ephemeral_disk: 32768
+    memory: 4096
+  env:
+    bosh:
+      password: '*'
+  name: vms
+  network: default
+  stemcell:
+    sha1: 0447a405c280a3445ce6a3db69a61cbddc7b3708
+    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent?v=3468.11
+variables: []
