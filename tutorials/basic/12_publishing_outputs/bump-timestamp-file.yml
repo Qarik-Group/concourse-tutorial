@@ -13,4 +13,4 @@ outputs:
   - name: updated-gist
 
 run:
-  path: resource-tutorial/12_publishing_outputs/bump-timestamp-file.sh
+  path: resource-tutorial/tutorials/basic/12_publishing_outputs/bump-timestamp-file.sh

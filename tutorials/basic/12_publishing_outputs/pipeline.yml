@@ -4,6 +4,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
 - name: resource-gist
   type: git
   source:
@@ -18,6 +19,6 @@ jobs:
   - get: resource-tutorial
   - get: resource-gist
   - task: bump-timestamp-file
-    file: resource-tutorial/12_publishing_outputs/bump-timestamp-file.yml
+    file: resource-tutorial/tutorials/basic/12_publishing_outputs/bump-timestamp-file.yml
   - put: resource-gist
     params: {repository: updated-gist}

@@ -4,6 +4,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
 - name: resource-gist
   type: git
   source:
