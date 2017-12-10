@@ -101,9 +101,10 @@ Shows a simple YAML file with the API, credentials etc:
 targets:
   tutorial:
     api: http://192.168.100.4:8080
+    team: main
     token:
-      type: ""
-      value: ""
+      type: Bearer
+      value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjc3JmIjoiZTk3Mjk4OWI0MjY3NjFkM2JjYzFlYzgzMThhYjk4OTE1MjZiYzcyNzNlYTJjNzRkMjQ3NWYyOWM5MGUwMDAzOCIsImV4cCI6MTUxMjk4NTk2OSwiaXNBZG1pbiI6dHJ1ZSwidGVhbU5hbWUiOiJtYWluIn0.eiMwx0D7JWUmGJjoNlgv7ZmPpF4Ub9t0k_6-YE8vuUFC9_mxI0KOMxvoh5yjn1yhi_O2nKo4z0YiNA_JOaN3mcdhD0Vxy7l8Y-0PBZd6ISqwXpciu7oWQw__Mx-d67oqPaTnXoB9KgEwvXjf54JpwAjIoS0U_Mtmc7-_qqzH06RywXXz9NPRJVPa1lv-5-HWMF_I5C6OqsOFNJjRKM0UlBzAyWJ-aBRtw8QveXzNXvWdXXVv7cV_EvTX9xQqec13E-iJ0pBvm3Hjc-2oeGnAlDl4YfswWHclVpYzTpuXy0Ge186LiqExvBNmKzy-UZqZ2Bf2MvL7nkPMZfPCn3AAqA
 ```
 
 When we use the `fly` command we will target this Concourse API using `fly --target tutorial`.
