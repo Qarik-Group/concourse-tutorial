@@ -4,6 +4,8 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
+
 - name: resource-app
   type: git
   source:
@@ -17,4 +19,4 @@ jobs:
   - get: resource-app
     trigger: true
   - task: web-app-tests
-    file: resource-tutorial/10_job_inputs/task_run_tests.yml
+    file: resource-tutorial/tutorials/basic/10_job_inputs/task_run_tests.yml

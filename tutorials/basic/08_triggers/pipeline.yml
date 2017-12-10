@@ -1,4 +1,16 @@
 ---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
+
+- name: my-timer
+  type: time
+  source:
+    interval: 2m
+
 jobs:
 - name: job-hello-world
   public: true
@@ -10,13 +22,3 @@ jobs:
   - task: hello-world
     file: resource-tutorial/01_task_hello_world/task_hello_world.yml
 
-resources:
-- name: resource-tutorial
-  type: git
-  source:
-    uri: https://github.com/starkandwayne/concourse-tutorial.git
-
-- name: my-timer
-  type: time
-  source:
-    interval: 2m
