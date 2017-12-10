@@ -240,13 +240,13 @@ networks:
   type: dynamic
 releases:
 - name: concourse
-  sha1: 361d4ca59030ec1af5f5ad61a31a9c0aa593e819
-  url: https://github.com/concourse/concourse/releases/download/v3.8.0/concourse-3.8.0-3468.11.tgz
-  version: 3.8.0
+  version: 3.5.0
+  url: https://s3-eu-west-1.amazonaws.com/bucc-compiled-releases/concourse-3.5.0-ubuntu-trusty-3468.1-20171102-144749-329693849-20171102144811.tgz
+  sha1: a75c4c28f9b510170688e1e3efc5494d085e0845
 - name: garden-runc
-  sha1: 77bfe8bdb2c3daec5b40f5116a6216badabd196c
-  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.0
-  version: 1.9.0
+  version: "1.9.4"
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/garden-runc-1.9.4-ubuntu-trusty-3468.11-20171129-192405-927652976-20171129192412.tgz?versionId=FsVmPJCRKNsZ_w0Hei4vEYhKe0nv7TxK
+  sha1: de2873399753e6768d14d1a03aeff65ce8e4a3a8
 - name: postgres
   sha1: 4b5265bfd5f92cf14335a75658658a0db0bca927
   url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=23

@@ -1,20 +1,10 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/pretty-output.sh
+
 export fly_target=${fly_target:-tutorial}
 export tutorial_concourse_url=${tutorial_concourse_url:-"http://10.58.111.191"}
-
-function ensure-rvm {
-  announce-task "Making sure RVM is set up..."
-  set +ux
-  if [ -s "$HOME/.rvm/scripts/rvm" ] ; then
-    run-cmd source "$HOME/.rvm/scripts/rvm"
-  elif [ -s "/usr/local/rvm/scripts/rvm" ] ; then
-    run-cmd source "/usr/local/rvm/scripts/rvm"
-  else
-    fail-error "An RVM installation was not found."
-  fi
-  set -u
-}
 
 function ensure-fly {
   announce-task "Making sure fly is installed..."
@@ -30,7 +20,7 @@ function ensure-fly {
   fi
 }
 
-function ensure-bosh-cli {
+function check-bosh {
   announce-task "Making sure BOSH CLI is installed..."
 
   if [ `which bosh` ]; then
@@ -38,6 +28,7 @@ function ensure-bosh-cli {
   else
     fail-error "BOSH CLI not found in path."
   fi
+  bosh env
 }
 
 function ensure-credentials-yml {
@@ -53,21 +44,18 @@ function ensure-credentials-yml {
   fi
 }
 
-function bosh-login {
-  announce-task "Logging-in to BOSH director..."
-  which bosh
-  bosh version
-
-  set +x
-  bosh -t ${bosh_director} login ${bosh_username} ${bosh_password}
-  run-cmd bosh target ${bosh_director}
-  run-cmd bosh status
-}
-
 function deploy-concourse {
   announce-task "Starting deployment..."
-  run-cmd bosh deployment ci/manifest-vsphere-4.yml
-  run-cmd bosh -n deploy
+  export BOSH_DEPLOYMENT=concourse-tutorial-ci
+  mkdir -p /tmp/operators
+  cat > /tmp/operators/name.yml <<YAML
+- type: replace
+  path: /name
+  value: $BOSH_DEPLOYMENT
+YAML
+  run-cmd bosh -n deploy \
+    ${REPO_ROOT:?required}/manifests/concourse-lite.yml \
+    -o /tmp/operators/name.yml
   run-cmd bosh instances
 }
 

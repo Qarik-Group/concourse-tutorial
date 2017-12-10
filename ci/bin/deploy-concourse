@@ -2,13 +2,12 @@
 
 set -eu
 
-source ci/lib/pretty-output.sh
-source ci/lib/shared-functions.sh
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR/../lib/shared-functions.sh
 
 announce-started
-ensure-rvm
+check-bosh
 ensure-fly
-bosh-login
 deploy-concourse
 check-concourse
 

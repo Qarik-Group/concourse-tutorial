@@ -2,16 +2,14 @@
 
 set -eu
 
-source ci/lib/pretty-output.sh
-source ci/lib/shared-functions.sh
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/../lib/shared-functions.sh
 
 export fly_target=${fly_target:-tutorial}
 
 announce-started
-ensure-rvm
+check-bosh
 ensure-fly
-ensure-bosh-cli
-bosh-login
 check-concourse
 ensure-credentials-yml
 
