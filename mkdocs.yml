@@ -49,5 +49,5 @@ markdown_extensions:
 
 repo_name: 'help fix the tutorials'
 repo_url: 'https://github.com/starkandwayne/concourse-tutorial'
-edit_uri: edit/master/
+edit_uri: edit/develop/
 extra_css: [print.css]
