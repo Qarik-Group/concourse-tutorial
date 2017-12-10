@@ -240,9 +240,9 @@ networks:
   type: dynamic
 releases:
 - name: concourse
-  version: 3.6.0
-  url: https://s3-eu-west-1.amazonaws.com/bucc-compiled-releases/concourse-3.6.0-ubuntu-trusty-3445.7-20171102-114832-366358869-20171102114900.tgz
-  sha1: 609a585eed3ec51ba004d6bbe8ede22058fcaaae
+  version: 3.8.0
+  url: https://github.com/concourse/concourse/releases/download/v3.8.0/concourse-3.8.0-3468.11.tgz
+  sha1: 361d4ca59030ec1af5f5ad61a31a9c0aa593e819
 - name: garden-runc
   version: "1.9.4"
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/garden-runc-1.9.4-ubuntu-trusty-3468.11-20171129-192405-927652976-20171129192412.tgz?versionId=FsVmPJCRKNsZ_w0Hei4vEYhKe0nv7TxK
