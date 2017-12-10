@@ -3,7 +3,7 @@ jobs:
   public: true
   serial: true
   plan:
-  - get: github-release-spiff
+  - get: github-release-shield
   - task: ls
     config:
       platform: linux
@@ -11,7 +11,7 @@ jobs:
         type: docker-image
         source: {repository: ubuntu, tag: "14.04"}
       inputs:
-      - name: github-release-spiff
+      - name: github-release-shield
       run:
         path: ls
         args: ["-opR", "."]
@@ -22,13 +22,13 @@ jobs:
         type: docker-image
         source: {repository: ubuntu, tag: "14.04"}
       inputs:
-      - name: github-release-spiff
+      - name: github-release-shield
       run:
         path: cat
-        args: [github-release-spiff/version]
+        args: [github-release-shield/version]
 resources:
-- name: github-release-spiff
+- name: github-release-shield
   type: github-release
   source:
-    user: cloudfoundry-incubator
-    repository: spiff
+    user: starkandwayne
+    repository: shield
