@@ -43,7 +43,7 @@ Thanks to all the staff at Stark & Wayne who helped to maintain this Concourse T
 
     ```
     wget https://github.com/starkandwayne/concourse-tutorial/tree/master/manifests/concourse-lite.yml
-    bosh create-env concourse-lite.yml
+    bosh create-env manifests/concourse-lite.yml --state tmp/state.json
     ```
 
 ### Windows
@@ -111,3 +111,12 @@ When we use the `fly` command we will target this Concourse API using `fly --tar
 
 > @alexsuraci: I promise you'll end up liking it more than having an implicit target state :) Makes reusing commands from shell history much less dangerous (rogue fly configure can be bad)
 
+## Destroy Concourse
+
+When you've finished with your local Concourse, deployed via `bosh create-env`, you can use `bosh delete-env` to destroy it.
+
+The `tmp/state.json` file helps `bosh delete-env` determine which VM and disk to delete.
+
+```
+bosh delete-env manifests/concourse-lite.yml --state tmp/state.json
+```
