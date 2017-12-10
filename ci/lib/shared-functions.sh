@@ -4,7 +4,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/pretty-output.sh
 
 export fly_target=${fly_target:-tutorial}
-export tutorial_concourse_url=${tutorial_concourse_url:-"http://10.58.111.191"}
+export TUTORIAL_CONCOURSE_URL=${TUTORIAL_CONCOURSE_URL:-"http://192.168.100.4:8080"}
+export PIPELINE_CREDENTIALS=${PIPELINE_CREDENTIALS:-"$DIR/../../credentials.yml"}
 
 function ensure-fly {
   announce-task "Making sure fly is installed..."
@@ -34,13 +35,9 @@ function check-bosh {
 function ensure-credentials-yml {
   announce-task "Ensuring we have a credentials.yml..."
 
-  if [ -e "credentials.yml" ]; then
-    echo "Found credentials.yml in repo root."
-  elif [ -e "../credentials/credentials.yml" ]; then
-    echo "Found ../credentials/credentials.yml. Linking..."
-    ln -s "../credentials/credentials.yml"
-  else
-    fail-error "Could not find credentials.yml."
+  if [[ ! -f $PIPELINE_CREDENTIALS ]]; then
+    echo "Cannot find $PIPELINE_CREDENTIALS"
+    exit 1
   fi
 }
 
@@ -61,7 +58,7 @@ YAML
 
 function check-concourse {
   announce-task "Making sure Concourse is up..."
-  run-cmd fly login -t ${fly_target} -c ${tutorial_concourse_url}
+  run-cmd fly login -t ${fly_target} -c ${TUTORIAL_CONCOURSE_URL}
   run-cmd fly -t ${fly_target} sync
   run-cmd fly -t ${fly_target} pipelines
 }

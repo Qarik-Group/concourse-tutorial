@@ -12,7 +12,7 @@ Currently our Concourse in Vagrant has an API running at `http://192.168.100.4:8
 We can trigger a job to be run using that API. For example, using `curl`:
 
 ```
-curl http://192.168.100.4:8080/pipelines/helloworld/jobs/job-hello-world/builds -X POST
+fly -t tutorial trigger-job -j helloworld/jobs/job-hello-world
 ```
 
 Whilst the job is running, and after it has completed, you can then watch the output in your terminal using `fly watch`:

@@ -3,23 +3,25 @@
 set -eu
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $DIR/../lib/shared-functions.sh
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
+source $ROOT/ci/lib/shared-functions.sh
 
 export fly_target=${fly_target:-tutorial}
 
 announce-started
-check-bosh
+# check-bosh
 ensure-fly
 check-concourse
 ensure-credentials-yml
 
 announce-task "Running all lessons"
-for f in */run.sh
+for f in $ROOT/tutorials/*/*/test.sh
 do
+  echo $f
   set +eu
   run-cmd pushd `dirname $f` || true
   set -eu
-  run-cmd ./run.sh
+  run-cmd ./test.sh
   set +eu
   run-cmd popd
   set -eu
