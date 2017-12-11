@@ -16,6 +16,7 @@ pages:
     - Publishing Outputs: basics/12_publishing_outputs.md
     - Pipeline Jobs: basics/13_pipeline_jobs.md
     - Parameters: basics/14_parameters.md
+    - Secret Parameters: basics/15_secret_parameters.md
   - Miscellaneous:
     - Run Tests Before Deploy: miscellaneous/run_tests_before_deploy.md
     - Versions and Build Numbers: miscellaneous/versions_and_buildnumbers.md
