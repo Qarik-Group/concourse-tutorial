@@ -2,6 +2,10 @@
 
 Learn to use https://concourse.ci with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
 
+Concourse is 100% open source CI/CD system with approximately 100 [integrations](ttps://concourse.ci/resource-types.html) to the outside world. Concourse's principles reduce the risk of switching to and from Concourse, by encouraging practices that decouple your project from your CI's little details, and keeping all configuration in declarative files that can be checked into version control.
+
+This Concourse Tutorial book is the world's most popular guide for learning Concourse, since 2015. It is a wonderful companion for [Concourse online documentation](https://concourse.ci/introduction.html).
+
 ## Thanks
 
 Thanks to Alex Suraci for inventing Concourse CI, and to Pivotal for sponsoring him and a team of developers to work since 2014.
