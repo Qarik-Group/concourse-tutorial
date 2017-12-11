@@ -32,11 +32,11 @@ To use this resource in your own pipelines first define the resource with parame
 - name: resource-deploy-web-app
   type: cf
   source:
-    api: {{cf-api}}
-    username: {{cf-username}}
-    password: {{cf-password}}
-    organization: {{cf-organization}}
-    space: {{cf-space}}
+    api: ((cf-api))
+    username: ((cf-username))
+    password: ((cf-password))
+    organization: ((cf-organization))
+    space: ((cf-space))
     skip_cert_check: true
 ```
 

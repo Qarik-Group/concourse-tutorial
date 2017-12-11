@@ -39,7 +39,7 @@ resources:
 - name: pivnet-stemcells
   type: pivnet
   source:
-    api_token: {{pivnet-api-token}}
+    api_token: ((pivnet-api-token))
     product_slug: stemcells
 
 jobs:

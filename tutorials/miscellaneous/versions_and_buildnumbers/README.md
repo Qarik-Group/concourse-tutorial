@@ -43,10 +43,10 @@ In your pipeline you now add a `semver` resource:
   source:
     driver: git
     initial_version: 0.0.1
-    uri: {{git-uri-bump-semver}}
+    uri: ((git-uri-bump-semver))
     branch: version
     file: version
-    private_key: {{github-private-key}}
+    private_key: ((github-private-key))
 ```
 
 Any place in your pipeline where you want to know the current `semver` you simply `get: resource-version`:

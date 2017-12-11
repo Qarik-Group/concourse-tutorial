@@ -15,22 +15,22 @@ resources:
 - name: pivnet-stemcells
   type: pivnet
   source:
-    api_token: {{pivnet-api-token}}
+    api_token: ((pivnet-api-token))
     product_slug: stemcells
 - name: pivnet-elastic-runtime
   type: pivnet
   source:
-    api_token: {{pivnet-api-token}}
+    api_token: ((pivnet-api-token))
     product_slug: elastic-runtime
 - name: pivnet-ops-manager
   type: pivnet
   source:
-    api_token: {{pivnet-api-token}}
+    api_token: ((pivnet-api-token))
     product_slug: ops-manager
 - name: pivnet-slack
   type: slack-notification
   source:
-    url: {{pivnet-slack-incoming}}
+    url: ((pivnet-slack-incoming))
 - name: tutorial-scripts
   type: git
   source:

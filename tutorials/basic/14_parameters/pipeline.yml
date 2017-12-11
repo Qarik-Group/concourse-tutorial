@@ -8,8 +8,8 @@ resources:
   type: git
   source:
     branch: master
-    uri: {{gist-url}}
-    private_key: {{github-private-key}}
+    uri: ((gist-url))
+    private_key: ((github-private-key))
 
 jobs:
 - name: job-bump-date
