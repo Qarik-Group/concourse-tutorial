@@ -2,6 +2,8 @@
 
 This section will show how to use a Github Release as an input to a job.
 
+![github-release](/images/github-release.png)
+
 ## Pipeline
 
 The `github-release` resource type requires a `source.user` and `source.repository`. The following example is for the https://github.com/starkandwayne/shield/releases latest release.
