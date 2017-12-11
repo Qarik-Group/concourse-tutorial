@@ -29,7 +29,20 @@ jobs:
   - get: app
     trigger: true
   - task: web-app-tests
-    file: tutorial/tutorials/basic/10_job_inputs/task_run_tests.yml
+    config:
+      platform: linux
+
+      image_resource:
+        type: docker-image
+        source: {repository: golang, tag: 1.6-alpine}
+
+      inputs:
+      - name: tutorial
+      - name: app
+        path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
+
+      run:
+        path: tutorial/tutorials/basic/10_job_inputs/task_run_tests.sh
   - put: deploy-web-app
     params:
       manifest: app/manifest.yml

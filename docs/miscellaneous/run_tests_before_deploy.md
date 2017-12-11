@@ -1,5 +1,7 @@
 # Run units then deploy application
 
+![test-and-cf-deploy](/images/test-and-cf-deploy.png)
+
 In this section we combine three ideas into a more advanced job:
 
 1. trigger the job anytime the application repo is changed
@@ -28,7 +30,20 @@ For convenience to us both, we're reusing the same task files from section 10 to
   - get: app
     trigger: true
   - task: web-app-tests
-    file: resource-tutorial/tutorials/basic/10_job_inputs/task_run_tests.yml
+    config:
+      platform: linux
+
+      image_resource:
+        type: docker-image
+        source: {repository: golang, tag: 1.6-alpine}
+
+      inputs:
+      - name: tutorial
+      - name: app
+        path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
+
+      run:
+        path: tutorial/tutorials/basic/10_job_inputs/task_run_tests.sh
   - put: deploy-web-app
     params:
       manifest: resource-app/manifest.yml
@@ -57,3 +72,4 @@ The `cf` resource deploys an application to Cloud Foundry. From the `pipeline.ym
 
 As introduced earlier, the `((cf-api))` syntax is for late-binding variable, secret, or credential. This allows `pipeline.yml` to be generically useful and published in public. It also allows an operator to update variables in a central place and then all jobs will dynamically use the new variable values on demand.
 
+Alternately, you can provide the variables using a local file.

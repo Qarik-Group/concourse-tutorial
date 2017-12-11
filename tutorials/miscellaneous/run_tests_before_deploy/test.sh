@@ -8,7 +8,11 @@ echo "Concourse API target ${fly_target}"
 echo "Tutorial $(basename $DIR)"
 
 pushd $DIR
-  fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline.yml -n
+  if [[ "${CREDENTIALS_FILE:-X}" == "X" ]]; then
+    fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline.yml -n
+  else
+    fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline.yml -n -l ${CREDENTIALS_FILE}
+  fi  
   fly -t ${fly_target} unpause-pipeline -p tutorial-pipeline
-  fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/job-deploy-app
+  fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/deploy-app
 popd
