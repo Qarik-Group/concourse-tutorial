@@ -58,7 +58,9 @@ YAML
 
 function check-concourse {
   announce-task "Making sure Concourse is up..."
-  run-cmd fly login -t ${fly_target} -c ${TUTORIAL_CONCOURSE_URL}
+  if [[ ! $(bosh int ~/.flyrc --path /targets/${fly_target}/api) ]]; then
+    run-cmd fly login -t ${fly_target} -c ${TUTORIAL_CONCOURSE_URL}
+  fi
   run-cmd fly -t ${fly_target} sync
   run-cmd fly -t ${fly_target} pipelines
 }
