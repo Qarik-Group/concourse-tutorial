@@ -1,36 +1,36 @@
 ---
 resources:
-- name: resource-tutorial
+- name: tutorial
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
     branch: develop
-- name: resource-app
+- name: app
   type: git
   source:
     uri: https://github.com/cloudfoundry-community/simple-go-web-app.git
 
-- name: resource-deploy-web-app
+- name: deploy-web-app
   type: cf
   source:
-    api: {{cf-api}}
-    username: {{cf-username}}
-    password: {{cf-password}}
-    organization: {{cf-organization}}
-    space: {{cf-space}}
+    api: ((cf-api))
+    username: ((cf-username))
+    password: ((cf-password))
+    organization: ((cf-organization))
+    space: ((cf-space))
     skip_cert_check: true
 
 jobs:
-- name: job-deploy-app
+- name: deploy-app
   public: true
   serial: true
   plan:
-  - get: resource-tutorial
-  - get: resource-app
+  - get: tutorial
+  - get: app
     trigger: true
   - task: web-app-tests
-    file: resource-tutorial/tutorials/basic/10_job_inputs/task_run_tests.yml
-  - put: resource-deploy-web-app
+    file: tutorial/tutorials/basic/10_job_inputs/task_run_tests.yml
+  - put: deploy-web-app
     params:
-      manifest: resource-app/manifest.yml
-      path: resource-app
+      manifest: app/manifest.yml
+      path: app

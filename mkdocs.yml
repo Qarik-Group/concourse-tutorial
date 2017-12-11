@@ -17,11 +17,11 @@ pages:
     - Pipeline Jobs: basics/13_pipeline_jobs.md
     - Parameters: basics/14_parameters.md
   - Miscellaneous:
-    - Deploy Cloud Foundry app: miscellaneous/deploy_cloudfoundry_app.md
     - Run Tests Before Deploy: miscellaneous/run_tests_before_deploy.md
     - Versions and Build Numbers: miscellaneous/versions_and_buildnumbers.md
-    - Push Docker Image: miscellaneous/push_docker_image.md
     - GitHub Release Input: miscellaneous/github_release_input.md
+    - Push Docker Image: miscellaneous/push_docker_image.md
+    - Deploy Cloud Foundry app: miscellaneous/deploy_cloudfoundry_app.md
     - Pivotal Network Updates: miscellaneous/pivnet_updates.md
 
 theme:
