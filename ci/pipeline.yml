@@ -27,7 +27,6 @@ groups:
   - name: (( grab meta.pipeline ))
     jobs:
       - website
-      - concourse
       - master
 
 jobs:
@@ -61,42 +60,6 @@ jobs:
           manifest: site/manifest.yml
           path: site
           current_app_name: (( grab meta.name ))
-
-  - name: concourse
-    public: true
-    serial: true
-    plan:
-    - name: plan
-      do:
-      - aggregate:
-        - get: git
-        - get: concourse
-          trigger: false
-      - name: update-concourse-lite
-        task: update-concourse-lite
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source:
-              repository: (( grab meta.image.name ))
-              tag:        (( grab meta.image.tag ))
-          inputs:
-            - { name: git }
-            - { name: concourse }
-          outputs:
-            - { name: pushme }
-          run:
-            path: ./git/ci/scripts/update-concourse-lite.sh
-            args: []
-          params:
-            REPO_ROOT: git
-            REPO_OUT: pushme
-            CONCOURSE_ROOT: concourse
-      - put: git
-        params:
-          repository: pushme
-          rebase: true
 
   - name: master
     public: true
@@ -133,10 +96,3 @@ resources:
       password:     (( grab meta.cf.password ))
       organization: (( grab meta.cf.organization ))
       space:        (( grab meta.cf.space-production ))
-
-  - name: concourse
-    type: github
-    source:
-      owner:      concourse
-      repository: concourse
-      access_token: (( grab meta.github.access_token ))
