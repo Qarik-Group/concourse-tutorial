@@ -1,4 +1,4 @@
-# Run units then deploy application
+# Run tests then deploy
 
 ![test-and-cf-deploy](/images/test-and-cf-deploy.png)
 
@@ -8,18 +8,23 @@ In this section we combine three ideas into a more advanced job:
 1. run the internal unit tests of the application
 1. if successful, deploy the web application immediately
 
-![test-deploy](http://cl.ly/283i2x2y0z2h/download/Image%202016-03-01%20at%2010.34.14%20am.png)
+The resulting pipeline is a combination of the preceding lessons:
 
-We have previously seen steps 1 and 2 in [section 10](https://github.com/starkandwayne/concourse-tutorial#10---using-resource-inputs-in-job-tasks) and step 3 in the previous [section 15](https://github.com/starkandwayne/concourse-tutorial/tree/master/15_deploy_cloudfoundry_app). We are now combining them into one pipeline.
+* [Triggers](/basics/08_triggers/)
+* [Job Inputs](/basics/10_job_inputs/)
+* [Outputs to Inputs](/basics/11_task_outputs_to_inputs/)
+
 
 To the `deploy-app` pipeline with the additional trigger and unit test steps:
 
 ```
 cd tutorials/miscellaneous/run_tests_before_deploy
-fly sp -t tutorial -c pipeline.yml -p deploy-app -n -l ../../../credentials.yml
+fly -t tutorial set-pipeline -p tutorial-pipeline -c tutorials/miscellaneous/run_tests_before_deploy
 ```
 
-For convenience to us both, we're reusing the same task files from section 10 to run the tests for the :
+For convenience to us both, we're reusing the same task files the lesson [Job Inputs](/basics/10_job_inputs/) to run the tests for the application.
+
+We're now removing the `resource-` and `job-` prefix from names as these are redundant once you've started to learn what's what.
 
 ```yaml
 - name: deploy-app
