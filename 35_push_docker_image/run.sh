@@ -16,6 +16,7 @@ usage() {
   exit 1
 }
 
+stub=$1
 if [ -z "${stub}" ]; then
   stub="../credentials.yml"
 fi
