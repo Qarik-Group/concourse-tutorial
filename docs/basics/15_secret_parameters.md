@@ -44,8 +44,8 @@ Deploy the pipeline from the preceding section to our new `bucc` concourse envir
 
 ```
 cd ../14_parameters
-fly -t tutorial sp -p parameters -c pipeline.yml
-fly -t tutorial up -p parameters
+fly -t bucc sp -p parameters -c pipeline.yml
+fly -t bucc up -p parameters
 ```
 
 ## Insert values into Credentials Manager
@@ -67,7 +67,7 @@ credhub set -n /concourse/main/parameters/dog-name --type password --password od
 Run the pipeline job to confirm that it dynamically fetched the secrets from Credhub:
 
 ```
-fly -t tutorial trigger-job -j parameters/show-animal-names -w
+fly -t bucc trigger-job -j parameters/show-animal-names -w
 ```
 
 ## Credential Lookup Rules
@@ -89,5 +89,5 @@ credhub set -n /concourse/main/dog-name --type password --password oddie
 Again, run the pipeline job to confirm that it dynamically fetched the team's shared secrets from Credhub:
 
 ```
-fly -t tutorial trigger-job -j parameters/show-animal-names -w
+fly -t bucc trigger-job -j parameters/show-animal-names -w
 ```
