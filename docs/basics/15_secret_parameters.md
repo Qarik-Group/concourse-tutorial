@@ -91,3 +91,23 @@ Again, run the pipeline job to confirm that it dynamically fetched the team's sh
 ```
 fly -t bucc trigger-job -j parameters/show-animal-names -w
 ```
+
+## Rotating Secrets
+
+A great feature of Concourse Credentials Manager - regardless if backed by Cloud Foundry Credhub or Hashicorp Vault - is that you can now update secrets/parameters and the new values will automatically be used the next time a job is run.
+
+```
+credhub delete -n /concourse/main/cat-name
+credhub delete -n /concourse/main/dog-name
+credhub set -n /concourse/main/cat-name --type password --password milo
+credhub set -n /concourse/main/dog-name --type password --password otis
+
+fly -t bucc trigger-job -j parameters/show-animal-names -w
+```
+
+The output will include the two new parameter values:
+
+```
+CAT_NAME=milo
+DOG_NAME=otis
+```
