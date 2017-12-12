@@ -38,34 +38,56 @@ bucc credhub
 
 The Concourse dashboard UI is now at https://192.168.50.6/
 
-## Setup Credentials Manager
+## Setup pipeline with parameters
+
+Deploy the pipeline from the preceding section to our new `bucc` concourse environment. Do not provide any explicit values for the parameters:
 
 ```
-credhub set -n /concourse/main/tutorial-pipeline/cf-api -t value -v https://api.18-220-96-60.sslip.io
-credhub set -n /concourse/main/tutorial-pipeline/cf-username -t value -v admin
-credhub set -n /concourse/main/tutorial-pipeline/cf-organization -t value -v system
-credhub set -n /concourse/main/tutorial-pipeline/cf-space -t value -v dev
+cd ../14_parameters
+fly -t tutorial sp -p parameters -c pipeline.yml
+fly -t tutorial up -p parameters
 ```
 
-And passwords have a different `--type` and use the `--password` flag:
+## Insert values into Credentials Manager
 
 ```
-credhub set -n /concourse/main/tutorial-pipeline/cf-password --type password --password my-secret-password
+credhub set -n /concourse/main/parameters/cat-name --type value --value garfield
+credhub set -n /concourse/main/parameters/dog-name --type value --value oddie
+```
+
+Alternately, if you'd classify the values as passwords then switch the `--type` and use the `--password` flag:
+
+```
+credhub delete -n /concourse/main/parameters/cat-name
+credhub delete -n /concourse/main/parameters/dog-name
+credhub set -n /concourse/main/parameters/cat-name --type password --password garfield
+credhub set -n /concourse/main/parameters/dog-name --type password --password oddie
+```
+
+Run the pipeline job to confirm that it dynamically fetched the secrets from Credhub:
+
+```
+fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
 ## Credential Lookup Rules
 
-When resolving a parameter such as `((foo_param))`, it will look in the following paths, in order:
+When resolving a parameter such as `((cat-name))`, it will look in the following paths, in order:
 
-* `/concourse/TEAM_NAME/PIPELINE_NAME/foo_param`
-* `/concourse/TEAM_NAME/foo_param`
+* `/concourse/TEAM_NAME/PIPELINE_NAME/cat-name`
+* `/concourse/TEAM_NAME/cat-name`
 
-So, if the `cf` credentials above were to be shared across all pipelines in the `main` team, then the `credhub set` commands could be abbreviated to:
+So, if the `((cat-name))` credential is to be shared across all pipelines in the `main` team, then the `credhub set` commands would become:
 
 ```
-credhub set -n /concourse/main/cf-api -t value -v https://api.18-220-96-60.sslip.io
-credhub set -n /concourse/main/cf-username -t value -v admin
-credhub set -n /concourse/main/cf-organization -t value -v system
-credhub set -n /concourse/main/cf-space -t value -v dev
-credhub set -n /concourse/main/cf-password --type password --password my-secret-password
+credhub delete -n /concourse/main/parameters/cat-name
+credhub delete -n /concourse/main/parameters/dog-name
+credhub set -n /concourse/main/cat-name --type password --password garfield
+credhub set -n /concourse/main/dog-name --type password --password oddie
+```
+
+Again, run the pipeline job to confirm that it dynamically fetched the team's shared secrets from Credhub:
+
+```
+fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
