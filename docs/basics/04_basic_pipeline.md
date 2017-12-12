@@ -39,7 +39,7 @@ You should see:
 
 ```
 pipeline created!
-you can view your pipeline here: http://192.168.100.4:8080/pipelines/helloworld
+you can view your pipeline here: http://192.168.100.4:8080/teams/main/pipelines/helloworld
 
 the pipeline is currently paused. to unpause, either:
   - run the unpause-pipeline command
@@ -52,7 +52,7 @@ As suggested, un-pause a pipeline from the `fly` CLI:
 fly -t tutorial unpause-pipeline -p helloworld
 ```
 
-Next, as suggested, visit the web UI http://192.168.100.4:8080/pipelines/helloworld.
+Next, as suggested, visit the web UI http://192.168.100.4:8080/teams/main/pipelines/helloworld.
 
 Your first pipeline is unimpressive - a single job `job-hello-world` with no inputs from the left and no outputs to its right, no jobs feeding into it, nor jobs feeding from it. It is the most basic pipeline. The job is gray colour because it has never been run before.
 

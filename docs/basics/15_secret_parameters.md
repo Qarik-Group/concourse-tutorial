@@ -36,6 +36,8 @@ To target and login to Credhub, the credentials manager included in `bucc`:
 bucc credhub
 ```
 
+The Concourse dashboard UI is now at https://192.168.50.6/
+
 ## Setup Credentials Manager
 
 ```

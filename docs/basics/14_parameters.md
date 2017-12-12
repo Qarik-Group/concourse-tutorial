@@ -8,7 +8,7 @@ Parameters are all mandatory:
 
 ```
 cd ../14_parameters
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+fly -t tutorial sp -p publishing-outputs -c pipeline.yml
 ```
 
 The error output will be like:
@@ -39,5 +39,5 @@ github-private-key: |-
 To pass in your `credentials.yml` file use the `--load-vars-from` or `-l` options:
 
 ```
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n -l ../credentials.yml
+fly -t tutorial sp -p publishing-outputs -c pipeline.yml -l ../credentials.yml
 ```

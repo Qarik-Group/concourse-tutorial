@@ -5,6 +5,6 @@ The current `helloworld` pipeline will now keep triggering every 2-3 minutes for
 You can delete the `helloworld` pipeline:
 
 ```
-fly destroy-pipeline -t tutorial -p helloworld
+fly -t tutorial destroy-pipeline -p helloworld
 ```
 

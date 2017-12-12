@@ -4,23 +4,23 @@ So far we have used the `git` resource to fetch down a git repository, and used 
 
 ```
 cd ../12_publishing_outputs
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
-fly up -t tutorial -p publishing-outputs
+fly -t tutorial sp -p publishing-outputs -c pipeline.yml
+fly -t tutorial up -p publishing-outputs
 ```
 
 Pipeline dashboard http://192.168.100.4:8080/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
 
-![broken-resource](http://cl.ly/330n473y3X1s/download/Image%202016-02-28%20at%206.33.26%20pm.png)
+![broken-resource](/images/broken-resource.png)
 
 The `pipeline.yml` does not yet have a git repo nor its write-access private key credentials.
 
 [Create a Github Gist](https://gist.github.com/) with a single file `bumpme`, and press "Create public gist":
 
-![gist](http://cl.ly/3P1m1m272B2h/download/Image%202016-02-28%20at%206.35.10%20pm.png)
+![gist](/images/gist.png)
 
 Copy the "SSH" git URL:
 
-![ssh](http://cl.ly/2m303j1r3E3b/download/Image%202016-02-28%20at%206.36.52%20pm.png)
+![ssh](/images/ssh.png)
 
 And paste it into the `pipeline.yml` file:
 
@@ -45,14 +45,14 @@ Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registere
 Update the pipeline:
 
 ```
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+fly -t tutorial sp -p publishing-outputs -c pipeline.yml
 ```
 
 Revisit the dashboard UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
 
 After running the `job-bump-date` job, refresh your gist:
 
-![bumped](http://cl.ly/2w0E3U0y0735/download/Image%202016-02-28%20at%208.47.54%20pm.png)
+![bumped](/images/bumped.png)
 
 This pipeline is an example of updating a resource. It has pushed up new git commits to the git repo (your github gist).
 

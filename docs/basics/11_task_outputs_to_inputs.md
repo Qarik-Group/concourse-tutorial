@@ -19,13 +19,13 @@ Subsequent tasks (discussed in this section) or resources (discussed in the next
 
 ```
 cd ../11_task_outputs_to_inputs
-fly sp -t tutorial -c pipeline.yml -p pass-files -n
+fly sp -t tutorial -p pass-files -c pipeline.yml
 fly up -t tutorial -p pass-files
 ```
 
 In this pipeline's `job-pass-files` there are two task steps `create-some-files` and `show-some-files`:
 
-![pass-files](http://cl.ly/1j32242g0227/download/Image%202016-02-28%20at%205.14.12%20pm.png)
+![pass-files](/images/pass-files.png)
 
 The former creates 4 files into its own `some-files/` directory. The latter gets a copy of these files placed in its own task container filesystem at the path `some-files/`.
 

@@ -30,7 +30,7 @@ apply configuration? [yN]: y
 configuration updated
 ```
 
-The [`helloworld` pipeline](http://192.168.100.4:8080/pipelines/helloworld) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
+The [`helloworld` pipeline](http://192.168.100.4:8080/teams/main/pipelines/helloworld) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
 
 ![pipeline-task-hello-world](/images/03-resource-job.gif)
 
@@ -58,6 +58,7 @@ resources:
   type: git
   source:
     uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
 ```
 
 The resource name `resource-tutorial` is then used in the build plan for the job:

@@ -29,11 +29,11 @@ To run this task within a pipeline:
 
 ```
 cd ../10_job_inputs
-fly sp -t tutorial -c pipeline.yml -p simple-app -n
-fly up -t tutorial -p simple-app
+fly -t tutorial sp -p simple-app -c pipeline.yml
+fly -t tutorial up -p simple-app
 ```
 
-View the pipeline UI http://192.168.100.4:8080/pipelines/simple-app and notice that the job automatically starts.
+View the pipeline UI http://192.168.100.4:8080/teams/main/pipelines/simple-app and notice that the job automatically starts.
 
 The job will pause on the first run at `web-app-tests` task because it is downloading the `golang:1.6-alpine` image for the first time.
 

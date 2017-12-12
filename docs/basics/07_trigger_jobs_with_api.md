@@ -7,12 +7,11 @@ There are four ways for a job to be triggered:
 * `fly trigger-job -j pipeline/jobname` command
 * Sending `POST` HTTP request to Concourse API
 
-Currently our Concourse in Vagrant has an API running at `http://192.168.100.4:8080`. If you do not remember the API endpoint it might be stored in the `~/.flyrc` file.
 
-We can trigger a job to be run using that API. For example, using `curl`:
+We can re-trigger our `helloworld` pipeline's `job-hello-world`:
 
 ```
-fly -t tutorial trigger-job -j helloworld/jobs/job-hello-world
+fly -t tutorial trigger-job -j helloworld/job-hello-world
 ```
 
 Whilst the job is running, and after it has completed, you can then watch the output in your terminal using `fly watch`:
@@ -21,3 +20,8 @@ Whilst the job is running, and after it has completed, you can then watch the ou
 fly -t tutorial watch -j helloworld/job-hello-world
 ```
 
+Alternately, you can combine the two commands - trigger the job and watch the output with the `trigger-job -w` flag:
+
+```
+fly -t tutorial trigger-job -j helloworld/job-hello-world -w
+```

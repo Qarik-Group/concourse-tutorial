@@ -29,14 +29,14 @@ Update the `publishing-outputs` pipeline with a second job `job-show-date` which
 Update the pipeline:
 
 ```
-fly sp -t tutorial -c pipeline.yml -p publishing-outputs -n
+fly -t tutorial sp -p publishing-outputs -c pipeline.yml
 ```
 
 The dashboard UI displays the additional job and its trigger/non-trigger resources. Importantly, it shows our first pipeline:
 
-![pipeline](http://cl.ly/3y0i0Z2v2b2F/download/Image%202016-02-28%20at%209.09.14%20pm.png)
+![pipeline](/images/pipeline.png)
 
 The latest `resource-gist` commit fetched down in `job-show-date` will be the exact commit used in the last successful `job-bump-date` job. If you manually created a new git commit in your gist and manually ran the `job-show-date` job it would continue to use the previous commit it used, and ignore your new commit. *This is the power of pipelines.*
 
-![trigger](http://cl.ly/3x1t0T450g1h/download/pipeline-flow.gif)
+![trigger](/images/trigger.png)
 

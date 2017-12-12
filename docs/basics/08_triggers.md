@@ -41,9 +41,9 @@ fly sp -t tutorial -c pipeline.yml -p helloworld
 
 This adds a new resource named `my-timer` which triggers `job-hello-world` approximately every 2 minutes.
 
-Visit the pipeline dashboard http://192.168.100.4:8080/pipelines/helloworld and wait a few minutes and eventually the job will start running automatically.
+Visit the pipeline dashboard http://192.168.100.4:8080/teams/main/pipelines/helloworld and wait a few minutes and eventually the job will start running automatically.
 
-![my-timer](http://cl.ly/3M3A2n1e2i2s/download/Image%202016-02-28%20at%2010.39.37%20am.png)
+![my-timer](/images/my-timer.png)
 
 The dashboard UI makes non-triggering resources distinct with a hyphenated line connecting them into the job. Triggering resources have a full line.
 
