@@ -4,41 +4,100 @@ In the preceding sections you were asked to private credentials and personal git
 
 Concourse pipelines can include `((parameter))` parameters for any value in the pipeline YAML file.
 
-Parameters are all mandatory:
+Parameters are all mandatory. In the lesson's `pipeline.yml` there are two parameters:
+
+```
+jobs:
+- name: show-animal-names
+  plan:
+  - task: show-animal-names
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      run:
+        path: env
+        args: []
+      params:
+        CAT_NAME: ((cat-name))
+        DOG_NAME: ((dog-name))
+```
+
+If we `fly set-pipeline` but do not provide the parameters, we see an error when the job is triggered to run:
 
 ```
 cd ../14_parameters
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
-fly -t tutorial up -p publishing-outputs
+fly -t tutorial sp -p parameters -c pipeline.yml
+fly -t tutorial up -p parameters
+fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
-If you view the pipeline dashboard you will see one of the resource is in an error state:
-
-![pipeline-failing-resource-missing-parameters](/images/pipeline-failing-resource-missing-parameters.png)
-
-Click on the resource and it will show the error:
+This will fail with the following error:
 
 ```
-Expected to find variables: gist-url
-github-private-key
+Expected to find variables: cat-name
+dog-name
 ```
 
-Somewhere secret on laptop create a `credentials.yml` file with keys `gist-url` and `github-private-key`. The values come from your previous `pipeline.yml` files:
+## Parameters from fly options
 
 ```
-gist-url: git@gist.github.com:xxxxxxx.git
-github-private-key: |-
-  -----BEGIN RSA PRIVATE KEY-----
-  MIIEpQIBAAKCAQEAuvUl9YUlDHWBMVcuu0FH9u2gSi83PkL4o9TS+F185qDTlfUY
-  fGLxDo/bn8ws8B88oNbRKBZR6yig9anIB4Hym2mSwuMOUAg5qsA9zm5ArXQBGoAr
-  ...
-  iSHcGbKdWqpObR7oau2LIR6UtLvevUXNu80XNy+jaXltqo7MSSBYJjbnLTmdUFwp
-  HBstYQubAQy4oAEHu8osRhH1VX8AR/atewdHHTm48DN74M/FX3/HeJo=
-  -----END RSA PRIVATE KEY-----
+fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=oddie
+fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
-To pass in your `credentials.yml` file use the `--load-vars-from` or `-l` options:
+The output will show that the `-v` variables were passed into the `params` section of the `show-animal-names` task. Values in `params` sections  in turn become environment variables within the task:
 
 ```
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml -l ../credentials.yml
+initializing
+running env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOME=/root
+CAT_NAME=garfield
+DOG_NAME=oddie
+USER=root
 ```
+
+## Parameters from local file
+
+Alternatively, you can store your parameter values in a local file.
+
+```bash
+cat > credentials.yml <<YAML
+cat-name: garfield
+dog-name: oddie
+YAML
+```
+
+Use the `--load-vars-from` flag (aliased `-l`) to pass in this file instead of the `-v` flag. The following command should not modify the pipeline from the preceding step as the resulting pipeline YAML is equivalent.
+
+```
+fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
+```
+
+## Dynamic Parameters and Secret Parameters
+
+Parameters are very useful. They allow you to describe your `pipeline.yml` in public repositories without embedding variables nor secrets.
+
+There are two downsides to the two approaches above.
+
+* To change any parameter values requires you to rerun `fly set-pipeline`. If a value is common across many pipelines then you must rerun `fly set-pipeline` for them all.
+* The parameter values are not very secret. Anyone with access to the pipeline's team is able to download the pipeline YAML and extract the secrets.
+
+    ```
+    fly -t tutorial get-pipeline -p parameters
+    ```
+
+    Shows that the two potentially secret parameters are visible in plain text:
+
+    ```
+    ...
+          params:
+        CAT_NAME: garfield
+        DOG_NAME: oddie
+      run:
+        path: env
+    ```
+
+The solution to both of these problems is to use a Concourse Credentials Manager.
