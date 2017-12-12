@@ -9,17 +9,18 @@ Parameters are all mandatory:
 ```
 cd ../14_parameters
 fly -t tutorial sp -p publishing-outputs -c pipeline.yml
+fly -t tutorial up -p publishing-outputs
 ```
 
-The error output will be like:
+If you view the pipeline dashboard you will see one of the resource is in an error state:
+
+![pipeline-failing-resource-missing-parameters](/images/pipeline-failing-resource-missing-parameters.png)
+
+Click on the resource and it will show the error:
 
 ```
-targeting http://192.168.100.4:8080
-
-failed to evaluate variables into template: 2 error(s) occurred:
-
-* unbound variable in template: 'gist-url'
-* unbound variable in template: 'github-private-key'
+Expected to find variables: gist-url
+github-private-key
 ```
 
 Somewhere secret on laptop create a `credentials.yml` file with keys `gist-url` and `github-private-key`. The values come from your previous `pipeline.yml` files:
