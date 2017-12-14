@@ -1,19 +1,9 @@
----
-jobs:
-- name: job-publish
-  public: true
-  serial: true
-  plan:
-  - get: resource-tutorial
-  - put: hello-world-docker-image
-    params:
-      build: resource-tutorial/35_push_docker_image/docker
-
 resources:
-- name: resource-tutorial
+- name: tutorial
   type: git
   source:
     uri: https://github.com/drnic/concourse-tutorial.git
+    branch: develop
 
 - name: hello-world-docker-image
   type: docker-image
@@ -21,4 +11,15 @@ resources:
     email: ((docker-hub-email))
     username: ((docker-hub-username))
     password: ((docker-hub-password))
-    repository: ((docker-hub-image-hello-world))
+    repository: ((docker-hub-username))/concourse-tutorial-hello-world
+
+jobs:
+- name: publish
+  public: true
+  serial: true
+  plan:
+  - get: tutorial
+  - put: hello-world-docker-image
+    params:
+      build: tutorial/tutorials/miscellaneous/push_docker_image/docker
+
