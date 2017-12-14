@@ -4,7 +4,11 @@ This section will show how to take a Dockerfile project, build it and push to Do
 
 ![docker-push](/images/docker-push.png)
 
-The pipeline and Dockerfile example are found at:
+You might have many uses for Docker images in your normal work; but you'll also want to curate Docker images for your Concourse pipelines. Your Concourse tasks will be a lot faster if any dependencies are preinstalled on the base image, rather than you downloading them each time from the Internet. Your team might start curating a set of Docker images to be used by all your pipelines.
+
+At Stark & Wayne we maintain our pipeline's Docker images at https://github.com/starkandwayne/dockerfiles/ and convert them into various Docker images with our pipeline https://ci.starkandwayne.com/teams/main/pipelines/docker-images?groups=*
+
+This lesson's `pipeline.yml` and Dockerfile example are found at:
 
 ```
 cd tutorials/miscellaneous/push_docker_image
