@@ -19,9 +19,9 @@ pages:
     - Secrets with Credentials Manager: basics/15_secret_parameters.md
   - Miscellaneous:
     - Run Tests Before Deploy: miscellaneous/run_tests_before_deploy.md
+    - Create Docker Images: miscellaneous/push_docker_image.md
     - Versions and Build Numbers: miscellaneous/versions_and_buildnumbers.md
-    - GitHub Release Input: miscellaneous/github_release_input.md
-    - Push Docker Image: miscellaneous/push_docker_image.md
+    - GitHub Releases: miscellaneous/github_release_input.md
     - Deploy Cloud Foundry app: miscellaneous/deploy_cloudfoundry_app.md
     - Pivotal Network Updates: miscellaneous/pivnet_updates.md
 
