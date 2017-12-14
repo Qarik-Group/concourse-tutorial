@@ -16,10 +16,20 @@ resources:
 jobs:
 - name: publish
   public: true
-  serial: true
   plan:
   - get: tutorial
   - put: hello-world-docker-image
     params:
       build: tutorial/tutorials/miscellaneous/push_docker_image/docker
-
+  - task: run
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: ((docker-hub-username))/concourse-tutorial-hello-world
+      run:
+        path: /bin/hello-world
+        args: []
+      params:
+        NAME: ((docker-hub-username))
