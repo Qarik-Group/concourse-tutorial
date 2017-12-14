@@ -23,6 +23,7 @@ pages:
     - Create and Use Docker Images: miscellaneous/docker_images.md
     - Versions and Build Numbers: miscellaneous/versions_and_buildnumbers.md
     - GitHub Releases: miscellaneous/github_release_input.md
+    - Slack Notifications: miscellaneous/slack_notifications.md
 
 theme:
   name: 'material'
