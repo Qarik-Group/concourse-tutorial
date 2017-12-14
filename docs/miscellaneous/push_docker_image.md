@@ -2,14 +2,16 @@
 
 This section will show how to take a Dockerfile project, build it and push to Docker Hub.
 
+![docker-push](/images/docker-push.png)
+
+The pipeline and Dockerfile example are found at:
+
 ```
 cd tutorials/miscellaneous/push_docker_image
 ```
 
 Define a docker image
 ---------------------
-
-![created-image](http://cl.ly/image/2g3T2s0G0z2b/drnic_hello-world_image.png)
 
 This section's subfolder `docker` containers a `Dockerfile` and a simple `hello-world` command. 
 
