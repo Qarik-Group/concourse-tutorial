@@ -20,8 +20,8 @@ FROM busybox
 
 ADD hello-world /bin/hello-world
 
+ENV NAME=world
 ENTRYPOINT ["/bin/hello-world"]
-CMD ["world"]
 ```
 
 Create a docker container image
@@ -92,4 +92,23 @@ The output will include:
 Successfully built c987adeb0ff8
 Successfully tagged you/concourse-tutorial-hello-world:latest
 The push refers to a repository [docker.io/you/concourse-tutorial-hello-world]
+```
+
+## Using the Docker image
+
+We can now use the Docker image as the base image for tasks.
+
+```
+  - task: run
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: ((docker-hub-username))/concourse-tutorial-hello-world
+      run:
+        path: /bin/hello-world
+        args: []
+      params:
+        NAME: ((docker-hub-username))
 ```
