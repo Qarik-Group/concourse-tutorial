@@ -10,6 +10,15 @@ Also, the lessons will instruct to run `credhub set` commands to populate parame
 
 You can of course use any Concourse, with or without a credentials manager. Adjust the `fly -t bucc` target alias for your target Concourse, and you can use `fly set-pipeline` with `-v` or `-l` flags to pass in parameters from the command line. Revisit lesson [Parameters](/basics/14_parameters.md) to learn more.
 
+## Abbreviated pipelines
+
+In the Basics section, all Concourse pipeline resources had names prefixed with `resource-` and jobs prefixed with `job-`. This was to help you easily learn that they are different, and start to see how each is used within a pipeline:
+
+* resources appear within jobs via `get: myresource` and `put: myresource`
+* jobs appear within jobs as `passed: [myjob]` to form pipelines
+
+Normal pipelines do not include these prefixes. The Miscellaneous lessons' pipelines will no longer include the prefixes.
+
 ## Requests for Lessons
 
 If there is a lesson you'd like added to the Concourse Tutorial book, please [create an Issue](https://github.com/starkandwayne/concourse-tutorial/issues). It is very interesting to learn how you and your team are using Concourse, or looking to switch from a previous CI/CD tool to Concourse.
