@@ -35,17 +35,10 @@ jobs:
       - name: notify_message
       run:
         path: tutorial/tutorials/miscellaneous/slack_notifications/test-sometimes-works-notify-message.sh
-    on_success:
+    ensure:
       put: notify
       params:
-        channel:  ((slack-channel))
-        username: ((slack-username))
-        icon_url: ((slack-icon))
+        username:  starkandwayne-ci
+        icon_url:  https://www.starkandwayne.com/assets/images/shield-blue-50x50.png
         text_file: notify_message/message
-    on_failure:
-      put: notify
-      params:
-        channel:  ((slack-channel))
-        username: ((slack-username))
-        icon_url: ((slack-icon))
-        text_file: notify_message/message
+        silent: true

@@ -197,3 +197,21 @@ fly -t bucc trigger-job -j slack_notifications/test -w
 fly -t bucc trigger-job -j slack_notifications/test -w
 ```
 
+## Custom Slack Message Metadata
+
+Our Slack notifications above are pretty bland:
+
+![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
+
+Let's spice them up with custom images and names:
+
+![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
+
+```
+fly -t bucc sp -p slack_notifications -c pipeline-custom-metadata.yml
+fly -t bucc trigger-job -j slack_notifications/test -w
+fly -t bucc trigger-job -j slack_notifications/test -w
+fly -t bucc trigger-job -j slack_notifications/test -w
+fly -t bucc trigger-job -j slack_notifications/test -w
+```
+

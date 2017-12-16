@@ -39,7 +39,9 @@ jobs:
       put: notify
       params:
         text_file: notify_message/message
+        silent: true
     on_failure:
       put: notify
       params:
         text_file: notify_message/message
+        silent: true

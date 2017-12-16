@@ -36,3 +36,4 @@ jobs:
       put: notify
       params:
         text: "Job 'test' failed"
+        silent: true
