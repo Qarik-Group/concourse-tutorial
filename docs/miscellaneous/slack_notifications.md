@@ -203,9 +203,24 @@ Our Slack notifications above are pretty bland:
 
 ![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
 
-Let's spice them up with custom images and names:
+Let's spice them up with custom image and username:
 
-![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
+![slack-webhook-custom-metadata](/images/slack-webhook-custom-metadata.png)
+
+Also, we can condense the `on_success` and `on_failure` sections into a shared `ensure` block:
+
+```yaml
+  - task: test-sometimes-works
+    ...
+    ensure:
+      put: notify
+      params:
+        username:  starkandwayne-ci
+        icon_url:  https://www.starkandwayne.com/assets/images/shield-blue-50x50.png
+        text_file: notify_message/message
+```
+
+To upgrade your pipeline and run the `test` job a few times to see success and failure notifications:
 
 ```
 fly -t bucc sp -p slack_notifications -c pipeline-custom-metadata.yml
