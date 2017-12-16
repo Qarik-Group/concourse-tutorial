@@ -70,11 +70,17 @@ resources:
     url: ((slack-webhook))
 ```
 
+## Join Concourse CI Slack organization!
+
+Now seems like a great time to mention the Concourse CI Slack organization!
+
+Visit http://slack.concourse.ci/ to sign up.
+
 ## Slack Web Hooks
 
-Visit the `/services/new/incoming-webhook` for your Slack organization. For example, for `cloudfoundry` organization:
+Visit the `/services/new/incoming-webhook` for your Slack organization. For example, for `concourseci` organization:
 
-https://cloudfoundry.slack.com/services/new/incoming-webhook/
+https://concourseci.slack.com/services/new/incoming-webhook/
 
 Choose a public or private channel into which your notifications will be delivered. For this tutorial, choose your own personal channel "Privately to you".
 
@@ -92,3 +98,47 @@ Each pipeline might have its own `((slack-webhook))` parameter to send notificat
 credhub set -n /concourse/main/slack_notifications/slack-webhook -t value -v https://hooks.slack.com/services/T02FXXXXX/B8FLXXXXX/vfnkP8lwogK0uYDZCxxxxxxx
 ```
 
+## Notification on Job Failure
+
+If you haven't already, add to your `pipeline.yml` the `resource_types` section and additional `resources` section introduced in [Custom Resource Types](#custom-resource-types) above.
+
+Next, we need to introduce the `on_failure` section of all build plan steps.
+
+Any `get`, `put`, or `task` step of a build plan can catch failures and do something interesting. From the [Concourse CI documentation](https://concourse.ci/on-failure-step.html):
+
+```yaml
+plan:
+- get: foo
+- task: unit
+  file: foo/unit.yml
+  on_failure:
+    task: alert
+    file: foo/alert.yml
+```
+
+In our pipeline, we will add `on_failure` to our `task: test-sometimes-works`:
+
+```yaml
+  - task: test-sometimes-works
+    config:
+      ...
+      run:
+        path: tutorial/tutorials/miscellaneous/slack_notifications/test-sometimes-works.sh
+    on_failure:
+      put: notify
+      params:
+        text: "Job 'test' failed"
+```
+
+We use the `on_failure` to invoke the `slack-notification` resource named `notify` which will send a message to our `((slack-webhook))` web hook.
+
+Update your pipeline and trigger the `test` job until you get a failure:
+
+```
+fly -t bucc sp -p slack_notifications -c pipeline-slack-failures.yml
+fly -t bucc trigger-job -j slack_notifications/test -w
+```
+
+Your lovely failure will now appear as a notification in Slack:
+
+![slack-webhook-test-failed](/images/slack-webhook-test-failed.png)
