@@ -16,6 +16,7 @@ The resulting pipeline is a combination of the preceding lessons:
 * [Outputs to Inputs](/basics/11_task_outputs_to_inputs/)
 * [Secrets with Credentials Manager](/basics/15_secret_parameters/)
 
+In the lesson we will deploy a sample Golang application to a Cloud Foundry platform. In your own Concourse pipelines you could deploy any application to any target platform.
 
 For convenience, we're reusing the `tutorials/basic/10_job_inputs/task_run_tests.sh` test script from lesson [Job Inputs](/basics/10_job_inputs/).
 
@@ -57,8 +58,17 @@ fly -t bucc unpause-pipeline -p run_tests_before_deploy
 fly -t bucc trigger-job -j run_tests_before_deploy/deploy-app -w
 ```
 
+This will fail due to missing parameters.
 
-## Required variables
+## Free Cloud Foundry for Lesson
+
+To complete this lesson you will need access to a Cloud Foundry. I'd like to suggest you try [Pivotal Web Services](https://run.pivotal.io/) which is run by Pivotal, the company who funds the core Concourse CI dev team. They offer free trial credit which will be more than sufficient for this lesson.
+
+After signup, visit https://console.run.pivotal.io/ a "space" called `run_tests_before_deploy`. This lesson's pipeline will deploy a sample app into this space.
+
+The sample application being deployed by the pipeline is https://github.com/cloudfoundry-community/simple-go-web-app
+
+## Required Parameters
 
 ![cf-push-expected-variables](/images/cf-push-expected-variables.png)
 
@@ -97,3 +107,9 @@ Once you've set your parameters in your Concourse credentials manager, or re-run
 ```
 fly -t bucc trigger-job -j run_tests_before_deploy/deploy-app -w
 ```
+
+## Cleanup
+
+You can now delete the sample app from your Cloud Foundry account.
+
+If you are using Pivotal Web Services, visit https://console.run.pivotal.io/ and navigate to the `run_tests_before_deploy` space to find your application and delete it.
