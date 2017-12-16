@@ -11,6 +11,8 @@ pushd $DIR
   fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline-no-notifications.yml -n
   fly -t ${fly_target} unpause-pipeline -p tutorial-pipeline
   fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test || { echo "failed... continuing"; }
+  fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline-slack-errors.yml -n
+  fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test
   fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline.yml -n
   fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test
 popd

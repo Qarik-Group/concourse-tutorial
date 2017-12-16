@@ -70,3 +70,25 @@ resources:
     url: ((slack-webhook))
 ```
 
+## Slack Web Hooks
+
+Visit the `/services/new/incoming-webhook` for your Slack organization. For example, for `cloudfoundry` organization:
+
+https://cloudfoundry.slack.com/services/new/incoming-webhook/
+
+Choose a public or private channel into which your notifications will be delivered. For this tutorial, choose your own personal channel "Privately to you".
+
+![slack-webhook-private](/images/slack-webhook-private.png)
+
+Click "Add Incoming WebHooks integration" button.
+
+On the next page, you will be given a unique secret URL. Triple click to select, then copy it to your clipboard.
+
+![slack-webhook-url](/images/slack-webhook-url.png)
+
+Each pipeline might have its own `((slack-webhook))` parameter to send notifications to different Slack channels. So we will store the URL in a pipeline-specific location in Credhub (remember to run `bucc credhub` in your `bucc` project to re-login to Credhub):
+
+```
+credhub set -n /concourse/main/slack_notifications/slack-webhook -t value -v https://hooks.slack.com/services/T02FXXXXX/B8FLXXXXX/vfnkP8lwogK0uYDZCxxxxxxx
+```
+
