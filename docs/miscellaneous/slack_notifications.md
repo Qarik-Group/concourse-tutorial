@@ -39,6 +39,7 @@ jobs:
 Create this pipeline and run the `test` job a few times. Sometimes it will succeed and other times it will fail.
 
 ```
+cd tutorials/miscellaneous/slack_notifications
 fly -t bucc sp -p slack_notifications -c pipeline-no-notifications.yml
 fly -t bucc up -p slack_notifications
 fly -t bucc trigger-job -j slack_notifications/test -w
