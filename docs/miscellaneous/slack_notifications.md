@@ -142,3 +142,58 @@ fly -t bucc trigger-job -j slack_notifications/test -w
 Your lovely failure will now appear as a notification in Slack:
 
 ![slack-webhook-test-failed](/images/slack-webhook-test-failed.png)
+
+## Dynamic Notification Messages
+
+In the preceding section the notification text was hardcoded within the `pipeline-slack-failures.yml` file. It is possible to generate dynamic messages for your notifications.
+
+It is also possible to emit success notifications.
+
+![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
+
+From the README of the `slack-notification-resource` being used, we can see there is a `text` and a `text_file` parameter https://github.com/cloudfoundry-community/slack-notification-resource#out-sends-message-to-slack
+
+We will switch from the former to the latter, and add an `on_success` step hook to explicit catch both success and failure outcomes of the `task: test-sometimes-works` step.
+
+```yaml
+jobs:
+- name: test
+  public: true
+  serial: true
+  plan:
+  - get: tutorial
+    trigger: true
+  - task: test-sometimes-works
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      inputs:
+      - name: tutorial
+      outputs:
+      - name: notify_message
+      run:
+        path: tutorial/tutorials/miscellaneous/slack_notifications/test-sometimes-works-notify-message.sh
+    on_success:
+      put: notify
+      params:
+        text_file: notify_message/message
+    on_failure:
+      put: notify
+      params:
+        text_file: notify_message/message
+```
+
+Above, the `notify_message` folder is created by the `task: test-sometimes-works` step as an output, and consumed by `put: notify` resource. See the Basics section on [Passing task outputs to another task](/basics/11_task_outputs_to_inputs/) to revise this topic.
+
+To upgrade your pipeline and run the `test` job a few times to see success and failure notifications:
+
+```
+fly -t bucc sp -p slack_notifications -c pipeline-dynamic-messages.yml
+fly -t bucc trigger-job -j slack_notifications/test -w
+fly -t bucc trigger-job -j slack_notifications/test -w
+fly -t bucc trigger-job -j slack_notifications/test -w
+fly -t bucc trigger-job -j slack_notifications/test -w
+```
+

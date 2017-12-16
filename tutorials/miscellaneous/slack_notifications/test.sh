@@ -8,11 +8,11 @@ echo "Concourse API target ${fly_target}"
 echo "Tutorial $(basename $DIR)"
 
 pushd $DIR
-  fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline-no-notifications.yml -n
-  fly -t ${fly_target} unpause-pipeline -p tutorial-pipeline
-  fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test || { echo "failed... continuing"; }
-  fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline-slack-failures.yml -n
-  fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test || { echo "failed... continuing"; }
-  fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline.yml -n
+  # fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline-no-notifications.yml -n
+  # fly -t ${fly_target} unpause-pipeline -p tutorial-pipeline
+  # fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test || { echo "failed... continuing"; }
+  # fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline-slack-failures.yml -n
+  # fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test || { echo "failed... continuing"; }
+  fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline-dynamic-messages.yml -n
   fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/test
 popd

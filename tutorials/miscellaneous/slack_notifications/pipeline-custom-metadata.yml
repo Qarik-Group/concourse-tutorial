@@ -38,14 +38,14 @@ jobs:
     on_success:
       put: notify
       params:
-        # channel:  ((slack-channel))
-        # username: ((slack-username))
-        # icon_url: ((slack-icon))
+        channel:  ((slack-channel))
+        username: ((slack-username))
+        icon_url: ((slack-icon))
         text_file: notify_message/message
     on_failure:
       put: notify
       params:
-        # channel:  ((slack-channel))
-        # username: ((slack-username))
-        # icon_url: ((slack-icon))
+        channel:  ((slack-channel))
+        username: ((slack-username))
+        icon_url: ((slack-icon))
         text_file: notify_message/message
