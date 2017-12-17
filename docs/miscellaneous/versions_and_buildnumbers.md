@@ -16,7 +16,7 @@ Given a version number `MAJOR.MINOR.PATCH`, such as `1.3.5`, increment the:
 
 Additional labels for pre-release and build metadata are available as extensions to the `MAJOR.MINOR.PATCH` format.
 
-Instead of a semantically meaningless build number, with a `semver` resource type you can give meaning to your version numbers.
+Instead of a monotonically increasing internal build number, with a `semver` resource type you can control the meaning to your version numbers.
 
 If you don't care about the semantic meaning of your `semver` resource type, then start at `0.0.1` and bump the PATCH version only. One day you'll have a value of `0.0.5000` and still have the ability to bump the MINOR value to `0.1.0`.
 
