@@ -10,5 +10,5 @@ echo "Tutorial $(basename $DIR)"
 pushd $DIR
   fly -t ${fly_target} set-pipeline -p tutorial-pipeline -c pipeline.yml -n
   fly -t ${fly_target} unpause-pipeline -p tutorial-pipeline
-  fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/job-github-release
+  fly -t ${fly_target} trigger-job -w -j tutorial-pipeline/shield
 popd

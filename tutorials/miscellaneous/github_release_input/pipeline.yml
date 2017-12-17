@@ -1,5 +1,5 @@
 jobs:
-- name: job-github-release
+- name: shield
   public: true
   serial: true
   plan:
