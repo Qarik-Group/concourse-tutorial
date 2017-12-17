@@ -1,21 +1,33 @@
 ---
 resources:
-- name: resource-version
+- name: version
   type: semver
   source:
-    driver: git
+    driver: s3
     initial_version: 0.0.1
-    uri: ((git-uri-bump-semver))
-    branch: version
-    file: version
-    private_key: ((github-private-key))
+    access_key_id:     ((aws_access_key_id))
+    secret_access_key: ((aws_secret_access_key))
+    bucket:      ((version_aws_bucket))
+    region_name: us-east-1
+    key:         concourse-tutorial/version
 
 jobs:
-- name: job-versioning
+- name: bump-version
   public: true
   serial: true
   plan:
-  - get: resource-version
+  - get: version
     params: {pre: rc}
-  - put: resource-version
-    params: {file: resource-version/number}
+  - put: version
+    params: {file: version/number}
+  - task: display-version
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      inputs:
+      - name: version
+      run:
+        path: cat
+        args: [version/number]

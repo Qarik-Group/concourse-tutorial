@@ -1,14 +1,14 @@
 # Versioning and Build numbers
 
-The title of this section mentions "build numbers" because they are a common concept in other CI/CD systems. A sequentially incrementing number that can be used to differentiate by-products/updated resources. Concourse does not have them. There is no "build number" concept in Concourse.
+The title of this section mentions "build numbers" because they are a common concept in other CI/CD systems. A sequentially incrementing number that can be used to differentiate by-products/updated resources. Concourse does not have them. There is no "build number" concept in Concourse that is available to your pipelines, jobs, and their steps.
 
-Instead, we have the flexible concept of the [`semver` resource](https://github.com/concourse/semver-resource#readme) and all the flexibility of Concourse to determine when to increment a `semver` value and by how much.
+Instead, we have the flexible concept of the [`semver` resource type](https://github.com/concourse/semver-resource#readme) and all the flexibility of Concourse to determine when to increment a `semver` value and by how much.
 
-## Semver - semantic versioning
+## SemVer - Semantic Versioning
 
 `semver` is short for "semantic versioning" and is documented at http://semver.org/. In summary,
 
-Given a version number `MAJOR.MINOR.PATCH`, increment the:
+Given a version number `MAJOR.MINOR.PATCH`, such as `1.3.5`, increment the:
 
 * MAJOR version when you make incompatible API changes,
 * MINOR version when you add functionality in a backwards-compatible manner, and
@@ -16,107 +16,114 @@ Given a version number `MAJOR.MINOR.PATCH`, increment the:
 
 Additional labels for pre-release and build metadata are available as extensions to the `MAJOR.MINOR.PATCH` format.
 
-Instead of a semantically meaningless build number, with a `semver` resource you can give meaning to your version numbers.
+Instead of a semantically meaningless build number, with a `semver` resource type you can give meaning to your version numbers.
 
-## Setup with a git branch
+If you don't care about the semantic meaning of your `semver` resource type, then start at `0.0.1` and bump the PATCH version only. One day you'll have a value of `0.0.5000` and still have the ability to bump the MINOR value to `0.1.0`.
 
-A simple way to get started is to use the same `git` repository you might be already using for your project, create a new branch (say `version`), and store the current `semver` value in a file (say `version`). The new `version` branch will never be merged into your `master` branch - it exists only to bump along a version value.
+## Storing the SemVer Value
 
-To setup this new branch in your repository you could run:
+The simplicity of SemVer within Concourse is that is a simple file stored remotely and made available within a `version` file within your Concourse steps.
+
+The complexity is in deciding how and where to store the version file.
+
+The https://github.com/concourse/semver-resource source project offers the following "how" drivers for storing your SemVer value file:
+
+* [`git`](https://github.com/concourse/semver-resource#git-driver)
+* [`s3`](https://github.com/concourse/semver-resource#s3-driver)
+* [`swift`](https://github.com/concourse/semver-resource#swift-driver)
+* [`gcs`](https://github.com/concourse/semver-resource#gcs-driver)
+
+Nearly all Concourse pipelines will be using a remote `git` repository already for task scripts, so it is convenient to reuse that git project to store a SemVer version file. But it is not common to see this use case of `semver` resource type.
+
+Instead, most Concourse pipelines are already using an `s3`, `swift`, or `gcs` bucket for handling other larger assets, so it is convenient and simpler to reuse that bucket to store a single SemVer version file.
+
+We only need to discuss one of the drivers to cover the topic of the `semver` resource type. The documentation for each is linked above for how to configure them. Since AWS S3 is relatively common and accessible to many Concourse Tutorial readers I will use the `s3` driver as an example.
+
+## Create an AWS S3 bucket
+
+Create or repurpose some AWS API credentials that have access to AWS S3. If you're a user of the `aws` CLI, then you can find some in `~/.aws/credentials`:
 
 ```
-git checkout --orphan version
-git rm --cached -r .
-rm -rf *
-rm .gitignore .gitmodules
-touch README.md
-git add .
-git commit -m "new branch"
-git push origin version
+[youraccount]
+aws_access_key_id = ACCESS_KEY
+aws_secret_access_key = ACCESS_SECRET
 ```
 
-In your pipeline you now add a `semver` resource:
+Add these to your Credhub. Assuming you'll reuse the same credentials for different pipelines you could make them common for all pipelines in the `main` team.
+
+Remember to run `bucc credhub` within your `bucc` project to re-authenticate with Credhub.
+
+```
+credhub set -n /concourse/main/aws_access_key_id     -t value -v ACCESS_KEY
+credhub set -n /concourse/main/aws_secret_access_key -t value -v ACCESS_SECRET
+```
+
+Using the [AWS S3 web UI](https://console.aws.amazon.com/s3/home?region=us-east-1) or the `aws` CLI create a new bucket (or repurpose an existing bucket related to your pipeline).
+
+Change `concourse-tutorial-versions-lesson` below as your bucket name needs to be globally unique, and I took this one.
+
+```
+aws --profile youraccount s3 mb s3://concourse-tutorial-versions-lesson
+```
+
+Now store your bucket name into Credhub. Typically you might hardcode the bucket name into your `pipeline.yml`. It is a parameter variable in these lessons because it will be different for all readers.
+
+```
+credhub set -n /concourse/main/versions_and_buildnumbers/version_aws_bucket -t value -v concourse-tutorial-versions-lesson
+```
+
+You can now add a `version` resource to your pipeline:
 
 ```yaml
-- name: resource-version
+resources:
+- name: version
   type: semver
   source:
-    driver: git
+    driver: s3
     initial_version: 0.0.1
-    uri: ((git-uri-bump-semver))
-    branch: version
-    file: version
-    private_key: ((github-private-key))    
+    access_key_id:     ((aws_access_key_id))
+    secret_access_key: ((aws_secret_access_key))
+    bucket:      ((version_aws_bucket))
+    region_name: us-east-1
+    key:         concourse-tutorial/version
 ```
 
-Any place in your pipeline where you want to know the current `semver` you simply `get: resource-version`:
+## Display Version
+
+If a step of your pipeline needs to know the current `semver` value you simply `get: version`:
 
 ```yaml
 jobs:
-- name: job-versioning
-  public: true
-  serial: true
+- name: display-version
   plan:
-  - get: resource-version
-```
-
-Add `git-uri-bump-semver` to your tutorial's `credentials.yml` file and deploy this simple pipeline:
-
-```
-cd tutorials/miscellaneous/versions_and_buildnumbers
-fly sp -t tutorial -p versioning -n -l ../../../credentials.yml \
-  -c pipeline-get-version.yml
-fly up -t tutorial -p versioning
-```
-
-The pipeline is at http://192.168.100.4:8080/pipelines/versioning
-
-After you run the `job-versioning` job, it will fetch the `resource-version` resource and give it its `initial_version` of `0.0.1` (defined above):
-
-![initial-version](http://cl.ly/2i0j2K2W2Q0M/download/Image%202016-03-01%20at%2011.32.09%20am.png)
-
-## Access version value
-
-When you `get` a `semver` resource (see the step `- get: resource-version` above), then the version value is stored in a file `number` (note, this is not the name of the file into which the value is stored in the git repository).
-
-Subsequent tasks can access the `number` value via the name of the resource:
-
-```yaml
-jobs:
-- name: job-versioning
-  public: true
-  serial: true
-  plan:
-  - get: resource-version
+  - get: version
   - task: display-version
     config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: busybox}
       inputs:
-      - name: resource-version
+      - name: version
       run:
         path: cat
-        args: [resource-version/number]
+        args: [version/number]
 ```
 
-Update our `versioning` pipeline:
+The `version` resource will store the current SemVer value in a file `number`. Therefore subsequent steps can look up the value within the file path `version/number`.
 
 ```
-fly sp -t tutorial -p versioning -n -l ../../../credentials.yml \
-  -c pipeline-display-version.yml
+cd tutorials/mischellaneous/versions_and_buildnumbers
+fly -t bucc sp -p versions_and_buildnumbers -c pipeline-display-version.yml
+fly -t bucc up -p versions_and_buildnumbers
+fly -t bucc trigger-job -j versions_and_buildnumbers/display-version -w
 ```
 
-Then re-run the `job-versioning` job:
+The job will look delightful in the Concourse dashboard:
 
-![display-resource-value](http://cl.ly/3a1y3J3v2K3P/download/Image%202016-03-01%20at%2011.49.28%20am.png)
+![semver-display-version](/images/semver-display-version.png)
 
-## Bumping the version
+## Bumping the Version
 
 Whilst you could manually create and modify the `version` file outside of Concourse, typically you will bump the version within Concourse jobs: automatically at the start of jobs (say pre-release or release-candidate versions), or manually when preparing to release `MAJOR.MINOR.PATCH` releases.
 
-The `semver`-resource can be bumped when it is first fetched down. See [examples](https://github.com/concourse/semver-resource#example).
+The `semver` resource type can be bumped when it is first fetched down. See [examples](https://github.com/concourse/semver-resource#example).
 
 Its new value only exists within the job's build plan, being passed between containers via `inputs` into tasks.
 
@@ -135,63 +142,45 @@ In the pipeline example above we `pre` bumped the `rc` number:
 
 ```yaml
 plan:
-- get: resource-version
+- get: version
   params: {pre: rc}
 ```
 
-Apply this change to our pipeline:
+A subsequent step could then save this new value back to the remote `s3` version file:
+
+```yaml
+plan:
+- get: version
+  params: {pre: rc}
+- put: version
+  params: {file: version/number}
+```
+
+Apply this change to our pipeline, and trigger the `bump-version` job a few times to see it increment the `0.0.1-rc.3` value:
 
 ```
-fly sp -t tutorial -p versioning -n -l ../../../credentials.yml \
-  -c pipeline-bump.yml
+fly -t bucc sp -p versions_and_buildnumbers -c pipeline-bump-then-save.yml
+fly -t bucc trigger-job -j versions_and_buildnumbers/bump-version -w
+fly -t bucc trigger-job -j versions_and_buildnumbers/bump-version -w
+fly -t bucc trigger-job -j versions_and_buildnumbers/bump-version -w
 ```
 
 Run the job to see the output in the image above.
 
-## Saving new version
+## Delete And Restore Pipeline
 
-If you re-run the `job-versioning` job you observe that the value of the `version` resource has no actually changed:
+Since all Concourse resources are stored outside of your Concourse, it becomes very easy to migrate pipelines or perform disaster recovery.
 
-![unchanged](http://cl.ly/3E363z3i1c0v/download/Image%202016-03-01%20at%201.06.49%20pm.png)
-
-Most Concourse resources, including `semver`, support way of updating an external thing.
-
-From the [`out` section](https://github.com/concourse/semver-resource#out-set-the-version-or-bump-the-current-one) of `semver` resource, to update the `version` value we need to specify the `file:` path to a preceding container.
-
-In our pipeline above we observed that the `version` value is in the `resource-version/number` file.
-
-To `put:` this value back up to `version` file, we add the following step to our job:
-
-```yaml
-  - put: resource-version
-    params: {file: resource-version/number}
-```
-
-Apply this change to our pipeline:
+Delete your pipeline and recreate it:
 
 ```
-fly sp -t tutorial -p versioning -n -l ../../../credentials.yml \
-  -c pipeline-bump-then-save.yml
+fly -t bucc destroy-pipeline -p versions_and_buildnumbers
+
+fly -t bucc sp -p versions_and_buildnumbers -c pipeline-bump-then-save.yml
+fly -t bucc up -p versions_and_buildnumbers
+fly -t bucc trigger-job -j versions_and_buildnumbers/bump-version -w
 ```
 
-![bump-then-save](http://cl.ly/0G2x2n2W3q3y/download/Image%202016-03-01%20at%201.17.10%20pm.png)
+Our new pipeline will start its internal build numbers at `#1` again, but it restores the previous `version` value.
 
-Now, if you look in your git repository's `version` branch, there is now a `version` file that contains the `initial_version` with its `rc` attribute bumped:
-
-![saved-file](http://cl.ly/2T0f3F1V3T0z/download/Image%202016-03-01%20at%201.19.43%20pm.png)
-
-This `version` file is stored outside of Concourse (as all resources are), but its not really for the direct benefit of any other system. Only your pipeline is the user of this value - via the `semver` resource.
-
-Now, if you run the job `job-versioning` over and over it will progressively increase the `rc` attribute.
-
-![again](http://cl.ly/27460R2F3i3Z/download/Image%202016-03-01%20at%201.32.54%20pm.png)
-
-## Bonus exercise
-
-Create an additional job, called `bump-patch`, in the pipeline that bumps the `resource-version` value's `patch` attribute.
-
-That is, regardless of the `rc` attribute (`0.0.1-rc.1` or `0.0.1-rc.2`), update the version to `0.0.2`.
-
-See the [Version Bumping Semantics](https://github.com/concourse/semver-resource#version-bumping-semantics) readme for inforamtion on how to do this.
-
-Next, create similar jobs called `bump-minor` and `bump-major`.
+![bump-version-restoration](/images/bump-version-restoration.png)
