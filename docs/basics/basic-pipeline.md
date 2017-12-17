@@ -46,15 +46,41 @@ the pipeline is currently paused. to unpause, either:
   - click play next to the pipeline in the web ui
 ```
 
-As suggested, un-pause a pipeline from the `fly` CLI:
+## Login to Concourse Web UI
 
-```
-fly -t tutorial unpause-pipeline -p helloworld
-```
+Visit the pipeline URL http://192.168.100.4:8080/teams/main/pipelines/helloworld
 
-Next, as suggested, visit the web UI http://192.168.100.4:8080/teams/main/pipelines/helloworld.
+It is a private pipeline and currently you are no logged in to the Concourse Web UI. You will be redirected to a login page.
 
-Your first pipeline is unimpressive - a single job `job-hello-world` with no inputs from the left and no outputs to its right, no jobs feeding into it, nor jobs feeding from it. It is the most basic pipeline. The job is gray colour because it has never been run before.
+![dashboard-login](/images/dashboard-login.png)
+
+Click "Login" and you'll be redirected back to your pipeline.
+
+Why did you not have to enter any username/password? Excellent question. Indeed. It's because your current `fly -t tutorial` deployment of Concourse has had authentication disabled. In a future lesson we will upgrade to a more robust installation of Concourse with passwords and fanciness.
+
+## Unpausing Pipelines
+
+Your pipeline has a blue bar across the top. This means it is paused. New pipelines start paused as you might not yet be ready for triggers to fire and start jobs running.
+
+![dashboard-pipeline-paused](/images/dashboard-pipeline-paused.png)
+
+There are two ways to unpause (or re-pause) a pipeline.
+
+1. Open the hamburger menu and click the `>` unpause/play button for your pipeline. Then click the hamburger menu icon to close the sidebar of pipelines.
+
+    ![dashboard-hamburger-menu](/images/dashboard-hamburger-menu.png)
+
+    
+
+2. Using the `fly unpause-pipeline` command (or its alias `fly up`):
+
+    ```
+    fly -t tutorial unpause-pipeline -p helloworld
+    ```
+
+## First Pipeline
+
+This first pipeline is unimpressive - a single job `job-hello-world` with no inputs from the left and no outputs to its right, no jobs feeding into it, nor jobs feeding from it. It is the most basic pipeline. The job is gray colour because it has never been run before.
 
 Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
 
@@ -62,3 +88,4 @@ Click on `job-hello-world` and then click on the large `+` in the top right corn
 
 Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
 
+Note: this animated gif has aged slightly. The current Concourse Web UI looks slightly different.
