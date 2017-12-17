@@ -55,7 +55,7 @@ The task `ls-abc-xyz` declares explicitly that it wants both resources via its `
     platform: linux
     image_resource:
       type: docker-image
-      source: {repository: ubuntu, tag: "14.04"}
+      source: {repository: ubuntu}
     inputs:
     - name: gist-abc
     - name: gist-xyz

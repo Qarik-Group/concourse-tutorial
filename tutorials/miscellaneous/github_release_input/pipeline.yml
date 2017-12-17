@@ -9,7 +9,7 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: ubuntu, tag: "14.04"}
+        source: {repository: ubuntu}
       inputs:
       - name: github-release-shield
       run:
@@ -20,7 +20,7 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: ubuntu, tag: "14.04"}
+        source: {repository: ubuntu}
       inputs:
       - name: github-release-shield
       run:
