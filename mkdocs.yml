@@ -14,8 +14,8 @@ pages:
     - Job Inputs: basics/job-inputs.md
     - Outputs to Inputs: basics/task-outputs-to-inputs.md
     - Publishing Outputs: basics/publishing-outputs.md
-    - Pipeline Jobs: basics/pipeline-jobs.md
     - Parameters: basics/parameters.md
+    - Pipeline Jobs: basics/pipeline-jobs.md
     - Secrets with Credentials Manager: basics/secret-parameters.md
   - Miscellaneous:
     - Introduction: miscellaneous/index.md

@@ -4,11 +4,12 @@ So far we have used the `git` resource to fetch down a git repository, and used 
 
 ```
 cd ../publishing-outputs
+cp pipeline-missing-credentials.yml pipeline.yml
 fly -t tutorial sp -p publishing-outputs -c pipeline.yml
 fly -t tutorial up -p publishing-outputs
 ```
 
-Pipeline dashboard http://192.168.100.4:8080/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
+Pipeline dashboard http://192.168.100.4:8080/teams/main/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
 
 ![broken-resource](/images/broken-resource.png)
 
@@ -42,17 +43,19 @@ resources:
 
 Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registered with github) into the `private_key` section.
 
-Update the pipeline:
+Update the pipeline, force Concourse to quickly re-check the new Gist credentials, and then run the job:
 
 ```
 fly -t tutorial sp -p publishing-outputs -c pipeline.yml
+fly -t tutorial check-resource -r publishing-outputs/resource-gist
+fly -t tutorial trigger-job -j publishing-outputs/job-bump-date -w
 ```
 
-Revisit the dashboard UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
+Revisit the Web UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
 
-After running the `job-bump-date` job, refresh your gist:
+After the `job-bump-date` job completes, refresh your gist:
 
-![bumped](/images/bumped.png)
+![gist-bumped](/images/gist-bumped.png)
 
 This pipeline is an example of updating a resource. It has pushed up new git commits to the git repo (your github gist).
 
