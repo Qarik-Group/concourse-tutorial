@@ -1,0 +1,24 @@
+---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
+
+- name: my-timer
+  type: time
+  source:
+    interval: 2m
+
+jobs:
+- name: job-hello-world
+  public: true
+  serial: true
+  plan:
+  - get: resource-tutorial
+  - get: my-timer
+    trigger: true
+  - task: hello-world
+    file: resource-tutorial/task-hello-world/task_hello_world.yml
+

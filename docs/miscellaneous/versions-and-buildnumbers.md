@@ -127,7 +127,7 @@ The `semver` resource type can be bumped when it is first fetched down. See [exa
 
 Its new value only exists within the job's build plan, being passed between containers via `inputs` into tasks.
 
-![bump](http://cl.ly/2b0o3Y3Y3A2E/download/Image%202016-03-01%20at%201.02.34%20pm.png)
+![bump-version](/images/bump-version.png)
 
 There are [two options](https://github.com/concourse/semver-resource#version-bumping-semantics) for bumping a `semver` value when fetching it:
 

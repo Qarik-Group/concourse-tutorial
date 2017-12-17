@@ -11,14 +11,14 @@ In this section we combine four ideas into a more advanced job:
 
 The resulting pipeline is a combination of the preceding lessons:
 
-* [Triggers](/basics/08-triggers/)
-* [Job Inputs](/basics/10-job-inputs/)
-* [Outputs to Inputs](/basics/11-task-outputs-to-inputs/)
-* [Secrets with Credentials Manager](/basics/15-secret-parameters/)
+* [Triggers](/basics/triggers/)
+* [Job Inputs](/basics/job-inputs/)
+* [Outputs to Inputs](/basics/task-outputs-to-inputs/)
+* [Secrets with Credentials Manager](/basics/secret-parameters/)
 
 In the lesson we will deploy a sample Golang application to a Cloud Foundry platform. In your own Concourse pipelines you could deploy any application to any target platform.
 
-For convenience, we're reusing the `tutorials/basic/10-job-inputs/task-run-tests.sh` test script from lesson [Job Inputs](/basics/10-job-inputs/).
+For convenience, we're reusing the `tutorials/basic/job-inputs/task-run-tests.sh` test script from lesson [Job Inputs](/basics/job-inputs/).
 
 ```yaml
 - name: deploy-app
@@ -42,7 +42,7 @@ For convenience, we're reusing the `tutorials/basic/10-job-inputs/task-run-tests
         path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
 
       run:
-        path: tutorial/tutorials/basic/10-job-inputs/task-run-tests.sh
+        path: tutorial/tutorials/basic/job-inputs/task-run-tests.sh
   - put: deploy-web-app
     params:
       manifest: resource-app/manifest.yml
@@ -88,7 +88,7 @@ The `cf` resource deploys an application to Cloud Foundry. From the `pipeline.ym
     skip-cert-check: true
 ```
 
-As introduced in [Parameters](/basics/14-parameters/) and [Secrets with Credentials Manager](/basics/15-secret-parameters/)
+As introduced in [Parameters](/basics/parameters/) and [Secrets with Credentials Manager](/basics/secret-parameters/)
 , the `((cf-api))` syntax is for late-binding variable, secret, or credential. This allows `pipeline.yml` to be generically useful and published in public. It also allows an operator to update variables in a central place and then all jobs will dynamically use the new variable values on demand.
 
 It is likely that `cf-api`, `cf-username`, `cf-password`, and `cf-organization` are common credentials for many pipelines, but `cf-space` might be specific to this pipeline. Example `credhub set` commands might be:

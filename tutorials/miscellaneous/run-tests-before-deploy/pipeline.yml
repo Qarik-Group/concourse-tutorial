@@ -42,7 +42,7 @@ jobs:
         path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
 
       run:
-        path: tutorial/tutorials/basic/10-job-inputs/task_run_tests.sh
+        path: tutorial/tutorials/basic/job-inputs/task_run_tests.sh
   - put: deploy-web-app
     params:
       manifest: app/manifest.yml

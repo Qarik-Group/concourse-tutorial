@@ -1,0 +1,22 @@
+---
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
+
+- name: resource-app
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry-community/simple-go-web-app.git
+
+jobs:
+- name: job-test-app
+  public: true
+  plan:
+  - get: resource-tutorial
+  - get: resource-app
+    trigger: true
+  - task: web-app-tests
+    file: resource-tutorial/tutorials/basic/job-inputs/task_run_tests.yml
