@@ -40,7 +40,9 @@ Thanks to all the staff at Stark & Wayne who helped to maintain this Concourse T
 
     For Windows:
 
-    Visit https://bosh.io/docs/cli-v2.html#install to download the `bosh-cli-...-windows-amd64.exe`. Place it in your path.
+    Visit https://bosh.io/docs/cli-v2.html#install to download the `bosh-cli-...-windows-amd64.exe`. Rename as `bosh`. Use [this article](https://stackoverflow.com/questions/23400030/windows-7-add-path)
+    to see where to add `bosh` in to the `PATH`.
+
 
 3. Setup a Single VM concourse using Virtualbox and BOSH.
 
@@ -59,9 +61,7 @@ Open http://192.168.100.4:8080/ in your browser:
 
 [![initial](/images/dashboard-no-pipelines.png)](http://192.168.100.4:8080/)
 
-Once the page loads in your browser, click to download the `fly` CLI appropriate for your operating system:
-
-![cli](/images/fly_cli.png)
+Click on your operating system to download the `fly` CLI.
 
 Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 
@@ -114,5 +114,6 @@ When you've finished with your local Concourse, deployed via `bosh create-env`, 
 The `tmp/state.json` file helps `bosh delete-env` determine which VM and disk to delete.
 
 ```
+cd ~/workspace/concourse-tutorial
 bosh delete-env manifests/concourse-lite.yml --state tmp/state.json
 ```
