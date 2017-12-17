@@ -20,8 +20,6 @@ Thanks to all the staff at Stark & Wayne who helped to maintain this Concourse T
 
 ## Getting Started
 
-### Mac & Linux
-
 1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
 2. Install [BOSH CLI](https://bosh.io/docs/cli-v2.html#install)
 
@@ -40,26 +38,20 @@ Thanks to all the staff at Stark & Wayne who helped to maintain this Concourse T
     apt-get install bosh-cli
     ```
 
+    For Windows:
+
+    Visit https://bosh.io/docs/cli-v2.html#install to download the `bosh-cli-...-windows-amd64.exe`. Place it in your path.
+
 3. Setup a Single VM concourse using Virtualbox and BOSH.
 
     Download the `concourse-lite` deployment manifest and then have `bosh` create a
     Single VM server running concourse on Virtualbox.
 
     ```
-    wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/develop/manifests/concourse-lite.yml
+    git clone https://github.com/starkandwayne/concourse-tutorial -b develop ~/workspace/concourse-tutorial
+    cd ~/workspace/concourse-tutorial
     bosh create-env manifests/concourse-lite.yml --state tmp/state.json
     ```
-
-### Windows
-
-1. Use the Vagrant box as a pre-compiled build of a Single VM instance of Concourse.
-
-```
-git clone https://github.com/starkandwayne/concourse-tutorial.git
-cd concourse-tutorial
-vagrant box add concourse/lite --box-version $(cat VERSION)
-vagrant up
-```
 
 ### Test Setup
 
