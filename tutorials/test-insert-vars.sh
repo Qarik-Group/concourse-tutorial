@@ -1,8 +1,5 @@
 #!/bin/bash
 
-credhub set -n /concourse/main/cat-name -t value -v milo >/dev/null
-credhub set -n /concourse/main/dog-name -t value -v otis >/dev/null
-
 credhub set -n /concourse/main/aws_access_key_id -t value -v "${aws_access_key_id:?required}" >/dev/null
 credhub set -n /concourse/main/aws_secret_access_key -t value -v "${aws_secret_access_key:?required}" >/dev/null
 
