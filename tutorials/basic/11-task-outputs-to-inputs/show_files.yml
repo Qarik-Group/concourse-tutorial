@@ -1,0 +1,13 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: busybox}
+
+inputs:
+- name: resource-tutorial
+- name: some-files
+
+run:
+  path: resource-tutorial/tutorials/basic/11-task-outputs-to-inputs/show_files.sh

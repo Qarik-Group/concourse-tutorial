@@ -1,0 +1,33 @@
+---
+resources:
+- name: version
+  type: semver
+  source:
+    driver: s3
+    initial_version: 0.0.1
+    access_key_id:     ((aws-access-key-id))
+    secret_access_key: ((aws-secret-access-key))
+    bucket:      ((version-aws-bucket))
+    region_name: us-east-1
+    key:         concourse-tutorial/version
+
+jobs:
+- name: bump-version
+  public: true
+  serial: true
+  plan:
+  - get: version
+    params: {pre: rc}
+  - put: version
+    params: {file: version/number}
+  - task: display-version
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      inputs:
+      - name: version
+      run:
+        path: cat
+        args: [version/number]

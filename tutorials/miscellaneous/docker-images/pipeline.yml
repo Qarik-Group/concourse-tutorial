@@ -1,0 +1,35 @@
+resources:
+- name: tutorial
+  type: git
+  source:
+    uri: https://github.com/drnic/concourse-tutorial.git
+    branch: develop
+
+- name: hello-world-docker-image
+  type: docker-image
+  source:
+    email: ((docker-hub-email))
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
+    repository: ((docker-hub-username))/concourse-tutorial-hello-world
+
+jobs:
+- name: publish
+  public: true
+  plan:
+  - get: tutorial
+  - put: hello-world-docker-image
+    params:
+      build: tutorial/tutorials/miscellaneous/docker-images/docker
+  - task: run
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: ((docker-hub-username))/concourse-tutorial-hello-world
+      run:
+        path: /bin/hello-world
+        args: []
+      params:
+        NAME: ((docker-hub-username))

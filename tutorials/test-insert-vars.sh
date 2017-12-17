@@ -1,7 +1,7 @@
 #!/bin/bash
 
-credhub set -n /concourse/main/aws_access_key_id -t value -v "${aws_access_key_id:?required}" >/dev/null
-credhub set -n /concourse/main/aws_secret_access_key -t value -v "${aws_secret_access_key:?required}" >/dev/null
+credhub set -n /concourse/main/aws-access-key-id -t value -v "${aws_access_key_id:?required}" >/dev/null
+credhub set -n /concourse/main/aws-secret-access-key -t value -v "${aws_secret_access_key:?required}" >/dev/null
 
 credhub set -n /concourse/main/cf-api -t value -v "${cf_api:?required}" >/dev/null
 credhub set -n /concourse/main/cf-organization -t value -v "${cf_organization:?required}" >/dev/null
@@ -15,7 +15,7 @@ credhub set -n /concourse/main/docker-hub-username -t value -v "${docker_hub_use
 
 credhub set -n /concourse/main/slack-webhook -t value -v "${slack_webhook:?required}" >/dev/null
 
-credhub set -n /concourse/main/version_aws_bucket -t value -v "${version_aws_bucket:?required}" >/dev/null
+credhub set -n /concourse/main/version-aws-bucket -t value -v "${version_aws_bucket:?required}" >/dev/null
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 $DIR/test-pipeline-vars.sh

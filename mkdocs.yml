@@ -2,28 +2,28 @@ site_name: Concourse Tutorial by Stark & Wayne
 pages:
   - Basics:
     - Introduction: index.md
-    - Hello World: basics/01_task_hello_world.md
-    - Task Inputs: basics/02_task_inputs.md
-    - Task Scripts: basics/03_task_scripts.md
-    - Basic Pipeline: basics/04_basic_pipeline.md
-    - Hello World Pipeline: basics/05_pipeline_task_hello_world.md
-    - Watch Job Output: basics/06_watch_job_output.md
-    - Trigger Jobs with API: basics/07_trigger_jobs_with_api.md
-    - Triggers: basics/08_triggers.md
-    - Destroying Pipelines: basics/09_destroy_pipelines.md
-    - Job Inputs: basics/10_job_inputs.md
-    - Outputs to Inputs: basics/11_task_outputs_to_inputs.md
-    - Publishing Outputs: basics/12_publishing_outputs.md
-    - Pipeline Jobs: basics/13_pipeline_jobs.md
-    - Parameters: basics/14_parameters.md
-    - Secrets with Credentials Manager: basics/15_secret_parameters.md
+    - Hello World: basics/01-task-hello-world.md
+    - Task Inputs: basics/02-task-inputs.md
+    - Task Scripts: basics/03-task-scripts.md
+    - Basic Pipeline: basics/04-basic-pipeline.md
+    - Hello World Pipeline: basics/05-pipeline-task-hello-world.md
+    - Watch Job Output: basics/06-watch-job-output.md
+    - Trigger Jobs with API: basics/07-trigger-jobs-with-api.md
+    - Triggers: basics/08-triggers.md
+    - Destroying Pipelines: basics/09-destroy-pipelines.md
+    - Job Inputs: basics/10-job-inputs.md
+    - Outputs to Inputs: basics/11-task-outputs-to-inputs.md
+    - Publishing Outputs: basics/12-publishing-outputs.md
+    - Pipeline Jobs: basics/13-pipeline-jobs.md
+    - Parameters: basics/14-parameters.md
+    - Secrets with Credentials Manager: basics/15-secret-parameters.md
   - Miscellaneous:
     - Introduction: miscellaneous/index.md
-    - Run Tests Before Deploy: miscellaneous/run_tests_before_deploy.md
-    - Create and Use Docker Images: miscellaneous/docker_images.md
-    - Versions and Build Numbers: miscellaneous/versions_and_buildnumbers.md
-    - GitHub Release Input: miscellaneous/github_release_input.md
-    - Slack Notifications: miscellaneous/slack_notifications.md
+    - Run Tests Before Deploy: miscellaneous/run-tests-before-deploy.md
+    - Create and Use Docker Images: miscellaneous/docker-images.md
+    - Versions and Build Numbers: miscellaneous/versions-and-buildnumbers.md
+    - GitHub Release Input: miscellaneous/github-release-input.md
+    - Slack Notifications: miscellaneous/slack-notifications.md
 
 theme:
   name: 'material'

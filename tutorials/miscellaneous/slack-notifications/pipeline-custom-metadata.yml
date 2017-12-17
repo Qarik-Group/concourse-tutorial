@@ -1,0 +1,44 @@
+---
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+
+resources:
+- name: notify
+  type: slack-notification
+  source:
+    url: ((slack-webhook))
+- name: tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
+
+jobs:
+- name: test
+  public: true
+  serial: true
+  plan:
+  - get: tutorial
+    trigger: true
+  - task: test-sometimes-works
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+      inputs:
+      - name: tutorial
+      outputs:
+      - name: notify_message
+      run:
+        path: tutorial/tutorials/miscellaneous/slack-notifications/test-sometimes-works-notify-message.sh
+    ensure:
+      put: notify
+      params:
+        username:  starkandwayne-ci
+        icon_url:  https://www.starkandwayne.com/assets/images/shield-blue-50x50.png
+        text_file: notify_message/message
+        silent: true
