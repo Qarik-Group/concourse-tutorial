@@ -40,6 +40,7 @@ This will fail with the following error:
 ```
 Expected to find variables: cat-name
 dog-name
+errored
 ```
 
 ## Parameters from fly options
@@ -95,11 +96,11 @@ There are two downsides to the two approaches above.
 
     ```
     ...
-          params:
-        CAT_NAME: garfield
-        DOG_NAME: oddie
-      run:
-        path: env
+    params:
+      CAT_NAME: garfield
+      DOG_NAME: oddie
+    run:
+      path: env
     ```
 
-The solution to both of these problems is to use a Concourse Credentials Manager.
+The solution to both of these problems is to use a Concourse Credentials Manager and is discussed in lesson [Secret with Credential Manager](/basics/secret-parameters/).
