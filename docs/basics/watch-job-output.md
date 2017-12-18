@@ -1,8 +1,10 @@
 # Watch Job Output in Terminal
 
-The `job-hello-world` had terminal output from its resource fetch of a git repo and of the `hello-world` task running.
+It was very helpful that the `job-hello-world` [job build](http://192.168.100.4:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1) included the terminal output from running `git` commands to clone the git repo and the output of the running the `hello-world` task.
 
-In addition to the Concourse web ui you can also view this output from the terminal with `fly`:
+![git-resource-in](/images/git-resource-in.png)
+
+You can also view this output from the terminal with `fly watch`:
 
 ```
 fly -t tutorial watch -j helloworld/job-hello-world
@@ -30,10 +32,9 @@ fly -t tutorial builds
 The output will look like:
 
 ```
-5   helloworld/job-hello-world    1      succeeded  2016-26@17:25:47+1000  2016-26@17:26:01+1000  14s
-4   helloworld/job-hello-world    1      succeeded  2016-26@17:24:43+1000  2016-26@17:25:02+1000  19s
 3   helloworld/job-hello-world    1      succeeded  2016-26@17:22:13+1000  2016-26@17:22:23+1000  10s
 2   one-off                       n/a    succeeded  2016-26@17:15:02+1000  2016-26@17:16:36+1000  1m34s
 1   one-off                       n/a    succeeded  2016-26@17:13:34+1000  2016-26@17:14:11+1000  37s
 ```
 
+The `fly watch` command can also be a battery saver on your laptop. Hear me out. I've observed that watching jobs run in the Concourse Web UI uses a lot more battery power than running `fly watch` in a terminal. Your mileage may vary.
