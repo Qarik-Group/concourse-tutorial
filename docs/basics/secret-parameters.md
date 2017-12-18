@@ -9,7 +9,7 @@ Concourse supports Cloud Foundry Credhub and Hashicorp Vault. They have a common
 First, delete initial `tutorial` concourse:
 
 ```
-cd ../..
+cd ../../..
 bosh delete-env manifests/concourse-lite.yml --state tmp/state.json
 ```
 
@@ -18,14 +18,31 @@ Now, switch to [bucc](https://github.com/starkandwayne/bucc) to deploy a local s
 In another terminal:
 
 ```
-mkdir ~/workspace
-cd ~/workspace
-git clone https://github.com/starkandwayne/bucc
-cd bucc
+git clone https://github.com/starkandwayne/bucc ~/workspace/bucc
+cd ~/workspace/bucc
+```
+
+Now run:
+
+```
+bucc up --lite
+```
+
+If this fails with `command not found: bucc`, then perhaps you do not have [`direnv`](https://direnv.net/) installed. Never fear. Run to update your `$PATH` to add the `bin/bucc` command.
+
+```
+source .envrc
+```
+
+Now run:
+
+```
 bucc up --lite
 ```
 
 The `bucc up --lite` command is similar to `bosh create-env` but adds Credhub to the same VM. The `bucc` command also includes subcommands for logging in to Concourse and Credhub.
+
+## Concourse & Credhub
 
 To target and login to your new Concourse:
 
@@ -35,13 +52,13 @@ bucc fly
 
 Instead of `fly -t tutorial` you will now use `fly -t bucc`.
 
+The Concourse dashboard UI is now at https://192.168.50.6/
+
 To target and login to Credhub, the credentials manager included in `bucc`:
 
 ```
 bucc credhub
 ```
-
-The Concourse dashboard UI is now at https://192.168.50.6/
 
 ## Reauthentication
 
