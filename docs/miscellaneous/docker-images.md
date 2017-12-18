@@ -1,4 +1,4 @@
-# Push Docker image
+# Create and Use Docker Images
 
 This section will show how to take a Dockerfile project, build it and push to Docker Hub.
 

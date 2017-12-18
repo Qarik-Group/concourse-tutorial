@@ -76,7 +76,7 @@ executing build 2 at http://192.168.100.4:8080/builds/2
 initializing
 ...
 running uname -a
-Linux mjgia714efl 3.13.0-49-generic #83-Ubuntu SMP Fri Apr 10 20:11:33 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+Linux fdfa0821-fbc9-42bc-5f2f-219ff09d8ede 4.4.0-101-generic #124~14.04.1-Ubuntu SMP Fri Nov 10 19:05:36 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
 succeeded
 ```
 
@@ -84,4 +84,4 @@ The reason that you can select any base `image` (or `image_resource` when [confi
 
 ## Miscellaneous
 
-If you're interested in creating new Docker images using Concourse (of course you are), then there is a future section [Push Docker Image](/miscellaneous/push-docker-image).
+If you're interested in creating new Docker images using Concourse (of course you are), then there is a future section [Create and Use Docker Images](/miscellaneous/docker-images).
