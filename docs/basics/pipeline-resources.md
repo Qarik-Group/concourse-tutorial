@@ -2,23 +2,44 @@
 
 It is very fast to iterate on a job's tasks by configuring them in the `pipeline.yml` YAML file. You edit the `pipeline.yml`, run `fly set-pipeline`, and the entire pipeline is updated atomically.
 
-If a task's `run:` command becomes complex then it can be extracted into a task script (see lesson [Task Scripts](/basics/task-scripts/)).
+The initial lessons introduced Tasks as standalone YAML files (which can be run via `fly execute`). Our `pipeline.yml` YAML files can be refactored to use these.
 
-The task itself can be extracted into a YAML task file
+Also in the earlier lesson [Task Scripts](/basics/task-scripts/) we looked at extracting complex `run` commands into standalone shell scripts.
 
-In section 3 we uploaded the task file and task script from our local computer with the `fly execute` command.
-
-Unlike section 3, with a pipeline we now need to store the task file and task script somewhere outside of Concourse.
+But with pipelines we now need to store the task file and task script somewhere outside of Concourse.
 
 Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them "Resources". Example resources are `git`, `s3` and `semver` respectively.
 
-See the section "Available concourse resources" below for the list of available built-in resources and how to find community resources. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resources.
+See the Concourse documentation [Resource Types](https://concourse.ci/resource-types.html) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorials [Miscellaneous](/miscellaneous/) section also introduces some commonly useful Resource Types.
 
-The most common resource to store our task files and task scripts is the `git` resource.
+The most common resource type to store our task files and task scripts is the `git` resource type. Perhaps your task files could be fetched via the `s3` resource type from an AWS S3 file; or the `archive` resource type to extract them from a remote archive file. Or perhaps the task files could be pre-baked into the `image_resource` base Docker image. But mostly you will use describe a `git` resource in your pipeline to pull in your pipeline task files.
 
-This tutorial's source repository is a Git repo, and it contains many task files (and their task scripts). For example, the original `task-hello-world/task_hello_world.yml`.
+This tutorial's source repository is a Git repo, and it contains many task files (and their task scripts). For example, the original `tutorials/basisc/task-hello-world/task_hello_world.yml`.
 
-The following pipeline will load this task file and run it. We will update the previous `helloworld` pipeline:
+To pull in the Git repository, we add a top-level section `resources`:
+
+```yaml
+resources:
+- name: resource-tutorial
+  type: git
+  source:
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
+    branch: develop
+```
+
+Next, add a `get: resource-tutorial` step, and update the `task: hello-world` step to replace the `config:` section with `file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml`.
+
+```yaml
+jobs:
+- name: job-hello-world
+  public: true
+  plan:
+  - get: resource-tutorial
+  - task: hello-world
+    file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml
+```
+
+To deploy this change:
 
 ```
 cd ../pipeline-resources
@@ -36,7 +57,7 @@ The [`helloworld` pipeline](http://192.168.100.4:8080/teams/main/pipelines/hello
 
 ![pipeline-resources](/images/resource-job.gif)
 
-This tutorial verbosely prefixes `resource-` to resource names, and `job-` to job names, to help you identify one versus the other whilst learning. Eventually you will know one from the other and can remove the extraneous text.
+The Concourse Tutorial verbosely prefixes `resource-` to resource names, and `job-` to job names, to help you identify one versus the other whilst learning. Eventually you will know one from the other and can remove the extraneous text.
 
 After manually triggering the job via the UI, the output will look like:
 
@@ -52,18 +73,7 @@ The latter two are "steps" in the job's [build plan](http://concourse.ci/build-p
 
 The first build plan step fetches down (note the down arrow to the left) a `git` repository for these training materials and tutorials. The pipeline named this resource `resource-tutorial`.
 
-The `pipeline.yml` documents this single resource:
-
-```yaml
-resources:
-- name: resource-tutorial
-  type: git
-  source:
-    uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: develop
-```
-
-The resource name `resource-tutorial` is then used in the build plan for the job:
+The resource `resource-tutorial` is then used in the build plan for the job:
 
 ```yaml
 jobs:
@@ -71,11 +81,12 @@ jobs:
   public: true
   plan:
   - get: resource-tutorial
+  ...
 ```
 
-Any fetched resource can now be an input to any task in the job build plan. As discussed in section 3 & section 4, task inputs can be used as task scripts.
+Any fetched resource can now be an input to any task in the job build plan. As discussed in lessons [Task Inputs](/basics/task-inputs/) and [Task Scripts](/basics/task-scripts/) task inputs can be used as task scripts.
 
-The second step runs a user-defined task. The pipeline named the task `hello-world`. The task itself is not described in the pipeline. Instead it is described in a file `task-hello-world/task_hello_world.yml` from the `resource-tutorial` input.
+The second step runs a user-defined task. The pipeline named the task `hello-world`. The task itself is not described in the pipeline. Instead it is described in a file `tutorials/basic/task-hello-world/task_hello_world.yml` from the `resource-tutorial` input.
 
 The completed job looks like:
 
@@ -86,7 +97,7 @@ jobs:
   plan:
   - get: resource-tutorial
   - task: hello-world
-    file: resource-tutorial/task-hello-world/task_hello_world.yml
+    file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml
 ```
 
 The task `{task: hello-world, file: resource-tutorial/...}` has access to all fetched resources (and later, to the outputs from tasks).
@@ -94,7 +105,6 @@ The task `{task: hello-world, file: resource-tutorial/...}` has access to all fe
 The name of resources, and later the name of task outputs, determines the name used to access them by other tasks (and later, by updated resources).
 
 So, `hello-world` can access anything from `resource-tutorial` (this tutorial's `git` repository) under the `resource-tutorial/` path. Since the relative path of `task_hello_world.yml` task file inside this repo is `task-hello-world/task_hello_world.yml`, the `task: hello-world` references it by joining the two: `file: resource-tutorial/task-hello-world/task_hello_world.yml`
-
 
 There is a benefit and a downside to abstracting tasks into YAML files outside of the pipeline.
 
@@ -113,3 +123,4 @@ From now onwards, any change to your pipeline might require you to do one or bot
 
 If a pipeline is not performing new behaviour then it might be you skipped one of the two steps above.
 
+Due to the benefits vs downsides of the two approaches - inline task configuration vs YAML file task configuration - you will see both approaches used in this Concourse Tutorial and in the wider community of Concourse users.
