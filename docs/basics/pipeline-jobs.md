@@ -1,4 +1,4 @@
-# Actual pipeline - passing resources between jobs
+# Actual Pipeline - Passing Resources Between Jobs
 
 Finally, it is time to make an actual pipeline - one job passing results to another job upon success.
 

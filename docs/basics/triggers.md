@@ -1,4 +1,4 @@
-# Triggering jobs with resources
+# Triggering Jobs with Resources
 
 The primary way that Concourse jobs will be triggered to run will be by resources changing. A `git` repo has a new commit? Run a job to test it. A GitHub project cuts a new release? Run a job to pull down its attached files and do something with them.
 

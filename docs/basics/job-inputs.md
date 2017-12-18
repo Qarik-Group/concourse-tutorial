@@ -1,4 +1,4 @@
-# Using resource inputs in job tasks
+# Using Resource Inputs in Job Tasks
 
 Note, the topic of running unit tests in your pipeline will be covered in more detail in future sections.
 

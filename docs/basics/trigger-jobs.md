@@ -1,4 +1,4 @@
-# Trigger jobs with the Concourse API
+# Trigger Jobs
 
 There are four ways for a job to be triggered:
 

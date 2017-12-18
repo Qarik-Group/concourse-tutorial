@@ -1,4 +1,4 @@
-# Versioning and Build numbers
+# Versioning and Build Numbers
 
 The title of this section mentions "build numbers" because they are a common concept in other CI/CD systems. A sequentially incrementing number that can be used to differentiate by-products/updated resources. Concourse does not have them. There is no "build number" concept in Concourse that is available to your pipelines, jobs, and their steps.
 

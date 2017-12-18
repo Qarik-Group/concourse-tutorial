@@ -1,4 +1,4 @@
-# Publishing outputs
+# Publishing Outputs
 
 So far we have used the `git` resource to fetch down a git repository, and used `git` & `time` resources as triggers. The [`git` resource](https://github.com/concourse/git-resource) can also be used to push a modified git repository to a remote endpoint (possibly different than where the git repo was originally cloned from).
 

@@ -1,4 +1,4 @@
-# View job output in terminal
+# Watch Job Output in Terminal
 
 The `job-hello-world` had terminal output from its resource fetch of a git repo and of the `hello-world` task running.
 

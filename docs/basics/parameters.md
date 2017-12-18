@@ -1,4 +1,4 @@
-# Parameterized pipelines
+# Parameterized Pipelines
 
 In the preceding section you were asked to place private credentials and personal git URLs into the `pipeline.yml` files. This would make it difficult to share your `pipeline.yml` with anyone who had access to the repository. Not everyone needs nor should have access to the shared secrets.
 

@@ -1,4 +1,4 @@
-# Task scripts
+# Task Scripts
 
 The `inputs` feature of a task allows us to pass in two types of inputs:
 

@@ -1,4 +1,4 @@
-# Run tests then deploy
+# Run Tests Then Deploy
 
 ![test-and-cf-deploy](/images/test-and-cf-deploy.png)
 

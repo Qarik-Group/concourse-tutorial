@@ -1,8 +1,10 @@
-# Tasks extracted into Resources
+# Pipeline Resources
 
-It is very fast to iterate on a job's tasks by configuring them in the `pipeline.yml` as above. You edit the `pipeline.yml`, run `fly set-pipeline`, and the entire pipeline is updated atomically.
+It is very fast to iterate on a job's tasks by configuring them in the `pipeline.yml` YAML file. You edit the `pipeline.yml`, run `fly set-pipeline`, and the entire pipeline is updated atomically.
 
-But, as per section 3, if a task becomes complex then its `run:` command can be extracted into a task script, and the task itself can be extracted into a `yml` task file.
+If a task's `run:` command becomes complex then it can be extracted into a task script (see lesson [Task Scripts](/basics/task-scripts/)).
+
+The task itself can be extracted into a YAML task file
 
 In section 3 we uploaded the task file and task script from our local computer with the `fly execute` command.
 
@@ -19,7 +21,7 @@ This tutorial's source repository is a Git repo, and it contains many task files
 The following pipeline will load this task file and run it. We will update the previous `helloworld` pipeline:
 
 ```
-cd ../pipeline-task-hello-world
+cd ../pipeline-resources
 fly sp -t tutorial -c pipeline.yml -p helloworld
 ```
 
@@ -32,7 +34,7 @@ configuration updated
 
 The [`helloworld` pipeline](http://192.168.100.4:8080/teams/main/pipelines/helloworld) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
 
-![pipeline-task-hello-world](/images/resource-job.gif)
+![pipeline-resources](/images/resource-job.gif)
 
 This tutorial verbosely prefixes `resource-` to resource names, and `job-` to job names, to help you identify one versus the other whilst learning. Eventually you will know one from the other and can remove the extraneous text.
 

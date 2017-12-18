@@ -1,4 +1,4 @@
-# Basic pipeline
+# Basic Pipeline
 
 1% of tasks that Concourse runs are via `fly execute`. 99% of tasks that Concourse runs are within "pipelines".
 
