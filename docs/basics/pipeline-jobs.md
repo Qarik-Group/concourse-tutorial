@@ -29,10 +29,14 @@ Update the `publishing-outputs` pipeline with a second job `job-show-date` which
 Update the pipeline:
 
 ```
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
+cd ../pipeline-jobs
+fly -t tutorial sp -p publishing-outputs -c pipeline.yml -l ../publishing-outputs/credentials.yml
+fly -t tutorial trigger-job -w -j publishing-outputs/job-bump-date
 ```
 
-The dashboard UI displays the additional job and its trigger/non-trigger resources. Importantly, it shows our first pipeline:
+If you are missing `../publishing-outputs/credentials.yml`, visit the section [Revisiting Publishing Outputs](/basics/parameters/#revisting-publishing-outputs) from the previous lesson.
+
+The dashboard UI displays the additional job and its trigger/non-trigger resources. Importantly, it shows our first multi-job pipeline:
 
 ![pipeline](/images/pipeline.png)
 

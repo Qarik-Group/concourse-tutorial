@@ -9,8 +9,8 @@ resources:
   type: git
   source:
     branch: master
-    uri:
-    private_key:
+    uri:         ((publishing-outputs-gist-uri))
+    private_key: ((publishing-outputs-private-key))
 
 jobs:
 - name: job-bump-date
@@ -19,7 +19,18 @@ jobs:
   - get: resource-tutorial
   - get: resource-gist
   - task: bump-timestamp-file
-    file: resource-tutorial/publishing-outputs/bump-timestamp-file.yml
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: { repository: starkandwayne/concourse }
+      inputs:
+        - name: resource-tutorial
+        - name: resource-gist
+      outputs:
+        - name: updated-gist
+      run:
+        path: resource-tutorial/tutorials/basic/publishing-outputs/bump-timestamp-file.sh
   - put: resource-gist
     params: {repository: updated-gist}
 

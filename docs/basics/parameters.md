@@ -102,7 +102,7 @@ resoures:
 Create a `credentials.yml` with the Gist URL and private key:
 
 ```yaml
-publishing-outputs-gist-uri: "git@gist.github.com:0c2e172346cb8b0197a9.git"
+publishing-outputs-gist-uri: "git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git"
 publishing-outputs-private-key: |-
     -----BEGIN RSA PRIVATE KEY-----
     MIIEpQIBAAKCAQEAuvUl9YU...

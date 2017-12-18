@@ -31,7 +31,7 @@ resources:
 - name: resource-gist
   type: git
   source:
-    uri: git@gist.github.com:0c2e172346cb8b0197a9.git
+    uri: git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git
     branch: master
     private_key: |-
       -----BEGIN RSA PRIVATE KEY-----
