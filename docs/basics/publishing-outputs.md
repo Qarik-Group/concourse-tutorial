@@ -61,7 +61,7 @@ This pipeline is an example of updating a resource. It has pushed up new git com
 
 _Where did the new commit come from?_
 
-The `bump-timestamp-file.yml` task file describes a single output `updated-gist`:
+The `task: bump-timestamp-file` task configuration describes a single output `updated-gist`:
 
 ```yaml
 outputs:
@@ -83,14 +83,39 @@ git add .
 git commit -m "Bumped date"
 ```
 
-First, it copied the input resource `resource-gist` into the output resource `updated-gist` (using `git clone` as the preferred `git` way to do this). The modifications are subsequently made to the `updated-gist` directory, including a `git commit`. It is this `updated-gist` and its additional `git commit` that is subsequently pushed back to the gist by the pipeline step:
+First, it copied the input resource `resource-gist` into the output resource `updated-gist` (using `git clone` as a preferred `git` way to do this). A trivial modification is made to the `updated-gist` directory, followed by a `git commit` to modify the `updated-gist` folder's Git repository. It is this `updated-gist` folder and its additional `git commit` that is subsequently pushed back to the gist by the pipeline step:
 
 ```yaml
 - put: resource-gist
-  params: {repository: updated-gist}
+  params:
+    repository: updated-gist
 ```
 
-The `updated-gist` output from the `bump-timestamp-file` task becomes the `updated-gist` input to the `resource-gist` resource (see the [`git` resource](https://github.com/concourse/git-resource) for additional configuration) because their names match.
+The `updated-gist` output from the `task: bump-timestamp-file` step becomes the `updated-gist` input to the `resource-gist` resource because their names match (see the [`git` resource](https://github.com/concourse/git-resource) for additional configuration).
 
-The `bump-timestamp-file.sh` script needed the `git` CLI tool. It could have installed it each time via `apt-get install git` or similar, but this would have made the task very slow. Instead `bump-timestamp-file.yml` task file uses a different base image `concourse/concourse-ci` that contains `git` CLI (and many other pre-installed packages). The contents of this Docker image are described at https://github.com/concourse/concourse/blob/master/ci/dockerfiles/concourse-ci/Dockerfile
+## Dependencies within Tasks
 
+The `bump-timestamp-file.sh` script needed the `git` CLI.
+
+It could have been installed at the top of the script using `apt-get update; apt-get install git` or similar, but this would have made the task very slow - each time it ran it would have reinstalled the CLI.
+
+Instead, the `bump-timestamp-file.sh` step assumes its base Docker image already contains the `git` CLI.
+
+The Docker image being used is described in the `image_resources` section of the task's configuration:
+
+```yaml
+  - task: bump-timestamp-file
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: { repository: starkandwayne/concourse }
+```
+
+The Docker image [`starkandwayne/concourse`](https://hub.docker.com/r/starkandwayne/concourse) is described at https://github.com/starkandwayne/dockerfiles/ and is common base Docker image used by many Stark & Wayne pipelines.
+
+Your organisation may wish to curate its own based Docker images to be shared across pipelines. After finishing the Basics lessons, visit Lesson [Create and Use Docker Images](/miscellaneous/docker-images/) for creating pipelines to create your own Docker images using Concourse.
+
+## Tragic Security
+
+If you're feeling ill from copying your private keys into a plain text file (`pipeline.yml`) and then seeing them printed to the screen (during `fly set-pipeline -c pipeline.yml`), then fear not. We will get to [Secret with Credential Manager](/basics/secret-parameters/) soon.
