@@ -9,7 +9,7 @@ pages:
     - Pipeline Resources: basics/pipeline-resources.md
     - Watch Job Output in Terminal: basics/watch-job-output.md
     - Trigger Jobs: basics/trigger-jobs.md
-    - Triggers: basics/triggers.md
+    - Triggering Jobs with Resources: basics/triggers.md
     - Destroying Pipelines: basics/destroy-pipelines.md
     - Job Inputs: basics/job-inputs.md
     - Passing Task Outputs to Task Inputs: basics/task-outputs-to-inputs.md
