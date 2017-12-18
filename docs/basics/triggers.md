@@ -43,7 +43,7 @@ This adds a new resource named `my-timer` which triggers `job-hello-world` appro
 
 Visit the pipeline dashboard http://192.168.100.4:8080/teams/main/pipelines/helloworld and wait a few minutes and eventually the job will start running automatically.
 
-![my-timer](/images/my-timer.png)
+![resource-trigger](/images/resource-trigger.png)
 
 The dashboard UI makes non-triggering resources distinct with a hyphenated line connecting them into the job. Triggering resources have a full line.
 
