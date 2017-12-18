@@ -1,6 +1,6 @@
 # Passing Task Outputs to Task Inputs
 
-In section 10 our task `web-app-tests` consumed an input resource and ran a script that ran some unit tests. The task did not create anything new. Some tasks will want to create something that is then passed to another task for further processing (this section); and some tasks will create something that is pushed back out to the external world (next section).
+In the [previous lesson](/basics/job-inputs/) our task `web-app-tests` consumed an input resource and ran a script that ran some unit tests. The task did not create anything new. Some tasks will want to create something that is then passed to another task for further processing (this lesson); and some tasks will create something that is pushed back out to the external world ([next lesson](/basics/publishing-outputs/)).
 
 So far our pipelines' tasks' inputs have only come from resources using `get: resource-tutorial` build plan steps.
 
@@ -19,8 +19,9 @@ Subsequent tasks (discussed in this section) or resources (discussed in the next
 
 ```
 cd ../task-outputs-to-inputs
-fly sp -t tutorial -p pass-files -c pipeline.yml
-fly up -t tutorial -p pass-files
+fly -t tutorial sp -p pass-files -c pipeline.yml
+fly -t tutorial up -p pass-files
+fly -t tutorial trigger-job -j pass-files/job-pass-files -w
 ```
 
 In this pipeline's `job-pass-files` there are two task steps `create-some-files` and `show-some-files`:
@@ -38,9 +39,26 @@ jobs:
   plan:
   - get: resource-tutorial
   - task: create-some-files
-    file: resource-tutorial/task-outputs-to-inputs/create_some_files.yml
+    config:
+      ...
+      inputs:
+      - name: resource-tutorial
+      outputs:
+      - name: some-files
+
+      run:
+        path: resource-tutorial/tutorials/basic/task-outputs-to-inputs/create_some_files.sh
+
   - task: show-some-files
-    file: resource-tutorial/task-outputs-to-inputs/show_files.yml
+    config:
+      ...
+      inputs:
+      - name: resource-tutorial
+      - name: some-files
+
+      run:
+        path: resource-tutorial/tutorials/basic/task-outputs-to-inputs/show_files.sh
+
 ```
 
 Note, task `create-some-files` build output includes the following error:

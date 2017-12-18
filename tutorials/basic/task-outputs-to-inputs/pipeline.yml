@@ -12,6 +12,31 @@ jobs:
   plan:
   - get: resource-tutorial
   - task: create-some-files
-    file: resource-tutorial/tutorials/basic/task-outputs-to-inputs/create_some_files.yml
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+
+      inputs:
+      - name: resource-tutorial
+      outputs:
+      - name: some-files
+
+      run:
+        path: resource-tutorial/tutorials/basic/task-outputs-to-inputs/create_some_files.sh
+
   - task: show-some-files
-    file: resource-tutorial/tutorials/basic/task-outputs-to-inputs/show_files.yml
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: busybox}
+
+      inputs:
+      - name: resource-tutorial
+      - name: some-files
+
+      run:
+        path: resource-tutorial/tutorials/basic/task-outputs-to-inputs/show_files.sh
+
