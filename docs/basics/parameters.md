@@ -79,6 +79,44 @@ Use the `--load-vars-from` flag (aliased `-l`) to pass in this file instead of t
 fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
 ```
 
+## Revisting Publishing Outputs
+
+In the previous lesson [Publishing Outputs](/basics/publishing-outputs/), there were two user-provided changes to the `pipeline.yml`. These can now be changed to parameters.
+
+```
+cd ../publishing-outputs
+```
+
+There is an alternate `pipeline-parameters.yml` that offers two parameters for `resource-gist`:
+
+```yaml
+resoures:
+- name: resource-gist
+  type: git
+  source:
+    branch:      master
+    uri:         ((publishing-outputs-gist-uri))
+    private_key: ((publishing-outputs-private-key))
+```
+
+Create a `credentials.yml` with the Gist URL and private key:
+
+```yaml
+publishing-outputs-gist-uri: "git@gist.github.com:0c2e172346cb8b0197a9.git"
+publishing-outputs-private-key: |-
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpQIBAAKCAQEAuvUl9YU...
+    ...
+    HBstYQubAQy4oAEHu8osRhH...
+    -----END RSA PRIVATE KEY-----
+```
+
+Use the `--load-vars-from` or `-l` flag to pass the variables into the parameters:
+
+```
+fly -t tutorial sp -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
+```
+
 ## Dynamic Parameters and Secret Parameters
 
 Parameters are very useful. They allow you to describe your `pipeline.yml` in public repositories without embedding variables nor secrets.
