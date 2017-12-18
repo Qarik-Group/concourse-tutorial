@@ -34,7 +34,7 @@ For convenience, we're reusing the `tutorials/basic/job-inputs/task-run-tests.sh
 
       image_resource:
         type: docker-image
-        source: {repository: golang, tag: 1.6-alpine}
+        source: {repository: golang, tag: 1.9-alpine}
 
       inputs:
       - name: tutorial
