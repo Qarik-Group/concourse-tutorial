@@ -13,6 +13,6 @@ meta:
   github:
     owner: starkandwayne
     repo: concourse-tutorial
-    branch: develop
+    branch: master
     private_key:  (( vault "secret/pipelines/shared/github:private_key" ))
     access_token: (( vault "secret/pipelines/shared/github:access_token" ))
