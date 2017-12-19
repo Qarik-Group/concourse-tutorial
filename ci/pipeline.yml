@@ -13,7 +13,7 @@ meta:
     uri:          (( concat "git@github.com:" meta.github.owner "/" meta.github.repo ))
     owner:        (( param "Please specify the name of the user / organization that owns the Github repository" ))
     repo:         (( param "Please specify the name of the Github repository" ))
-    branch:       develop
+    branch:       master
     private_key:  (( param "Please generate an SSH Deployment Key for this repo and specify it here" ))
     access_token: (( param "Please generate a Personal Access Token to be used for creating github releases (do you have a ci-bot?)" ))
 
@@ -27,7 +27,6 @@ groups:
   - name: (( grab meta.pipeline ))
     jobs:
       - website
-      - master
 
 jobs:
   - name: website
@@ -61,16 +60,6 @@ jobs:
           path: site
           current_app_name: (( grab meta.name ))
 
-  - name: master
-    public: true
-    serial: true
-    plan:
-    - get: git
-    - put: git-master
-      params:
-        repository: git
-        rebase: true
-
 
 resources:
   - name: git
@@ -78,13 +67,6 @@ resources:
     source:
       uri:         (( grab meta.github.uri ))
       branch:      (( grab meta.github.branch ))
-      private_key: (( grab meta.github.private_key ))
-
-  - name: git-master
-    type: git
-    source:
-      uri:         (( grab meta.github.uri ))
-      branch:      master
       private_key: (( grab meta.github.private_key ))
 
   - name: deploy-prod
