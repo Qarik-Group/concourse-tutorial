@@ -8,5 +8,4 @@ echo "Tutorial $(basename $DIR)"
 pushd $DIR
   fly -t ${fly_target} execute -c task_hello_world.yml
   fly -t ${fly_target} execute -c task_ubuntu_uname.yml
-  fly -t ${fly_target} execute -c task_show_uname.yml
 popd
