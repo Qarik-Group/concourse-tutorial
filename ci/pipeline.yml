@@ -31,19 +31,62 @@ meta:
     develop:
       appname: (( concat meta.name "-develop" ))
 
+  concourse:
+    url: (( param "please provide concourse.url" ))
+    username: (( param "please provide concourse.username" ))
+    password: (( param "please provide concourse.password" ))
+    ca_cert: (( param "please provide concourse.ca_cert" ))
+
+  credhub:
+    url: (( param "please provide credhub.url" ))
+    username: (( param "please provide credhub.username" ))
+    password: (( param "please provide credhub.password" ))
+    ca_cert: (( param "please provide credhub.ca_cert" ))
+
 groups:
   - name: (( grab meta.pipeline ))
     jobs:
+      - testflight-develop
       - website-master
       - website-develop
 
 jobs:
+  - name: testflight-develop
+    public: true
+    serial: true
+    plan:
+      - get: git
+        resource: git-develop
+        trigger: true
+      - task: testflight
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: (( grab meta.image.name ))
+              tag:        (( grab meta.image.tag ))
+          inputs:
+            - { name: git }
+          run:
+            path: ./git/ci/scripts/testflight.sh
+            args: []
+          params:
+            REPO_ROOT: git
+            FLY_URL:      (( grab meta.concourse.url ))
+            FLY_USERNAME: (( grab meta.concourse.username ))
+            FLY_PASSWORD: (( grab meta.concourse.password ))
+            FLY_CACERT:   (( grab meta.concourse.ca_cert ))
+            CREDHUB_URL:      (( grab meta.credhub.url ))
+            CREDHUB_USERNAME: (( grab meta.credhub.username ))
+            CREDHUB_PASSWORD: (( grab meta.credhub.password ))
+            CREDHUB_CACERT:   (( grab meta.credhub.ca_cert ))
   - name: website-master
     public: true
     serial: true
     plan:
-      - get: git-master
-        resource: git
+      - get: git
+        resource: git-master
         trigger: true
       - task: mkdocs-build
         config:
@@ -73,8 +116,8 @@ jobs:
     public: true
     serial: true
     plan:
-      - get: git-develop
-        resource: git
+      - get: git
+        resource: git-develop
         trigger: true
       - task: mkdocs-build
         config:

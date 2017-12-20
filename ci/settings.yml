@@ -16,3 +16,15 @@ meta:
     repo: concourse-tutorial
     private_key:  ((!/concourse/main/github-private-key))
     access_token: ((!/concourse/main/github-access-token))
+
+  concourse:
+    url:      ((!/concourse/main/concourse_url))
+    username: ((!/concourse/main/concourse_username))
+    password: ((!/concourse/main/concourse_password))
+    ca_cert:  ((!/concourse/main/concourse_ca_cert))
+
+  credhub:
+    url:      ((!/concourse/main/credhub_url))
+    username: credhub-cli
+    password: ((!/concourse/main/credhub_password))
+    ca_cert:  ((!/concourse/main/credhub_ca_cert))
