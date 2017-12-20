@@ -1,18 +1,18 @@
 meta:
   name:    concourse-tutorial
-  target:  sw
-  url:     https://ci.starkandwayne.com
+  target:  ohio
+  url:     https://ci-ohio.starkandwayne.com
 
   cf:
-    uri: https://api.run.pivotal.io
-    organization: starkandwayne
-    space-production: concourse-tutorial
-    username: (( vault "secret/pipelines/shared/cf/pws/starkandwayne:username" ))
-    password: (( vault "secret/pipelines/shared/cf/pws/starkandwayne:password" ))
+    api:              ((!/concourse/main/cf-api))
+    skip_cert_check:  ((!/concourse/main/cf-skip-ssl-validation))
+    username:         ((!/concourse/main/cf-username))
+    password:         ((!/concourse/main/cf-password))
+    organization:     ((!/concourse/main/concourse-tutorial/cf-organization))
+    space:            ((!/concourse/main/concourse-tutorial/cf-space))
 
   github:
     owner: starkandwayne
     repo: concourse-tutorial
-    branch: master
-    private_key:  (( vault "secret/pipelines/shared/github:private_key" ))
-    access_token: (( vault "secret/pipelines/shared/github:access_token" ))
+    private_key:  ((!/concourse/main/github-private-key))
+    access_token: ((!/concourse/main/github-access-token))

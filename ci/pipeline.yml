@@ -13,27 +13,36 @@ meta:
     uri:          (( concat "git@github.com:" meta.github.owner "/" meta.github.repo ))
     owner:        (( param "Please specify the name of the user / organization that owns the Github repository" ))
     repo:         (( param "Please specify the name of the Github repository" ))
-    branch:       master
+    branch_master: master
+    branch_develop: develop
     private_key:  (( param "Please generate an SSH Deployment Key for this repo and specify it here" ))
     access_token: (( param "Please generate a Personal Access Token to be used for creating github releases (do you have a ci-bot?)" ))
 
   cf:
+    api:              https://api.run.pivotal.io
+    skip_cert_check:  false
     username:         (( param "please provide cf.username" ))
     password:         (( param "please provide cf.password" ))
     organization:     (( param "please provide cf.organization" ))
-    space-production: (( param "please provide cf.space-production" ))
+    space:            (( param "please provide cf.space-production" ))
+
+    master:
+      appname: (( grab meta.name ))
+    develop:
+      appname: (( concat meta.name "-develop" ))
 
 groups:
   - name: (( grab meta.pipeline ))
     jobs:
-      - website
+      - website-master
+      - website-develop
 
 jobs:
-  - name: website
+  - name: website-master
     public: true
     serial: true
     plan:
-      - get: git
+      - get: git-master
         resource: git
         trigger: true
       - task: mkdocs-build
@@ -54,27 +63,75 @@ jobs:
           params:
             REPO_ROOT: git
             SITE_ROOT: site
-      - put: deploy-prod
+      - put: deploy-master
         params:
           manifest: site/manifest.yml
           path: site
-          current_app_name: (( grab meta.name ))
+          current_app_name: (( grab meta.cf.master.appname ))
+
+  - name: website-develop
+    public: true
+    serial: true
+    plan:
+      - get: git-develop
+        resource: git
+        trigger: true
+      - task: mkdocs-build
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: (( grab meta.image.name ))
+              tag:        (( grab meta.image.tag ))
+          inputs:
+            - { name: git }
+          outputs:
+            - { name: site }
+          run:
+            path: ./git/ci/scripts/mkdocs-build.sh
+            args: []
+          params:
+            REPO_ROOT: git
+            SITE_ROOT: site
+      - put: deploy-develop
+        params:
+          manifest: site/manifest.yml
+          path: site
+          current_app_name: (( grab meta.cf.develop.appname ))
 
 
 resources:
-  - name: git
+  - name: git-develop
     type: git
     source:
       uri:         (( grab meta.github.uri ))
-      branch:      (( grab meta.github.branch ))
+      branch:      (( grab meta.github.branch_develop ))
       private_key: (( grab meta.github.private_key ))
 
-  - name: deploy-prod
+  - name: git-master
+    type: git
+    source:
+      uri:         (( grab meta.github.uri ))
+      branch:      (( grab meta.github.branch_master ))
+      private_key: (( grab meta.github.private_key ))
+
+  - name: deploy-develop
     type: cf
     source:
-      api: https://api.run.pivotal.io
-      skip_cert_check: false
-      username:     (( grab meta.cf.username ))
-      password:     (( grab meta.cf.password ))
-      organization: (( grab meta.cf.organization ))
-      space:        (( grab meta.cf.space-production ))
+      api:             (( grab meta.cf.api ))
+      skip_cert_check: (( grab meta.cf.skip_cert_check ))
+      username:        (( grab meta.cf.username ))
+      password:        (( grab meta.cf.password ))
+      organization:    (( grab meta.cf.organization ))
+      space:           (( grab meta.cf.space ))
+
+  - name: deploy-master
+    type: cf
+    source:
+      api:             (( grab meta.cf.api ))
+      skip_cert_check: (( grab meta.cf.skip_cert_check ))
+      username:        (( grab meta.cf.username ))
+      password:        (( grab meta.cf.password ))
+      organization:    (( grab meta.cf.organization ))
+      space:           (( grab meta.cf.space ))
