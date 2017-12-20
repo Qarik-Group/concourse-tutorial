@@ -12,7 +12,8 @@ for var in $variables; do
       credhub delete -n /concourse/main/$var
     fi
   else
-    if ! credhub get -n /concourse/main/$var >/dev/null 2>/dev/null ; then
+    if ! credhub get -n /concourse/main/$var >/dev/null 2>/dev/null &&
+       ! credhub get -n /concourse/main/tutorial-pipeline/$var >/dev/null 2>/dev/null ; then
       echo "Not found $var"
       errors=1
     fi
