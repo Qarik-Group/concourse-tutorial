@@ -21,7 +21,7 @@ meta:
     url:      ((!concourse_url))
     username: ((!concourse_username))
     password: ((!concourse_password))
-    ca_cert:  ((!concourse_ca_cert))
+    ca_cert:  ""
 
   credhub:
     url:      ((!credhub_url))
