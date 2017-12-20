@@ -5,7 +5,7 @@ meta:
 
   cf:
     api:              ((!cf-api))
-    skip_cert_check:  ((!cf-skip-ssl-validation))
+    skip_cert_check:  false
     username:         ((!cf-username))
     password:         ((!cf-password))
     organization:     ((!cf-organization))
