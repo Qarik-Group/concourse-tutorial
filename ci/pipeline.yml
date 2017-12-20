@@ -52,7 +52,7 @@ groups:
 
 jobs:
   - name: testflight-develop
-    public: true
+    public: false
     serial: true
     plan:
       - get: git
@@ -82,7 +82,7 @@ jobs:
             CREDHUB_PASSWORD: (( grab meta.credhub.password ))
             CREDHUB_CACERT:   (( grab meta.credhub.ca_cert ))
   - name: website-master
-    public: true
+    public: false
     serial: true
     plan:
       - get: git
@@ -113,7 +113,7 @@ jobs:
           current_app_name: (( grab meta.cf.master.appname ))
 
   - name: website-develop
-    public: true
+    public: false
     serial: true
     plan:
       - get: git
