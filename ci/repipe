@@ -73,7 +73,7 @@ echo >&2 "Using settings found in ${settings_file}"
 
 set -e
 trap "cleanup" QUIT TERM EXIT INT
-spruce merge pipeline.yml ${settings_file} > .deploy.yml
+spruce merge pipeline.yml ${settings_file} | sed -e "s%((!%((%g" > .deploy.yml
 PIPELINE=$(spruce json .deploy.yml | jq -r '.meta.pipeline // ""')
 if [[ -z ${PIPELINE} ]]; then
 	echo >&2 "Missing pipeline name in ci/settings.yml!"

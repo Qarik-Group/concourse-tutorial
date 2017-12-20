@@ -4,27 +4,27 @@ meta:
   url:     https://ci-ohio.starkandwayne.com
 
   cf:
-    api:              ((!/concourse/main/cf-api))
-    skip_cert_check:  ((!/concourse/main/cf-skip-ssl-validation))
-    username:         ((!/concourse/main/cf-username))
-    password:         ((!/concourse/main/cf-password))
-    organization:     ((!/concourse/main/concourse-tutorial/cf-organization))
-    space:            ((!/concourse/main/concourse-tutorial/cf-space))
+    api:              ((!cf-api))
+    skip_cert_check:  ((!cf-skip-ssl-validation))
+    username:         ((!cf-username))
+    password:         ((!cf-password))
+    organization:     ((!cf-organization))
+    space:            ((!cf-space))
 
   github:
     owner: starkandwayne
     repo: concourse-tutorial
-    private_key:  ((!/concourse/main/github-private-key))
-    access_token: ((!/concourse/main/github-access-token))
+    private_key:  ((!github-private-key))
+    access_token: ((!github-access-token))
 
   concourse:
-    url:      ((!/concourse/main/concourse_url))
-    username: ((!/concourse/main/concourse_username))
-    password: ((!/concourse/main/concourse_password))
-    ca_cert:  ((!/concourse/main/concourse_ca_cert))
+    url:      ((!concourse_url))
+    username: ((!concourse_username))
+    password: ((!concourse_password))
+    ca_cert:  ((!concourse_ca_cert))
 
   credhub:
-    url:      ((!/concourse/main/credhub_url))
+    url:      ((!credhub_url))
     username: credhub-cli
-    password: ((!/concourse/main/credhub_password))
-    ca_cert:  ((!/concourse/main/credhub_ca_cert))
+    password: ((!credhub_password))
+    ca_cert:  ((!credhub_ca_cert))
