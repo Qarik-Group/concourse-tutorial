@@ -2,6 +2,7 @@
 
 set -eu
 
+echo "fly --target tutorial login"
 if [[ "${FLY_CACERT:-X}" == "X" ]]; then
   fly --target tutorial login \
       --concourse-url ${FLY_URL:?required} \
@@ -17,7 +18,9 @@ else
       --team-name main \
       --ca-cert       fly.cacert
 fi
+fly -t tutorial sync
 
+echo "credhub login"
 echo "${CREDHUB_CACERT:?required}" > credhub.cacert
 credhub login \
       --server  ${CREDHUB_URL:?required} \
