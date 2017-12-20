@@ -2,7 +2,8 @@
 
 set -eu
 
-echo "fly --target tutorial login"
+echo
+echo "$ fly --target tutorial login"
 if [[ "${FLY_CACERT:-X}" == "X" ]]; then
   fly --target tutorial login \
       --concourse-url ${FLY_URL:?required} \
@@ -20,7 +21,8 @@ else
 fi
 fly -t tutorial sync
 
-echo "credhub login"
+echo
+echo "$ credhub login"
 echo "${CREDHUB_CACERT:?required}" > credhub.cacert
 credhub login \
       --server  ${CREDHUB_URL:?required} \
@@ -32,8 +34,11 @@ export fly_target=tutorial
 
 cd ${REPO_ROOT:?required}
 
+echo
+echo "$ tutorials/test-pipeline-vars.sh"
 ./tutorials/test-pipeline-vars.sh
 
+echo
 for f in tutorials/*/*/test.sh
 do
   echo "\n\n\nlesson $f\n"
