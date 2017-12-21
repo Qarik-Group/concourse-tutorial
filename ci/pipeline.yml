@@ -1,6 +1,7 @@
 ---
 meta:
   name:     (( param "Please name your pipeline" ))
+  team:     (( param "Please provide expected concourse team to deploy test pipelines" ))
   pipeline: (( grab meta.name ))
   target:   (( param "Please identify the name of the target Concourse CI" ))
   url:      (( param "Please specify the full url of the target Concourse CI" ))

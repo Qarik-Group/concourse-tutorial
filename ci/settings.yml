@@ -1,6 +1,8 @@
 meta:
   name:    concourse-tutorial
-  target:  ohio
+  team:    concourse-tutorial
+  # fly -t ohio-ct login -c https://ci-ohio.starkandwayne.com -n concourse-tutorial
+  target:  ohio-ct
   url:     https://ci-ohio.starkandwayne.com
 
   cf:
