@@ -11,7 +11,7 @@ At Stark & Wayne we maintain our pipeline's Docker images at https://github.com/
 This lesson's `pipeline.yml` and Dockerfile example are found at:
 
 ```
-cd tutorials/miscellaneous/push-docker-image
+cd tutorials/miscellaneous/docker-images
 ```
 
 Define a docker image
@@ -59,7 +59,7 @@ jobs:
   - get: tutorial
   - put: hello-world-docker-image
     params:
-      build: tutorial/tutorials/miscellaneous/push-docker-image/docker
+      build: tutorial/tutorials/miscellaneous/docker-images/docker
 ```
 
 You can see there are parameters that are required.
