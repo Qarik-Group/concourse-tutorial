@@ -76,6 +76,7 @@ jobs:
           params:
             REPO_ROOT: git
             FLY_URL:      (( grab meta.concourse.url ))
+            FLY_TEAM:     (( grab meta.team ))
             FLY_USERNAME: (( grab meta.concourse.username ))
             FLY_PASSWORD: (( grab meta.concourse.password ))
             FLY_CACERT:   (( grab meta.concourse.ca_cert ))
@@ -106,6 +107,7 @@ jobs:
           params:
             REPO_ROOT: git
             FLY_URL:      (( grab meta.concourse.url ))
+            FLY_TEAM:     (( grab meta.team ))
             FLY_USERNAME: (( grab meta.concourse.username ))
             FLY_PASSWORD: (( grab meta.concourse.password ))
             FLY_CACERT:   (( grab meta.concourse.ca_cert ))

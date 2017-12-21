@@ -9,14 +9,14 @@ if [[ "${FLY_CACERT:-X}" == "X" ]]; then
       --concourse-url ${FLY_URL:?required} \
       --username      ${FLY_USERNAME:?required} \
       --password      ${FLY_PASSWORD:?required} \
-      --team-name main
+      --team-name     ${FLY_TEAM:?required}
 else
   echo "$FLY_CACERT" > fly.cacert
   fly --target tutorial login \
       --concourse-url ${FLY_URL:?required} \
       --username      ${FLY_USERNAME:?required} \
       --password      ${FLY_PASSWORD:?required} \
-      --team-name main \
+      --team-name     ${FLY_TEAM:?required}
       --ca-cert       fly.cacert
 fi
 fly -t tutorial sync
