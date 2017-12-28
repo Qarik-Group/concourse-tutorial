@@ -13,7 +13,7 @@ outputs:
 - name: some-files
 ```
 
-If a task included the above `outputs` section then it's `run:` command would be responsible for putting interesting files in the `some-files` directory.
+If a task included the above `outputs` section then its `run:` command would be responsible for putting interesting files in the `some-files` directory.
 
 Subsequent tasks (discussed in this section) or resources (discussed in the next section) could reference these interesting files within the `some-files/` directory.
 
