@@ -50,13 +50,13 @@ the pipeline is currently paused. to unpause, either:
 
 Visit the pipeline URL http://192.168.100.4:8080/teams/main/pipelines/helloworld
 
-It is a private pipeline and currently you are no logged in to the Concourse Web UI. You will be redirected to a login page.
+It is a private pipeline and currently you are not logged in to the Concourse Web UI. You will be redirected to a login page.
 
 ![dashboard-login](/images/dashboard-login.png)
 
 Click "Login" and you'll be redirected back to your pipeline.
 
-Why did you not have to enter any username/password? Excellent question. Indeed. It's because your current `fly -t tutorial` deployment of Concourse has had authentication disabled. In a future lesson we will upgrade to a more robust installation of Concourse with passwords and fanciness.
+Why did you not have to enter any username/password? Excellent question, indeed. It's because your current `fly -t tutorial` deployment of Concourse has had authentication disabled. In a future lesson we will upgrade to a more robust installation of Concourse with passwords and fanciness.
 
 ## Unpausing Pipelines
 

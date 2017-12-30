@@ -37,4 +37,4 @@ The output will look like:
 1   one-off                       n/a    succeeded  2016-26@17:13:34+1000  2016-26@17:14:11+1000  37s
 ```
 
-The `fly watch` command can also be a battery saver on your laptop. Hear me out. I've observed that watching jobs run in the Concourse Web UI uses a lot more battery power than running `fly watch` in a terminal. Your mileage may vary.
+The `fly watch` command can also be a battery saver on your laptop. Hear me out: I've observed that watching jobs run in the Concourse Web UI uses a lot more battery power than running `fly watch` in a terminal. Your mileage may vary.
