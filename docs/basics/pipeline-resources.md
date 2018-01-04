@@ -104,7 +104,7 @@ The task `{task: hello-world, file: resource-tutorial/...}` has access to all fe
 
 The name of resources, and later the name of task outputs, determines the name used to access them by other tasks (and later, by updated resources).
 
-So, `hello-world` can access anything from `resource-tutorial` (this tutorial's `git` repository) under the `resource-tutorial/` path. Since the relative path of `task_hello_world.yml` task file inside this repo is `task-hello-world/task_hello_world.yml`, the `task: hello-world` references it by joining the two: `file: resource-tutorial/task-hello-world/task_hello_world.yml`
+So, `hello-world` can access anything from `resource-tutorial` (this tutorial's `git` repository) under the `resource-tutorial/` path. Since the relative path of `task_hello_world.yml` task file inside this repo is `tutorials/basic/task-hello-world/task_hello_world.yml`, the `task: hello-world` references it by joining the two: `file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml`
 
 There is a benefit and a downside to abstracting tasks into YAML files outside of the pipeline.
 
