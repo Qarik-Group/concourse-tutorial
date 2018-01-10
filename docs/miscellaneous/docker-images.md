@@ -49,7 +49,7 @@ resources:
     email: ((docker-hub-email))
     username: ((docker-hub-username))
     password: ((docker-hub-password))
-    repository: repository: ((docker-hub-username))/concourse-tutorial-hello-world
+    repository: ((docker-hub-username))/concourse-tutorial-hello-world
 
 jobs:
 - name: publish
