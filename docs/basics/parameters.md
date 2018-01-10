@@ -4,7 +4,7 @@ In the preceding section you were asked to place private credentials and persona
 
 Concourse pipelines can include `((parameter))` parameters for any value in the pipeline YAML file.
 
-Parameters are all mandatory. There are no default values for paramters.
+Parameters are all mandatory. There are no default values for parameters.
 
 In the lesson's `pipeline.yml` there are two parameters:
 
