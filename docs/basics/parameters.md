@@ -79,7 +79,7 @@ Use the `--load-vars-from` flag (aliased `-l`) to pass in this file instead of t
 fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
 ```
 
-## Revisting Publishing Outputs
+## Revisiting Publishing Outputs
 
 In the previous lesson [Publishing Outputs](/basics/publishing-outputs/), there were two user-provided changes to the `pipeline.yml`. These can now be changed to parameters.
 
@@ -90,7 +90,7 @@ cd ../publishing-outputs
 There is an alternate `pipeline-parameters.yml` that offers two parameters for `resource-gist`:
 
 ```yaml
-resoures:
+resources:
 - name: resource-gist
   type: git
   source:
