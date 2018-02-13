@@ -1,3 +1,6 @@
+description: Finally, it is time to make an actual pipeline - one job passing results to another job upon success.
+image_path: /images/pipeline.png
+
 # Actual Pipeline - Passing Resources Between Jobs
 
 Finally, it is time to make an actual pipeline - one job passing results to another job upon success.

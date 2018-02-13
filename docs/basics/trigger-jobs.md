@@ -1,3 +1,5 @@
+description: Review the four ways to trigger a job.
+
 # Trigger Jobs
 
 There are four ways for a job to be triggered:

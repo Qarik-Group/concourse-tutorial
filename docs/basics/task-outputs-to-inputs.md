@@ -1,3 +1,6 @@
+description: A task's 'inputs' can also come from the 'outputs' of previous tasks. All a task needs to do is declare that it publishes 'outputs', and subsequent steps can consume those as 'inputs' by the same name.
+image_path: /images/pass-files.png
+
 # Passing Task Outputs to Task Inputs
 
 In the [previous lesson](/basics/job-inputs/) our task `web-app-tests` consumed an input resource and ran a script that ran some unit tests. The task did not create anything new. Some tasks will want to create something that is then passed to another task for further processing (this lesson); and some tasks will create something that is pushed back out to the external world ([next lesson](/basics/publishing-outputs/)).

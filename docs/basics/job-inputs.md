@@ -1,3 +1,6 @@
+description: Pass external resources into Concourse job tasks
+image_path: /images/task-docker-image-and-run-tests.png
+
 # Using Resource Inputs in Job Tasks
 
 Note, the topic of running unit tests in your pipeline will be covered in more detail in future sections.

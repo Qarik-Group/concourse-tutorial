@@ -1,3 +1,6 @@
+description: Use the fly CLI to watch the streaming output from a running job or a completed job.
+image_path: /images/git-resource-in.png
+
 # Watch Job Output in Terminal
 
 It was very helpful that the `job-hello-world` [job build](http://192.168.100.4:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1) included the terminal output from running `git` commands to clone the git repo and the output of the running the `hello-world` task.

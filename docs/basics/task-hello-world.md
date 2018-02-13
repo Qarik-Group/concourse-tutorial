@@ -1,3 +1,7 @@
+description: The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
+image_path: /images/build-output-hello-world.png
+
+
 # Hello World
 
 The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).

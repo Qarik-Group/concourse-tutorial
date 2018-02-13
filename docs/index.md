@@ -1,3 +1,6 @@
+description: Learn to use https://concourse.ci with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
+image_path: /images/concourse-sample-pipeline.gif
+
 # Introduction to Concourse
 
 Learn to use https://concourse.ci with this linear sequence of tutorials. Learn each concept that builds on the previous concept.

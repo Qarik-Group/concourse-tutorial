@@ -1,3 +1,5 @@
+description: Concourse supports 'inputs' into tasks to pass in files/folders for processing.
+
 # Task Inputs
 
 In the previous section the only inputs to the task container were the `image` used. Base images, such as Docker images, are relatively static and relatively big, slow things to create. So Concourse supports `inputs` into tasks to pass in files/folders for processing.

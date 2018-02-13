@@ -1,3 +1,5 @@
+description: Task scripts are typically passed in from one of the inputs.
+
 # Task Scripts
 
 The `inputs` feature of a task allows us to pass in two types of inputs:

@@ -1,3 +1,6 @@
+description: Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them Resources. Example resources are 'git', 's3', and 'semver' respectively.
+image_path: /images/resource-job.gif
+
 # Pipeline Resources
 
 It is very fast to iterate on a job's tasks by configuring them in the `pipeline.yml` YAML file. You edit the `pipeline.yml`, run `fly set-pipeline`, and the entire pipeline is updated atomically.
@@ -8,7 +11,7 @@ Also in the earlier lesson [Task Scripts](/basics/task-scripts/) we looked at ex
 
 But with pipelines we now need to store the task file and task script somewhere outside of Concourse.
 
-Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them "Resources". Example resources are `git`, `s3` and `semver` respectively.
+Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them "Resources". Example resources are `git`, `s3`, and `semver` respectively.
 
 See the Concourse documentation [Resource Types](https://concourse.ci/resource-types.html) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorials [Miscellaneous](/miscellaneous/) section also introduces some commonly useful Resource Types.
 
