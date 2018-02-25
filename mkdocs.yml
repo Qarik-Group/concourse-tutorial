@@ -24,6 +24,7 @@ pages:
     - Versions and Build Numbers: miscellaneous/versions-and-buildnumbers.md
     - GitHub Release Input: miscellaneous/github-release-input.md
     - Slack Notifications: miscellaneous/slack-notifications.md
+    - Editors for Pipeline and Task yamls: miscellaneous/yaml-editors.md
 
 theme:
   name: 'material'
