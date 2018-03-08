@@ -75,7 +75,7 @@ resources:
 
 Now seems like a great time to mention the Concourse CI Slack organization!
 
-Visit http://slack.concourse.ci/ to sign up.
+Visit http://slack.concourse-ci.org/ to sign up.
 
 ## Slack Web Hooks
 
@@ -105,7 +105,7 @@ If you haven't already, add to your `pipeline.yml` the `resource_types` section 
 
 Next, we need to introduce the `on_failure` section of all build plan steps.
 
-Any `get`, `put`, or `task` step of a build plan can catch failures and do something interesting. From the [Concourse CI documentation](https://concourse.ci/on-failure-step.html):
+Any `get`, `put`, or `task` step of a build plan can catch failures and do something interesting. From the [Concourse CI documentation](https://concourse-ci.org/on-failure-step.html):
 
 ```yaml
 plan:
