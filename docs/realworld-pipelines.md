@@ -51,9 +51,9 @@ concourse
 
 The Concourse project has two pipelines that combined to distribute version of Concourse itself.
 
--	[Public Concourse](https://ci.concourse.ci)
-	-	[Main](https://ci.concourse.ci/pipelines/main)
-	-	[Resources](https://ci.concourse.ci/pipelines/resources)
+-	[Public Concourse](https://ci.concourse-ci.org)
+	-	[Main](https://ci.concourse-ci.org/pipelines/main)
+	-	[Resources](https://ci.concourse-ci.org/pipelines/resources)
 -	[Project](https://github.com/concourse/concourse)
 -	[Base folder for CI scripts](https://github.com/concourse/concourse/tree/master/ci)
 -	[pipelines](https://github.com/concourse/concourse/tree/master/ci/pipelines)

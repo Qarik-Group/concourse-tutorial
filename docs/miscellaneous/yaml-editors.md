@@ -1,6 +1,6 @@
 # Editors for Pipeline and Task yml's
 
-As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, indentation and missed parameters causes error when pipeline line is set/executed. You can use [`validate-pipeline`](https://concourse.ci/fly-validate-pipeline.html) to verify but it would be better if we can have editors highlighing the error much before in development. This would be similar to IDE's highlighing syntax errors. This section will list editors you can use to edit yml's for concourse pipleines and tasks. 
+As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, indentation and missed parameters causes error when pipeline line is set/executed. You can use [`validate-pipeline`](https://concourse-ci.org/fly-validate-pipeline.html) to verify but it would be better if we can have editors highlighing the error much before in development. This would be similar to IDE's highlighing syntax errors. This section will list editors you can use to edit yml's for concourse pipleines and tasks. 
 
 ## Visual Studio Code
 ---------------------
