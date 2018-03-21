@@ -6,7 +6,7 @@ As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, ind
 ---------------------
 ![vscode](/images/vscode-concourse.png)
 
-You can use Visual Studio code, which is free to download [`here`](https://code.visualstudio.com/download) to edit the pipleine and task yml's. Once downloaded, you can install Concourse CI Pipeline Editor [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse). Provides validation and content assist for Concourse CI pipeline and task configuration yml files. This also auto suggests parameters and syntax errors. 
+You can use Visual Studio code, which is free to download [`here`](https://code.visualstudio.com/download) to edit the pipeline and task yml's. Once downloaded, you can install Concourse CI Pipeline Editor [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse). Provides validation and content assist for Concourse CI pipeline and task configuration yml files. This also auto suggests parameters and syntax errors. 
 
 ### Functionality
 Some of the functionality include:
