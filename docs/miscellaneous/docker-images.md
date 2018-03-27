@@ -17,7 +17,7 @@ cd tutorials/miscellaneous/docker-images
 Define a docker image
 ---------------------
 
-This section's subfolder `docker` containers a `Dockerfile` and a simple `hello-world` command. 
+This section's subfolder `docker` contains a `Dockerfile` and a simple `hello-world` command. 
 
 ```dockerfile
 FROM busybox
