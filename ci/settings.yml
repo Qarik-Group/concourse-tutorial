@@ -6,27 +6,27 @@ meta:
   url:     https://ci2.starkandwayne.com
 
   cf:
-    api:              ((!cf-api))
+    api:              ((cf-api))
     skip_cert_check:  false
-    username:         ((!cf-username))
-    password:         ((!cf-password))
-    organization:     ((!cf-organization))
-    space:            ((!cf-space))
+    username:         ((cf-username))
+    password:         ((cf-password))
+    organization:     ((cf-organization))
+    space:            ((cf-space))
 
   github:
     owner: starkandwayne
     repo: concourse-tutorial
-    private_key:  ((!github-private-key))
-    access_token: ((!github-access-token))
+    private_key:  ((github-private-key))
+    access_token: ((github-access-token))
 
   concourse:
-    url:      ((!concourse_url))
-    username: ((!concourse_username))
-    password: ((!concourse_password))
+    url:      ((concourse_url))
+    username: ((concourse_username))
+    password: ((concourse_password))
     ca_cert:  ""
 
   credhub:
-    url:      ((!credhub_url))
+    url:      ((credhub_url))
     username: credhub-cli
-    password: ((!credhub_password))
-    ca_cert:  ((!credhub_ca_cert))
+    password: ((credhub_password))
+    ca_cert:  ((credhub_ca_cert))
