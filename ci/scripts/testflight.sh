@@ -2,6 +2,10 @@
 
 set -eu
 
+curl -o fly "${FLY_URL:?required}/api/v1/cli?arch=amd64&platform=linux"
+chmod +x fly
+mv fly $(which fly)
+
 echo
 echo "$ fly --target tutorial login"
 if [[ "${FLY_CACERT:-X}" == "X" ]]; then
@@ -19,7 +23,6 @@ else
       --team-name     ${FLY_TEAM:?required}
       --ca-cert       fly.cacert
 fi
-fly -t tutorial sync
 
 echo
 echo "$ credhub login"
