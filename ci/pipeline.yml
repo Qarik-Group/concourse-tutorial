@@ -71,7 +71,7 @@ jobs:
           inputs:
             - { name: git }
           run:
-            path: ./git/ci/scripts/testflight.sh
+            path: ./git/ci/scripts/testflight-with-credhub.sh
             args: []
           params:
             REPO_ROOT: git
@@ -102,7 +102,7 @@ jobs:
           inputs:
             - { name: git }
           run:
-            path: ./git/ci/scripts/testflight.sh
+            path: ./git/ci/scripts/testflight-with-credhub.sh
             args: []
           params:
             REPO_ROOT: git
