@@ -143,7 +143,7 @@ jobs:
             SITE_ROOT: site
       - put: deploy-master
         params:
-          manifest: site/manifest.yml
+          manifest: site/manifest-production.yml
           path: site
           current_app_name: (( grab meta.cf.master.appname ))
 
