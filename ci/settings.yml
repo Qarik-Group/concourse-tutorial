@@ -6,12 +6,12 @@ meta:
   url:     https://ci2.starkandwayne.com
 
   cf:
-    api:              ((cf-api))
+    api:              ((pws-cf-api))
     skip_cert_check:  false
-    username:         ((cf-username))
-    password:         ((cf-password))
-    organization:     ((cf-organization))
-    space:            ((cf-space))
+    username:         ((pws-cf-username))
+    password:         ((pws-cf-password))
+    organization:     ((pws-cf-organization))
+    space:            ((pws-cf-space))
 
   github:
     owner: starkandwayne
