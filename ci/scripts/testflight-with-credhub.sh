@@ -46,6 +46,10 @@ for f in tutorials/*/*/test{,-need-parameters}.sh
 do
   echo "\n\n\nlesson $f\n"
   pushd `dirname $f`
-  ./test{,-need-parameters}.sh
+  if [[ -x ./test.sh ]]; then
+    ./test.sh
+  else
+    ./test-need-parameters.sh
+  fi
   popd
 done
