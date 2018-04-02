@@ -42,7 +42,7 @@ You should see:
 
 ```
 pipeline created!
-you can view your pipeline here: http://192.168.100.4:8080/teams/main/pipelines/helloworld
+you can view your pipeline here: http://127.0.0.1:8080/teams/main/pipelines/helloworld
 
 the pipeline is currently paused. to unpause, either:
   - run the unpause-pipeline command
@@ -51,7 +51,7 @@ the pipeline is currently paused. to unpause, either:
 
 ## Login to Concourse Web UI
 
-Visit the pipeline URL http://192.168.100.4:8080/teams/main/pipelines/helloworld
+Visit the pipeline URL http://127.0.0.1:8080/teams/main/pipelines/helloworld
 
 It is a private pipeline and currently you are not logged in to the Concourse Web UI. You will be redirected to a login page.
 

@@ -3,7 +3,7 @@ image_path: /images/git-resource-in.png
 
 # Watch Job Output in Terminal
 
-It was very helpful that the `job-hello-world` [job build](http://192.168.100.4:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1) included the terminal output from running `git` commands to clone the git repo and the output of the running the `hello-world` task.
+It was very helpful that the `job-hello-world` [job build](http://127.0.0.1:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1) included the terminal output from running `git` commands to clone the git repo and the output of the running the `hello-world` task.
 
 ![git-resource-in](/images/git-resource-in.png)
 

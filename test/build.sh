@@ -1,14 +1,14 @@
 #!/bin/bash
 
-set -e
-# set -x
+set -eu
+set -x
 
 
 for tutorial in tutorials/{basic,miscellaneous}/*
 do
-  if [ -x ${tutorial}/run.sh ]; then
+  if [ -x ${tutorial}/test.sh ]; then
     echo "--- ${tutorial} ---"
-    ./${tutorial}/run.sh
+    ./${tutorial}/test.sh
   fi
 done
 

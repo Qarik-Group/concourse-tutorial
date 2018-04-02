@@ -36,7 +36,7 @@ fly -t tutorial sp -p simple-app -c pipeline.yml
 fly -t tutorial up -p simple-app
 ```
 
-View the pipeline UI http://192.168.100.4:8080/teams/main/pipelines/simple-app and notice that the job automatically starts.
+View the pipeline UI http://127.0.0.1:8080/teams/main/pipelines/simple-app and notice that the job automatically starts.
 
 ![trigger-job-input](/images/trigger-job-input.png)
 

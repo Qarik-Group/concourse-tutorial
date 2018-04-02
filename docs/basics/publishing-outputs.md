@@ -12,7 +12,7 @@ fly -t tutorial sp -p publishing-outputs -c pipeline.yml
 fly -t tutorial up -p publishing-outputs
 ```
 
-Pipeline dashboard http://192.168.100.4:8080/teams/main/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
+Pipeline dashboard http://127.0.0.1:8080/teams/main/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
 
 ![broken-resource](/images/broken-resource.png)
 

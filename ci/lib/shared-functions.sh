@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/pretty-output.sh
 
 export fly_target=${fly_target:-tutorial}
-export TUTORIAL_CONCOURSE_URL=${TUTORIAL_CONCOURSE_URL:-"http://192.168.100.4:8080"}
+export TUTORIAL_CONCOURSE_URL=${TUTORIAL_CONCOURSE_URL:-"http://127.0.0.1:8080"}
 export PIPELINE_CREDENTIALS=${PIPELINE_CREDENTIALS:-"$DIR/../../credentials.yml"}
 
 function ensure-fly {

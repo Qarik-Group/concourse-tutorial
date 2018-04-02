@@ -14,7 +14,7 @@ fly -t tutorial execute -c task_hello_world.yml
 The output starts with
 
 ```
-executing build 1 at http://192.168.100.4:8080/builds/1
+executing build 1 at http://127.0.0.1:8080/builds/1
 initializing
 ```
 
@@ -46,7 +46,7 @@ hello world
 succeeded
 ```
 
-The URL http://192.168.100.4:8080/builds/1 is viewable in the browser. It is another view of the same task.
+The URL http://127.0.0.1:8080/builds/1 is viewable in the browser. It is another view of the same task.
 
 ![build-output-hello-world](/images/build-output-hello-world.png)
 
@@ -76,7 +76,7 @@ fly -t tutorial execute -c task_ubuntu_uname.yml
 The output looks like:
 
 ```
-executing build 2 at http://192.168.100.4:8080/builds/2
+executing build 2 at http://127.0.0.1:8080/builds/2
 initializing
 ...
 running uname -a

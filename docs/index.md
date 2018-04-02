@@ -27,52 +27,26 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
 
 ## Getting Started
 
-1. Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
-2. Install [BOSH CLI](https://bosh.io/docs/cli-v2.html#install)
+1. Install [Docker](https://www.docker.com/community-edition).
+2. Install [Docker Compose](https://docs.docker.com/compose/install/#install-compose) if not included in your Docker installation.
+3. Deploy Concourse using Docker Compose:
 
-    For Mac:
-
-    ```
-    brew install cloudfoundry/tap/bosh-cli
-    ```
-
-    For Linux:
-
-    ```
-    wget -q -O - https://raw.githubusercontent.com/starkandwayne/homebrew-cf/master/public.key | apt-key add -
-    echo "deb http://apt.starkandwayne.com stable main" | tee /etc/apt/sources.list.d/starkandwayne.list
-    apt-get update
-    apt-get install bosh-cli
-    ```
-
-    For Windows:
-
-    Visit https://bosh.io/docs/cli-v2.html#install to download the `bosh-cli-...-windows-amd64.exe`. Rename as `bosh`. Use [this article](https://stackoverflow.com/questions/23400030/windows-7-add-path)
-    to see where to add `bosh` in to the `PATH`.
-
-
-3. Setup a Single VM concourse using Virtualbox and BOSH.
-
-    Download the `concourse-lite` deployment manifest and then have `bosh` create a
-    Single VM server running concourse on Virtualbox.
-
-    ```
-    git clone https://github.com/starkandwayne/concourse-tutorial -b develop ~/workspace/concourse-tutorial
-    cd ~/workspace/concourse-tutorial
-    bosh create-env manifests/concourse-lite.yml --state tmp/state.json
+    ```plain
+    wget https://concourse-ci.org/docker-compose.yml
+    docker-compose up -d
     ```
 
 ### Test Setup
 
-Open http://192.168.100.4:8080/ in your browser:
+Open http://127.0.0.1:8080/ in your browser:
 
-[![initial](/images/dashboard-no-pipelines.png)](http://192.168.100.4:8080/)
+[![initial](/images/dashboard-no-pipelines.png)](http://127.0.0.1:8080/)
 
 Click on your operating system to download the `fly` CLI.
 
 Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
 
-```
+```plain
 sudo mkdir -p /usr/local/bin
 sudo mv ~/Downloads/fly /usr/local/bin
 sudo chmod 0755 /usr/local/bin/fly
@@ -87,14 +61,14 @@ In the spirit of declaring absolutely everything you do to get absolutely the sa
 
 First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts):
 
-```
-fly --target tutorial login --concourse-url http://192.168.100.4:8080
+```plain
+fly --target tutorial login --concourse-url http://127.0.0.1:8080
 fly --target tutorial sync
 ```
 
 You can now see this saved target Concourse API in a local file:
 
-```
+```plain
 cat ~/.flyrc
 ```
 
@@ -103,11 +77,11 @@ Shows a simple YAML file with the API, credentials etc:
 ```yaml
 targets:
   tutorial:
-    api: http://192.168.100.4:8080
+    api: http://127.0.0.1:8080
     team: main
     token:
       type: Bearer
-      value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjc3JmIjoiZTk3Mjk4OWI0MjY3NjFkM2JjYzFlYzgzMThhYjk4OTE1MjZiYzcyNzNlYTJjNzRkMjQ3NWYyOWM5MGUwMDAzOCIsImV4cCI6MTUxMjk4NTk2OSwiaXNBZG1pbiI6dHJ1ZSwidGVhbU5hbWUiOiJtYWluIn0.eiMwx0D7JWUmGJjoNlgv7ZmPpF4Ub9t0k_6-YE8vuUFC9_mxI0KOMxvoh5yjn1yhi_O2nKo4z0YiNA_JOaN3mcdhD0Vxy7l8Y-0PBZd6ISqwXpciu7oWQw__Mx-d67oqPaTnXoB9KgEwvXjf54JpwAjIoS0U_Mtmc7-_qqzH06RywXXz9NPRJVPa1lv-5-HWMF_I5C6OqsOFNJjRKM0UlBzAyWJ-aBRtw8QveXzNXvWdXXVv7cV_EvTX9xQqec13E-iJ0pBvm3Hjc-2oeGnAlDl4YfswWHclVpYzTpuXy0Ge186LiqExvBNmKzy-UZqZ2Bf2MvL7nkPMZfPCn3AAqA
+      value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjc3JmIjoiYjE3ZDgxZmMwMWIxNDE1Mjk2OWIyZDc4NWViZmVjM2EzM2IyY2MxYWZjZjU3Njc1ZWYwYzY0MTM3MWMzNzI3OSIsImV4cCI6MTUyMjcwMjUwMCwiaXNBZG1pbiI6dHJ1ZSwidGVhbU5hbWUiOiJtYWluIn0.JNutBGQJMKyFzow5eQOTXAw3tOeM8wmDGMtZ-GCsAVoB7D1WHv-nHIb3Rf1zWw166FuCrFqyLYnMroTlQHyPQUTJFDTiMEGnc5AY8wjPjgpwjsjyJ465ZX-70v1J4CWcTHjRGrB1XCfSs652s8GJQlDf0x2hi5K0xxvAxsb0svv6MRs8aw1ZPumguFOUmj-rBlum5k8vnV-2SW6LjYJAnRwoj8VmcGLfFJ5PXGHeunSlMdMNBgHEQgmMKf7bFBPKtRuEAglZWBSw9ryBopej7Sr3VHPZEck37CPLDfwqfKErXy_KhBA_ntmZ87H1v3fakyBSzxaTDjbpuOFZ9yDkGA
 ```
 
 When we use the `fly` command we will target this Concourse API using `fly --target tutorial`.
@@ -116,11 +90,8 @@ When we use the `fly` command we will target this Concourse API using `fly --tar
 
 ## Destroy Concourse
 
-When you've finished with your local Concourse, deployed via `bosh create-env`, you can use `bosh delete-env` to destroy it.
+When you've finished with your local Concourse, deployed via `docker-compose up`, you can use `docker-compose down` to destroy it.
 
-The `tmp/state.json` file helps `bosh delete-env` determine which VM and disk to delete.
-
-```
-cd ~/workspace/concourse-tutorial
-bosh delete-env manifests/concourse-lite.yml --state tmp/state.json
+```plain
+docker-compose down
 ```
