@@ -42,10 +42,10 @@ echo "$ tutorials/test-pipeline-vars.sh"
 ./tutorials/test-pipeline-vars.sh
 
 echo
-for f in tutorials/*/*/test.sh
+for f in tutorials/*/*/test{,-need-parameters}.sh
 do
   echo "\n\n\nlesson $f\n"
   pushd `dirname $f`
-  ./test.sh
+  ./test{,-need-parameters}.sh
   popd
 done
