@@ -17,3 +17,14 @@ Thanks for all the pull requests to help fix regressions with some Concourse ver
 ## Getting Started
 
 Read the tutorial at https://concoursetutorial.com
+
+## Local development of tutorial
+
+This tutorial is built using [`mkdocs`](http://www.mkdocs.org/). Once installed, you can continuously build and serve the tutorial locally with:
+
+```plain
+mkdocs serve
+```
+
+View the site and live changes at https://localhost:8000.
+
