@@ -83,7 +83,7 @@ fly -t bucc up -p parameters
 
 ```plain
 credhub set -n /concourse/main/parameters/cat-name --type value --value garfield
-credhub set -n /concourse/main/parameters/dog-name --type value --value oddie
+credhub set -n /concourse/main/parameters/dog-name --type value --value odie
 ```
 
 Run the pipeline job to confirm that it dynamically fetched the secrets from Credhub:
@@ -105,7 +105,7 @@ So, if the `((cat-name))` credential is to be shared across all pipelines in the
 credhub delete -n /concourse/main/parameters/cat-name
 credhub delete -n /concourse/main/parameters/dog-name
 credhub set -n /concourse/main/cat-name --type value --value garfield
-credhub set -n /concourse/main/dog-name --type value --value oddie
+credhub set -n /concourse/main/dog-name --type value --value odie
 ```
 
 Again, run the pipeline job to confirm that it dynamically fetched the team's shared secrets from Credhub:
