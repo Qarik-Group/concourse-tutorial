@@ -20,6 +20,8 @@ drwxr-xr-x    2 root     root          4096 Feb 27 07:23 .
 drwxr-xr-x    3 root     root          4096 Feb 27 07:23 ..
 ```
 
+Note that above we used the short-hand form of the execute command in this example, simply **e**, as the action. Many commands have shortened single character forms, for example **fly s** is an alias for **fly sync**.
+
 In the example task `inputs_required.yml` we add a single input:
 
 ```yaml
