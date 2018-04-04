@@ -74,7 +74,7 @@ The in-progress or newly-completed `job-hello-world` job UI has three sections:
 
 The latter two are "steps" in the job's [build plan](http://concourse-ci.org/build-plans.html). A build plan is a sequence of steps to execute. These steps may fetch down or update Resources, or execute Tasks.
 
-The first build plan step fetches down (note the down arrow to the left) a `git` repository for these training materials and tutorials. The pipeline named this resource `resource-tutorial`.
+The first build plan step fetches down (note the down arrow to the left) a `git` repository for these training materials and tutorials. The pipeline named this resource `resource-tutorial` and clones the repo into a directory with the same name. This means that later in the build-plan, we reference files relative to this folder.
 
 The resource `resource-tutorial` is then used in the build plan for the job:
 
