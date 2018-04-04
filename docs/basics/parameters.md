@@ -49,7 +49,7 @@ errored
 ## Parameters from fly options
 
 ```
-fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=oddie
+fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=odie
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
@@ -61,7 +61,7 @@ running env
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOME=/root
 CAT_NAME=garfield
-DOG_NAME=oddie
+DOG_NAME=odie
 USER=root
 ```
 
@@ -72,7 +72,7 @@ Alternatively, you can store your parameter values in a local file.
 ```bash
 cat > credentials.yml <<YAML
 cat-name: garfield
-dog-name: oddie
+dog-name: odie
 YAML
 ```
 
@@ -139,7 +139,7 @@ There are two downsides to the two approaches above.
     ...
     params:
       CAT_NAME: garfield
-      DOG_NAME: oddie
+      DOG_NAME: odie
     run:
       path: env
     ```
