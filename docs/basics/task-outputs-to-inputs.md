@@ -33,7 +33,7 @@ In this pipeline's `job-pass-files` there are two task steps `create-some-files`
 
 The former creates 4 files into its own `some-files/` directory. The latter gets a copy of these files placed in its own task container filesystem at the path `some-files/`.
 
-The pipeline build plan only shows that two tasks are to be run in a specific order. It does not indicate that `show-files/` is an output of one task and used as an input into the next task.
+The pipeline build plan only shows that two tasks are to be run in a specific order. It does not indicate that `some-files/` is an output of one task and used as an input into the next task.
 
 ```yaml
 jobs:
