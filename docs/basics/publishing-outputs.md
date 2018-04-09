@@ -22,9 +22,9 @@ The `pipeline.yml` does not yet have a git repo nor its write-access private key
 
 ![gist](/images/gist.png)
 
-Copy the "SSH" git URL:
+Copy the "HTTPS" git URL:
 
-![ssh](/images/ssh.png)
+![ssh](/images/https.png)
 
 And paste it into the `pipeline.yml` file:
 
@@ -34,17 +34,9 @@ resources:
 - name: resource-gist
   type: git
   source:
-    uri: git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git
+    uri: https://gist.github.com/e028e491e42b9fb08447a3bafcf884e5.git
     branch: master
-    private_key: |-
-      -----BEGIN RSA PRIVATE KEY-----
-      MIIEpQIBAAKCAQEAuvUl9YU...
-      ...
-      HBstYQubAQy4oAEHu8osRhH...
-      -----END RSA PRIVATE KEY-----
 ```
-
-Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registered with github) into the `private_key` section.
 
 Update the pipeline, force Concourse to quickly re-check the new Gist credentials, and then run the job:
 
@@ -54,7 +46,7 @@ fly -t tutorial check-resource -r publishing-outputs/resource-gist
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date -w
 ```
 
-Revisit the Web UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
+Revisit the Web UI and the orange resource will change to black if it can successfully fetch the new `https://gist.github.com/XXXX.git` repo.
 
 After the `job-bump-date` job completes, refresh your gist:
 
