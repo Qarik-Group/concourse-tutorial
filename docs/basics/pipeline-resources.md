@@ -15,7 +15,7 @@ Concourse offers no services for storing/retrieving your data. No git repositori
 
 See the Concourse documentation [Resource Types](https://concourse-ci.org/resource-types.html) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorials [Miscellaneous](/miscellaneous/) section also introduces some commonly useful Resource Types.
 
-The most common resource type to store our task files and task scripts is the `git` resource type. Perhaps your task files could be fetched via the `s3` resource type from an AWS S3 file; or the `archive` resource type to extract them from a remote archive file. Or perhaps the task files could be pre-baked into the `image_resource` base Docker image. But mostly you will use describe a `git` resource in your pipeline to pull in your pipeline task files.
+The most common resource type to store our task files and task scripts is the `git` resource type. Perhaps your task files could be fetched via the `s3` resource type from an AWS S3 file; or the `archive` resource type to extract them from a remote archive file. Or perhaps the task files could be pre-baked into the `image_resource` base Docker image. But mostly you will use a `git` resource in your pipeline to pull in your pipeline task files.
 
 This tutorial's source repository is a Git repo, and it contains many task files (and their task scripts). For example, the original `tutorials/basic/task-hello-world/task_hello_world.yml`.
 
