@@ -46,7 +46,7 @@ fly -t tutorial check-resource -r publishing-outputs/resource-gist
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date -w
 ```
 
-Revisit the Web UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
+Revisit the Web UI and the orange resource will change to black if it can successfully fetch the new `https://gist.github.com/XXXX.git` repo.
 
 After the `job-bump-date` job completes, refresh your gist:
 
