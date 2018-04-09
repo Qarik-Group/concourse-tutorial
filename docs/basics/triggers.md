@@ -23,7 +23,7 @@ jobs:
 
 In the above example the `job-demo` job would trigger anytime the remote `resource-tutorial` had a new version. For a `git` resource this would be new git commits.
 
-The `time` resource has express purpose of triggering jobs.
+The `time` resource has intrinsic purpose of triggering jobs.
 
 If you want a job to trigger every few minutes then there is the [`time` resource](https://github.com/concourse/time-resource#readme).
 
