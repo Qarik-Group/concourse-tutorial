@@ -9,7 +9,7 @@ Learn to use https://concourse-ci.org with this linear sequence of tutorials. Le
 
 Concourse is 100% open source CI/CD system with approximately 100 [integrations](https://concourse-ci.org/resource-types.html) to the outside world. Concourse's principles reduce the risk of switching to and from Concourse, by encouraging practices that decouple your project from your CI's little details, and keeping all configuration in declarative files that can be checked into version control.
 
-This Concourse Tutorial book is the world's most popular guide for learning Concourse, since 2015. It is a wonderful companion for [Concourse online documentation](https://concourse-ci.org/introduction.html).
+This Concourse Tutorial book is the world's most popular guide for learning Concourse, since 2015. It is a wonderful companion for [Concourse online documentation](https://concourse-ci.org/index.html).
 
 ## Thanks
 
