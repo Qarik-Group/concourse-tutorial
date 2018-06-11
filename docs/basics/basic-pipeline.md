@@ -7,7 +7,7 @@ image_path: /images/job-hello-world.gif
 
 ```
 cd ../basic-pipeline
-fly -t tutorial set-pipeline -c pipeline.yml -p helloworld
+fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
 ```
 
 It will display the concourse pipeline (or any changes) and request confirmation:
@@ -42,7 +42,7 @@ You should see:
 
 ```
 pipeline created!
-you can view your pipeline here: http://127.0.0.1:8080/teams/main/pipelines/helloworld
+you can view your pipeline here: http://127.0.0.1:8080/teams/main/pipelines/hello-world
 
 the pipeline is currently paused. to unpause, either:
   - run the unpause-pipeline command
