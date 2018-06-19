@@ -79,7 +79,7 @@ There are two ways to unpause (or re-pause) a pipeline.
 
     ```
     fly -t tutorial unpause-pipeline -p hello-world
-    fly -t tutorial unpause-job --job helloworld/job-hello-world
+    fly -t tutorial unpause-job --job hello-world/job-hello-world
     ```
 
 ## First Pipeline
