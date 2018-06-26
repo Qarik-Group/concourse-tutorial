@@ -51,7 +51,7 @@ the pipeline is currently paused. to unpause, either:
 
 ## Login to Concourse Web UI
 
-Visit the pipeline URL http://127.0.0.1:8080/teams/main/pipelines/helloworld
+Visit the pipeline URL http://127.0.0.1:8080/teams/main/pipelines/hello-world
 
 It is a private pipeline and currently you are not logged in to the Concourse Web UI. You will be redirected to a login page.
 
