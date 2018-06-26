@@ -10,7 +10,7 @@ It was very helpful that the `job-hello-world` [job build](http://127.0.0.1:8080
 You can also view this output from the terminal with `fly watch`:
 
 ```
-fly -t tutorial watch -j helloworld/job-hello-world
+fly -t tutorial watch -j hello-world/job-hello-world
 ```
 
 The output will be similar to:
@@ -35,7 +35,7 @@ fly -t tutorial builds
 The output will look like:
 
 ```
-3   helloworld/job-hello-world    1      succeeded  2016-26@17:22:13+1000  2016-26@17:22:23+1000  10s
+3   hello-world/job-hello-world    1      succeeded  2016-26@17:22:13+1000  2016-26@17:22:23+1000  10s
 2   one-off                       n/a    succeeded  2016-26@17:15:02+1000  2016-26@17:16:36+1000  1m34s
 1   one-off                       n/a    succeeded  2016-26@17:13:34+1000  2016-26@17:14:11+1000  37s
 ```
