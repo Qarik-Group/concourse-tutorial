@@ -9,22 +9,22 @@ There are four ways for a job to be triggered:
 * `fly trigger-job -j pipeline/jobname` command
 * Sending `POST` HTTP request to Concourse API
 
-We can re-trigger our `helloworld` pipeline's `job-hello-world`:
+We can re-trigger our `hello-world` pipeline's `job-hello-world`:
 
 ```
-fly -t tutorial trigger-job -j helloworld/job-hello-world
+fly -t tutorial trigger-job -j hello-world/job-hello-world
 ```
 
 Whilst the job is running, and after it has completed, you can then watch the output in your terminal using `fly watch`:
 
 ```
-fly -t tutorial watch -j helloworld/job-hello-world
+fly -t tutorial watch -j hello-world/job-hello-world
 ```
 
 Alternately, you can combine the two commands - trigger the job and watch the output with the `trigger-job -w` flag:
 
 ```
-fly -t tutorial trigger-job -j helloworld/job-hello-world -w
+fly -t tutorial trigger-job -j hello-world/job-hello-world -w
 ```
 
 In the next lesson we will learn to trigger jobs after changes to an input resource.

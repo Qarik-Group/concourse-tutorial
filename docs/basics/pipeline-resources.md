@@ -56,7 +56,7 @@ apply configuration? [yN]: y
 configuration updated
 ```
 
-The [`helloworld` pipeline](http://127.0.0.1:8080/teams/main/pipelines/helloworld) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
+The [`hello-world` pipeline](http://127.0.0.1:8080/teams/main/pipelines/hello-world) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
 
 ![pipeline-resources](/images/resource-job.gif)
 
