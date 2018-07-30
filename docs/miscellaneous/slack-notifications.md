@@ -71,11 +71,11 @@ resources:
     url: ((slack-webhook))
 ```
 
-## Join Concourse CI Slack organization!
+## Join a Slack organization
 
-Now seems like a great time to mention the Concourse CI Slack organization!
+You want to send slack notifications. First you'll need to create an organization or be invited.
 
-Visit http://slack.concourse-ci.org/ to sign up.
+In the examples below I will use the defunct `https://concourseci.slack.com` organization. Update `concourseci` to your organization.
 
 ## Slack Web Hooks
 
