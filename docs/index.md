@@ -32,7 +32,7 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
 3. Deploy Concourse using Docker Compose:
 
     ```plain
-    wget https://concourse-ci.org/docker-compose.yml
+    wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
 

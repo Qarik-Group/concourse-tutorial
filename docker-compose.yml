@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  concourse-db:
+    image: postgres
+    environment:
+    - POSTGRES_DB=concourse
+    - POSTGRES_PASSWORD=concourse_pass
+    - POSTGRES_USER=concourse_user
+    - PGDATA=/database
+
+  concourse:
+    image: concourse/concourse:3.14.1
+    command: quickstart
+    privileged: true
+    depends_on: [concourse-db]
+    ports: ["8080:8080"]
+    environment:
+    - CONCOURSE_POSTGRES_HOST=concourse-db
+    - CONCOURSE_POSTGRES_USER=concourse_user
+    - CONCOURSE_POSTGRES_PASSWORD=concourse_pass
+    - CONCOURSE_POSTGRES_DATABASE=concourse
+    - CONCOURSE_EXTERNAL_URL
+    - CONCOURSE_BASIC_AUTH_USERNAME
+    - CONCOURSE_BASIC_AUTH_PASSWORD
+    - CONCOURSE_NO_REALLY_I_DONT_WANT_ANY_AUTH=true
