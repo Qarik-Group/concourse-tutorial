@@ -18,11 +18,11 @@ Having trouble remembering all the names of the attributes, and their spelling? 
 #### Documentation Hovers
 Having trouble remembering exactly what the meaning of each attribute is? Hover over an attribute and read its detailed documentation
 
-You can find more info and limitaions in the plugin page [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse)
+You can find more info and limitations in the plugin page [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse)
 ## Atom
 ---------------------
 ![atom](/images/atom-concourse.gif)
 
 You can use Atom, which is free to download [`here`](https://atom.io) to edit the pipleine and task yml's. Once downloaded, you can install concourse-vis [`here`](https://atom.io/packages/concourse-vis). This is a plugin to preview Concourse pipelines in Atom. One additional advantage with Atom is that it provides concourse pipeline preview before using `set-pipeline`, which is very cool.
 
-You can find more info and limitaions in the plugin page [`here`](https://atom.io/packages/concourse-vis)
+You can find more info and limitations in the plugin page [`here`](https://atom.io/packages/concourse-vis)
