@@ -96,7 +96,7 @@ On the next page, you will be given a unique secret URL. Triple click to select,
 Each pipeline might have its own `((slack-webhook))` parameter to send notifications to different Slack channels. So we will store the URL in a pipeline-specific location in Credhub (remember to run `bucc credhub` in your `bucc` project to re-login to Credhub):
 
 ```
-credhub set -n /concourse/main/slack_notifications/slack-webhook -t value -v https://hooks.slack.com/services/T02FXXXXX/B8FLXXXXX/vfnkP8lwogK0uYDZCxxxxxxx
+credhub set -n /concourse/main/slack-notifications/slack-webhook -t value -v https://hooks.slack.com/services/T02FXXXXX/B8FLXXXXX/vfnkP8lwogK0uYDZCxxxxxxx
 ```
 
 ## Notification on Job Failure
@@ -136,8 +136,8 @@ We use the `on_failure` to invoke the `slack-notification` resource named `notif
 Update your pipeline and trigger the `test` job until you get a failure:
 
 ```
-fly -t bucc sp -p slack_notifications -c pipeline-slack-failures.yml
-fly -t bucc trigger-job -j slack_notifications/test -w
+fly -t bucc sp -p slack-notifications -c pipeline-slack-failures.yml
+fly -t bucc trigger-job -j slack-notifications/test -w
 ```
 
 Your lovely failure will now appear as a notification in Slack:
