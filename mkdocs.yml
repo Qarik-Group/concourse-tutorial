@@ -38,8 +38,10 @@ theme:
   logo: 'images/favicon/favicon-64.png'
 
   font:
-    text: 'Bitter' # https://fonts.google.com/specimen/Bitter
+    text: 'Sawarabi Mincho'
     code: 'Ubuntu Mono'
+
+  language: 'ja'
 
 markdown_extensions:
   - admonition
