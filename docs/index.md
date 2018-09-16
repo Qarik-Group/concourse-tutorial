@@ -1,7 +1,7 @@
 description: Learn to use https://concourse-ci.org with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
 image_path: /images/concourse-sample-pipeline.gif
 
-# Introduction to Concourse
+# Concourse の ご紹介
 
 この一連のチュートリアルを通じて、https://concourse-ci.org の利用方法を学びましょう。個々のコンセプトに基づいて各コンテンツは構成されています。
 
@@ -27,7 +27,7 @@ Stark＆Wayneでは2015年初頭にConcourseを学びながらこのチュート
 
 カンファレンス等でStark＆Wayneブースを訪れ、「ありがとう、Concourseチュートリアル！」とお伝え頂いた皆様に感謝します。
 
-## Getting Started
+## さあ、はじめよう！
 
 1. [Docker](https://www.docker.com/community-edition)をインストールしてください。
 2. もしDockerの中に含まれていない場合、[Docker Compose](https://docs.docker.com/compose/install/#install-compose)をインストールしてください。
@@ -37,7 +37,7 @@ Stark＆Wayneでは2015年初頭にConcourseを学びながらこのチュート
     docker-compose up -d
     ```
 
-### Test Setup
+### セットアップのテストを行う
 
 Webブラウザで http://127.0.0.1:8080/ を開いてみましょう:
 
@@ -54,7 +54,7 @@ sudo chmod 0755 /usr/local/bin/fly
 
 Windowsユーザの方は, [この記事](https://stackoverflow.com/questions/23400030/windows-7-add-path)の方法を利用して、`PATH`の中から`fly`を追加するフォルダを確認してください。
 
-## Target Concourse
+## Concourseをターゲットする
 
 `fly` CLIは、毎回完全に同じ結果を得るために、完全に実行することを、完全に宣言するという精神に基づき、`fly`コマンドを打つ度にターゲットとなるAPIを指定する必要があります。
 
@@ -91,7 +91,7 @@ targets:
 
 > @alexsuraci: 私は暗黙のターゲット状態を持つよりも、この方法が皆様のお気に召すことを約束します:) Shellのヒストリーからコマンドを再利用しても、これならさほど危険にならずに済むからです（誤ったflyの設定を使っていると悪になる可能性はあります）。
 
-## Destroy Concourse
+## Concourseを破棄する
 
 `docker-compose up`を使ってデプロイしたローカルConcourseでの作業を終えたら、`docker-compose down`を使ってそれを破棄することができます。
 
