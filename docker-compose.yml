@@ -10,7 +10,7 @@ services:
     - PGDATA=/database
 
   concourse:
-    image: concourse/concourse:3.14.1
+    image: concourse/concourse:4.2.0
     command: quickstart
     privileged: true
     depends_on: [concourse-db]
@@ -21,6 +21,5 @@ services:
     - CONCOURSE_POSTGRES_PASSWORD=concourse_pass
     - CONCOURSE_POSTGRES_DATABASE=concourse
     - CONCOURSE_EXTERNAL_URL
-    - CONCOURSE_BASIC_AUTH_USERNAME
-    - CONCOURSE_BASIC_AUTH_PASSWORD
-    - CONCOURSE_NO_REALLY_I_DONT_WANT_ANY_AUTH=true
+    - CONCOURSE_ADD_LOCAL_USER=admin:admin
+    - CONCOURSE_MAIN_TEAM_LOCAL_USER=admin
