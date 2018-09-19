@@ -25,7 +25,7 @@ jobs:
 
 `time` Resource は、Job を trigger するのを目的とした Resource です。
 
-Job を数分ごとに起動させたい、と言ったケースに対応するためにこそ、[`time` Resource]（https://github.com/concourse/time-resource#readme）が利用できます。
+Job を数分ごとに起動させたい、と言ったケースに対応するためにこそ、[`time` Resource](https://github.com/concourse/time-resource#readme)が利用できます。
 
 ```yaml
 resources:
