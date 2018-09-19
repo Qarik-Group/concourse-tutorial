@@ -1,25 +1,25 @@
-description: Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them Resources. Example resources are 'git', 's3', and 'semver' respectively.
+description: Concourse には、データの保存/取得サービスはありません。git リポジトリはありません。Blobstore もありません。ビルド番号もありません。すべての入力と出力を、Concourse の外から提供する必要があるのです。Concourse ではそれを Resource と呼んでいます。Resource の例としては、それぞれ 'git'、 's3'、 'semver' などが挙げられます。
 image_path: /images/resource-job.gif
 
 # Pipeline Resources
 
-It is very fast to iterate on a job's tasks by configuring them in the `pipeline.yml` YAML file. You edit the `pipeline.yml`, run `fly set-pipeline`, and the entire pipeline is updated atomically.
+YAMLファイル`pipeline.yml`の設定で、Job中のTaskを繰り返すことはとても高速に行えます。`pipeline.yml`を変更し、`fly set-pipeline`を実行することで、Pipeline全体がアトミックに更新されます。
 
-The initial lessons introduced Tasks as standalone YAML files (which can be run via `fly execute`). Our `pipeline.yml` YAML files can be refactored to use these.
+最初のレッスンでは、Task を1つのYAMLファイルとして(`fly execute`で実行可能なものとして)紹介しました。`pipeline.yml`では、これらの Task ファイルを利用するようにリファクタリングすることができます。
 
-Also in the earlier lesson [Task Scripts](/basics/task-scripts/) we looked at extracting complex `run` commands into standalone shell scripts.
+また、[Task Scripts](/basics/task-scripts/) のレッスンでは、複雑な`run: ` のコマンドの内容を、単独動作可能なシェルスクリプトファイルとして呼び出すやり方を学んできました。
 
-But with pipelines we now need to store the task file and task script somewhere outside of Concourse.
+しかし Pipeline では、Task ファイルと Task スクリプトを、Concourseの外に保存しておく必要があります。
 
-Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them "Resources". Example resources are `git`, `s3`, and `semver` respectively.
+Concourseには、データの保存/取得サービスはありません。gitリポジトリはありません。Blobstoreもありません。ビルド番号もありません。すべての入力と出力を、Concourseの外から提供する必要があるのです。Concourseではそれを "Resource" と呼んでいます。Resource の例としては、それぞれ 'git'、 's3'、 'semver' などが挙げられます。
 
-See the Concourse documentation [Resource Types](https://concourse-ci.org/resource-types.html) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorials [Miscellaneous](/miscellaneous/) section also introduces some commonly useful Resource Types.
+Concourseにあらかじめビルドイン(組み込み)されている Resource と、Concourse コミュニティによって作られた Resource の一覧については、公式ドキュメントの[Resource Types](https://concourse-ci.org/resource-types.html)を参照してください。Slackにメッセージを送る、バージョン番号を0.5.6から1.0.0にbump(上げる)する、Pivotal Trackerにチケットを作る...このようなことはすべて、Concourse の Resource Type によって可能になります。このチュートリアルの [Miscellaneous](/miscellaneous/) セクションでも、一般的に有用とされる Resource Type について紹介しています。
 
-The most common resource type to store our task files and task scripts is the `git` resource type. Perhaps your task files could be fetched via the `s3` resource type from an AWS S3 file; or the `archive` resource type to extract them from a remote archive file. Or perhaps the task files could be pre-baked into the `image_resource` base Docker image. But mostly you will use a `git` resource in your pipeline to pull in your pipeline task files.
+Task ファイルと Task スクリプトを保存する最も一般的な Resource Type は `git` Resource Type です。もしくは、Taskファイル を AWS S3上から `s3` Resource Type を介して入手することもできます。また、`archive` Resource Type を使用してリモートアーカイブファイルからそれらを抽出することも可能です。あるいは、Task ファイルを `image_resource`ベースのDockerImageに入れておくこともできるでしょう。とは言えほとんどの場合は、`git` Resource を使用して Pipeline の Task ファイルを取得することになるでしょう。
 
-This tutorial's source repository is a Git repo, and it contains many task files (and their task scripts). For example, the original `tutorials/basic/task-hello-world/task_hello_world.yml`.
+このチュートリアルのソースリポジトリは Git リポジトリで、多くの Task ファイル（と Task スクリプト）が含まれています。例えば、オリジナルは　`tutorials/basic/task-hello-world/task_hello_world.yml`です。
 
-To pull in the Git repository, we add a top-level section `resources`:
+Gitリポジトリをpullするには、YAMLファイル `pipeline.yml` のトップレベルセクションに `resources` として追加します:
 
 ```yaml
 resources:
@@ -30,7 +30,7 @@ resources:
     branch: develop
 ```
 
-Next, add a `get: resource-tutorial` step, and update the `task: hello-world` step to replace the `config:` section with `file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml`.
+次に、`get: resource-tutorial` のステップを追加し、 `task: hello-world` ステップの `config:` セクションを `file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml` で置き換えます。
 
 ```yaml
 jobs:
@@ -42,41 +42,41 @@ jobs:
     file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml
 ```
 
-To deploy this change:
+Pipelineの変更点を反映してみます:
 
 ```
 cd ../pipeline-resources
 fly sp -t tutorial -c pipeline.yml -p hello-world
 ```
 
-The output will show the delta between the two pipelines and request confirmation. Type `y`. If successful, it will show:
+出力には、2つのパイプライン間の差分と変更確認のリクエストが表示されますので、yを押します。成功すると、次のように表示されます:
 
 ```
 apply configuration? [yN]: y
 configuration updated
 ```
 
-The [`hello-world` pipeline](http://127.0.0.1:8080/teams/main/pipelines/hello-world) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
+Pipeline:[`hello-world`](http://127.0.0.1:8080/teams/main/pipelines/hello-world) は、これで入力してResource `resource-tutorial` を、Job `job-hello-world` に送ることになります。
 
 ![pipeline-resources](/images/resource-job.gif)
 
-The Concourse Tutorial verbosely prefixes `resource-` to resource names, and `job-` to job names, to help you identify one versus the other whilst learning. Eventually you will know one from the other and can remove the extraneous text.
+この Concourse チュートリアルでは、冗長ですが、Resource 名には `resource-`を、Job 名には `job-` を接頭辞としてつけることで、学習中の理解に役立つようにしています。学習が終わったら接頭辞を外しても、双方の位置付けが明確にわかることでしょう。
 
-After manually triggering the job via the UI, the output will look like:
+Web UI を介して Job を手動で実行すると、以下のように出力されます:
 
 ![job-task-from-task](/images/job-task-from-task.png)
 
-The in-progress or newly-completed `job-hello-world` job UI has three sections:
+進行中、または新規に完了となった `job-hello-world` の Job の画面には、3つのセクションがあります:
 
-* Preparation for running the job - collecting inputs and dependencies
-* `resource-tutorial` resource is fetched
-* `hello-world` task is executed
+* Job の 実行準備 - 入力として指定したものと、依存関係の収集
+* Resource `resource-tutorial` の読み込み
+* Task `hello-world` の実行
 
-The latter two are "steps" in the job's [build plan](http://concourse-ci.org/build-plans.html). A build plan is a sequence of steps to execute. These steps may fetch down or update Resources, or execute Tasks.
+後者の2つは、Job の [build plan](http://concourse-ci.org/build-plans.html)の"ステップ"です。Build Plan は、実行する一連のステップを指します。これらのステップにおいては、Resource の読込(もしくは更新)や、Task を実行することがあります。
 
-The first build plan step fetches down (note the down arrow to the left) a `git` repository for these training materials and tutorials. The pipeline named this resource `resource-tutorial` and clones the repo into a directory with the same name. This means that later in the build-plan, we reference files relative to this folder.
+最初の Build Plan のステップでは、これらのトレーニング資料とチュートリアルのための `git` リポジトリを取得します（下の矢印に注意してください）。Pipeline はこの Resource に `resource-tutorial` という名前をつけ、同じ名前のディレクトリに Git リポジトリを clone します。 これはBuild Planで、後からこのフォルダ内のファイルを参照することを意味します。
 
-The resource `resource-tutorial` is then used in the build plan for the job:
+Resource `resource-tutorial` は、Job の Build Plan で使用されます:
 
 ```yaml
 jobs:
@@ -87,11 +87,11 @@ jobs:
   ...
 ```
 
-Any fetched resource can now be an input to any task in the job build plan. As discussed in lessons [Task Inputs](/basics/task-inputs/) and [Task Scripts](/basics/task-scripts/) task inputs can be used as task scripts.
+読み込まれた Resource は、 Job の Build Plan において、任意の Task で入力として利用できるようになります。 [Task への入力](/basics/task-inputs/) と [Task スクリプト](/basics/task-scripts/) で説明したとおり、Task への入力は Task スクリプトとして使用できます。
 
-The second step runs a user-defined task. The pipeline named the task `hello-world`. The task itself is not described in the pipeline. Instead it is described in a file `tutorials/basic/task-hello-world/task_hello_world.yml` from the `resource-tutorial` input.
+2番目のステップでは、ユーザが定義した Task を実行します。Pipeline 上では `hello-world` と命名しました。 Task の中身は Pipeline 上には記述されていませんが、その代わりに入力した `resource-tutorial` の `tutorials/basic/task-hello-world/task_hello_world.yml` に記述されています。
 
-The completed job looks like:
+Job の全体像は以下のようになっています:
 
 ```yaml
 jobs:
@@ -103,27 +103,27 @@ jobs:
     file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml
 ```
 
-The task `{task: hello-world, file: resource-tutorial/...}` has access to all fetched resources (and later, to the outputs from tasks).
+Task `{task: hello-world, file: resource-tutorial/...}` は、読み込まれたすべての Resource に（そして、他の Task から出力された出力内容にも）アクセスできます。
 
-The name of resources, and later the name of task outputs, determines the name used to access them by other tasks (and later, by updated resources).
+Resource (Task の出力内容）の名前は、他の Task や 後続の Resource がアクセスするのに用いられます。
 
-So, `hello-world` can access anything from `resource-tutorial` (this tutorial's `git` repository) under the `resource-tutorial/` path. Since the relative path of `task_hello_world.yml` task file inside this repo is `tutorials/basic/task-hello-world/task_hello_world.yml`, the `task: hello-world` references it by joining the two: `file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml`
+つまり、`hello-world` は、Resource `resource-tutorial` を通じて、`resource-tutorial/` パスの下にあるものにアクセスできるようになります。この Git リポジトリ内の `task_hello_world.yml` の相対パスは `tutorials/basic/task-hello-world/task_hello_world.yml` なので、`task: hello-world` は、これと `file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml` の2つの内容を結合した状態で参照するように動作します。
 
-There is a benefit and a downside to abstracting tasks into YAML files outside of the pipeline.
+Task を Pipeline 外の YAML ファイルとして切り出して抽象化することには、メリット/デメリット双方あります。
 
-One benefit is that the behavior of the task can be kept in sync with the primary input resource (for example, a software project with tasks for running tests, building binaries, etc).
+1つ目のメリットは、Task の動作を主要な入力元のResourceと同期させることができる点です（例えば、テストを実行する Task, バイナリをビルドする Taskなどをもつソフトウェアプロジェクトの場合など）。
 
-One downside is that the `pipeline.yml` no longer explains exactly what commands will be invoked. Comprehension of pipeline behavior is potentially reduced.
+1つ目のデメリットは、`pipeline.yml` が呼び出されるコマンドを正確には説明しなくなる点です。潜在的に、Pipeline の動作を理解するポイントが減少することになります。
 
-But one benefit of extracting inline tasks into task files is that `pipeline.yml` files can get long and it can be hard to read and comprehend all the YAML. Instead, give tasks long names so that readers can understand what the purpose and expectation of the task is at a glance.
+2つ目のメリットは、`pipeline.yml`が長くなり、YAMLファイルすべてを読み込んで理解することが難しくなるのを避ける意味もあります。代わりに、Taskに長い名前をつけることで、YAMLの読者が Task の目的と期待する動作が一目でわかるようにすると良いでしょう。
 
-But one downside of extracting inline tasks into files is that `fly set-pipeline` is no longer the only step to updating a pipeline.
+2つ目のデメリットは、`fly set-pipeline` が、Pipeline を更新する唯一の手段ではなくなってしまう、ということです。
 
-From now onwards, any change to your pipeline might require you to do one or both:
+よって、これから Pipeline を変更する際は、下記の1つ目、もしくは両方を実行する必要があります:
 
-* `fly set-pipeline` to update Concourse on a change to the job build plan and/or input/output resources
-* `git commit` and `git push` your primary resource that contains the task files and task scripts
+* `fly set-pipeline`: Job の Build Plan や 入力/出力 する Resource の Concourse 上の情報更新
+* `git commit` and `git push`: Task ファイルや Task スクリプトが含まれた主要な Git リポジトリ
 
-If a pipeline is not performing new behaviour then it might be you skipped one of the two steps above.
+Pipeline が新しい動作を実行できなかった場合、上記の2つのいずれかを飛ばしてしまった可能性があります。
 
-Due to the benefits vs downsides of the two approaches - inline task configuration vs YAML file task configuration - you will see both approaches used in this Concourse Tutorial and in the wider community of Concourse users.
+インラインな Task の構成と、YAMLファイルの Task の構成は、上述の通り、双方メリット/デメリットがあるため、このConcourseチュートリアルや Concourse コミュニティ全体で見ても、両方のアプローチが使用されています。
