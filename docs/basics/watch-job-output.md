@@ -1,19 +1,19 @@
-description: Use the fly CLI to watch the streaming output from a running job or a completed job.
+description: fly CLI を利用して、実行中(または完了済)の Job のストリーミング出力を見ることができます。
 image_path: /images/git-resource-in.png
 
 # Watch Job Output in Terminal
 
-It was very helpful that the `job-hello-world` [job build](http://127.0.0.1:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1) included the terminal output from running `git` commands to clone the git repo and the output of the running the `hello-world` task.
+`job-hello-world`の [job build](http://127.0.0.1:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1)を見ると、`git`コマンドを実行して Gitリポジトリを clone した後に、Task:`hello-world` を実行した結果が出力されており、とても分かりやすいです。
 
 ![git-resource-in](/images/git-resource-in.png)
 
-You can also view this output from the terminal with `fly watch`:
+この出力内容は、ターミナルで`fly watch`コマンドを使っても見ることができます:
 
 ```
 fly -t tutorial watch -j hello-world/job-hello-world
 ```
 
-The output will be similar to:
+出力は次のようになります:
 
 ```
 using version of resource found in cache
@@ -23,16 +23,15 @@ hello world
 succeeded
 ```
 
-The `--build NUM` option allows you to see the output of a specific build number, rather than the latest build output.
+`--build NUM`オプションは、最新の build 出力ではなく、特定の build 番号の出力を見ることができます。
 
-
-You can see the results of recent builds across all pipelines with `fly builds`:
+最近の build 結果は、すべての Pipeline を対象にした `fly builds` コマンドを使って確認します:
 
 ```
 fly -t tutorial builds
 ```
 
-The output will look like:
+出力は次のようになります:
 
 ```
 3   hello-world/job-hello-world    1      succeeded  2016-26@17:22:13+1000  2016-26@17:22:23+1000  10s
@@ -40,4 +39,4 @@ The output will look like:
 1   one-off                       n/a    succeeded  2016-26@17:13:34+1000  2016-26@17:14:11+1000  37s
 ```
 
-The `fly watch` command can also be a battery saver on your laptop. Hear me out: I've observed that watching jobs run in the Concourse Web UI uses a lot more battery power than running `fly watch` in a terminal. Your mileage may vary.
+`fly watch` コマンドは、ラップトップPCのバッテリーの節約になります。実は、Concourse Web UI で実行されているJobを見ていると、ターミナルで`fly watch`を実行するよりもバッテリー消費量が多いことが分かりました。あなたのPCでは、状態が異なる場合があるかもしれませんが。
