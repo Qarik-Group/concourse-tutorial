@@ -1,0 +1,9 @@
+applications:
+- name: concourse-tutorial
+  buildpacks: [staticfile_buildpack]
+  disk_quota: 1G
+  instances: 1
+  memory: 64M
+  routes:
+  - route: concourse-tutorial-ja.l.cfapps.io
+  stack: cflinuxfs2
