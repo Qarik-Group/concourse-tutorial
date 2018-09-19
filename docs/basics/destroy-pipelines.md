@@ -1,12 +1,11 @@
-description: How to destroy a pipeline, its jobs and resources.
+description: Pipeline、それに含まれる Job や Resource を破棄する方法について。
 
 # Destroying Pipelines
 
-The current `hello-world` pipeline will now keep triggering every 2-3 minutes forever. If you want to destroy a pipeline - and lose all its build history - then may the power be granted to you.
+今の `hello-world` Pipeline は、2〜3分ごとに永遠に起動し続けます。 あなたがパイプラインを破壊し、すべての Build 履歴を消滅させたい場合、その力があなたには与えられています。
 
-You can delete the `hello-world` pipeline:
+下記のように、`fly destroy-pipeline` コマンドで、`hello-world` Pipelineを削除することが可能です:
 
 ```
 fly -t tutorial destroy-pipeline -p hello-world
 ```
-
