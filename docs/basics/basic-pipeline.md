@@ -1,16 +1,16 @@
-description: Our first look at a 'hello world' Concourse pipeline.
+description: 'hello world' パイプラインを見てみましょう.
 image_path: /images/job-hello-world.gif
 
-# Basic Pipeline
+# ベーシックなパイプライン
 
-1% of tasks that Concourse runs are via `fly execute`. 99% of tasks that Concourse runs are within "pipelines".
+`fly execute`を利用してTaskを実行することはごくわずかです。殆どは"Pipeline"として実行されるTaskになります。
 
 ```
 cd ../basic-pipeline
 fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
 ```
 
-It will display the concourse pipeline (or any changes) and request confirmation:
+上記のコマンドを実行すると、ConcourseのPipeline(または任意の変更点)を表示し、確認を求めてきます:
 
 ```yaml
 jobs:
@@ -30,15 +30,15 @@ jobs:
           - hello world
 ```
 
-You will be prompted to apply any configuration changes each time you run `fly set-pipeline` (or its alias `fly sp`)
+`fly set-pipeline`（またはそのエイリアス`fly sp`）を実行するたびに、設定の変更を適用するよう求められます。
 
 ```
 apply configuration? [yN]:
 ```
 
-Press `y`.
+`y`を押しましょう。
 
-You should see:
+以下のようなメッセージが表示されるはずです:
 
 ```
 pipeline created!
@@ -49,47 +49,47 @@ the pipeline is currently paused. to unpause, either:
   - click play next to the pipeline in the web ui
 ```
 
-## Login to Concourse Web UI
+## Concourse の Web UI にログインする
 
-Visit the pipeline URL http://127.0.0.1:8080/teams/main/pipelines/hello-world
+パイプラインのURL http://127.0.0.1:8080/teams/main/pipelines/hello-world を開いてみましょう。
 
-It is a private pipeline and currently you are not logged in to the Concourse Web UI. You will be redirected to a login page.
+これは非公開(private)のPipelineであり、まだあなたはConcourse Web UIにログインしていない状態です。そのためログインページにリダイレクトにされます。
 
 ![dashboard-login](/images/dashboard-login.png)
 
-Click "Login" and you'll be redirected back to your pipeline.
+"Login" を押すと、Pipelineのページにリダイレクトされます。
 
-Why did you not have to enter any username/password? Excellent question, indeed. It's because your current `fly -t tutorial` deployment of Concourse has had authentication disabled. In a future lesson we will upgrade to a more robust installation of Concourse with passwords and fanciness.
+_なぜ、ユーザ名とパスワードを入力する必要がなかったのでしょう？_ 実に良い質問です。これは、Concourseの現在の`fly -t tutorial`デプロイメントでは、認証が無効になっているからです。今後のレッスンでは、パスワード認証や機能的な認証方法を備えた、より堅牢なインストール方法によって構成されたConcourseにアップグレードしていきます。
 
-## Unpausing Pipelines
+## Pipeline を unpause する
 
-Your pipeline has a blue bar across the top. This means it is paused. New pipelines start paused as you might not yet be ready for triggers to fire and start jobs running.
+WebUIを見ると、あなたのPipelineの上部に青色のバーが見えるはずです。これはpause(ポーズ)していることを意味します。すぐにTriggerが起動すると、Jobの実行を開始する準備がまだ整っていない可能性があるため、新しいPipelineはデフォルトでpauseするようになっています。
 
 ![dashboard-pipeline-paused](/images/dashboard-pipeline-paused.png)
 
-There are two ways to unpause (or re-pause) a pipeline.
+Pipelineをunpause(ポーズ解除)するには（または再度pauseするには)、2通りの方法があります。
 
-1. Open the hamburger menu and click the `>` unpause/play button for your pipeline. Then click the hamburger menu icon to close the sidebar of pipelines.
+1. ハンバーガーメニューを開き、あなたのパイプラインの `>` (一時停止/再生ボタン) をクリックしてください。マークが変わったらハンバーガーメニューアイコンをクリックして、パイプラインのサイドバーを閉じてください。
 
     ![dashboard-hamburger-menu](/images/dashboard-hamburger-menu.png)
 
-    
-
-2. Using the `fly unpause-pipeline` command (or its alias `fly up`):
+2. `fly unpause-pipeline` コマンドでも可能です (またはそのエイリアス`fly up`):
 
     ```
     fly -t tutorial unpause-pipeline -p hello-world
     fly -t tutorial unpause-job --job hello-world/job-hello-world
     ```
 
-## First Pipeline
+## はじめての Pipeline
 
-This first pipeline is unimpressive - a single job `job-hello-world` with no inputs from the left and no outputs to its right, no jobs feeding into it, nor jobs feeding from it. It is the most basic pipeline. The job is gray colour because it has never been run before.
+この1つめの Pipeline は、左からの入力、右への出力、いずれも持たない単一の Job:`job-hello-world` によって構成された、やや面白みに欠けるものです。
 
-Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
+これはもっともベーシックな Pipeline です。まだ1度も実行されていないため、Job は灰色になっています。
+
+`job-hello-world`をクリックして、 右上にある大きな`+`ボタンをクリックしましょう。Job が走り始めます。
 
 ![job](/images/job-hello-world.gif)
 
-Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
+左上の家の形をしたアイコンをクリックすると、Pipelineのステータスを見ることができます。 Job:`hello-world`を見ると緑色になっているはずです。これは、Jobが最後に実行されたときに、Jobが正常に完了したことを表しています。
 
-Note: this animated gif has aged slightly. The current Concourse Web UI looks slightly different.
+注: このアニメーションGIFは若干古いものです。現在のConcourse Web UI は 少し違う表示になっています。
