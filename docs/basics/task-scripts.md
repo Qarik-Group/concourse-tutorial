@@ -1,42 +1,41 @@
-description: Task scripts are typically passed in from one of the inputs.
+description: Taskスクリプトは通常、入力の1つから渡されます。
 
 # Task Scripts
 
-The `inputs` feature of a task allows us to pass in two types of inputs:
+Taskの`inputs`は、2種類の入力を渡すことができます:
 
-* requirements/dependencies to be processed/tested/compiled
-* task scripts to be executed to perform complex behavior
+* 処理/テスト/コンパイル される 要件/依存関係
+* 複雑な処理を実行するために予め実行されるTaskスクリプト
 
-A common pattern is for Concourse tasks to `run:` complex shell scripts rather than directly invoking commands as we did above (we ran `uname` command with arguments `-a`).
+Concourse Taskの一般的なパターンは、前セクションで行なった(`uname`コマンドを引数` -a`で実行するような)"直接コマンドを呼び出す"ものではなく、"複雑なシェルスクリプトを`run: `する" ものです。
 
-Let's refactor `task-hello-world/task_ubuntu_uname.yml` into a new task `task-scripts/task_show_uname.yml` with a separated task script `task-scripts/task_show_uname.sh`
+では、複製済のTaskスクリプト `task-scripts/task_show_uname.sh`を使って、` task-hello-world/task_ubuntu_uname.yml`を、新しいTask `task-scripts/task_show_uname.yml`にリファクタリングしましょう。
 
 ```
 cd ../task-scripts
 fly -t tutorial e -c task_show_uname.yml
 ```
 
-The former specifies the latter as its task script:
+`task-scripts/task_show_uname.yml`は、Taskスクリプトとして`task-scripts/task_show_uname.sh`を指定します:
 
 ```yaml
 run:
   path: ./task-scripts/task_show_uname.sh
 ```
 
-_Where does the `./task-scripts/task_show_uname.sh` file come from?_
+_`./task-scripts/task_show_uname.sh`ファイルはどこから持ってきたのですか?_
 
-From section 2 we learned that we could pass `inputs` into the task. The task configuration `task-scripts/task_show_uname.yml` specifies one input:
+セクション"Task Inputs"で、私たちは入力をTaskに渡すことができることを学びました。Task設定`task-scripts/task_show_uname.yml`は1つの入力を指定します:
 
 ```
 inputs:
 - name: task-scripts
 ```
 
-Since input `task-scripts` matches the current directory `task-scripts` we did not need to specify `fly execute -i task-scripts=.`.
+入力 `task-scripts`はカレントディレクトリ`task-scripts`と同じなので、`fly execute -i task-scripts=.`を指定する必要はありませんでした。
 
-The current directory was uploaded to the Concourse task container and placed inside the `task-scripts` directory.
+カレントディレクトリはConcourseのTaskコンテナにアップロードされ、 `task-scripts`ディレクトリの中に置かれました。
 
-Therefore its file `task_show_uname.sh` is available within the Concourse task container at `task-scripts/task_show_uname.sh`.
+したがって、そのファイル`task_show_uname.sh`は`task-scripts/task_show_uname.sh`のConcourseタスクコンテナ内で利用可能になるのです。
 
-The only further requirement is that `task_show_uname.sh` is an executable script.
-
+ここでの唯一の要件は、`task_show_uname.sh`が実行可能なスクリプトであることです。
