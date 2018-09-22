@@ -61,13 +61,8 @@ In the spirit of declaring absolutely everything you do to get absolutely the sa
 
 First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts).
 
-When prompted for local username/password use:
-
-* username: admin
-* password: admin
-
 ```plain
-fly --target tutorial login --concourse-url http://127.0.0.1:8080
+fly --target tutorial login --concourse-url http://127.0.0.1:8080 -u admin -p admin
 fly --target tutorial sync
 ```
 
