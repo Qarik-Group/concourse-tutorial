@@ -52,7 +52,7 @@ fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-nam
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
-出力は、`-v`フラグで指定した変数が、Task:`show-animal-names` の `params` セクションに渡されたことを表しています。`params` セクションの値は、Task 内での環境変数になっています:
+出力は、`-v` フラグで指定した変数が、Task:`show-animal-names` の `params` セクションに渡されたことを表しています。`params` セクションの値は、Task 内での環境変数になっています:
 
 ```
 initializing
@@ -66,7 +66,7 @@ USER=root
 
 ## Parameters from local file
 
-また、パラメータの値をローカルファイルを使って渡すこともできます。
+また、パラメータ値をローカルファイルを使って渡すこともできます。
 
 ```bash
 cat > credentials.yml <<YAML
