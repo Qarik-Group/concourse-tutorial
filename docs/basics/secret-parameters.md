@@ -118,7 +118,7 @@ fly -t bucc trigger-job -j parameters/show-animal-names -w
 
 ## Rotating Secrets
 
-Concourse 資格情報マネージャ の大きな特徴は、(Cloud Foundry Credhub や Hashicorp Vault のいずれを利用していても) パラメータ/秘密情報を更新した場合、次回の Job の実行時に、新しい値を自動的に利用するようになっている点にあります。
+Concourse の資格情報マネージャ連携の大きな特徴は、(Cloud Foundry Credhub や Hashicorp Vault のいずれを利用していても) パラメータ/秘密情報を更新した場合、次回の Job の実行時に、新しい値を自動的に利用するようになっている点にあります。
 
 ```plain
 credhub set -n /concourse/main/cat-name --type value --value milo
