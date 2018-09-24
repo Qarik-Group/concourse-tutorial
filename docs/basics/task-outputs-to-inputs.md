@@ -1,24 +1,26 @@
-description: A task's 'inputs' can also come from the 'outputs' of previous tasks. All a task needs to do is declare that it publishes 'outputs', and subsequent steps can consume those as 'inputs' by the same name.
+description: Task の `inputs` は、前までに実行された Task の `outputs` から利用することもできます。Task が出力を発行すると宣言しておけば、後続のステップで同じ名前を指定することで、`inputs` として使用することができるのです。
 image_path: /images/pass-files.png
 
 # Passing Task Outputs to Task Inputs
 
-In the [previous lesson](/basics/job-inputs/) our task `web-app-tests` consumed an input resource and ran a script that ran some unit tests. The task did not create anything new. Some tasks will want to create something that is then passed to another task for further processing (this lesson); and some tasks will create something that is pushed back out to the external world ([next lesson](/basics/publishing-outputs/)).
+[前のレッスン](/basics/job-inputs/) の Task:`web-app-tests` は、入力 Resource を消費し、いくつかのユニットテストを実行しました。この Task では、新しいものは生成しませんでしたが、Taskによっては(このレッスンで扱う Task のことです)、あとで処理するために何か別の Task に渡すものを作成したいと考えるでしょう。そして時には Concourse の外へ渡すことも考えられます([次のレッスン](/basics/publishing-outputs/)で扱います)。
 
-So far our pipelines' tasks' inputs have only come from resources using `get: resource-tutorial` build plan steps.
+これまで私たちが見てきた Pipeline の Task の入力は、`get: resource-tutorial` の build plan ステップを利用する Resource からきているものだけでした。
 
-A task's `inputs` can also come from the `outputs` of previous tasks. All a task needs to do is declare that it publishes `outputs`, and subsequent steps can consume those as `inputs` by the same name.
+Task の `inputs` は、前までに実行された Task の `outputs` から利用することもできます。Task が出力を発行すると宣言しておけば、後続のステップで同じ名前を指定することで、`inputs` として使用することができるのです。
 
-A task file declares it will publish outputs with the `outputs` section:
+Task ファイルは `outputs` セクションで、出力を公開することを宣言します:
 
 ```
 outputs:
 - name: some-files
 ```
 
-If a task included the above `outputs` section then its `run:` command would be responsible for putting interesting files in the `some-files` directory.
+Task が上のような `outputs` セクションを含んでいた場合、`run：` コマンドは何かしらのファイルを `some-files` ディレクトリに入れる必要があります。
 
-Subsequent tasks (discussed in this section) or resources (discussed in the next section) could reference these interesting files within the `some-files/` directory.
+後の Task (このセクションで触れます)や Resource (次のセクションで触れます)は、`some-files/` ディレクトリの中に生成された如何なるファイルも参照できます。
+
+後のタスク（このセクションで説明する）やリソース（次のセクションで説明する）は、 `some-files /`ディレクトリ内の興味深いファイルを参照できます。
 
 ```
 cd ../task-outputs-to-inputs
@@ -27,13 +29,13 @@ fly -t tutorial up -p pass-files
 fly -t tutorial trigger-job -j pass-files/job-pass-files -w
 ```
 
-In this pipeline's `job-pass-files` there are two task steps `create-some-files` and `show-some-files`:
+この Pipeline の `job-pass-files` には、`create-some-files`、`show-some-files` の2つの Task のステップがあります:
 
 ![pass-files](/images/pass-files.png)
 
-The former creates 4 files into its own `some-files/` directory. The latter gets a copy of these files placed in its own task container filesystem at the path `some-files/`.
+前者は4つのファイルを `some-files/` ディレクトリに作成します。 後者は、これらのファイルのコピーを `some-files/`のパスにある独自の Task コンテナのファイルシステムに入れます。
 
-The pipeline build plan only shows that two tasks are to be run in a specific order. It does not indicate that `some-files/` is an output of one task and used as an input into the next task.
+Pipeline の build plan では、2つの Task を特定の順序で実行することのみが示されています。 `some-files/`は、ある Task の出力であり、次の Task への入力として使われることを直接的には示していません。
 
 ```yaml
 jobs:
@@ -64,12 +66,10 @@ jobs:
 
 ```
 
-Note, task `create-some-files` build output includes the following error:
+注: `create-some-files` の 出力結果には、下記のエラーが含まれています:
 
 ```
 mkdir: can't create directory 'some-files': File exists
 ```
 
-This is a demonstration that if a task includes `outputs` then those output directories are pre-created and do not need creating.
-
-
+これは、Task に `outputs`が含まれている場合、それらの出力ディレクトリが事前に作成され、作成する必要がないというデモンストレーションです。

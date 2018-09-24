@@ -17,7 +17,7 @@ Concourseにあらかじめビルドイン(組み込み)されている Resource
 
 Task ファイルと Task スクリプトを保存する最も一般的な Resource Type は `git` Resource Type です。もしくは、Taskファイル を AWS S3上から `s3` Resource Type を介して入手することもできます。また、`archive` Resource Type を使用してリモートアーカイブファイルからそれらを抽出することも可能です。あるいは、Task ファイルを `image_resource`ベースのDockerImageに入れておくこともできるでしょう。とは言えほとんどの場合は、`git` Resource を使用して Pipeline の Task ファイルを取得することになるでしょう。
 
-このチュートリアルのソースリポジトリは Git リポジトリで、多くの Task ファイル（と Task スクリプト）が含まれています。例えば、オリジナルは　`tutorials/basic/task-hello-world/task_hello_world.yml`です。
+このチュートリアルのソースリポジトリは Git リポジトリで、多くの Task ファイル（と Task スクリプト）が含まれています。例えば、オリジナルは `tutorials/basic/task-hello-world/task_hello_world.yml`です。
 
 Gitリポジトリをpullするには、YAMLファイル `pipeline.yml` のトップレベルセクションに `resources` として追加します:
 
