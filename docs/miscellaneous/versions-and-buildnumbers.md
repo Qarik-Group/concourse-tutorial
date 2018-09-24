@@ -1,47 +1,49 @@
 # Versioning and Build Numbers
 
-The title of this section mentions "build numbers" because they are a common concept in other CI/CD systems. A sequentially incrementing number that can be used to differentiate by-products/updated resources. Concourse does not have them. There is no "build number" concept in Concourse that is available to your pipelines, jobs, and their steps.
+このセクションのタイトルには、他の CI/CD システムの共通概念であるため、"ビルドナンバー"が記載されています。一般には、プロダクトや更新された Resourceを区別するために用いられる単純増を繰り返す番号のことを指しますが、Concourse では、Pipeline, Job, およびそのステップで使用できる"ビルドナンバー"の概念はありません。
 
-Instead, we have the flexible concept of the [`semver` resource type](https://github.com/concourse/semver-resource#readme) and all the flexibility of Concourse to determine when to increment a `semver` value and by how much.
+代わりに、[`semver` Resource Type](https://github.com/concourse/semver-resource#readme) の柔軟なコンセプトと、Concourse 本来の柔軟性を以って、いつ`semver` の値を増やすか、どれだけ増やすかを決定していきます。
 
 ## SemVer - Semantic Versioning
 
-`semver` is short for "semantic versioning" and is documented at http://semver.org/. In summary,
+`semver` とは、"semantic versioning" の略で、http://semver.org/ で文書化されています。要約すれば、
 
-Given a version number `MAJOR.MINOR.PATCH`, such as `1.3.5`, increment the:
+1.3.5 などのバージョン番号 `MAJOR.MINOR.PATCH` が与えられた場合、
 
-* MAJOR version when you make incompatible API changes,
-* MINOR version when you add functionality in a backwards-compatible manner, and
-* PATCH version when you make backwards-compatible bug fixes.
+* 互換性のないAPIの変更を行う場合は MAJOR(メジャー) バージョン
+* 下位互換性のある機能を追加する場合は MINOR(マイナー) バージョン
+* 下位互換性のあるバグ修正を行う場合は PATCH(パッチ) バージョン
 
-Additional labels for pre-release and build metadata are available as extensions to the `MAJOR.MINOR.PATCH` format.
+のように、増加するバージョンを決定していきます。
 
-Instead of a monotonically increasing internal build number, with a `semver` resource type you can control the meaning to your version numbers.
+プレリリース用の追加ラベルとビルドメタデータは、 `MAJOR.MINOR.PATCH` フォーマットの拡張として利用できます。
 
-If you don't care about the semantic meaning of your `semver` resource type, then start at `0.0.1` and bump the PATCH version only. One day you'll have a value of `0.0.5000` and still have the ability to bump the MINOR value to `0.1.0`.
+単調に増加する内部ビルド番号の代わりに、`semver` Resource Type を使用すると、バージョン番号の意味付けをコントロールできるのです。
+
+`semver` Resource Type のセマンティックな意味を気にしない場合は、` 0.0.1`で起動し、PATCH バージョンのみをバンプします。そのうち、`0.0.5000` の値から MINOR バージョンの値を` 0.1.0` にバンプするなどといったことも可能です。
 
 ## Storing the SemVer Value
 
-The simplicity of SemVer within Concourse is that is a simple file stored remotely and made available within a `version` file within your Concourse steps.
+Concourse における SemVer のシンプルさは、リモートで保存されたシンプルなファイルにあり、Concourse ステップの `version` ファイル内で利用可能になっています。
 
-The complexity is in deciding how and where to store the version file.
+複雑なポイントとしては、その `version` ファイルをどこに格納するか決める必要がある点です。
 
-The https://github.com/concourse/semver-resource source project offers the following "how" drivers for storing your SemVer value file:
+https://github.com/concourse/semver-resource ソースプロジェクトでは、SemVer ファイルを格納するための以下の "how" ドライバを提供しています:
 
 * [`git`](https://github.com/concourse/semver-resource#git-driver)
 * [`s3`](https://github.com/concourse/semver-resource#s3-driver)
 * [`swift`](https://github.com/concourse/semver-resource#swift-driver)
 * [`gcs`](https://github.com/concourse/semver-resource#gcs-driver)
 
-Nearly all Concourse pipelines will be using a remote `git` repository already for task scripts, so it is convenient to reuse that git project to store a SemVer version file. But it is not common to see this use case of `semver` resource type.
+ほぼすべての Concourse Pipeline は、既に Task スクリプト用のリモート `git` リポジトリを使用しているので、そのgit プロジェクトを再利用して SemVer バージョンファイルを保存すると便利です。 しかし、このケースはあまりメジャーではありません。
 
-Instead, most Concourse pipelines are already using an `s3`, `swift`, or `gcs` bucket for handling other larger assets, so it is convenient and simpler to reuse that bucket to store a single SemVer version file.
+代わりに、大部分の Concourse Pipeline は、既に他の大きなアセットを扱うために `s3`, `swift`, `gcs` バケットなどを使用していることが多いので、そのバケットを再利用して、1つの SemVer バージョンファイルを保存するのが便利で簡単です。
 
-We only need to discuss one of the drivers to cover the topic of the `semver` resource type. The documentation for each is linked above for how to configure them. Since AWS S3 is relatively common and accessible to many Concourse Tutorial readers I will use the `s3` driver as an example.
+私たちは、`semver` Resource Type のトピックをカバーするためにドライバの1つについて話し合うだけです。各ドキュメント、それらの設定方法について上記リンクにありますのでご参照ください。AWS S3は比較的一般的で、多くの Concourse チュートリアルの読者がアクセスできるので、ここでは例として `s3` ドライバを使用します。
 
-## Create an AWS S3 bucket
+## AWS S3 バケットを作成する
 
-Create or repurpose some AWS API credentials that have access to AWS S3. If you're a user of the `aws` CLI, then you can find some in `~/.aws/credentials`:
+AWS S3にアクセスできるAWS APIの資格情報を作成または再利用します。 あなたが `aws` CLIのユーザであれば、`~/.aws/credentials` から見つけられるでしょう:
 
 ```
 [youraccount]
@@ -49,30 +51,30 @@ aws_access_key_id = ACCESS_KEY
 aws_secret_access_key = ACCESS_SECRET
 ```
 
-Add these to your Credhub. Assuming you'll reuse the same credentials for different pipelines you could make them common for all pipelines in the `main` team.
+これらをあなたの Credhub に追加してください。異なる Pipeline に同じ資格情報を再利用すると仮定すると、`main` Team のすべての Pipeline で共通のものにすることができます。
 
-Remember to run `bucc credhub` within your `bucc` project to re-authenticate with Credhub.
+`bucc` プロジェクト内で `bucc credhub` を実行し、Credhub で再認証することを忘れないでください。
 
 ```
 credhub set -n /concourse/main/aws-access-key-id     -t value -v ACCESS_KEY
 credhub set -n /concourse/main/aws-secret-access-key -t value -v ACCESS_SECRET
 ```
 
-Using the [AWS S3 web UI](https://console.aws.amazon.com/s3/home?region=us-east-1) or the `aws` CLI create a new bucket (or repurpose an existing bucket related to your pipeline).
+[AWS S3 web UI](https://console.aws.amazon.com/s3/home?region=us-east-1) または `aws` CLI を利用して、新しいバケットを作成します(もしくは、あなたの Pipeline に関連のあるバケットを再利用しても良いでしょう)。
 
-Change `concourse-tutorial-versions-lesson` below as your bucket name needs to be globally unique, and I took this one.
+あなたのバケット名はグローバルでユニークである必要があるので、以下の `concourse-tutorial-versions-lesson` の部分をお好きな文字列に変更してください。私はこれを取りました。
 
 ```
 aws --profile youraccount s3 mb s3://concourse-tutorial-versions-lesson
 ```
 
-Now store your bucket name into Credhub. Typically you might hardcode the bucket name into your `pipeline.yml`. It is a parameter variable in these lessons because it will be different for all readers.
+バケット名を Credhub に保存します。 通常は、バケット名を `pipeline.yml`にハードコードすることもできます。これらのレッスンのパラメータ変数は、すべての読者で異なるためです。
 
 ```
 credhub set -n /concourse/main/versions-and-buildnumbers/version-aws-bucket -t value -v concourse-tutorial-versions-lesson
 ```
 
-You can now add a `version` resource to your pipeline:
+これで、Pipeline に `version` Resource を追加することができます:
 
 ```yaml
 resources:
@@ -90,7 +92,7 @@ resources:
 
 ## Display Version
 
-If a step of your pipeline needs to know the current `semver` value you simply `get: version`:
+あなたの Pipeline のステップが、現在の `semver` のバージョン番号を取得する必要がある場合、シンプルに `get:version` します:
 
 ```yaml
 jobs:
@@ -106,7 +108,7 @@ jobs:
         args: [version/number]
 ```
 
-The `version` resource will store the current SemVer value in a file `number`. Therefore subsequent steps can look up the value within the file path `version/number`.
+`version` Resource は、現在の SemVer の値を `number` ファイルに保存します。よって後続のステップは、ファイルパス `version/number` 内の値を参照することができるようになります。
 
 ```
 cd tutorials/mischellaneous/versions-and-buildnumbers
@@ -115,30 +117,32 @@ fly -t bucc up -p versions-and-buildnumbers
 fly -t bucc trigger-job -j versions-and-buildnumbers/display-version -w
 ```
 
-The job will look delightful in the Concourse dashboard:
+Concourse の WebUI を見ると、その Job の動作が楽しくなることうけあいです:
 
 ![semver-display-version](/images/semver-display-version.png)
 
 ## Bumping the Version
 
-Whilst you could manually create and modify the `version` file outside of Concourse, typically you will bump the version within Concourse jobs: automatically at the start of jobs (say pre-release or release-candidate versions), or manually when preparing to release `MAJOR.MINOR.PATCH` releases.
+Concourse 外で `version` ファイルを手作業で作成し変更することもできますが、一般的には Concourse Job の中でバージョンをバンプします(Job の開始時には自動でプレリリース版やリリース候補版などのバージョンにバンプし、`MAJOR.MINOR.PATCH` のリリース準備時だけは手作業で...といった具合です)。
 
-The `semver` resource type can be bumped when it is first fetched down. See [examples](https://github.com/concourse/semver-resource#example).
+`semver` Resource Type は、最初に fetch されるときにバンプすることができます。 [examples](https://github.com/concourse/semver-resource#example) を参照してください。
 
-Its new value only exists within the job's build plan, being passed between containers via `inputs` into tasks.
+その新しいバージョン値は、Job の build plan の中にのみ存在し、コンテナ間で Task に `inputs` を介して渡されます。
 
 ![bump-version](/images/bump-version.png)
 
-There are [two options](https://github.com/concourse/semver-resource#version-bumping-semantics) for bumping a `semver` value when fetching it:
+fetch する際に、`semver` の値をバンプするための [2つのオプション](https://github.com/concourse/semver-resource#version-bumping-semantics) があります:
 
-* `bump`: Optional. Bump the version number semantically. The value must be one of:
-  * `major`: Bump the major version number, e.g. `1.0.0` -> `2.0.0`.
-  * `minor`: Bump the minor version number, e.g. `0.1.0` -> `0.2.0`.
-  * `patch`: Bump the patch version number, e.g. `0.0.1` -> `0.0.2`.
-  * `final`: Promote the version to a final version, e.g. `1.0.0-rc.1` -> `1.0.0`.
-* `pre`: Optional. When bumping, bump to a prerelease (e.g. `rc` or `alpha`), or bump an existing prerelease.
+* `bump`: 任意。 指定した部分でバージョン番号をバンプします。次のいずれか1つで指定してください:
+  * `major`: メジャーバージョンをバンプします。 例) `1.0.0` -> `2.0.0`
+  * `minor`: マイナーバージョンをバンプします。 例) `0.1.0` -> `0.2.0`.
+  * `patch`: パッチバージョンをバンプします。 例) `0.0.1` -> `0.0.2`.
+  * `final`: バージョンを最終バージョンとして昇格します。 例) `1.0.0-rc.1` -> `1.0.0`.
+* `pre`: 任意。バンプの際に、プレリリース(例: `rc`, `alpha`)や、 すでに存在するプレリリースにバンプします。
 
 In the pipeline example above we `pre` bumped the `rc` number:
+
+上の Pipeline の例では、`rc` ナンバーを `pre` でバンプしています:
 
 ```yaml
 plan:
@@ -146,7 +150,7 @@ plan:
   params: {pre: rc}
 ```
 
-A subsequent step could then save this new value back to the remote `s3` version file:
+その次のステップでは、この新しい値をリモートの `s3` バージョンファイルに保存することができます:
 
 ```yaml
 plan:
@@ -156,7 +160,7 @@ plan:
   params: {file: version/number}
 ```
 
-Apply this change to our pipeline, and trigger the `bump-version` job a few times to see it increment the `0.0.1-rc.3` value:
+この変更を Pipeline に適用してから、Job: `bump-version` を数回起動し、`0.0.1-rc.3`まで値が増加することを確認してみましょう:
 
 ```
 fly -t bucc sp -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
@@ -165,13 +169,13 @@ fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 ```
 
-Run the job to see the output in the image above.
+Job を実行して、上記の画像のように出力結果を確認してみましょう。
 
 ## Delete And Restore Pipeline
 
-Since all Concourse resources are stored outside of your Concourse, it becomes very easy to migrate pipelines or perform disaster recovery.
+Concourse の Resource はすべて Concourse の外に保存されるため、Pipeline の移行や、ディザスタリカバリが非常に簡単です。
 
-Delete your pipeline and recreate it:
+パイプラインを削除して再作成してみます:
 
 ```
 fly -t bucc destroy-pipeline -p versions-and-buildnumbers
@@ -181,6 +185,6 @@ fly -t bucc up -p versions-and-buildnumbers
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 ```
 
-Our new pipeline will start its internal build numbers at `#1` again, but it restores the previous `version` value.
+新しい Pipeline は、`#1` として内部ビルドナンバーを再開していますが、以前の `version` の値は変わらず復元されていることが分かります。
 
 ![bump-version-restoration](/images/bump-version-restoration.png)
