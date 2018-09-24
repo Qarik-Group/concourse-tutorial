@@ -65,7 +65,7 @@ Windowsユーザの方は, [この記事](https://stackoverflow.com/questions/23
 まず、`tutorial`という名前でエイリアスを作ります。（この名前はチュートリアルすべてのタスクスクリプトで利用します）:
 
 ```plain
-fly --target tutorial login --concourse-url http://127.0.0.1:8080
+fly --target tutorial login --concourse-url http://127.0.0.1:8080 -u admin -p admin
 fly --target tutorial sync
 ```
 

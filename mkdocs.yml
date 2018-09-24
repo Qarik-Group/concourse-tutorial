@@ -46,12 +46,14 @@ theme:
 markdown_extensions:
   - admonition
   - codehilite
-  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.betterem:
+      smart_enable: all
   - pymdownx.critic
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.superfences
-  - toc(permalink=true)
+  - toc:
+      permalink: true
 
 repo_name: 'help fix the tutorials'
 repo_url: 'https://github.com/starkandwayne/concourse-tutorial'
