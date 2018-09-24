@@ -5,5 +5,6 @@ applications:
   instances: 1
   memory: 64M
   routes:
+  - route: concourse-tutorial-ja.cfapps.io
   - route: concourse-tutorial-ja.l.cfapps.io
   stack: cflinuxfs2
