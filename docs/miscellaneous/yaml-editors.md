@@ -1,28 +1,36 @@
 # Editors for Pipeline and Task yml's
 
-As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, indentation and missed parameters causes error when pipeline line is set/executed. You can use [`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline.html) to verify but it would be better if we can have editors highlighing the error much before in development. This would be similar to IDE's highlighing syntax errors. This section will list editors you can use to edit yml's for concourse pipleines and tasks. 
+Pipeline のサイズが大きくなると、ymlを編集するのが非常に難しくなります。 また、インデントやパラメータ不足は、パイプラインを設定/実行するとエラーになります。確認するには[`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline.html) を使うことができますが、開発前にあらかじめエラーを即ハイライトしてくれるエディタがあると捗ります。これは、IDEの構文エラーのハイライト機能に近いものです。 このセクションでは、Concourse の Pipeline と Task の yml の編集に使用できるエディタをリストアップします。
 
 ## Visual Studio Code
 ---------------------
 ![vscode](/images/vscode-concourse.png)
 
-You can use Visual Studio code, which is free to download [`here`](https://code.visualstudio.com/download) to edit the pipeline and task yml's. Once downloaded, you can install Concourse CI Pipeline Editor [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse). Provides validation and content assist for Concourse CI pipeline and task configuration yml files. This also auto suggests parameters and syntax errors. 
+ [`ここ`]（https://code.visualstudio.com/download）から Visual Studio Code をダウンロードし、Pipeline と Task の yml を自由に編集することができます。ダウンロードしたら、Concourse CI Pipeline Editor を [`ここ`]（https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse）からインストールしましょう。 Concourse CI の Pipeline および Task 設定の yml ファイルのバリデーションとコンテンツアシストを提供します。これはパラメータや構文エラーを自動的にサジェストしてくれる機能です。
 
-### Functionality
-Some of the functionality include:
-#### Validation
-As you type the text is parsed and checked for basic syntactic and structural correctness. Hover over an error marker to see an explanation
+### 機能
 
-#### Content assist
-Having trouble remembering all the names of the attributes, and their spelling? Or can't remember which resource properties to set in the get task params versus its source attributes? Or don't remember what 'special' values are acceptable for a certain property? Content assist to the rescue
-#### Documentation Hovers
-Having trouble remembering exactly what the meaning of each attribute is? Hover over an attribute and read its detailed documentation
+機能は次のとおりです:
 
-You can find more info and limitations in the plugin page [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse)
+#### バリデーション
+
+タイピングするとテキストがパースされ、基本的な構文上および構造上の正確性がチェックされます。説明を表示したい時は、エラーマーカーにカーソルを合わせます。
+
+#### コンテンツアシスト
+
+属性のすべての名前やそのスペルを覚えられないと思ったことはありませんか？
+または、取得する Task のパラメータと、ソース属性のどちらに設定するResource プロパティだったかを覚えられないといったことはありませんでしたか？ または、特定のプロパティに「特別な」値が受け入れ可能であることを忘れていたことはありませんか？ コンテンツアシストは、これらに対する解決方法です。
+
+#### ホバードキュメント
+
+各属性の意味が何であるかを正確に覚えられないと思ったことはありませんか？ そういった場合、属性にカーソルを置いて詳細なドキュメントを読むことができます。
+
+[`この`]（https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse）プラグインのページで、さらに詳細な情報と制限事項を確認できます。
+
 ## Atom
 ---------------------
 ![atom](/images/atom-concourse.gif)
 
-You can use Atom, which is free to download [`here`](https://atom.io) to edit the pipleine and task yml's. Once downloaded, you can install concourse-vis [`here`](https://atom.io/packages/concourse-vis). This is a plugin to preview Concourse pipelines in Atom. One additional advantage with Atom is that it provides concourse pipeline preview before using `set-pipeline`, which is very cool.
+[`ここ`](https://atom.io) から Atom をダウンロードし、Pipeline と Task の yml を自由に編集することができます。ダウンロードしたら、concourse-vis プラグインを[`ここ`]（https://atom.io/packages/concourse-vis）からインストールしましょう。これは、Atom 上で Concourse Pipeline をプレビューするためのプラグインです。Atom のもう一つの利点は、`set-pipeline` を使う前に、超クールに Concourse Pipeline のプレビューを確認できる点です。
 
-You can find more info and limitations in the plugin page [`here`](https://atom.io/packages/concourse-vis)
+[`この`]（https://atom.io/packages/concourse-vis）プラグインのページで、さらに詳細な情報と制限事項を確認できます。
