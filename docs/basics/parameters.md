@@ -75,7 +75,7 @@ dog-name: odie
 YAML
 ```
 
-このファイルを `-v`フラグの代わりに渡すには、` --load-vars-from` フラグ（エイリアス: `-l`）を使います。次のコマンドは、結果の Pipeline の YAML が同じなため、前の手順から Pipeline は変更されていないことに注意してください。
+このファイルを `-v` フラグの代わりに渡すには、` --load-vars-from` フラグ（エイリアス: `-l`）を使います。次のコマンドは、結果の Pipeline の YAML が同じなため、前の手順から Pipeline は変更されていないことに注意してください。
 
 ```
 fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
