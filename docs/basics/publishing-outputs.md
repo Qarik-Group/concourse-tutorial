@@ -45,6 +45,7 @@ resources:
 ```
 
 Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registered with github) into the `private_key` section.
+_Note: Please make sure that the key used here is not generated using a passphrase. Otherwise, the key will not be accepted and you would get an error._
 
 Update the pipeline, force Concourse to quickly re-check the new Gist credentials, and then run the job:
 
