@@ -22,15 +22,13 @@ The `pipeline.yml` does not yet have a git repo nor its write-access private key
 
 ![gist](/images/gist.png)
 
-Copy the "SSH" git URL:
+Click the "Embed" dropdown, select "Cone via SSH", and copy the git URL:
 
 ![ssh](/images/ssh.png)
 
-And paste it into the `pipeline.yml` file:
+And modify the `resource-git` section of `pipeline.yml`:
 
 ```
----
-resources:
 - name: resource-gist
   type: git
   source:
