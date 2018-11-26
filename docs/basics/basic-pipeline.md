@@ -59,8 +59,6 @@ It is a private pipeline and currently you are not logged in to the Concourse We
 
 Click "Login" and you'll be redirected back to your pipeline.
 
-Why did you not have to enter any username/password? Excellent question, indeed. It's because your current `fly -t tutorial` deployment of Concourse has had authentication disabled. In a future lesson we will upgrade to a more robust installation of Concourse with passwords and fanciness.
-
 ## Unpausing Pipelines
 
 Your pipeline has a blue bar across the top. This means it is paused. New pipelines start paused as you might not yet be ready for triggers to fire and start jobs running.
