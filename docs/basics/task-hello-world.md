@@ -7,7 +7,7 @@ image_path: /images/build-output-hello-world.png
 The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
 
 ```
-git clone https://github.com/starkandwayne/concourse-tutorial
+git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial/tutorials/basic/task-hello-world
 fly -t tutorial execute -c task_hello_world.yml
 ```
