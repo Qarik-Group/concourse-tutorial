@@ -19,7 +19,7 @@ executing build 1 at http://127.0.0.1:8080/builds/1
 initializing
 ```
 
-Every task in Concourse runs within a "container" (as best available on the target platform). The `task_hello_world.yml` configuration shows that we are running on a `linux` platform using the `busybox` container image.  You will see it downloading a Docker image `busybox`. It will only need to do this once; though will recheck every time that it has the latest `busybox` image.
+Every task in Concourse runs within a "container" (as best available on the target platform). The `task_hello_world.yml` configuration shows that we are running on a `linux` platform using the `busybox` container image. This file is saved under concourse-tutorial/tutorials/basic/task-hello-world. You will see it downloading a Docker image `busybox`. It will only need to do this once; though will recheck every time that it has the latest `busybox` image.
 
 Within this container it will run the command `echo hello world`.
 
