@@ -7,7 +7,7 @@ The `inputs` feature of a task allows us to pass in two types of inputs:
 * requirements/dependencies to be processed/tested/compiled
 * task scripts to be executed to perform complex behavior
 
-A common pattern is for Concourse tasks to `run:` complex shell scripts rather than directly invoking commands as we did above (we ran `uname` command with arguments `-a`).
+A common pattern is for Concourse tasks to `run:` complex shell scripts rather than directly invoking commands as we did in the [Hello World tutorial](/basics/task-hello-world/#task-docker-images) (we ran `uname` command with arguments `-a`).
 
 Let's refactor `task-hello-world/task_ubuntu_uname.yml` into a new task `task-scripts/task_show_uname.yml` with a separated task script `task-scripts/task_show_uname.sh`
 
