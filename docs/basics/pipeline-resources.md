@@ -3,7 +3,7 @@ image_path: /images/resource-job.gif
 
 # Pipeline Resources
 
-It is very fast to iterate on a job's tasks by configuring them in the `pipeline.yml` YAML file. You edit the `pipeline.yml`, run `fly set-pipeline`, and the entire pipeline is updated atomically.
+It is very fast to iterate on a job's tasks by configuring them in the `pipeline.yml` YAML file. You edit the `pipeline.yml`, run `fly set-pipeline`, and the entire pipeline is updated automatically.
 
 The initial lessons introduced Tasks as standalone YAML files (which can be run via `fly execute`). Our `pipeline.yml` YAML files can be refactored to use these.
 
