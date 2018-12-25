@@ -22,7 +22,7 @@ The `pipeline.yml` does not yet have a git repo nor its write-access private key
 
 ![gist](/images/gist.png)
 
-Click the "Embed" dropdown, select "Cone via SSH", and copy the git URL:
+Click the "Embed" dropdown, select "Clone via SSH", and copy the git URL:
 
 ![ssh](/images/ssh.png)
 
