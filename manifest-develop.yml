@@ -6,4 +6,4 @@ applications:
   memory: 64M
   routes:
   - route: develop.concoursetutorial.com
-  stack: cflinuxfs2
+  stack: cflinuxfs3
