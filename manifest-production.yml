@@ -9,4 +9,4 @@ applications:
   - route: concoursetutorial.cfapps.io
   - route: concoursetutorial.com
   - route: www.concoursetutorial.com
-  stack: cflinuxfs2
+  stack: cflinuxfs3
