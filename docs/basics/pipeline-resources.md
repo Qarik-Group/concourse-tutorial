@@ -19,7 +19,7 @@ The most common resource type to store our task files and task scripts is the `g
 
 This tutorial's source repository is a Git repo, and it contains many task files (and their task scripts). For example, the original `tutorials/basic/task-hello-world/task_hello_world.yml`.
 
-To pull in the Git repository, we edit `pipeline.yml` and add a top-level section `resources`:
+To pull in the Git repository, we edit `pipeline-resources/pipeline.yml` and add a top-level section `resources`:
 
 ```yaml
 resources:
