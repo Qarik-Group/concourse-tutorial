@@ -6,8 +6,8 @@ image_resource:
   source: {repository: busybox}
 
 inputs:
-- name: some-important-input
+  - name: some-important-input
 
 run:
   path: ls
-  args: ['-alR']
+  args: ["-alR"]

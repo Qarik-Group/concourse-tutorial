@@ -1,32 +1,33 @@
+---
 meta:
-  name:    concourse-tutorial
-  team:    starkandwayne
+  name: concourse-tutorial
+  team: starkandwayne
   # fly -t ohio-sw login -c https://ci2.starkandwayne.com -n starkandwayne
-  target:  ohio-sw
-  url:     https://ci2.starkandwayne.com
+  target: ohio-sw
+  url: https://ci2.starkandwayne.com
 
   cf:
-    api:              ((pws-cf-api))
-    skip_cert_check:  false
-    username:         ((pws-cf-username))
-    password:         ((pws-cf-password))
-    organization:     ((pws-cf-organization))
-    space:            ((pws-cf-space))
+    api: ((pws-cf-api))
+    skip_cert_check: false
+    username: ((pws-cf-username))
+    password: ((pws-cf-password))
+    organization: ((pws-cf-organization))
+    space: ((pws-cf-space))
 
   github:
     owner: starkandwayne
     repo: concourse-tutorial
-    private_key:  ((github-private-key))
+    private_key: ((github-private-key))
     access_token: ((github-access-token))
 
   concourse:
-    url:      ((concourse_url))
+    url: ((concourse_url))
     username: ((concourse_username))
     password: ((concourse_password))
-    ca_cert:  ""
+    ca_cert: ""
 
   credhub:
-    url:      ((credhub_url))
+    url: ((credhub_url))
     username: credhub-cli
     password: ((credhub_password))
-    ca_cert:  ((credhub_ca_cert))
+    ca_cert: ((credhub_ca_cert))

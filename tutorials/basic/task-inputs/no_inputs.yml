@@ -7,4 +7,4 @@ image_resource:
 
 run:
   path: ls
-  args: ['-al']
+  args: ["-al"]

@@ -1,31 +1,31 @@
 ---
 meta:
-  name:     (( param "Please name your pipeline" ))
-  team:     (( param "Please provide expected concourse team to deploy test pipelines" ))
+  name: (( param "Please name your pipeline" ))
+  team: (( param "Please provide expected concourse team to deploy test pipelines" ))
   pipeline: (( grab meta.name ))
-  target:   (( param "Please identify the name of the target Concourse CI" ))
-  url:      (( param "Please specify the full url of the target Concourse CI" ))
+  target: (( param "Please identify the name of the target Concourse CI" ))
+  url: (( param "Please specify the full url of the target Concourse CI" ))
 
   image:
     name: starkandwayne/concourse
     tag: latest
 
   github:
-    uri:          (( concat "git@github.com:" meta.github.owner "/" meta.github.repo ))
-    owner:        (( param "Please specify the name of the user / organization that owns the Github repository" ))
-    repo:         (( param "Please specify the name of the Github repository" ))
+    uri: (( concat "git@github.com:" meta.github.owner "/" meta.github.repo ))
+    owner: (( param "Please specify the name of the user / organization that owns the Github repository" ))
+    repo: (( param "Please specify the name of the Github repository" ))
     branch_master: master
     branch_develop: develop
-    private_key:  (( param "Please generate an SSH Deployment Key for this repo and specify it here" ))
+    private_key: (( param "Please generate an SSH Deployment Key for this repo and specify it here" ))
     access_token: (( param "Please generate a Personal Access Token to be used for creating github releases (do you have a ci-bot?)" ))
 
   cf:
-    api:              https://api.run.pivotal.io
-    skip_cert_check:  false
-    username:         (( param "please provide cf.username" ))
-    password:         (( param "please provide cf.password" ))
-    organization:     (( param "please provide cf.organization" ))
-    space:            (( param "please provide cf.space-production" ))
+    api: https://api.run.pivotal.io
+    skip_cert_check: false
+    username: (( param "please provide cf.username" ))
+    password: (( param "please provide cf.password" ))
+    organization: (( param "please provide cf.organization" ))
+    space: (( param "please provide cf.space-production" ))
 
     master:
       appname: (( grab meta.name ))
@@ -67,23 +67,23 @@ jobs:
             type: docker-image
             source:
               repository: (( grab meta.image.name ))
-              tag:        (( grab meta.image.tag ))
+              tag: (( grab meta.image.tag ))
           inputs:
-            - { name: git }
+            - {name: git}
           run:
             path: ./git/ci/scripts/testflight-with-credhub.sh
             args: []
           params:
             REPO_ROOT: git
-            FLY_URL:      (( grab meta.concourse.url ))
-            FLY_TEAM:     (( grab meta.team ))
+            FLY_URL: (( grab meta.concourse.url ))
+            FLY_TEAM: (( grab meta.team ))
             FLY_USERNAME: (( grab meta.concourse.username ))
             FLY_PASSWORD: (( grab meta.concourse.password ))
-            FLY_CACERT:   (( grab meta.concourse.ca_cert ))
-            CREDHUB_URL:      (( grab meta.credhub.url ))
+            FLY_CACERT: (( grab meta.concourse.ca_cert ))
+            CREDHUB_URL: (( grab meta.credhub.url ))
             CREDHUB_USERNAME: (( grab meta.credhub.username ))
             CREDHUB_PASSWORD: (( grab meta.credhub.password ))
-            CREDHUB_CACERT:   (( grab meta.credhub.ca_cert ))
+            CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
   - name: testflight-master
     public: false
     serial_groups: [tutorial-pipeline]
@@ -98,24 +98,24 @@ jobs:
             type: docker-image
             source:
               repository: (( grab meta.image.name ))
-              tag:        (( grab meta.image.tag ))
+              tag: (( grab meta.image.tag ))
           inputs:
-            - { name: git }
+            - {name: git}
           run:
             path: ./git/ci/scripts/testflight-with-credhub.sh
             args: []
           params:
             REPO_ROOT: git
-            FLY_URL:      (( grab meta.concourse.url ))
-            FLY_TEAM:     (( grab meta.team ))
+            FLY_URL: (( grab meta.concourse.url ))
+            FLY_TEAM: (( grab meta.team ))
             FLY_USERNAME: (( grab meta.concourse.username ))
             FLY_PASSWORD: (( grab meta.concourse.password ))
-            FLY_CACERT:   (( grab meta.concourse.ca_cert ))
-            CREDHUB_URL:      (( grab meta.credhub.url ))
+            FLY_CACERT: (( grab meta.concourse.ca_cert ))
+            CREDHUB_URL: (( grab meta.credhub.url ))
             CREDHUB_USERNAME: (( grab meta.credhub.username ))
             CREDHUB_PASSWORD: (( grab meta.credhub.password ))
-            CREDHUB_CACERT:   (( grab meta.credhub.ca_cert ))
-  
+            CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
+
   - name: website-master
     public: false
     serial: true
@@ -130,11 +130,11 @@ jobs:
             type: docker-image
             source:
               repository: (( grab meta.image.name ))
-              tag:        (( grab meta.image.tag ))
+              tag: (( grab meta.image.tag ))
           inputs:
-            - { name: git }
+            - {name: git}
           outputs:
-            - { name: site }
+            - {name: site}
           run:
             path: ./git/ci/scripts/mkdocs-build.sh
             args: []
@@ -161,11 +161,11 @@ jobs:
             type: docker-image
             source:
               repository: (( grab meta.image.name ))
-              tag:        (( grab meta.image.tag ))
+              tag: (( grab meta.image.tag ))
           inputs:
-            - { name: git }
+            - {name: git}
           outputs:
-            - { name: site }
+            - {name: site}
           run:
             path: ./git/ci/scripts/mkdocs-build.sh
             args: []
@@ -178,38 +178,37 @@ jobs:
           path: site
           current_app_name: (( grab meta.cf.develop.appname ))
 
-
 resources:
   - name: git-develop
     type: git
     source:
-      uri:         (( grab meta.github.uri ))
-      branch:      (( grab meta.github.branch_develop ))
+      uri: (( grab meta.github.uri ))
+      branch: (( grab meta.github.branch_develop ))
       private_key: (( grab meta.github.private_key ))
 
   - name: git-master
     type: git
     source:
-      uri:         (( grab meta.github.uri ))
-      branch:      (( grab meta.github.branch_master ))
+      uri: (( grab meta.github.uri ))
+      branch: (( grab meta.github.branch_master ))
       private_key: (( grab meta.github.private_key ))
 
   - name: deploy-develop
     type: cf
     source:
-      api:             (( grab meta.cf.api ))
+      api: (( grab meta.cf.api ))
       skip_cert_check: (( grab meta.cf.skip_cert_check ))
-      username:        (( grab meta.cf.username ))
-      password:        (( grab meta.cf.password ))
-      organization:    (( grab meta.cf.organization ))
-      space:           (( grab meta.cf.space ))
+      username: (( grab meta.cf.username ))
+      password: (( grab meta.cf.password ))
+      organization: (( grab meta.cf.organization ))
+      space: (( grab meta.cf.space ))
 
   - name: deploy-master
     type: cf
     source:
-      api:             (( grab meta.cf.api ))
+      api: (( grab meta.cf.api ))
       skip_cert_check: (( grab meta.cf.skip_cert_check ))
-      username:        (( grab meta.cf.username ))
-      password:        (( grab meta.cf.password ))
-      organization:    (( grab meta.cf.organization ))
-      space:           (( grab meta.cf.space ))
+      username: (( grab meta.cf.username ))
+      password: (( grab meta.cf.password ))
+      organization: (( grab meta.cf.organization ))
+      space: (( grab meta.cf.space ))
