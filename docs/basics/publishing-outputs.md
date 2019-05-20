@@ -76,7 +76,7 @@ The `bump-timestamp-file` task runs the following `bump-timestamp-file.sh` scrip
 git clone resource-gist updated-gist
 
 cd updated-gist
-echo $(date) > bumpme
+date > bumpme
 
 git config --global user.email "nobody@concourse-ci.org"
 git config --global user.name "Concourse"
