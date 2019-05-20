@@ -1,16 +1,16 @@
 ---
 jobs:
-- name: show-animal-names
-  plan:
-  - task: show-animal-names
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: busybox}
-      run:
-        path: env
-        args: []
-      params:
-        CAT_NAME: ((cat-name))
-        DOG_NAME: ((dog-name))
+  - name: show-animal-names
+    plan:
+      - task: show-animal-names
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          run:
+            path: env
+            args: []
+          params:
+            CAT_NAME: ((cat-name))
+            DOG_NAME: ((dog-name))
