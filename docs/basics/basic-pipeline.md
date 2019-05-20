@@ -89,5 +89,3 @@ Click on `job-hello-world` and then click on the large `+` in the top right corn
 ![job](/images/job-hello-world.gif)
 
 Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
-
-Note: this animated gif has aged slightly. The current Concourse Web UI looks slightly different.
