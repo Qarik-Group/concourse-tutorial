@@ -40,7 +40,7 @@ Now upgrade the `hello-world` pipeline with the `time` trigger and unpause it.
 ```
 cd ../triggers
 fly sp -t tutorial -c pipeline.yml -p hello-world
-fly up -t tutorial -c pipeline.yml -p hello-world
+fly up -t tutorial -p hello-world
 ```
 
 This adds a new resource named `my-timer` which triggers `job-hello-world` approximately every 2 minutes.
