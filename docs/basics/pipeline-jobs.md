@@ -1,13 +1,13 @@
-description: Finally, it is time to make an actual pipeline - one job passing results to another job upon success.
+description: 最後に、実際のパイプラインを作ってみましょう。1つの Job が成功すると、別のジョブに結果を渡します。
 image_path: /images/pipeline.png
 
-# Actual Pipeline - Passing Resources Between Jobs
+# リアルなパイプライン - 複数の Job で Resource を共有する
 
-Finally, it is time to make an actual pipeline - one job passing results to another job upon success.
+最後に、現場で使えるようなリアルなパイプラインを作ってみましょう。1つの Job が成功すると、別の Job に結果を渡すものを見てみます。
 
-In all previous sections our pipelines have only had a single job. For all their wonderfulness, they haven't yet felt like actual pipelines. Jobs passing results between jobs. This is where Concourse shines even brighter.
+これまでのすべてのセクションで、私たちの パイプライン は単一の Job しか使っていませんでした。これまで説明したパイプラインの素晴らしさは、文字通り "パイプライン" のようには感じません。Job 間で結果を渡しあう Job こそ、Concourse の真骨頂です。
 
-Update the `publishing-outputs` pipeline with a second job `job-show-date` which will run whenever the first job successfully completes:
+1番目の Job が正常終了するたびに実行される `job-show-date` という2番目の Job を追加し、パイプライン:`publishing-outputs` を更新します:
 
 ```yaml
 - name: job-show-date
@@ -29,7 +29,7 @@ Update the `publishing-outputs` pipeline with a second job `job-show-date` which
         args: [resource-gist/bumpme]
 ```
 
-Update the pipeline:
+パイプラインを更新します:
 
 ```
 cd ../pipeline-jobs
@@ -37,13 +37,12 @@ fly -t tutorial sp -p publishing-outputs -c pipeline.yml -l ../publishing-output
 fly -t tutorial trigger-job -w -j publishing-outputs/job-bump-date
 ```
 
-If you are missing `../publishing-outputs/credentials.yml`, visit the section [Revisiting Publishing Outputs](/basics/parameters/#revisting-publishing-outputs) from the previous lesson.
+`../publishing-outputs/credentials.yml` が見当たらない時は、前のレッスンの [成果物アップロード時のパラメータも設定する](/basics/parameters/#revisting-publishing-outputs) を参照してください。
 
-The dashboard UI displays the additional job and its trigger/non-trigger resources. Importantly, it shows our first multi-job pipeline:
+ダッシュボード UI では、追加された Job とその Trigger / 非Trigger の Resource が表示されています。重要なのは、このレッスンではじめて複数の Job を扱うパイプラインに触れたということです:
 
 ![pipeline](/images/pipeline.png)
 
-The latest `resource-gist` commit fetched down in `job-show-date` will be the exact commit used in the last successful `job-bump-date` job. If you manually created a new git commit in your gist and manually ran the `job-show-date` job it would continue to use the previous commit it used, and ignore your new commit. *This is the power of pipelines.*
+`job-show-date`で fetch された最新の `resource-gist` の commit は、最後に成功した Job:`job-bump-date` で使用された、信頼できる commit になります。 もし手作業で git commit を作成し、Job:`job-show-date` を手動で実行したとしても、以前に使用した commit を引き続き使用し、新しい commit は無視されます。 *これがパイプラインの力です。*
 
 ![trigger](/images/trigger.png)
-

@@ -1,15 +1,14 @@
-description: Concourse pipelines can include ((parameter)) parameters for any value in the pipeline YAML file.
+description: Concourse のパイプラインには、パイプライン の YAML ファイルの任意の値に対して、パラメータ ((parameter)) を入れることができます。
 
+# パラメータを利用する
 
-# Parameterized Pipelines
+前のセクションでは、秘密の資格情報と個人用の git URL を `pipeline.yml` ファイルに配置するように進めました。 これは `pipeline.yml`を、リポジトリにアクセスした人と共有するのを困難にしてしまいます。資格情報に誰もがアクセスする必要はありません。
 
-In the preceding section you were asked to place private credentials and personal git URLs into the `pipeline.yml` files. This would make it difficult to share your `pipeline.yml` with anyone who had access to the repository. Not everyone needs nor should have access to the shared secrets.
+Concourse のパイプラインには、パイプラインの YAML ファイルの任意の値に対して、パラメータ `((parameter))` を入れることができます。
 
-Concourse pipelines can include `((parameter))` parameters for any value in the pipeline YAML file.
+パラメータは全て必須の値です。デフォルト値は設定されません。
 
-Parameters are all mandatory. There are no default values for parameters.
-
-In the lesson's `pipeline.yml` there are two parameters:
+今回のレッスンの `pipeline.yml` には、2つのパラメータがあります:
 
 ```
 jobs:
@@ -29,7 +28,7 @@ jobs:
         DOG_NAME: ((dog-name))
 ```
 
-If we `fly set-pipeline` but do not provide the parameters, we see an error when the job is triggered to run:
+`fly set-pipeline` をしてパラメータを指定しなかった場合、Job が実行された時にエラーが発生します:
 
 ```
 cd ../parameters
@@ -38,7 +37,7 @@ fly -t tutorial up -p parameters
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
-This will fail with the following error:
+これだと、次のエラーで失敗します:
 
 ```
 Expected to find variables: cat-name
@@ -46,14 +45,14 @@ dog-name
 errored
 ```
 
-## Parameters from fly options
+## パラメータを fly オプションで設定する
 
 ```
 fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=odie
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
-The output will show that the `-v` variables were passed into the `params` section of the `show-animal-names` task. Values in `params` sections  in turn become environment variables within the task:
+出力は、`-v` フラグで指定した変数が、Task:`show-animal-names` の `params` セクションに渡されたことを表しています。`params` セクションの値は、Task 内での環境変数になっています:
 
 ```
 initializing
@@ -65,9 +64,9 @@ DOG_NAME=odie
 USER=root
 ```
 
-## Parameters from local file
+## パラメータをローカルファイルで設定する
 
-Alternatively, you can store your parameter values in a local file.
+また、パラメータ値をローカルファイルを使って渡すこともできます。
 
 ```bash
 cat > credentials.yml <<YAML
@@ -76,21 +75,21 @@ dog-name: odie
 YAML
 ```
 
-Use the `--load-vars-from` flag (aliased `-l`) to pass in this file instead of the `-v` flag. The following command should not modify the pipeline from the preceding step as the resulting pipeline YAML is equivalent.
+このファイルを `-v` フラグの代わりに渡すには、` --load-vars-from` フラグ（エイリアス: `-l`）を使います。次のコマンドは、結果の パイプライン の YAML が同じなため、前の手順からパイプラインは変更されていないことに注意してください。
 
 ```
 fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
 ```
 
-## Revisiting Publishing Outputs
+## 成果物アップロード時のパラメータも設定する
 
-In the previous lesson [Publishing Outputs](/basics/publishing-outputs/), there were two user-provided changes to the `pipeline.yml`. These can now be changed to parameters.
+前のレッスン、[Publishing Outputs](/basics/publishing-outputs/) では、`pipeline.yml` にユーザが追加した2つの変更がありました。これらはパラメータを使って変更できるようになりました。
 
 ```
 cd ../publishing-outputs
 ```
 
-There is an alternate `pipeline-parameters.yml` that offers two parameters for `resource-gist`:
+`resource-gist` に、2つのパラメータを提供する代わりの `pipeline-parameters.yml` を用意しています:
 
 ```yaml
 resources:
@@ -102,7 +101,7 @@ resources:
     private_key: ((publishing-outputs-private-key))
 ```
 
-Create a `credentials.yml` with the Gist URL and private key:
+Gist URL と、秘密鍵をもつ `credentials.yml` を作成しましょう:
 
 ```yaml
 publishing-outputs-gist-uri: git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git
@@ -114,7 +113,7 @@ publishing-outputs-private-key: |-
     -----END RSA PRIVATE KEY-----
 ```
 
-Use the `--load-vars-from` or `-l` flag to pass the variables into the parameters:
+`--load-vars-from` または `-l` フラグを使って、変数をパラメータに渡します:
 
 ```
 fly -t tutorial sp -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
@@ -122,20 +121,20 @@ fly -t tutorial up -p publishing-outputs
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date
 ```
 
-## Dynamic Parameters and Secret Parameters
+## 動的パラメータと秘密パラメータ
 
-Parameters are very useful. They allow you to describe your `pipeline.yml` in public repositories without embedding variables nor secrets.
+パラメータは非常に便利です。それらは変数や秘密情報を埋め込まずに、あなたの `pipeline.yml` を公開リポジトリ上に記述することを可能にしてくれます。
 
-There are two downsides to the two approaches above.
+ただし、上記の2つのアプローチには2つの欠点があります。
 
-* To change any parameter values requires you to rerun `fly set-pipeline`. If a value is common across many pipelines then you must rerun `fly set-pipeline` for them all.
-* The parameter values are not very secret. Anyone with access to the pipeline's team is able to download the pipeline YAML and extract the secrets.
+* パラメータ値を変更するには、`fly set-pipeline` を再実行する必要があります。値が多くのパイプラインで共通している場合は、それらのすべてに対して `fly set-pipeline` を再実行する必要があります。
+* パラメータ値はあまり秘匿性の高い状態にはなっていません。パイプラインをセットしている Team にアクセスできる人は、パイプライン の YAML をダウンロードして、秘密情報を抽出することができます。
 
     ```
     fly -t tutorial get-pipeline -p parameters
     ```
 
-    Shows that the two potentially secret parameters are visible in plain text:
+    2つの潜在的な秘密のパラメータが、平文で表示されることがわかります:
 
     ```
     ...
@@ -146,4 +145,4 @@ There are two downsides to the two approaches above.
       path: env
     ```
 
-The solution to both of these problems is to use a Concourse Credentials Manager and is discussed in lesson [Secret with Credential Manager](/basics/secret-parameters/).
+これらの問題の解決策は、Concourse の資格情報マネージャを使用することです。これについては、[Secret with Credential Manager](/basics/secret-parameters/) のレッスンで説明します。

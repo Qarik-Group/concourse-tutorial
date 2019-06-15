@@ -1,42 +1,41 @@
-description: Task scripts are typically passed in from one of the inputs.
+description: Taskスクリプトは通常、`inputs` の1つから渡されます。
 
-# Task Scripts
+# Task スクリプトを別ファイルとして指定する
 
-The `inputs` feature of a task allows us to pass in two types of inputs:
+Taskの `inputs` は、2種類の入力を渡すことができます:
 
-* requirements/dependencies to be processed/tested/compiled
-* task scripts to be executed to perform complex behavior
+* 処理/テスト/コンパイル される 要件/依存関係
+* 複雑な処理を実行するために予め実行される Task スクリプト
 
-A common pattern is for Concourse tasks to `run:` complex shell scripts rather than directly invoking commands as we did in the [Hello World tutorial](/basics/task-hello-world/#task-docker-images) (we ran `uname` command with arguments `-a`).
+Concourse Task の一般的なパターンは、[前セクション](/basics/task-hello-world/#task-docker-images) で行なった(`uname` コマンドを引数 ` -a` で実行する)ような "直接コマンドを呼び出す" ものではなく、"複雑なシェルスクリプトを `run:` する" ものです。
 
-Let's refactor `task-hello-world/task_ubuntu_uname.yml` into a new task `task-scripts/task_show_uname.yml` with a separated task script `task-scripts/task_show_uname.sh`
+では、複製済のTaskスクリプト `task-scripts/task_show_uname.sh` を使って、`task-hello-world/task_ubuntu_uname.yml` を、新しいTask `task-scripts/task_show_uname.yml` にリファクタリングしましょう。
 
 ```
 cd ../task-scripts
 fly -t tutorial e -c task_show_uname.yml
 ```
 
-The former specifies the latter as its task script:
+`task-scripts/task_show_uname.yml` は、Task スクリプトとして `task-scripts/task_show_uname.sh` を指定します:
 
 ```yaml
 run:
   path: ./task-scripts/task_show_uname.sh
 ```
 
-_Where does the `./task-scripts/task_show_uname.sh` file come from?_
+_`./task-scripts/task_show_uname.sh` ファイルはどこから持ってきたのですか?_
 
-From section 2 we learned that we could pass `inputs` into the task. The task configuration `task-scripts/task_show_uname.yml` specifies one input:
+これまでのセクションで、私たちは `inputs` に指定されたファイル・ディレクトリを Task に渡すことができると学びました。今回指定した Task ファイル `task-scripts/task_show_uname.yml` は1つの `inputs` を指定しています:
 
 ```
 inputs:
 - name: task-scripts
 ```
 
-Since input `task-scripts` matches the current directory `task-scripts` we did not need to specify `fly execute -i task-scripts=.`.
+`task-scripts` はローカル上のカレントディレクトリ `task-scripts/` の名前が一致しているため、`fly execute -i task-scripts=.` を指定する必要はありません。
 
-The current directory was uploaded to the Concourse task container and placed inside the `task-scripts` directory.
+そしてローカル上のカレントディレクトリのファイルは Concourse の Task コンテナにアップロードされ、`task-scripts/` ディレクトリの中に配置されます。
 
-Therefore its file `task_show_uname.sh` is available within the Concourse task container at `task-scripts/task_show_uname.sh`.
+したがって、ローカル上の `task_show_uname.sh` ファイルが Concourse Task コンテナ内の `task-scripts/task_show_uname.sh` として呼び出せるようになるのです。
 
-The only further requirement is that `task_show_uname.sh` is an executable script.
-
+ここでの唯一の要件は、`task_show_uname.sh` が実行可能なスクリプトであることです。

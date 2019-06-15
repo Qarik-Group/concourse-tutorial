@@ -1,19 +1,21 @@
-description: Pass external resources into Concourse job tasks
+description: 外部 Resource を Job 中の Task に渡してみましょう
 image_path: /images/task-docker-image-and-run-tests.png
 
-# Using Resource Inputs in Job Tasks
+# Task で Resource から読み込んだファイルを利用する
 
-Note, the topic of running unit tests in your pipeline will be covered in more detail in future sections.
+注: パイプラインを使ったユニットテスト実行については、今後のセクションで詳しく説明します。
 
-Consider a simple application that has unit tests. In order to run those tests inside a pipeline we need:
+ユニットテストをもつシンプルなアプリケーションについて考えましょう。このテストを パイプライン の中で実行するには:
 
-* a task `image` that contains any dependencies
-* an input `resource` containing the task script that knows how to run the tests
-* an input `resource` containing the application source code
+* 依存関係を解決する Task `image`
+* テストの実行方法を記述した Task スクリプトを含む入力 `resource`
+* アプリケーションのソースコード自体を含む入力 `resource`
 
-For the example Go application [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app), the task image needs to include the Go programming language. We will use the `golang:1.9-alpine` image from https://hub.docker.com/_/golang/ (see https://imagelayers.io/?images=golang:1.9-alpine for size of layers)
+が必要になります。
 
-The task file `task_run_tests.yml` includes:
+Go のアプリケーション [simple-go-web-app](https://github.com/cloudfoundry-community/simple-go-web-app) の例では、Task イメージに Go の実行環境が含まれている必要があります。ここでは、[https://hub.docker.com/_/golang/](https://hub.docker.com/_/golang/) から `golang:1.9-alpine` を利用しています(サイズ、レイヤーについては https://imagelayers.io/?images=golang:1.9-alpine を確認してください)。
+
+Task ファイル `task_run_tests.yml` は以下の内容を含んでいます:
 
 ```yaml
 image_resource:
@@ -26,9 +28,9 @@ inputs:
   path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
 ```
 
-The `resource-app` resource will place the inbound files for the input into an alternate path. By default we have seen that inputs store their contents in a folder of the same name. The reason for using an alternate path in this example is specific to building & testing Go language applications and is outside the scope of the section.
+Resource: `resource-app` はこの時、Task コンテナ内に一緒に読み込まれ、フォルダとして配置されます。デフォルトでは、入力は内容が同じ名前のフォルダに格納されています。この例で代替パス(`path:`項目)を使用するのは、Goのアプリケーション構築とテストに固有の問題であり、このセクションの範囲外です。
 
-To run this task within a pipeline:
+パイプライン の中でこの Task を実行するには下記のようにします:
 
 ```
 cd ../job-inputs
@@ -36,13 +38,13 @@ fly -t tutorial sp -p simple-app -c pipeline.yml
 fly -t tutorial up -p simple-app
 ```
 
-View the pipeline UI http://127.0.0.1:8080/teams/main/pipelines/simple-app and notice that the job automatically starts.
+パイプラインの UI http://127.0.0.1:8080/teams/main/pipelines/simple-app を見ると、Job が自動的に開始していることがわかるでしょう。
 
 ![trigger-job-input](/images/trigger-job-input.png)
 
-The job will pause on the first run at `web-app-tests` task because it is downloading the `golang:1.9-alpine` image for the first time.
+`golang:1.9-alpine` イメージをダウンロードするため、Task: `web-app-tests` の最初の実行時には Job は pause した状態になります。
 
-The `web-app-tests` output below corresponds to the Go language test output (in case you've not seen it before):
+以下の`web-app-tests`の出力が出てくれば、Go のテスト出力に対応できています:
 
 ```
 ok  	github.com/cloudfoundry-community/simple-go-web-app	0.003s

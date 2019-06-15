@@ -1,16 +1,16 @@
-description: Our first look at a 'hello world' Concourse pipeline.
+description: 'hello world' パイプラインを見てみましょう.
 image_path: /images/job-hello-world.gif
 
-# Basic Pipeline
+# ベーシックなパイプライン
 
-1% of tasks that Concourse runs are via `fly execute`. 99% of tasks that Concourse runs are within "pipelines".
+`fly execute`を利用してTaskを実行することはごくわずかです。殆どは "パイプライン" として実行される Task になります。
 
 ```
 cd ../basic-pipeline
 fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
 ```
 
-It will display the concourse pipeline (or any changes) and request confirmation:
+上記のコマンドを実行すると、Concourse はパイプライン(または任意の変更点)を表示し、確認を求めてきます:
 
 ```yaml
 jobs:
@@ -30,15 +30,15 @@ jobs:
           - hello world
 ```
 
-You will be prompted to apply any configuration changes each time you run `fly set-pipeline` (or its alias `fly sp`)
+`fly set-pipeline`（またはそのエイリアス`fly sp`）を実行するたびに、設定の変更を適用するよう求められます。
 
 ```
 apply configuration? [yN]:
 ```
 
-Press `y`.
+`y`を押しましょう。
 
-You should see:
+以下のようなメッセージが表示されるはずです:
 
 ```
 pipeline created!
@@ -49,43 +49,43 @@ the pipeline is currently paused. to unpause, either:
   - click play next to the pipeline in the web ui
 ```
 
-## Login to Concourse Web UI
+## Concourse の Web UI にログインする
 
-Visit the pipeline URL http://127.0.0.1:8080/teams/main/pipelines/hello-world
+パイプラインの URL [http://127.0.0.1:8080/teams/main/pipelines/hello-world](http://127.0.0.1:8080/teams/main/pipelines/hello-world) を開いてみましょう。
 
-It is a private pipeline and currently you are not logged in to the Concourse Web UI. You will be redirected to a login page.
+これは非公開(private) のパイプラインであり、まだあなたは Concourse Web UI にログインしていない状態です。そのためログインページにリダイレクトにされます。
 
 ![dashboard-login](/images/dashboard-login.png)
 
-Enter the credentials for the admin user defined in `docker-compose.yml` then click "login" and you'll be redirected back to your pipeline.
+`docker-compose.yml`で設定した admin ユーザの認証情報を入力し、"login" を押すと、パイプラインのページにリダイレクトされます。
 
-## Unpausing Pipelines
+## パイプラインをポーズ解除(unpause) する
 
-Your pipeline has a blue bar across the top. This means it is paused. New pipelines start paused as you might not yet be ready for triggers to fire and start jobs running.
+WebUIを見ると、あなたのパイプラインの上部に青色のバーが見えるはずです。これはpause(ポーズ)していることを意味します。すぐにトリガーが起動すると、Job の実行を開始する準備がまだ整っていない可能性があるため、新しいパイプラインはデフォルトでポーズ(pause) するようになっています。
 
 ![dashboard-pipeline-paused](/images/dashboard-pipeline-paused.png)
 
-There are two ways to unpause (or re-pause) a pipeline.
+パイプラインを ポーズ解除(unpause) するには（または再度 pause するには)、2通りの方法があります。
 
-1. Click the propeller icon in the top left to be redirected back the concourse dashboard. Then click the play button on your pipeline.
+1. 左上のプロペラアイコンを押してダッシュボード画面に戻り、パイプラインの再生(play) ボタンをクリックします。
 
     ![dashboard-hamburger-menu](/images/dashboard-hamburger-menu.png)
 
-    
-
-2. Using the `fly unpause-pipeline` command (or its alias `fly up`):
+2. `fly unpause-pipeline` コマンドでも可能です (またはそのエイリアス`fly up`):
 
     ```
     fly -t tutorial unpause-pipeline -p hello-world
     fly -t tutorial unpause-job --job hello-world/job-hello-world
     ```
 
-## First Pipeline
+## はじめてのパイプライン
 
-This first pipeline is unimpressive - a single job `job-hello-world` with no inputs from the left and no outputs to its right, no jobs feeding into it, nor jobs feeding from it. It is the most basic pipeline. The job is gray colour because it has never been run before.
+この1つめのパイプラインは、左からの入力、右への出力、いずれも持たない単一の Job:`job-hello-world` によって構成された、やや面白みに欠けるものです。
 
-Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
+これはもっともベーシックなパイプラインです。まだ1度も実行されていないため、Job は灰色になっています。
+
+`job-hello-world`をクリックして、 右上にある大きな`+`ボタンをクリックしましょう。Job が走り始めます。
 
 ![job](/images/job-hello-world.gif)
 
-Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
+左上の "Home" アイコンをクリックすると、パイプラインのステータスを見ることができます。 Job:`hello-world` を見ると緑色になっているはずです。これは、Job が最後に実行された際、正常に完了したことを表しています。

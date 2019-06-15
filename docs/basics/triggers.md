@@ -1,17 +1,17 @@
-description: The primary way that Concourse jobs will be triggered to run will be by resources changing. A 'git' repo has a new commit? Run a job to test it. A GitHub project cuts a new release? Run a job to pull down its attached files and do something with them.
+description: Job が起動される主な方法は、Resource の変更によるものです。 'git'リポジトリに新しいコミットがありますか？ Job を実行してテストしましょう。 GitHub Project が新しい Release を作成していますか？ Job を実行して、添付ファイルをダウンロードするなどしてみましょう。
 image_path: /images/resource-trigger.png
 
-# Triggering Jobs with Resources
+# Resource を使って Job を起動する
 
-The primary way that Concourse jobs will be triggered to run will be by resources changing. A `git` repo has a new commit? Run a job to test it. A GitHub project cuts a new release? Run a job to pull down its attached files and do something with them.
+Job が起動される主な方法は、Resource の変更を検出したことによるものがほとんどです。 'git'リポジトリに新しいコミットがありますか？ Job を実行してテストしましょう。 GitHub Project が新しい Release を作成していますか？ Job を実行して、添付ファイルをダウンロードするなどしてみましょう。
 
-Triggering resources are defined the same as non-triggering resources, such as the `resource-tutorial` defined earlier.
+起動に使われる Resource は、先の `concourse-tutorial` のような trigger が定義されていない Resource と同じように定義できます。
 
-The difference is in the job build plan where triggering is desired.
+その違いは、ビルド計画の中に "トリガー(trigger)" が設定されているか否かというだけです。
 
-By default, including `get: my-resource` in a build plan does not trigger its job.
+デフォルトでは、ビルド計画に `get: my-resource` を含めても Job は起動しません。
 
-To mark a fetched resource as a trigger add `trigger: true`
+Resource の変更をトリガーに Job が起動するように計画するには、 これに加えて `trigger: true` を追加します。
 
 ```yaml
 jobs:
@@ -21,11 +21,11 @@ jobs:
     trigger: true
 ```
 
-In the above example the `job-demo` job would trigger anytime the remote `resource-tutorial` had a new version. For a `git` resource this would be new git commits.
+上記の例では、`job-demo` は、リモートの `resource-tutorial` が新しい "バージョン" を持っていたときに常に起動します。`git` Resource の場合、これは新しい git のコミットが "バージョン" として扱われます。
 
-The `time` resource has intrinsic purpose of triggering jobs.
+`time` Resource は、Job にトリガーを設置するのを主目的とした Resource です。
 
-If you want a job to trigger every few minutes then there is the [`time` resource](https://github.com/concourse/time-resource#readme).
+Job を数分ごとに起動させたい、と言ったケースにこそ、[`time` Resource](https://github.com/concourse/time-resource#readme) が利用できます。
 
 ```yaml
 resources:
@@ -35,7 +35,7 @@ resources:
     interval: 2m
 ```
 
-Now upgrade the `hello-world` pipeline with the `time` trigger and unpause it.
+ここでは、パイプライン `hello-world` を、`time` をトリガーにするように変更してみましょう。unpause も忘れずに実行します。
 
 ```
 cd ../triggers
@@ -43,17 +43,16 @@ fly sp -t tutorial -c pipeline.yml -p hello-world
 fly up -t tutorial -p hello-world
 ```
 
-This adds a new resource named `my-timer` which triggers `job-hello-world` approximately every 2 minutes.
+`my-timer` という新しい Resource を追加し、約2分おきに `job-hello-world` を起動します。
 
-Visit the pipeline dashboard http://127.0.0.1:8080/teams/main/pipelines/hello-world and wait a few minutes and eventually the job will start running automatically.
+[パイプラインのダッシュボード](http://127.0.0.1:8080/teams/main/pipelines/hello-world) を見てみましょう。 数分待つと、Job が自動的に実行されているのがわかるはずです。
 
 ![resource-trigger](/images/resource-trigger.png)
 
-The dashboard UI makes non-triggering resources distinct with a hyphenated line connecting them into the job. Triggering resources have a full line.
+ダッシュボードの UI は、トリガーではない Resource を点線で区別して表示しており、それらを Job に接続させています。トリガーが設定されている場合、実線で表示されています。
 
-Why does `time` resource configured with `interval: 2m` trigger "approximately" every 2 minutes?
+_`interval：2m`で設定された` time` Resource が「約」2分おきに trigger されるのはなぜですか？_
 
-> "resources are checked every minute, but there's a shorter (10sec) interval for determining when a build should run; time resource is to just ensure a build runs on some rough periodicity; we use it to e.g. continuously run integration/acceptance tests to weed out flakiness" - alex
+> Resource は 毎分チェックされますが、ビルドをいつ実行するかを決めるために短い(10秒程度の)間隔があります。Resource は、ある大まかな周期で Job が確実に実行されるようにするためのものです。例えば、スノーフレークを取り除くために継続的なインテグレーション/受け入れテストを実行するために使ったりするような用途で利用するのです - alex
 
-The net result is that a timer of `2m` will trigger every 2 to 3 minutes.
-
+結果として、`2m`のタイマーは、2~3分おきにトリガーされることになります。

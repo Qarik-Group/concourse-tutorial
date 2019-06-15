@@ -1,50 +1,49 @@
 description: Learn to use https://concourse-ci.org with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
 image_path: /images/concourse-sample-pipeline.gif
 
-# Introduction to Concourse
+# Concourse の ご紹介
 
-Learn to use https://concourse-ci.org with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
+この一連のチュートリアルを通じて、https://concourse-ci.org の利用方法を学びましょう。個々のコンセプトに基づいて各コンテンツは構成されています。
 
 [![concourse-sample-pipeline](/images/concourse-sample-pipeline.gif)](https://concourse-ci.org/)
 
-Concourse is 100% open source CI/CD system with approximately 100 [integrations](https://concourse-ci.org/resource-types.html) to the outside world. Concourse's principles reduce the risk of switching to and from Concourse, by encouraging practices that decouple your project from your CI's little details, and keeping all configuration in declarative files that can be checked into version control.
+Concourse は 100% オープンソースの CI/CD システムであり、約 100 個の外部との [インテグレーション機能](https://concourse-ci.org/resource-types.html) を備えています.
+Concourse の原則は、プロジェクトを CI の細かい作業と分離するプラクティスを奨励し、すべての設定をバージョン管理システムにチェックインできる宣言ファイルに保存することで、Concourse クラスタ間での乗換リスクを軽減することにあります。
 
-This Concourse Tutorial book is the world's most popular guide for learning Concourse, since 2015. It is a wonderful companion for [Concourse online documentation](https://concourse-ci.org/index.html).
+この Concourse チュートリアルブックは、2015年以来、Concourse を学習するための世界で最も人気のあるコンテンツです。[Concourse 公式ドキュメント](https://concourse-ci.org/index.html)の良き友としてご利用ください。
 
-## Thanks
+## 謝辞
 
-Thanks to Alex Suraci for inventing Concourse CI, and to Pivotal for sponsoring him and a team of developers to work since 2014.
+Concourse CI を開発した Alex Suraci と、2014年に彼と開発者チームをスポンサードしてくれた Pivotal に感謝します。
 
-At Stark & Wayne we started this tutorial as we were learning Concourse in early 2015, and we've been using Concourse in production since mid-2015 internally and at nearly all client projects.
+Stark＆Wayne では 2015年初頭に Concourse を学びながらこのチュートリアルを開始しました.2015年中頃からほぼすべてのクライアントプロジェクトで Concourse を使用していました。
 
-Thanks to everyone who has worked through this tutorial and found it useful. I love learning that you're enjoying the tutorial and enjoying Concourse.
+このチュートリアルを体験して頂いている皆様にも感謝を申し上げます。皆様がこのチュートリアルを、また Concourse そのものを楽しんで頂ければ幸いです。
 
-Thanks for all the pull requests to help fix regressions with some Concourse versions that came out with "backwards incompatible change".
+「後方互換性のない変更」が出てきたこれまでの Concourse バージョンで、問題を修正するのに貢献されたすべての PullRequest に感謝します。
 
-Thanks to all the staff at Stark & Wayne who helped to maintain this Concourse Tutorial and its examples over the years.
+この Concourse チュートリアルとその事例を長年にわたって維持してくれた Stark＆Wayne のスタッフ全員に感謝します。
 
-Thanks to everyone who visits our Stark & Wayne booth at conferences and says "Thanks for the Concourse Tutorial!"
+カンファレンス等で Stark＆Wayne ブースを訪れ、「ありがとう、Concourse チュートリアル！」とお伝え頂いた皆様に感謝します。
 
-## Getting Started
+## さあ、はじめよう！
 
-1. Install [Docker](https://www.docker.com/community-edition).
-2. Install [Docker Compose](https://docs.docker.com/compose/install/#install-compose) if not included in your Docker installation.
-3. Deploy Concourse using Docker Compose:
-
+1. [Docker](https://www.docker.com/community-edition) をインストールしてください。
+2. もし Docker 中に含まれていない場合、[Docker Compose](https://docs.docker.com/compose/install/#install-compose) をインストールしてください。
+3. Docker Compose を利用して、Concourse を下記のようにデプロイしてください:
     ```plain
     wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
 
-### Test Setup
+### セットアップのテストを行う
 
-Open http://127.0.0.1:8080/ in your browser:
+Webブラウザで http://127.0.0.1:8080/ を開いてみましょう:
 
 [![initial](/images/dashboard-no-pipelines.png)](http://127.0.0.1:8080/)
 
-Click on your operating system to download the `fly` CLI.
-
-Once downloaded, copy the `fly` binary into your path (`$PATH`), such as `/usr/local/bin` or `~/bin`. Don't forget to also make it executable. For example,
+あなたのOSと同じ `fly` CLI をクリックしてダウンロードしてください。
+ダウンロードが終わったら、`fly` バイナリをあなたのパス(`$PATH`)が通ったディレクトリ(例: `/usr/local/bin`, `~/bin`など) にコピーしましょう。実行権限を付与するのも忘れないでください。例を示します。
 
 ```plain
 sudo mkdir -p /usr/local/bin
@@ -52,27 +51,30 @@ sudo mv ~/Downloads/fly /usr/local/bin
 sudo chmod 0755 /usr/local/bin/fly
 ```
 
-For Windows users, use [this article](https://stackoverflow.com/questions/23400030/windows-7-add-path)
-to see where to add `fly` in to the `PATH`.
+Windows ユーザの方は, [この記事](https://stackoverflow.com/questions/23400030/windows-7-add-path)の方法を利用して、`PATH` の中から `fly` を追加するフォルダを確認してください。
 
-## Target Concourse
+## Concourse をターゲットする
 
-In the spirit of declaring absolutely everything you do to get absolutely the same result every time, the `fly` CLI requires that you specify the target API for every `fly` request.
+`fly` CLI は、毎回完全に同じ結果を得るために、完全に実行することを、完全に宣言するという精神に基づき、`fly` コマンドを打つ度にターゲットとなる API を指定する必要があります。
 
-First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts).
+まず、
+
+`fly` CLI は毎回全く同じ結果を得るために絶対に行うことを絶対に宣言する精神の中で、` fly` 要求ごとにターゲット API を指定する必要があります。
+
+まず、`tutorial` という名前でエイリアスを作ります。（この名前はチュートリアルすべての Task スクリプトで利用します）:
 
 ```plain
 fly --target tutorial login --concourse-url http://127.0.0.1:8080 -u admin -p admin
 fly --target tutorial sync
 ```
 
-You can now see this saved target Concourse API in a local file:
+このターゲットとして保存された Concourse API は、ローカルファイル上でも確認することができます。
 
 ```plain
 cat ~/.flyrc
 ```
 
-Shows a simple YAML file with the API, credentials etc:
+中身はAPI、認証情報などを含むシンプルな YAML ファイルで構成されています：
 
 ```yaml
 targets:
@@ -84,13 +86,13 @@ targets:
       value: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjc3JmIjoiYjE3ZDgxZmMwMWIxNDE1Mjk2OWIyZDc4NWViZmVjM2EzM2IyY2MxYWZjZjU3Njc1ZWYwYzY0MTM3MWMzNzI3OSIsImV4cCI6MTUyMjcwMjUwMCwiaXNBZG1pbiI6dHJ1ZSwidGVhbU5hbWUiOiJtYWluIn0.JNutBGQJMKyFzow5eQOTXAw3tOeM8wmDGMtZ-GCsAVoB7D1WHv-nHIb3Rf1zWw166FuCrFqyLYnMroTlQHyPQUTJFDTiMEGnc5AY8wjPjgpwjsjyJ465ZX-70v1J4CWcTHjRGrB1XCfSs652s8GJQlDf0x2hi5K0xxvAxsb0svv6MRs8aw1ZPumguFOUmj-rBlum5k8vnV-2SW6LjYJAnRwoj8VmcGLfFJ5PXGHeunSlMdMNBgHEQgmMKf7bFBPKtRuEAglZWBSw9ryBopej7Sr3VHPZEck37CPLDfwqfKErXy_KhBA_ntmZ87H1v3fakyBSzxaTDjbpuOFZ9yDkGA
 ```
 
-When we use the `fly` command we will target this Concourse API using `fly --target tutorial`.
+`fly` コマンドを使うときに、` fly --target tutorial` と打つことで、このConcourse API をターゲットすることができます。
 
-> @alexsuraci: I promise you'll end up liking it more than having an implicit target state :) Makes reusing commands from shell history much less dangerous (rogue fly configure can be bad)
+> @alexsuraci: 私は暗黙のターゲット状態を持つよりも、この方法が皆様のお気に召すことを約束します:) Shellのヒストリーからコマンドを再利用しても、これならさほど危険にならずに済むからです（誤ったflyの設定を使っていると悪になる可能性はあります）。
 
-## Destroy Concourse
+## Concourse を破棄する
 
-When you've finished with your local Concourse, deployed via `docker-compose up`, you can use `docker-compose down` to destroy it.
+`docker-compose up` を使ってデプロイしたローカル Concourse での作業を終えたら、`docker-compose down` を使ってそれを破棄することができます。
 
 ```plain
 docker-compose down

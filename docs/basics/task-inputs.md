@@ -1,17 +1,17 @@
-description: Concourse supports 'inputs' into tasks to pass in files/folders for processing.
+description: Concourseは、処理の中にファイル/フォルダを渡すための `inputs` を用意しています。
 
-# Task Inputs
+# Task `inputs` について
 
-In the previous section the only inputs to the task container were the `image` used. Base images, such as Docker images, are relatively static and relatively big, slow things to create. So Concourse supports `inputs` into tasks to pass in files/folders for processing.
+前のセクションの Task では、実行時に利用できた入力方法は、`image` を使ったものだけでした。Docker イメージなどのベースイメージと呼ばれるものは比較的静的でサイズが大きく、作成には時間がかかってしまいます。そのため、Concourse には処理の中に都度ファイル/フォルダを渡せる `inputs` という項目が用意されています。
 
-Consider the working directory of a task that explicitly has no inputs:
+特に `inputs` のない Task の作業ディレクトリを見てみましょう:
 
 ```
 cd ../task-inputs
 fly -t tutorial e -c no_inputs.yml
 ```
 
-The task runs `ls -al` to show the (empty) contents of the working folder inside the container:
+この Task は `ls -al` を実行し、コンテナ内の作業フォルダの内容(空)を表示します:
 
 ```
 running ls -al
@@ -20,34 +20,34 @@ drwxr-xr-x    2 root     root          4096 Feb 27 07:23 .
 drwxr-xr-x    3 root     root          4096 Feb 27 07:23 ..
 ```
 
-Note that above we used the short-hand form of the execute command in this example, simply **e**, as the action. Many commands have shortened single character forms, for example **fly s** is an alias for **fly sync**.
+注: 上記の例では短縮形の `execute` コマンド `e` を使用しています。このように、多くのコマンドに短縮文字の形式があります。たとえば、**fly s ** は **fly sync** のエイリアスです。
 
-In the example task `inputs_required.yml` we add a single input:
+Taskの例 `inputs_required.yml` では、1つの入力を加えています:
 
 ```yaml
 inputs:
 - name: some-important-input
 ```
 
-When we try to execute the task:
+Taskを実行しようとすると...:
 
 ```
 fly -t tutorial e -c inputs_required.yml
 ```
 
-It will fail:
+失敗します:
 
 ```
 error: missing required input `some-important-input`
 ```
 
-Commonly if wanting to run `fly execute` we will want to pass in the local folder (`.`). Use `-i name=path` option to configure each of the required `inputs`:
+通常、`fly execute`を実行したい場合、手元のローカルフォルダ（` .`）の内容を渡したいと考えるはずです。そのため、`-i name=path`オプションを使用して、必要な`inputs`にそれぞれパスを設定してみてください：
 
 ```
 fly -t tutorial e -c inputs_required.yml -i some-important-input=.
 ```
 
-Now the `fly execute` command will upload the `.` directory as an input to the container. It will be made available at the path `some-important-input`:
+これで`fly execute`コマンドは`.`ディレクトリをコンテナへの入力内容としてアップロードします。`some-important-input`のパスで利用可能になります:
 
 ```
 running ls -alR
@@ -67,17 +67,16 @@ drwxr-xr-x    3 root     root          4096 Dec 18 02:35 ..
 -rwxr-xr-x    1 501      20             522 Dec 17 21:31 test.sh
 ```
 
-To pass in a different directory as an input, provide its absolute or relative path:
+別のディレクトリを入力として渡すには、絶対パスまたは相対パスを指定します:
 
 ```
 fly -t tutorial e -c inputs_required.yml -i some-important-input=../task-hello-world
 ```
 
-The `fly execute -i` option can be removed if the current directory is the same name as the required input.
+現在のディレクトリが必要な入力と同じ名前であれば、 `fly execute -i`オプションを削除することができます。
 
-The task `input_parent_dir.yml` contains an input `task-inputs` which is also the current directory. So the following command will work and return the same results as above:
+Task: `input_parent_dir.yml` は、現在のディレクトリでもある入力`task-inputs`を含んでいます。よって次のコマンドは動作し、上記と同じ結果を返します。
 
 ```
 fly -t tutorial e -c input_parent_dir.yml
 ```
-

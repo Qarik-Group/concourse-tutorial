@@ -1,23 +1,23 @@
-# Create and Use Docker Images
+# Docker イメージの作成・利用
 
-This section will show how to take a Dockerfile project, build it and push to Docker Hub.
+このセクションでは、Dockerfile のプロジェクトの作成とビルドを行い、Docker Hub に push する方法を紹介します。
 
 ![docker-push](/images/docker-push.png)
 
-You might have many uses for Docker images in your normal work; but you'll also want to curate Docker images for your Concourse pipelines. Your Concourse tasks will be a lot faster if any dependencies are preinstalled on the base image, rather than you downloading them each time from the Internet. Your team might start curating a set of Docker images to be used by all your pipelines.
+Docker イメージには、通常の作業で多くの用途があります(Concourse パイプライン用の Docker イメージを収集したいと思うこともあるでしょう)。インターネットから毎回ダウンロードするのではなく、ベースイメージにプリインストールされている依存関係があれば、Concourse の Task は遙かに高速になります。 あなたのチームは、すべてのパイプラインで使用される一連の Docker イメージの収集を始めるかもしれません。
 
-At Stark & Wayne we maintain our pipeline's Docker images at https://github.com/starkandwayne/dockerfiles/ and convert them into various Docker images with our pipeline https://ci.starkandwayne.com/teams/main/pipelines/docker-images?groups=*
+Stark＆Wayne では、パイプラインの Docker イメージを https://github.com/starkandwayne/dockerfiles/ で管理し、パイプラインhttps://ci.starkandwayne.com/teams/main/pipelines/docker-images?groups=* を使って様々な Docker イメージに変換しています。
 
-This lesson's `pipeline.yml` and Dockerfile example are found at:
+このレッスンの `pipeline.yml` と Dockerfile の例は次の場所にあります:
 
 ```
 cd tutorials/miscellaneous/docker-images
 ```
 
-Define a docker image
+Docker イメージを定義する
 ---------------------
 
-This section's subfolder `docker` contains a `Dockerfile` and a simple `hello-world` command. 
+このセクションのサブフォルダ `docker` は `Dockerfile` とシンプルな `hello-world` コマンドを含んでいます。
 
 ```dockerfile
 FROM busybox
@@ -28,12 +28,12 @@ ENV NAME=world
 ENTRYPOINT ["/bin/hello-world"]
 ```
 
-Create a docker container image
+Docker コンテナイメージを作る
 -------------------------------
 
-We could manually create a docker image and push it to Docker Hub. But since we have Concourse we will use it instead.
+手動で Docker イメージを作成し、Docker Hub に push することもできます。しかしここでは Concourse があるので、今回は代わりにそちらを使ってみましょう。
 
-The purpose of this lesson's `pipeline.yml` is to `put` a `docker-image` resource.
+このレッスンの `pipeline.yml` の目的は、 `docker-image` Resource で `put` を実行することです。
 
 ```yaml
 resources:
@@ -62,11 +62,11 @@ jobs:
       build: tutorial/tutorials/miscellaneous/docker-images/docker
 ```
 
-You can see there are parameters that are required.
+上記の パイプラインでは、いくつか必要なパラメータがあることが分かります。
 
-## Parameters and Credhub
+## 資格管理マネージャにパラメータを追加する
 
-If you are using `bucc` then use `credhub` to store them.
+`bucc`を使っているのであれば、`credhub`を使ってそれらを保存してください。
 
 ```
 credhub set -n /concourse/main/push-docker-image/docker-hub-email    -t value -v you@email.com
@@ -74,7 +74,7 @@ credhub set -n /concourse/main/push-docker-image/docker-hub-username -t value -v
 credhub set -n /concourse/main/push-docker-image/docker-hub-password -t value -v yourpassword
 ```
 
-Since your Docker Hub credentials are probably common amongst many pipelines, you can register them within your Concourse `main` team, rather than just the pipeline:
+あなたの Docker のクレデンシャル情報は、恐らく多くの パイプラインで共通しているので、パイプラインだけでなく、Concourse の `main` Team に登録しておくと良いでしょう:
 
 ```
 credhub set -n /concourse/main/docker-hub-email    -t value -v you@email.com
@@ -82,7 +82,7 @@ credhub set -n /concourse/main/docker-hub-username -t value -v you
 credhub set -n /concourse/main/docker-hub-password -t value -v yourpassword
 ```
 
-Then setup the pipeline and run the `publish` job:
+次に、パイプラインをセットアップし、Job: `publish` を実行します:
 
 ```
 fly -t bucc sp -p push-docker-image -c pipeline.yml -n
@@ -90,7 +90,7 @@ fly -t bucc up -p push-docker-image
 fly -t bucc trigger-job -j push-docker-image/publish -w
 ```
 
-The output will include:
+出力結果には以下が含まれます:
 
 ```
 Successfully built c987adeb0ff8
@@ -98,9 +98,9 @@ Successfully tagged you/concourse-tutorial-hello-world:latest
 The push refers to a repository [docker.io/you/concourse-tutorial-hello-world]
 ```
 
-## Using the Docker image
+## Docker イメージを利用する
 
-We can now use the Docker image as the base image for tasks.
+これで、Docker イメージを Task のベースイメージとして使用できるようになりました。
 
 ```
   - task: run

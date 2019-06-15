@@ -1,31 +1,31 @@
 ---
-site_name: Concourse Tutorial by Stark & Wayne
+site_name: Concourse チュートリアル (by Stark & Wayne)
 pages:
   - Basics:
-      - Introduction: index.md
+      - まえがき: index.md
       - Hello World: basics/task-hello-world.md
-      - Task Inputs: basics/task-inputs.md
-      - Task Scripts: basics/task-scripts.md
-      - Basic Pipeline: basics/basic-pipeline.md
-      - Pipeline Resources: basics/pipeline-resources.md
-      - Watch Job Output in Terminal: basics/watch-job-output.md
-      - Trigger Jobs: basics/trigger-jobs.md
-      - Triggering Jobs with Resources: basics/triggers.md
-      - Destroying Pipelines: basics/destroy-pipelines.md
-      - Job Inputs: basics/job-inputs.md
-      - Passing Task Outputs to Task Inputs: basics/task-outputs-to-inputs.md
-      - Publishing Outputs: basics/publishing-outputs.md
-      - Parameters: basics/parameters.md
-      - Pipeline Jobs: basics/pipeline-jobs.md
-      - Secrets with Credentials Manager: basics/secret-parameters.md
+      - Task inputs について: basics/task-inputs.md
+      - Taskの実行ファイルを指定する: basics/task-scripts.md
+      - ベーシックなパイプライン: basics/basic-pipeline.md
+      - Resource について: basics/pipeline-resources.md
+      - 実行結果をターミナルで確認する: basics/watch-job-output.md
+      - Jobを起動する: basics/trigger-jobs.md
+      - Resourceを使ってJobを起動する: basics/triggers.md
+      - パイプラインを削除する: basics/destroy-pipelines.md
+      - TaskでResourceを利用する: basics/job-inputs.md
+      - Taskのoutputをinputに使う: basics/task-outputs-to-inputs.md
+      - 成果物をアップロードする: basics/publishing-outputs.md
+      - パラメータを利用する: basics/parameters.md
+      - 複数のJobでResourceを共有する: basics/pipeline-jobs.md
+      - 資格情報マネージャを使う: basics/secret-parameters.md
   - Miscellaneous:
-      - Introduction: miscellaneous/index.md
-      - Run Tests Before Deploy: miscellaneous/run-tests-before-deploy.md
-      - Create and Use Docker Images: miscellaneous/docker-images.md
-      - Versions and Build Numbers: miscellaneous/versions-and-buildnumbers.md
-      - GitHub Release Input: miscellaneous/github-release-input.md
-      - Slack Notifications: miscellaneous/slack-notifications.md
-      - Editors for Pipeline and Task yamls: miscellaneous/yaml-editors.md
+      - まえがき: miscellaneous/index.md
+      - デプロイの前にテストを実行する: miscellaneous/run-tests-before-deploy.md
+      - Dockerイメージの作成・利用: miscellaneous/docker-images.md
+      - バージョニングとビルド番号: miscellaneous/versions-and-buildnumbers.md
+      - GitHub Release を活用する: miscellaneous/github-release-input.md
+      - Slack に通知する: miscellaneous/slack-notifications.md
+      - yml 編集用エディタについて: miscellaneous/yaml-editors.md
 
 theme:
   name: "material"
@@ -39,8 +39,10 @@ theme:
   logo: "images/favicon/favicon-64.png"
 
   font:
-    text: "Bitter" # https://fonts.google.com/specimen/Bitter
-    code: "Ubuntu Mono"
+    text: 'Sawarabi Mincho'
+    code: 'Ubuntu Mono'
+
+  language: 'ja'
 
 markdown_extensions:
   - admonition
