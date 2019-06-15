@@ -4,7 +4,7 @@ description: Concourse can be extended with a credentials manager to allow value
 
 Concourse can be extended with a credentials manager to allow values and secrets to be set and rotated without any changes to your pipelines. No more variable files containing secrets on your file system. No more updating multiple pipelines whenever you need to change common variables.
 
-Concourse supports Cloud Foundry Credhub and Hashicorp Vault. They have a common behaviour within Concourse. For the simplicity of the Concourse Tutorial book we will use the simplest tool to re-deploy Concourse with a credentials manager - [bucc](https://github.com/starkandwayne/bucc) - which includes Credhub. Credhub is very simple to interact with via its own CLI and is 100% open source.
+Concourse supports Cloud Foundry Credhub, Hashicorp Vault, Amazon SSM, and Amazon Secrets Manager. They have a common behaviour within Concourse. For the simplicity of the Concourse Tutorial book we will use the simplest tool to re-deploy Concourse with a credentials manager - [bucc](https://github.com/starkandwayne/bucc) - which includes Credhub. Credhub is very simple to interact with via its own CLI and is 100% open source.
 
 ## Redeploy Concourse with Credhub
 

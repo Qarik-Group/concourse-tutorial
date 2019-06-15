@@ -59,10 +59,10 @@ to see where to add `fly` in to the `PATH`.
 
 In the spirit of declaring absolutely everything you do to get absolutely the same result every time, the `fly` CLI requires that you specify the target API for every `fly` request.
 
-First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts):
+First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts).
 
 ```plain
-fly --target tutorial login --concourse-url http://127.0.0.1:8080
+fly --target tutorial login --concourse-url http://127.0.0.1:8080 -u admin -p admin
 fly --target tutorial sync
 ```
 

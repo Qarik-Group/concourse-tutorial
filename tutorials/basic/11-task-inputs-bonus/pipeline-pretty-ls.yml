@@ -1,48 +1,48 @@
 ---
 jobs:
-- name: job-with-inputs
-  public: true
-  serial: true
-  plan:
-  - { get: pretty-ls, resource: resource-script-pretty-ls }
-  - { get: gist-abc, resource: resource-gist-a-b-c }
-  - { get: gist-xyz, resource: resource-gist-x-y-z }
-  - task: pretty-ls-abc-xyz
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: ubuntu}
-      inputs:
-      - name: pretty-ls
-      - name: gist-abc
-      - name: gist-xyz
-      run:
-        path: bash
-        args: ["pretty-ls/pretty_ls.sh", "."]
-  - task: pretty-ls-xyz
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: ubuntu}
-      inputs:
-      - name: pretty-ls
-      - name: gist-xyz
-      run:
-        path: bash
-        args: ["pretty-ls/pretty_ls.sh", "."]
+  - name: job-with-inputs
+    public: true
+    serial: true
+    plan:
+      - {get: pretty-ls, resource: resource-script-pretty-ls}
+      - {get: gist-abc, resource: resource-gist-a-b-c}
+      - {get: gist-xyz, resource: resource-gist-x-y-z}
+      - task: pretty-ls-abc-xyz
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: ubuntu}
+          inputs:
+            - name: pretty-ls
+            - name: gist-abc
+            - name: gist-xyz
+          run:
+            path: bash
+            args: ["pretty-ls/pretty_ls.sh", "."]
+      - task: pretty-ls-xyz
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: ubuntu}
+          inputs:
+            - name: pretty-ls
+            - name: gist-xyz
+          run:
+            path: bash
+            args: ["pretty-ls/pretty_ls.sh", "."]
 
 resources:
-- name: resource-gist-a-b-c
-  type: git
-  source:
-    uri: https://gist.github.com/drnic/a5a8d36c126ddc476b85.git
-- name: resource-gist-x-y-z
-  type: git
-  source:
-    uri: https://gist.github.com/drnic/7d0a4761efb55a312ab2.git
-- name: resource-script-pretty-ls
-  type: git
-  source:
-    uri: https://gist.github.com/drnic/58cade960afb0b009010.git
+  - name: resource-gist-a-b-c
+    type: git
+    source:
+      uri: https://gist.github.com/drnic/a5a8d36c126ddc476b85.git
+  - name: resource-gist-x-y-z
+    type: git
+    source:
+      uri: https://gist.github.com/drnic/7d0a4761efb55a312ab2.git
+  - name: resource-script-pretty-ls
+    type: git
+    source:
+      uri: https://gist.github.com/drnic/58cade960afb0b009010.git

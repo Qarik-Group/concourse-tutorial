@@ -1,34 +1,35 @@
+---
 jobs:
-- name: shield
-  public: true
-  serial: true
-  plan:
-  - get: github-release-shield
-  - task: ls
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: ubuntu}
-      inputs:
-      - name: github-release-shield
-      run:
-        path: ls
-        args: ["-opR", "."]
-  - task: version
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: ubuntu}
-      inputs:
-      - name: github-release-shield
-      run:
-        path: cat
-        args: [github-release-shield/version]
+  - name: shield
+    public: true
+    serial: true
+    plan:
+      - get: github-release-shield
+      - task: ls
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: ubuntu}
+          inputs:
+            - name: github-release-shield
+          run:
+            path: ls
+            args: ["-opR", "."]
+      - task: version
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: ubuntu}
+          inputs:
+            - name: github-release-shield
+          run:
+            path: cat
+            args: [github-release-shield/version]
 resources:
-- name: github-release-shield
-  type: github-release
-  source:
-    user: starkandwayne
-    repository: shield
+  - name: github-release-shield
+    type: github-release
+    source:
+      user: starkandwayne
+      repository: shield

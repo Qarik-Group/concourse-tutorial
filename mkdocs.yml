@@ -1,58 +1,61 @@
+---
 site_name: Concourse Tutorial by Stark & Wayne
 pages:
   - Basics:
-    - Introduction: index.md
-    - Hello World: basics/task-hello-world.md
-    - Task Inputs: basics/task-inputs.md
-    - Task Scripts: basics/task-scripts.md
-    - Basic Pipeline: basics/basic-pipeline.md
-    - Pipeline Resources: basics/pipeline-resources.md
-    - Watch Job Output in Terminal: basics/watch-job-output.md
-    - Trigger Jobs: basics/trigger-jobs.md
-    - Triggering Jobs with Resources: basics/triggers.md
-    - Destroying Pipelines: basics/destroy-pipelines.md
-    - Job Inputs: basics/job-inputs.md
-    - Passing Task Outputs to Task Inputs: basics/task-outputs-to-inputs.md
-    - Publishing Outputs: basics/publishing-outputs.md
-    - Parameters: basics/parameters.md
-    - Pipeline Jobs: basics/pipeline-jobs.md
-    - Secrets with Credentials Manager: basics/secret-parameters.md
+      - Introduction: index.md
+      - Hello World: basics/task-hello-world.md
+      - Task Inputs: basics/task-inputs.md
+      - Task Scripts: basics/task-scripts.md
+      - Basic Pipeline: basics/basic-pipeline.md
+      - Pipeline Resources: basics/pipeline-resources.md
+      - Watch Job Output in Terminal: basics/watch-job-output.md
+      - Trigger Jobs: basics/trigger-jobs.md
+      - Triggering Jobs with Resources: basics/triggers.md
+      - Destroying Pipelines: basics/destroy-pipelines.md
+      - Job Inputs: basics/job-inputs.md
+      - Passing Task Outputs to Task Inputs: basics/task-outputs-to-inputs.md
+      - Publishing Outputs: basics/publishing-outputs.md
+      - Parameters: basics/parameters.md
+      - Pipeline Jobs: basics/pipeline-jobs.md
+      - Secrets with Credentials Manager: basics/secret-parameters.md
   - Miscellaneous:
-    - Introduction: miscellaneous/index.md
-    - Run Tests Before Deploy: miscellaneous/run-tests-before-deploy.md
-    - Create and Use Docker Images: miscellaneous/docker-images.md
-    - Versions and Build Numbers: miscellaneous/versions-and-buildnumbers.md
-    - GitHub Release Input: miscellaneous/github-release-input.md
-    - Slack Notifications: miscellaneous/slack-notifications.md
-    - Editors for Pipeline and Task yamls: miscellaneous/yaml-editors.md
+      - Introduction: miscellaneous/index.md
+      - Run Tests Before Deploy: miscellaneous/run-tests-before-deploy.md
+      - Create and Use Docker Images: miscellaneous/docker-images.md
+      - Versions and Build Numbers: miscellaneous/versions-and-buildnumbers.md
+      - GitHub Release Input: miscellaneous/github-release-input.md
+      - Slack Notifications: miscellaneous/slack-notifications.md
+      - Editors for Pipeline and Task yamls: miscellaneous/yaml-editors.md
 
 theme:
-  name: 'material'
-  custom_dir: 'theme-overrides'
+  name: "material"
+  custom_dir: "theme-overrides"
   palette:
-    primary: 'orange'
-    accent: 'amber'
+    primary: "orange"
+    accent: "amber"
   feature:
     tabs: true
 
-  logo: 'images/favicon/favicon-64.png'
+  logo: "images/favicon/favicon-64.png"
 
   font:
-    text: 'Bitter' # https://fonts.google.com/specimen/Bitter
-    code: 'Ubuntu Mono'
+    text: "Bitter" # https://fonts.google.com/specimen/Bitter
+    code: "Ubuntu Mono"
 
 markdown_extensions:
   - admonition
   - codehilite
-  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.betterem:
+      smart_enable: all
   - pymdownx.critic
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.superfences
-  - toc(permalink=true)
+  - toc:
+      permalink: true
 
-repo_name: 'help fix the tutorials'
-repo_url: 'https://github.com/starkandwayne/concourse-tutorial'
+repo_name: "help fix the tutorials"
+repo_url: "https://github.com/starkandwayne/concourse-tutorial"
 edit_uri: edit/master/docs/
 extra_css: [print.css]
-google_analytics: ['UA-50822525-6', 'concoursetutorial.com']
+google_analytics: ["UA-50822525-6", "concoursetutorial.com"]

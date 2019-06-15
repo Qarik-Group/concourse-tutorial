@@ -6,7 +6,7 @@ image_resource:
   source: {repository: busybox}
 
 inputs:
-- name: task-scripts
+  - name: task-scripts
 
 run:
   path: ./task-scripts/task_show_uname.sh

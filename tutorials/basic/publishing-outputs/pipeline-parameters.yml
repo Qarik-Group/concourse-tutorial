@@ -1,37 +1,37 @@
 ---
 resources:
-- name: resource-tutorial
-  type: git
-  source:
-    uri: https://github.com/starkandwayne/concourse-tutorial.git
-    branch: develop
-- name: resource-gist
-  type: git
-  source:
-    branch:      master
-    uri:         ((publishing-outputs-gist-uri))
-    private_key: ((publishing-outputs-private-key))
+  - name: resource-tutorial
+    type: git
+    source:
+      uri: https://github.com/starkandwayne/concourse-tutorial.git
+      branch: develop
+  - name: resource-gist
+    type: git
+    source:
+      branch: master
+      uri: ((publishing-outputs-gist-uri))
+      private_key: ((publishing-outputs-private-key))
 
 jobs:
-- name: job-bump-date
-  serial: true
-  plan:
-  - get: resource-tutorial
-  - get: resource-gist
-  - task: bump-timestamp-file
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: { repository: starkandwayne/concourse }
+  - name: job-bump-date
+    serial: true
+    plan:
+      - get: resource-tutorial
+      - get: resource-gist
+      - task: bump-timestamp-file
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: starkandwayne/concourse}
 
-      inputs:
-        - name: resource-tutorial
-        - name: resource-gist
-      outputs:
-        - name: updated-gist
-      run:
-        path: resource-tutorial/tutorials/basic/publishing-outputs/bump-timestamp-file.sh
-  - put: resource-gist
-    params:
-      repository: updated-gist
+          inputs:
+            - name: resource-tutorial
+            - name: resource-gist
+          outputs:
+            - name: updated-gist
+          run:
+            path: resource-tutorial/tutorials/basic/publishing-outputs/bump-timestamp-file.sh
+      - put: resource-gist
+        params:
+          repository: updated-gist

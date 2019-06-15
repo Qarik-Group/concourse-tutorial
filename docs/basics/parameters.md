@@ -105,7 +105,7 @@ resources:
 Create a `credentials.yml` with the Gist URL and private key:
 
 ```yaml
-publishing-outputs-gist-uri: "git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git"
+publishing-outputs-gist-uri: git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git
 publishing-outputs-private-key: |-
     -----BEGIN RSA PRIVATE KEY-----
     MIIEpQIBAAKCAQEAuvUl9YU...
@@ -118,6 +118,8 @@ Use the `--load-vars-from` or `-l` flag to pass the variables into the parameter
 
 ```
 fly -t tutorial sp -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
+fly -t tutorial up -p publishing-outputs
+fly -t tutorial trigger-job -j publishing-outputs/job-bump-date
 ```
 
 ## Dynamic Parameters and Secret Parameters
