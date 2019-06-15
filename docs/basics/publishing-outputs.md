@@ -22,15 +22,13 @@ The `pipeline.yml` does not yet have a git repo nor its write-access private key
 
 ![gist](/images/gist.png)
 
-Copy the "SSH" git URL:
+Click the "Embed" dropdown, select "Clone via SSH", and copy the git URL:
 
 ![ssh](/images/ssh.png)
 
-And paste it into the `pipeline.yml` file:
+And modify the `resource-git` section of `pipeline.yml`:
 
 ```
----
-resources:
 - name: resource-gist
   type: git
   source:
@@ -45,6 +43,7 @@ resources:
 ```
 
 Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registered with github) into the `private_key` section.
+_Note: Please make sure that the key used here is not generated using a passphrase. Otherwise, the key will not be accepted and you would get an error._
 
 Update the pipeline, force Concourse to quickly re-check the new Gist credentials, and then run the job:
 
@@ -77,7 +76,7 @@ The `bump-timestamp-file` task runs the following `bump-timestamp-file.sh` scrip
 git clone resource-gist updated-gist
 
 cd updated-gist
-echo $(date) > bumpme
+date > bumpme
 
 git config --global user.email "nobody@concourse-ci.org"
 git config --global user.name "Concourse"

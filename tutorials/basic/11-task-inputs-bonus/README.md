@@ -3,7 +3,7 @@ Task inputs
 
 The pipelines in this tutorial show a task that imports resources and how it can access the files from those resources.
 
-http://concourse-ci.org/build-plans.html
+http://concourse-ci.org/builds.html
 
 ```
 $ ./run.sh ls-abc-xyz

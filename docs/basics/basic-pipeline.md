@@ -57,9 +57,7 @@ It is a private pipeline and currently you are not logged in to the Concourse We
 
 ![dashboard-login](/images/dashboard-login.png)
 
-Click "Login" and you'll be redirected back to your pipeline.
-
-Why did you not have to enter any username/password? Excellent question, indeed. It's because your current `fly -t tutorial` deployment of Concourse has had authentication disabled. In a future lesson we will upgrade to a more robust installation of Concourse with passwords and fanciness.
+Enter the credentials for the admin user defined in `docker-compose.yml` then click "login" and you'll be redirected back to your pipeline.
 
 ## Unpausing Pipelines
 
@@ -69,7 +67,7 @@ Your pipeline has a blue bar across the top. This means it is paused. New pipeli
 
 There are two ways to unpause (or re-pause) a pipeline.
 
-1. Open the hamburger menu and click the `>` unpause/play button for your pipeline. Then click the hamburger menu icon to close the sidebar of pipelines.
+1. Click the propeller icon in the top left to be redirected back the concourse dashboard. Then click the play button on your pipeline.
 
     ![dashboard-hamburger-menu](/images/dashboard-hamburger-menu.png)
 
@@ -91,5 +89,3 @@ Click on `job-hello-world` and then click on the large `+` in the top right corn
 ![job](/images/job-hello-world.gif)
 
 Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.
-
-Note: this animated gif has aged slightly. The current Concourse Web UI looks slightly different.
