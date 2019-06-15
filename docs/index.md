@@ -1,4 +1,4 @@
-description: Learn to use https://concourse-ci.org with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
+description: この一連のチュートリアルを通じて、https://concourse-ci.org の利用方法を学びましょう。個々のコンセプトに基づいて各コンテンツは構成されています。
 image_path: /images/concourse-sample-pipeline.gif
 
 # Concourse の ご紹介

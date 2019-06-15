@@ -7,4 +7,4 @@ applications:
   routes:
   - route: concoursetutorial-ja.cfapps.io
   - route: concourse-tutorial-ja.l.cfapps.io
-  stack: cflinuxfs2
+  stack: cflinuxfs3
