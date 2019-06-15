@@ -1,12 +1,10 @@
-# Slack Notifications
+# Slack に通知する
 
-もし森でテストが失敗し、誰もそれが赤くなったのを確認できないとしたら、それは本当に失敗と言えるのでしょうか？
-
-If a test fails in the woods and no one is there to see it turn red, did it really fail?
+もし森の中でテストが失敗し、誰もそれが赤くなったことを確認できないとしたら、それは本当に失敗と言えるのでしょうか？
 
 ![test-sometimes-works](/images/test-sometimes-works.png)
 
-あなたの Job は、人がいなくても自動的に起動することができますが、その結果が知らされなければ、失敗するとおおよそ役に立ちません。[Slack](https://slack.com) を使用している場合、またはチームがハングアウトしている別のチャットルームを使用している場合、Pipeline で失敗または成功を通知することをお勧めします。
+あなたの Job は、人がいなくても自動的に起動することができますが、その結果が知らされなければ、失敗するとおおよそ役に立ちません。[Slack](https://slack.com) を使用している場合、またはチームがハングアウトしている別のチャットルームを使用している場合、パイプラインで失敗または成功を通知することをお勧めします。
 
 ここでは50％の確率で失敗するものの、誰にも通知しない寡黙な Job を考えてみましょう。
 
@@ -38,7 +36,7 @@ jobs:
           path: tutorial/tutorials/miscellaneous/slack-notifications/test-sometimes-works.sh
 ```
 
-この Pipeline を作成し、Job:`test` を数回実行してください。 時にはそれは成功し、それ以外の時は失敗するでしょう。
+このパイプラインを作成し、Job:`test` を数回実行してください。 時にはそれは成功し、それ以外の時は失敗するでしょう。
 
 ```
 cd tutorials/miscellaneous/slack-notifications
@@ -73,7 +71,7 @@ resources:
     url: ((slack-webhook))
 ```
 
-## Join a Slack organization
+## Slack organization に参加する
 
 Slack 通知を送信したいと考えます。まずワークスペースを作成するか、既存のワークスペースから招待を受ける必要があります。
 
@@ -89,25 +87,25 @@ https://concourseci.slack.com/services/new/incoming-webhook/
 
 ![slack-webhook-private](/images/slack-webhook-private.png)
 
-「着信 Web フック インテグレーションの追加」ボタンをクリックします。
+「Incoming Webhook インテグレーションの追加」ボタンをクリックします。
 
 次のページで、ユニークなシークレットURLが与えられます。 トリプルクリックして選択し、クリップボードにコピーします。
 
 ![slack-webhook-url](/images/slack-webhook-url.png)
 
-各 Pipeline は、独自に `((slack-webhook))` パラメータを持ち、異なる Slack チャンネルに通知を送りたいはずです。そのため、URLを Pipeline 固有の場所に保存しておきます(`bucc` プロジェクトで `bucc credhub` を実行して、Credhub に再ログインしておいてください)。
+各 パイプラインは、独自に `((slack-webhook))` パラメータを持ち、異なる Slack チャンネルに通知を送りたいはずです。そのため、URLを パイプライン固有の場所に保存しておきます(`bucc` プロジェクトで `bucc credhub` を実行して、Credhub に再ログインしておいてください)。
 
 ```
 credhub set -n /concourse/main/slack-notifications/slack-webhook -t value -v https://hooks.slack.com/services/T02FXXXXX/B8FLXXXXX/vfnkP8lwogK0uYDZCxxxxxxx
 ```
 
-## Notification on Job Failure
+## Job が失敗したら通知する
 
 もしまだやっていなければ、`pipeline.yml` に `resource_types` セクションと、上記の[Custom Resource Types](＃custom-resource-types) で紹介した `resources`セクションを追加しておいてください。
 
-次に、すべての build plan のステップに、`on_failure` セクションを追加する必要があります。
+次に、すべてのビルド計画のステップに、`on_failure` セクションを追加する必要があります。
 
-build plan の`get`, `put`, `task` では、その失敗を捕らえて何らかのアクションを設定することができます。 [Concourse CI documentation](https://concourse-ci.org/on-failure-step-hook.html) より:
+ビルド計画の`get`, `put`, `task` では、その失敗を捕らえて何らかのアクションを設定することができます。 [Concourse CI documentation](https://concourse-ci.org/on-failure-step-hook.html) より:
 
 ```yaml
 plan:
@@ -119,7 +117,7 @@ plan:
     file: foo/alert.yml
 ```
 
-私たちの Pipeline では, `on_failure` を `task: test-sometimes-works` に追加します:
+私たちの パイプラインでは, `on_failure` を `task: test-sometimes-works` に追加します:
 
 ```yaml
   - task: test-sometimes-works
@@ -133,13 +131,9 @@ plan:
         text: "Job 'test' failed"
 ```
 
-We use the `on_failure` to invoke the `slack-notification` resource named `notify` which will send a message to our `((slack-webhook))` web hook.
-
-Update your pipeline and trigger the `test` job until you get a failure:
-
 `on_failure` を使用して `notify` という名前の `slack-notification` Resource を呼び出し、`((slack-webhook))` で指定した web hook にメッセージを送ります。
 
-Pipeline を更新し、失敗するまで `test` Job を起動してください:
+パイプラインを更新し、失敗するまで `test` Job を起動してください:
 
 ```
 fly -t bucc sp -p slack-notifications -c pipeline-slack-failures.yml
@@ -150,13 +144,7 @@ fly -t bucc trigger-job -j slack-notifications/test -w
 
 ![slack-webhook-test-failed](/images/slack-webhook-test-failed.png)
 
-## Dynamic Notification Messages
-
-In the preceding section the notification text was hardcoded within the `pipeline-slack-failures.yml` file. It is possible to generate dynamic messages for your notifications.
-
-It is also possible to emit success notifications.
-
-In the example below there are two notifications (Slack combines messages from the same sender to save space). Each message contains information that is dynamically
+## 通知メッセージを動的に変更する
 
 前のセクションでは、通知テキストは `pipeline-slack-failures.yml` ファイル内にハードコードされていましたが、通知用の動的なメッセージを生成することも可能です。
 
@@ -166,7 +154,7 @@ In the example below there are two notifications (Slack combines messages from t
 
 ![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
 
-使用されている `slack-notification-resource` のREADMEから、`text`と `text_file` パラメータがあることがわかります.
+使用されている `slack-notification-resource` の README から、`text`と `text_file` パラメータがあることがわかります.
  https://github.com/cloudfoundry-community/slack-notification-resource#out-sends-message-to-slack
 
 * `text`: 送信するメッセージの静的なテキスト。
@@ -206,7 +194,7 @@ jobs:
         text_file: notify_message/message
 ```
 
-上記の `notify-message` フォルダは、`task:test-sometimes-works`ステップによって出力として生成され、 `put：notify` Resource によって利用されます。このトピックを修正するには、 Basic セクション: [Passing task outputs to another task](/basics/task-outputs-to-inputs/) を参照してください。
+上記の `notify-message` フォルダは、`task:test-sometimes-works` ステップによって出力として生成され、 `put：notify` Resource によって利用されます。このトピックを修正するには、 Basic セクション: [成功した Task の `outputs` を別の Task の `inputs` にする](/basics/task-outputs-to-inputs/) を参照してください。
 
 `task: test-sometimes-works` のステップでは、`test-sometimes-works-notify-message.sh` スクリプトを実行しています。これは `test-sometimes-works.sh` とやっていることは同じですが、`notify_message/message` を生成していることに注目してください。
 
@@ -225,17 +213,13 @@ EOF
 fi
 ```
 
-On failure, the message will start with "Unforuntately...". On success, the message will start with "Harray!".
-
 失敗した場合、メッセージは "Unforuntately..." で始まります。 成功すると、メッセージは "Harray!" で始まります。
 
 ![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
 
 Slack メッセージの内容については、 https://api.slack.com/incoming-webhooks をご覧ください。
 
-To upgrade your pipeline and run the `test` job a few times to see success and failure notifications:
-
-Pipeline をアップグレードし、Job:`test` を数回実行して成功と失敗の通知を確認したい場合、以下のように実行してください:
+パイプラインをアップグレードし、Job:`test` を数回実行して成功と失敗の通知を確認したい場合、以下のように実行してください:
 
 ```
 fly -t bucc sp -p slack-notifications -c pipeline-dynamic-messages.yml
@@ -245,7 +229,7 @@ fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 ```
 
-## Custom Slack Message Metadata
+## メッセージの Metadata をカスタマイズする
 
 今回作った Slack 通知はかなりそっけないように見えます:
 
@@ -270,7 +254,7 @@ Our Slack notifications above are pretty bland:
         text_file: notify_message/message
 ```
 
-Pipeline をアップグレードし、Job:`test` を数回実行して成功と失敗の通知を確認するには、以下のように実行してください:
+パイプラインをアップグレードし、Job:`test` を数回実行して成功と失敗の通知を確認するには、以下のように実行してください:
 
 ```
 fly -t bucc sp -p slack-notifications -c pipeline-custom-metadata.yml

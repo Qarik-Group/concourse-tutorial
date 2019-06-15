@@ -6,9 +6,9 @@ image_resource:
   source: {repository: golang, tag: 1.9-alpine}
 
 inputs:
-- name: resource-tutorial
-- name: resource-app
-  path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
+  - name: resource-tutorial
+  - name: resource-app
+    path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
 
 run:
   path: resource-tutorial/tutorials/basic/job-inputs/task_run_tests.sh

@@ -1,0 +1,12 @@
+# This is my first, very own configuration file for yamllint!
+# It extends the default conf by adjusting some options.
+
+extends: default
+
+rules:
+  comments-indentation: disable  # don't bother me with this rule
+  colons: disable
+  line-length: disable
+  braces: {max-spaces-inside: 3}
+  key-duplicates: disable
+  comments: {min-spaces-from-content: 1}

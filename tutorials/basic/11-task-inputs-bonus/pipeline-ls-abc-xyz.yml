@@ -1,31 +1,35 @@
 ---
 jobs:
-- name: job-with-inputs
-  public: true
-  serial: true
-  plan:
-  - aggregate:
-    - { get: gist-abc, resource: resource-gist-a-b-c }
-    - { get: gist-xyz, resource: resource-gist-x-y-z }
-  - task: ls-abc-xyz
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: ubuntu}
-      inputs:
-      - name: gist-abc
-      - name: gist-xyz
-      run:
-        path: ls
-        args: ["-opR", "."]
-
+  - name: job-with-inputs
+    public: true
+    serial: true
+    plan:
+      - aggregate:
+          - get: gist-abc
+            resource: resource-gist-a-b-c
+          - get: gist-xyz
+            resource: resource-gist-x-y-z
+      - task: ls-abc-xyz
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: ubuntu
+          inputs:
+            - name: gist-abc
+            - name: gist-xyz
+          run:
+            path: ls
+            args:
+              - "-opR"
+              - .
 resources:
-- name: resource-gist-a-b-c
-  type: git
-  source:
-    uri: https://gist.github.com/drnic/a5a8d36c126ddc476b85.git
-- name: resource-gist-x-y-z
-  type: git
-  source:
-    uri: https://gist.github.com/drnic/7d0a4761efb55a312ab2.git
+  - name: resource-gist-a-b-c
+    type: git
+    source:
+      uri: "https://gist.github.com/drnic/a5a8d36c126ddc476b85.git"
+  - name: resource-gist-x-y-z
+    type: git
+    source:
+      uri: "https://gist.github.com/drnic/7d0a4761efb55a312ab2.git"

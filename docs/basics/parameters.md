@@ -1,10 +1,10 @@
-description: Concourse の Pipeline には、Pipeline の YAML ファイルの任意の値に対して、パラメータ ((parameter)) を入れることができます。
+description: Concourse のパイプラインには、パイプライン の YAML ファイルの任意の値に対して、パラメータ ((parameter)) を入れることができます。
 
-# Parameterized Pipelines
+# パラメータを利用する
 
-前のセクションでは、秘密の資格情報と個人用のgit URLを `pipeline.yml` ファイルに配置するように進めました。 これは `pipeline.yml`を、リポジトリにアクセスした人と共有するのを困難にしてしまいます。クレデンシャル情報に誰もがアクセスする必要はありません。
+前のセクションでは、秘密の資格情報と個人用の git URL を `pipeline.yml` ファイルに配置するように進めました。 これは `pipeline.yml`を、リポジトリにアクセスした人と共有するのを困難にしてしまいます。資格情報に誰もがアクセスする必要はありません。
 
-Concourse の Pipeline には、Pipeline の YAML ファイルの任意の値に対して、パラメータ `((parameter))` を入れることができます。
+Concourse のパイプラインには、パイプラインの YAML ファイルの任意の値に対して、パラメータ `((parameter))` を入れることができます。
 
 パラメータは全て必須の値です。デフォルト値は設定されません。
 
@@ -28,7 +28,7 @@ jobs:
         DOG_NAME: ((dog-name))
 ```
 
-`fly set-pipeline`をしてパラメータを指定しなかった場合、Job が実行された時にエラーが発生します:
+`fly set-pipeline` をしてパラメータを指定しなかった場合、Job が実行された時にエラーが発生します:
 
 ```
 cd ../parameters
@@ -45,7 +45,7 @@ dog-name
 errored
 ```
 
-## Parameters from fly options
+## パラメータを fly オプションで設定する
 
 ```
 fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=odie
@@ -64,7 +64,7 @@ DOG_NAME=odie
 USER=root
 ```
 
-## Parameters from local file
+## パラメータをローカルファイルで設定する
 
 また、パラメータ値をローカルファイルを使って渡すこともできます。
 
@@ -75,13 +75,13 @@ dog-name: odie
 YAML
 ```
 
-このファイルを `-v` フラグの代わりに渡すには、` --load-vars-from` フラグ（エイリアス: `-l`）を使います。次のコマンドは、結果の Pipeline の YAML が同じなため、前の手順から Pipeline は変更されていないことに注意してください。
+このファイルを `-v` フラグの代わりに渡すには、` --load-vars-from` フラグ（エイリアス: `-l`）を使います。次のコマンドは、結果の パイプライン の YAML が同じなため、前の手順からパイプラインは変更されていないことに注意してください。
 
 ```
 fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
 ```
 
-## Revisiting Publishing Outputs
+## 成果物アップロード時のパラメータも設定する
 
 前のレッスン、[Publishing Outputs](/basics/publishing-outputs/) では、`pipeline.yml` にユーザが追加した2つの変更がありました。これらはパラメータを使って変更できるようになりました。
 
@@ -104,7 +104,7 @@ resources:
 Gist URL と、秘密鍵をもつ `credentials.yml` を作成しましょう:
 
 ```yaml
-publishing-outputs-gist-uri: "git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git"
+publishing-outputs-gist-uri: git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git
 publishing-outputs-private-key: |-
     -----BEGIN RSA PRIVATE KEY-----
     MIIEpQIBAAKCAQEAuvUl9YU...
@@ -117,16 +117,18 @@ publishing-outputs-private-key: |-
 
 ```
 fly -t tutorial sp -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
+fly -t tutorial up -p publishing-outputs
+fly -t tutorial trigger-job -j publishing-outputs/job-bump-date
 ```
 
-## Dynamic Parameters and Secret Parameters
+## 動的パラメータと秘密パラメータ
 
 パラメータは非常に便利です。それらは変数や秘密情報を埋め込まずに、あなたの `pipeline.yml` を公開リポジトリ上に記述することを可能にしてくれます。
 
 ただし、上記の2つのアプローチには2つの欠点があります。
 
 * パラメータ値を変更するには、`fly set-pipeline` を再実行する必要があります。値が多くのパイプラインで共通している場合は、それらのすべてに対して `fly set-pipeline` を再実行する必要があります。
-* パラメータ値はあまり秘匿性の高い状態にはなっていません。Pipeline を set している Team にアクセスできる人は、Pipeline の YAML をダウンロードして、秘密情報を抽出することができます。
+* パラメータ値はあまり秘匿性の高い状態にはなっていません。パイプラインをセットしている Team にアクセスできる人は、パイプライン の YAML をダウンロードして、秘密情報を抽出することができます。
 
     ```
     fly -t tutorial get-pipeline -p parameters
@@ -143,4 +145,4 @@ fly -t tutorial sp -p publishing-outputs -c pipeline-parameters.yml -l credentia
       path: env
     ```
 
-これらの問題の解決策は、Concourse の Credentials Manager を使用することです。これについては、[Secret with Credential Manager](/basics/secret-parameters/) のレッスンで説明します。
+これらの問題の解決策は、Concourse の資格情報マネージャを使用することです。これについては、[Secret with Credential Manager](/basics/secret-parameters/) のレッスンで説明します。

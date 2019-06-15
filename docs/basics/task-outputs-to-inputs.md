@@ -1,26 +1,24 @@
 description: Task の `inputs` は、前までに実行された Task の `outputs` から利用することもできます。Task が出力を発行すると宣言しておけば、後続のステップで同じ名前を指定することで、`inputs` として使用することができるのです。
 image_path: /images/pass-files.png
 
-# Passing Task Outputs to Task Inputs
+# 成功した Task の `outputs` を別の Task の `inputs` にする
 
-[前のレッスン](/basics/job-inputs/) の Task:`web-app-tests` は、入力 Resource を消費し、いくつかのユニットテストを実行しました。この Task では、新しいものは生成しませんでしたが、Taskによっては(このレッスンで扱う Task のことです)、あとで処理するために何か別の Task に渡すものを作成したいと考えるでしょう。そして時には Concourse の外へ渡すことも考えられます([次のレッスン](/basics/publishing-outputs/)で扱います)。
+[前のレッスン](/basics/job-inputs/) の Task:`web-app-tests` は、Resource を`inputs`に使って、いくつかのユニットテストを実行しました。この Task では、成果物を何も生成しませんでしたが、Task によっては(このレッスンで扱う Task のことです)、あとで処理するために何か別の Task に渡すものを作成したいと考えるでしょう。そして時には Concourse の外へ渡すことも考えられます([次のレッスン](/basics/publishing-outputs/)で扱います)。
 
-これまで私たちが見てきた Pipeline の Task の入力は、`get: resource-tutorial` の build plan ステップを利用する Resource からきているものだけでした。
+これまで私たちが見てきたパイプラインの Task の `inputs` は、`get: resource-tutorial` の ビルド計画ステップを利用する Resource からきているものだけでした。
 
-Task の `inputs` は、前までに実行された Task の `outputs` から利用することもできます。Task が出力を発行すると宣言しておけば、後続のステップで同じ名前を指定することで、`inputs` として使用することができるのです。
+Task の `inputs` は、その前までに実行された Task の `outputs` を使うこともできます。前の Task が `outputs` と宣言すれば、後続のステップで同じ名前を指定することで、`inputs` として使用することができるのです。
 
-Task ファイルは `outputs` セクションで、出力を公開することを宣言します:
+Task ファイルは `outputs` セクションで、出力を利用可能にすることを宣言します:
 
 ```
 outputs:
 - name: some-files
 ```
 
-Task が上のような `outputs` セクションを含んでいた場合、`run：` コマンドは何かしらのファイルを `some-files` ディレクトリに入れる必要があります。
+Task が上のような `outputs` セクションを含んでいた場合、`run：` コマンドは何かしらのファイルを `some-files/` ディレクトリに入れる必要があります。
 
-後の Task (このセクションで触れます)や Resource (次のセクションで触れます)は、`some-files/` ディレクトリの中に生成された如何なるファイルも参照できます。
-
-後のタスク（このセクションで説明する）やリソース（次のセクションで説明する）は、 `some-files /`ディレクトリ内の興味深いファイルを参照できます。
+後の Task (このセクションで触れます)や Resource (次のセクションで触れます)は、`some-files/` ディレクトリの中に生成されたどんなファイルも参照できます。
 
 ```
 cd ../task-outputs-to-inputs
@@ -29,13 +27,13 @@ fly -t tutorial up -p pass-files
 fly -t tutorial trigger-job -j pass-files/job-pass-files -w
 ```
 
-この Pipeline の `job-pass-files` には、`create-some-files`、`show-some-files` の2つの Task のステップがあります:
+このパイプラインの `job-pass-files` には、`create-some-files`、`show-some-files` の2つの Task のステップがあります:
 
 ![pass-files](/images/pass-files.png)
 
 前者は4つのファイルを `some-files/` ディレクトリに作成します。 後者は、これらのファイルのコピーを `some-files/`のパスにある独自の Task コンテナのファイルシステムに入れます。
 
-Pipeline の build plan では、2つの Task を特定の順序で実行することのみが示されています。 `some-files/`は、ある Task の出力であり、次の Task への入力として使われることを直接的には示していません。
+パイプラインのビルド計画では、2つの Task を特定の順序で実行することのみが示されています。 `some-files/` は、Task: `create-some-files` の `outputs` であり、次の Task の `inputs` として使われることを直接的には示していません。
 
 ```yaml
 jobs:
@@ -72,4 +70,4 @@ jobs:
 mkdir: can't create directory 'some-files': File exists
 ```
 
-これは、Task に `outputs`が含まれている場合、それらの出力ディレクトリが事前に作成され、作成する必要がないというデモンストレーションです。
+これは、Task に `outputs` が含まれている場合、それらの出力ディレクトリが事前に作成され、作成する必要がないというデモンストレーションです。
