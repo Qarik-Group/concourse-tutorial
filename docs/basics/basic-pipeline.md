@@ -13,21 +13,20 @@ fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
 It will display the concourse pipeline (or any changes) and request confirmation:
 
 ```yaml
+---
 jobs:
-  job job-hello-world has been added:
-    name: job-hello-world
+  - name: job-hello-world
     public: true
     plan:
-    - task: hello-world
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: busybox}
-        run:
-          path: echo
-          args:
-          - hello world
+      - task: hello-world
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          run:
+            path: echo
+            args: [hello world]
 ```
 
 You will be prompted to apply any configuration changes each time you run `fly set-pipeline` (or its alias `fly sp`)
