@@ -75,7 +75,7 @@ fly -t tutorial e -c inputs_required.yml -i some-important-input=../task-hello-w
 
 The `fly execute -i` option can be removed if the current directory is the same name as the required input.
 
-The task `input_parent_dir.yml` contains an input `task-inputs` which is also the current directory. All the contants in the directory `./task-inputs` will be uploaded to the docker image. So the following command will work and return the same results as above:
+The task `input_parent_dir.yml` contains an input `task-inputs` which is also the current directory. All the contents in the directory `./task-inputs` will be uploaded to the docker image. So the following command will work and return the same results as above:
 
 ```
 fly -t tutorial e -c input_parent_dir.yml
