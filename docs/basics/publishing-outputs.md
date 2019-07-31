@@ -63,7 +63,7 @@ This pipeline is an example of updating a resource. It has pushed up new git com
 
 _Where did the new commit come from?_
 
-The `task: bump-timestamp-file` task configuration describes a single output `updated-gist`:
+The `bump-timestamp-file` task configuration describes a single output `updated-gist`:
 
 ```yaml
 outputs:
