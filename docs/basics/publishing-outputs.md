@@ -26,7 +26,7 @@ Click the "Embed" dropdown, select "Clone via SSH", and copy the git URL:
 
 ![ssh](/images/ssh.png)
 
-And modify the `resource-git` section of `pipeline.yml`:
+And modify the `resource-gist` section of `pipeline.yml`:
 
 ```
 - name: resource-gist
