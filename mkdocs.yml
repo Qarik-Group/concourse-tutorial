@@ -12,7 +12,7 @@ pages:
       - Trigger Jobs: basics/trigger-jobs.md
       - Triggering Jobs with Resources: basics/triggers.md
       - Destroying Pipelines: basics/destroy-pipelines.md
-      - Job Inputs: basics/job-inputs.md
+      - Using Resource Inputs in Job Tasks: basics/job-inputs.md
       - Passing Task Outputs to Task Inputs: basics/task-outputs-to-inputs.md
       - Publishing Outputs: basics/publishing-outputs.md
       - Parameters: basics/parameters.md
