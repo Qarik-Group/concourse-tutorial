@@ -6,6 +6,14 @@ image_path: /images/build-output-hello-world.png
 
 The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
 
+From the same directory in which you previously deployed the Docker Concourse image (verify by running `ls -l` and looking for the `docker-compose.yml` file), start the local Concourse server.
+
+```
+docker-compose up
+```
+
+Now clone the Concourse Tutorial repo, switch to the task-hello-world directory, and run the command to execute the `task_hello_world.yml` task.
+
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial/tutorials/basic/task-hello-world
