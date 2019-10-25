@@ -40,3 +40,5 @@ Therefore its file `task_show_uname.sh` is available within the Concourse task c
 
 The only further requirement is that `task_show_uname.sh` is an executable script.
 
+Note: Make sure that the `task_show_uname.sh` is executable via `chmod +x task_show_uname.sh` to avoid permission denied error.
+
