@@ -35,6 +35,13 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
     wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
+    Following are the issues could face during windows 
+    a)      For windows amd issue . please follow below steps.
+                - Right click Docker instance
+                - Go to Settings -> Daemon  -> Advanced -> Set the "experimental": true
+                - Restart Docker
+                - Switch to Linux container and restart the docker
+                
 
 ### Test Setup
 
