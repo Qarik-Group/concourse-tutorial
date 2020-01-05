@@ -9,4 +9,5 @@ inputs:
   - name: task-scripts
 
 run:
-  path: ./task-scripts/task_show_uname.sh
+  path: /bin/sh
+  args: ["./task-scripts/task_show_uname.sh"]
