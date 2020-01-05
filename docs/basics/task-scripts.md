@@ -20,7 +20,8 @@ The former specifies the latter as its task script:
 
 ```yaml
 run:
-  path: ./task-scripts/task_show_uname.sh
+  path: /bin/sh
+  args: ["./task-scripts/task_show_uname.sh"]
 ```
 
 _Where does the `./task-scripts/task_show_uname.sh` file come from?_
