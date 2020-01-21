@@ -38,11 +38,16 @@ meta:
     password: (( param "please provide concourse.password" ))
     ca_cert: (( param "please provide concourse.ca_cert" ))
 
-  credhub:
-    url: (( param "please provide credhub.url" ))
-    username: (( param "please provide credhub.username" ))
-    password: (( param "please provide credhub.password" ))
-    ca_cert: (( param "please provide credhub.ca_cert" ))
+  # credhub:
+  #   url: (( param "please provide credhub.url" ))
+  #   username: (( param "please provide credhub.username" ))
+  #   password: (( param "please provide credhub.password" ))
+  #   ca_cert: (( param "please provide credhub.ca_cert" ))
+
+  vault:
+    target: (( param "please provide vault.target" ))
+    role-id: (( param "please provide vault.role-id" ))
+    secret-id: (( param "please provide vault.secret-id" ))
 
 groups:
   - name: (( grab meta.pipeline ))
@@ -80,10 +85,15 @@ jobs:
             FLY_USERNAME: (( grab meta.concourse.username ))
             FLY_PASSWORD: (( grab meta.concourse.password ))
             FLY_CACERT: (( grab meta.concourse.ca_cert ))
-            CREDHUB_URL: (( grab meta.credhub.url ))
-            CREDHUB_USERNAME: (( grab meta.credhub.username ))
-            CREDHUB_PASSWORD: (( grab meta.credhub.password ))
-            CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
+            # CREDHUB_URL: (( grab meta.credhub.url ))
+            # CREDHUB_USERNAME: (( grab meta.credhub.username ))
+            # CREDHUB_PASSWORD: (( grab meta.credhub.password ))
+            # CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
+            VAULT_TARGET: ((grab meta.vault.target))
+            VAULT_ROLE-ID: ((grab meta.vault.role-id))
+            VAULT_SECRET-ID: ((grab meta.vault.secret-id))
+            team: (( grab meta.team ))
+            credmanager: vault
   - name: testflight-master
     public: false
     serial_groups: [tutorial-pipeline]
@@ -111,11 +121,15 @@ jobs:
             FLY_USERNAME: (( grab meta.concourse.username ))
             FLY_PASSWORD: (( grab meta.concourse.password ))
             FLY_CACERT: (( grab meta.concourse.ca_cert ))
-            CREDHUB_URL: (( grab meta.credhub.url ))
-            CREDHUB_USERNAME: (( grab meta.credhub.username ))
-            CREDHUB_PASSWORD: (( grab meta.credhub.password ))
-            CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
-
+            # CREDHUB_URL: (( grab meta.credhub.url ))
+            # CREDHUB_USERNAME: (( grab meta.credhub.username ))
+            # CREDHUB_PASSWORD: (( grab meta.credhub.password ))
+            # CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
+            VAULT_TARGET: ((grab meta.vault.target))
+            VAULT_ROLE-ID: ((grab meta.vault.role-id))
+            VAULT_SECRET-ID: ((grab meta.vault.secret-id))
+            team: (( grab meta.team ))
+            credmanager: vault
   - name: website-master
     public: false
     serial: true
