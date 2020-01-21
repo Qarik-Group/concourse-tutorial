@@ -52,48 +52,48 @@ meta:
 groups:
   - name: (( grab meta.pipeline ))
     jobs:
-      - testflight-develop
+      # - testflight-develop
       - testflight-master
       - website-master
-      - website-develop
+      # - website-develop
 
 jobs:
-  - name: testflight-develop
-    public: false
-    serial_groups: [tutorial-pipeline]
-    plan:
-      - get: git
-        resource: git-develop
-        trigger: true
-      - task: testflight
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source:
-              repository: (( grab meta.image.name ))
-              tag: (( grab meta.image.tag ))
-          inputs:
-            - {name: git}
-          run:
-            path: ./git/ci/scripts/testflight-with-credhub.sh
-            args: []
-          params:
-            REPO_ROOT: git
-            FLY_URL: (( grab meta.concourse.url ))
-            FLY_TEAM: (( grab meta.team ))
-            FLY_USERNAME: (( grab meta.concourse.username ))
-            FLY_PASSWORD: (( grab meta.concourse.password ))
-            FLY_CACERT: (( grab meta.concourse.ca_cert ))
-            # CREDHUB_URL: (( grab meta.credhub.url ))
-            # CREDHUB_USERNAME: (( grab meta.credhub.username ))
-            # CREDHUB_PASSWORD: (( grab meta.credhub.password ))
-            # CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
-            VAULT_TARGET: ((grab meta.vault.target))
-            VAULT_ROLEID: ((grab meta.vault.roleid))
-            VAULT_SECRETID: ((grab meta.vault.secretid))
-            team: (( grab meta.team ))
-            credmanager: vault
+  # - name: testflight-develop
+  #   public: false
+  #   serial_groups: [tutorial-pipeline]
+  #   plan:
+  #     - get: git
+  #       resource: git-develop
+  #       trigger: true
+  #     - task: testflight
+  #       config:
+  #         platform: linux
+  #         image_resource:
+  #           type: docker-image
+  #           source:
+  #             repository: (( grab meta.image.name ))
+  #             tag: (( grab meta.image.tag ))
+  #         inputs:
+  #           - {name: git}
+  #         run:
+  #           path: ./git/ci/scripts/testflight-with-credhub.sh
+  #           args: []
+  #         params:
+  #           REPO_ROOT: git
+  #           FLY_URL: (( grab meta.concourse.url ))
+  #           FLY_TEAM: (( grab meta.team ))
+  #           FLY_USERNAME: (( grab meta.concourse.username ))
+  #           FLY_PASSWORD: (( grab meta.concourse.password ))
+  #           FLY_CACERT: (( grab meta.concourse.ca_cert ))
+  #           # CREDHUB_URL: (( grab meta.credhub.url ))
+  #           # CREDHUB_USERNAME: (( grab meta.credhub.username ))
+  #           # CREDHUB_PASSWORD: (( grab meta.credhub.password ))
+  #           # CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
+  #           VAULT_TARGET: ((grab meta.vault.target))
+  #           VAULT_ROLEID: ((grab meta.vault.roleid))
+  #           VAULT_SECRETID: ((grab meta.vault.secretid))
+  #           team: (( grab meta.team ))
+  #           credmanager: vault
   - name: testflight-master
     public: false
     serial_groups: [tutorial-pipeline]
@@ -161,45 +161,45 @@ jobs:
           path: site
           current_app_name: (( grab meta.cf.master.appname ))
 
-  - name: website-develop
-    public: false
-    serial: true
-    plan:
-      - get: git
-        resource: git-develop
-        trigger: true
-      - task: mkdocs-build
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source:
-              repository: (( grab meta.image.name ))
-              tag: (( grab meta.image.tag ))
-          inputs:
-            - {name: git}
-          outputs:
-            - {name: site}
-          run:
-            path: ./git/ci/scripts/mkdocs-build.sh
-            args: []
-          params:
-            REPO_ROOT: git
-            SITE_ROOT: site
-      - put: deploy-develop
-        params:
-          manifest: site/manifest-develop.yml
-          path: site
-          current_app_name: (( grab meta.cf.develop.appname ))
+  # - name: website-develop
+  #   public: false
+  #   serial: true
+  #   plan:
+  #     - get: git
+  #       resource: git-develop
+  #       trigger: true
+  #     - task: mkdocs-build
+  #       config:
+  #         platform: linux
+  #         image_resource:
+  #           type: docker-image
+  #           source:
+  #             repository: (( grab meta.image.name ))
+  #             tag: (( grab meta.image.tag ))
+  #         inputs:
+  #           - {name: git}
+  #         outputs:
+  #           - {name: site}
+  #         run:
+  #           path: ./git/ci/scripts/mkdocs-build.sh
+  #           args: []
+  #         params:
+  #           REPO_ROOT: git
+  #           SITE_ROOT: site
+  #     - put: deploy-develop
+  #       params:
+  #         manifest: site/manifest-develop.yml
+  #         path: site
+  #         current_app_name: (( grab meta.cf.develop.appname ))
 
 resources:
-  - name: git-develop
-    type: git
-    check_every: 1h
-    source:
-      uri: (( grab meta.github.uri ))
-      branch: (( grab meta.github.branch_develop ))
-      private_key: (( grab meta.github.private_key ))
+  # - name: git-develop
+  #   type: git
+  #   check_every: 1h
+  #   source:
+  #     uri: (( grab meta.github.uri ))
+  #     branch: (( grab meta.github.branch_develop ))
+  #     private_key: (( grab meta.github.private_key ))
 
   - name: git-master
     type: git
@@ -209,15 +209,15 @@ resources:
       branch: (( grab meta.github.branch_master ))
       private_key: (( grab meta.github.private_key ))
 
-  - name: deploy-develop
-    type: cf
-    source:
-      api: (( grab meta.cf.api ))
-      skip_cert_check: (( grab meta.cf.skip_cert_check ))
-      username: (( grab meta.cf.username ))
-      password: (( grab meta.cf.password ))
-      organization: (( grab meta.cf.organization ))
-      space: (( grab meta.cf.space ))
+  # - name: deploy-develop
+  #   type: cf
+  #   source:
+  #     api: (( grab meta.cf.api ))
+  #     skip_cert_check: (( grab meta.cf.skip_cert_check ))
+  #     username: (( grab meta.cf.username ))
+  #     password: (( grab meta.cf.password ))
+  #     organization: (( grab meta.cf.organization ))
+  #     space: (( grab meta.cf.space ))
 
   - name: deploy-master
     type: cf
