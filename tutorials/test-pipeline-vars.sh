@@ -8,9 +8,11 @@ case $credman in
   credhub)
     cmdget="credhub get -n"
     cmddel="credhub delete -n"
+    ;;
   vault)
     cmdget="safe get"
     cmddel="safe delete"
+    ;;
 esac
 
 team=${team:-concourse-tutorial}

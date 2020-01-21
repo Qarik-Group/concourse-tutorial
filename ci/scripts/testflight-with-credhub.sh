@@ -34,11 +34,14 @@ case $credman in
           --ca-cert credhub.cacert \
           --username ${CREDHUB_USERNAME:?required} \
           --password ${CREDHUB_PASSWORD:?required}
+    ;;
   vault)
     echo
     echo "$ vault login"
     safe target -k ${VAULT_TARGET} lab
     echo -e "${VAULT_ROLEID}\n${VAULT_SECRETID}" | safe auth approle
+    ;;  
+esac
 
 export fly_target=tutorial
 
