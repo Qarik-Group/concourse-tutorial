@@ -34,5 +34,5 @@ meta:
 
   vault:
     target: ((vault.target))
-    role-id: ((vault.role-id))
-    secret-id: ((vault.secret-id))
+    roleid: ((vault.role-id))
+    secretid: ((vault.secret-id))

@@ -24,14 +24,21 @@ else
       --ca-cert       fly.cacert
 fi
 
-echo
-echo "$ credhub login"
-echo "${CREDHUB_CACERT:?required}" > credhub.cacert
-credhub login \
-      --server  ${CREDHUB_URL:?required} \
-      --ca-cert credhub.cacert \
-      --username ${CREDHUB_USERNAME:?required} \
-      --password ${CREDHUB_PASSWORD:?required}
+case $credman in
+  credhub)
+    echo
+    echo "$ credhub login"
+    echo "${CREDHUB_CACERT:?required}" > credhub.cacert
+    credhub login \
+          --server  ${CREDHUB_URL:?required} \
+          --ca-cert credhub.cacert \
+          --username ${CREDHUB_USERNAME:?required} \
+          --password ${CREDHUB_PASSWORD:?required}
+  vault)
+    echo
+    echo "$ vault login"
+    safe target -k ${VAULT_TARGET} lab
+    echo -e "${VAULT_ROLEID}\n${VAULT_SECRETID}" | safe auth approle
 
 export fly_target=tutorial
 

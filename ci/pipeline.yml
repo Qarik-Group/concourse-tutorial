@@ -46,8 +46,8 @@ meta:
 
   vault:
     target: (( param "please provide vault.target" ))
-    role-id: (( param "please provide vault.role-id" ))
-    secret-id: (( param "please provide vault.secret-id" ))
+    roleid: (( param "please provide vault.roleid" ))
+    secretid: (( param "please provide vault.secretid" ))
 
 groups:
   - name: (( grab meta.pipeline ))
@@ -90,8 +90,8 @@ jobs:
             # CREDHUB_PASSWORD: (( grab meta.credhub.password ))
             # CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
             VAULT_TARGET: ((grab meta.vault.target))
-            VAULT_ROLE-ID: ((grab meta.vault.role-id))
-            VAULT_SECRET-ID: ((grab meta.vault.secret-id))
+            VAULT_ROLEID: ((grab meta.vault.roleid))
+            VAULT_SECRETID: ((grab meta.vault.secretid))
             team: (( grab meta.team ))
             credmanager: vault
   - name: testflight-master
@@ -126,8 +126,8 @@ jobs:
             # CREDHUB_PASSWORD: (( grab meta.credhub.password ))
             # CREDHUB_CACERT: (( grab meta.credhub.ca_cert ))
             VAULT_TARGET: ((grab meta.vault.target))
-            VAULT_ROLE-ID: ((grab meta.vault.role-id))
-            VAULT_SECRET-ID: ((grab meta.vault.secret-id))
+            VAULT_ROLEID: ((grab meta.vault.roleid))
+            VAULT_SECRETID: ((grab meta.vault.secretid))
             team: (( grab meta.team ))
             credmanager: vault
   - name: website-master
