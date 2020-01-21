@@ -195,6 +195,7 @@ jobs:
 resources:
   - name: git-develop
     type: git
+    check_every: 1h
     source:
       uri: (( grab meta.github.uri ))
       branch: (( grab meta.github.branch_develop ))
@@ -202,6 +203,7 @@ resources:
 
   - name: git-master
     type: git
+    check_every: 1h
     source:
       uri: (( grab meta.github.uri ))
       branch: (( grab meta.github.branch_master ))
