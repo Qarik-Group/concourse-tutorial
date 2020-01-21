@@ -24,6 +24,7 @@ else
       --ca-cert       fly.cacert
 fi
 
+credman=${credmanager:-credhub}
 case $credman in
   credhub)
     echo
@@ -40,7 +41,7 @@ case $credman in
     echo "$ vault login"
     safe target -k ${VAULT_TARGET} lab
     echo -e "${VAULT_ROLEID}\n${VAULT_SECRETID}" | safe auth approle
-    ;;  
+    ;;
 esac
 
 export fly_target=tutorial
