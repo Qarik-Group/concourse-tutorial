@@ -14,17 +14,17 @@ fly -t tutorial up -p publishing-outputs
 
 Pipeline dashboard http://127.0.0.1:8080/teams/main/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
 
-![broken-resource](/images/broken-resource.png)
+![broken-resource](../images/broken-resource.png)
 
 The `pipeline.yml` does not yet have a git repo nor its write-access private key credentials.
 
 [Create a Github Gist](https://gist.github.com/) with a single file `bumpme`, and press "Create public gist":
 
-![gist](/images/gist.png)
+![gist](../images/gist.png)
 
 Click the "Embed" dropdown, select "Clone via SSH", and copy the git URL:
 
-![ssh](/images/ssh.png)
+![ssh](../images/ssh.png)
 
 And modify the `resource-gist` section of `pipeline.yml`:
 
@@ -57,7 +57,7 @@ Revisit the Web UI and the orange resource will change to black if it can succes
 
 After the `job-bump-date` job completes, refresh your gist:
 
-![gist-bumped](/images/gist-bumped.png)
+![gist-bumped](../images/gist-bumped.png)
 
 This pipeline is an example of updating a resource. It has pushed up new git commits to the git repo (your github gist).
 
