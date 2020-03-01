@@ -57,7 +57,7 @@ succeeded
 
 The URL http://127.0.0.1:8080/builds/1 is viewable in the browser. It is another view of the same task.
 
-![build-output-hello-world](/images/build-output-hello-world.png)
+![build-output-hello-world](../images/build-output-hello-world.png)
 
 ## Task Docker Images
 

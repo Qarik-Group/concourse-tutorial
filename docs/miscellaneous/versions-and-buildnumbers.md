@@ -117,7 +117,7 @@ fly -t bucc trigger-job -j versions-and-buildnumbers/display-version -w
 
 The job will look delightful in the Concourse dashboard:
 
-![semver-display-version](/images/semver-display-version.png)
+![semver-display-version](../images/semver-display-version.png)
 
 ## Bumping the Version
 
@@ -127,7 +127,7 @@ The `semver` resource type can be bumped when it is first fetched down. See [exa
 
 Its new value only exists within the job's build plan, being passed between containers via `inputs` into tasks.
 
-![bump-version](/images/bump-version.png)
+![bump-version](../images/bump-version.png)
 
 There are [two options](https://github.com/concourse/semver-resource#version-bumping-semantics) for bumping a `semver` value when fetching it:
 
@@ -183,4 +183,4 @@ fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 
 Our new pipeline will start its internal build numbers at `#1` again, but it restores the previous `version` value.
 
-![bump-version-restoration](/images/bump-version-restoration.png)
+![bump-version-restoration](../images/bump-version-restoration.png)

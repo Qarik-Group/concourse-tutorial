@@ -4,7 +4,7 @@ One of the great features of Concourse is the ability to watch and trigger jobs 
 
 This section will show how to use a Github Release as an input to a job.
 
-![github-release](/images/github-release.png)
+![github-release](../images/github-release.png)
 
 ## Resource Type
 
@@ -81,5 +81,5 @@ If you'd like more examples of using the `github-release` resource type, check o
 
 We maintain a Homebrew tap and a Debian repository https://apt.starkandwayne.com which package our own and 3rd party CLIs into Homebrew and Debian packages. Everytime a new version is released our pipeline automatically updates the Homebrew and Debian package.
 
-[![github-release-debian-packages](/images/github-release-debian-packages.png)](http://ci.starkandwayne.com/teams/main/pipelines/homebrew-recipes?groups=debian)
+[![github-release-debian-packages](../images/github-release-debian-packages.png)](http://ci.starkandwayne.com/teams/main/pipelines/homebrew-recipes?groups=debian)
 

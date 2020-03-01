@@ -59,13 +59,13 @@ configuration updated
 
 The [`hello-world` pipeline](http://127.0.0.1:8080/teams/main/pipelines/hello-world) now shows an input resource `resource-tutorial` feeding into the job `job-hello-world`.
 
-![pipeline-resources](/images/resource-job.gif)
+![pipeline-resources](../images/resource-job.gif)
 
 The Concourse Tutorial verbosely prefixes `resource-` to resource names, and `job-` to job names, to help you identify one versus the other whilst learning. Eventually you will know one from the other and can remove the extraneous text.
 
 After manually triggering the job via the UI, the output will look like:
 
-![job-task-from-task](/images/job-task-from-task.png)
+![job-task-from-task](../images/job-task-from-task.png)
 
 The in-progress or newly-completed `job-hello-world` job UI has three sections:
 

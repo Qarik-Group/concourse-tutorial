@@ -29,7 +29,7 @@ fly -t tutorial trigger-job -j pass-files/job-pass-files -w
 
 In this pipeline's `job-pass-files` there are two task steps `create-some-files` and `show-some-files`:
 
-![pass-files](/images/pass-files.png)
+![pass-files](../images/pass-files.png)
 
 The former creates 4 files into its own `some-files/` directory. The latter gets a copy of these files placed in its own task container filesystem at the path `some-files/`.
 

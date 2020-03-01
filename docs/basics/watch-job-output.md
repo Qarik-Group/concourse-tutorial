@@ -5,7 +5,7 @@ image_path: /images/git-resource-in.png
 
 It was very helpful that the `job-hello-world` [job build](http://127.0.0.1:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1) included the terminal output from running `git` commands to clone the git repo and the output of the running `hello-world` task.
 
-![git-resource-in](/images/git-resource-in.png)
+![git-resource-in](../images/git-resource-in.png)
 
 You can also view this output from the terminal with `fly watch`:
 

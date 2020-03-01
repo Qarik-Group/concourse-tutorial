@@ -38,7 +38,7 @@ fly -t tutorial up -p simple-app
 
 View the pipeline UI http://127.0.0.1:8080/teams/main/pipelines/simple-app and notice that the job automatically starts.
 
-![trigger-job-input](/images/trigger-job-input.png)
+![trigger-job-input](../images/trigger-job-input.png)
 
 The job will pause on the first run at `web-app-tests` task because it is downloading the `golang:1.9-alpine` image for the first time.
 
@@ -48,4 +48,4 @@ The `web-app-tests` output below corresponds to the Go language test output (in 
 ok  	github.com/cloudfoundry-community/simple-go-web-app	0.003s
 ```
 
-![task-docker-image-and-run-tests](/images/task-docker-image-and-run-tests.png)
+![task-docker-image-and-run-tests](../images/task-docker-image-and-run-tests.png)

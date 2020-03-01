@@ -41,9 +41,9 @@ If you are missing `../publishing-outputs/credentials.yml`, visit the section [R
 
 The dashboard UI displays the additional job and its trigger/non-trigger resources. Importantly, it shows our first multi-job pipeline:
 
-![pipeline](/images/pipeline.png)
+![pipeline](../images/pipeline.png)
 
 The latest `resource-gist` commit fetched down in `job-show-date` will be the exact commit used in the last successful `job-bump-date` job. If you manually created a new git commit in your gist and manually ran the `job-show-date` job it would continue to use the previous commit it used, and ignore your new commit. *This is the power of pipelines.*
 
-![trigger](/images/trigger.png)
+![trigger](../images/trigger.png)
 

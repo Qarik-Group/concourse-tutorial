@@ -2,7 +2,7 @@
 
 If a test fails in the woods and no one is there to see it turn red, did it really fail?
 
-![test-sometimes-works](/images/test-sometimes-works.png)
+![test-sometimes-works](../images/test-sometimes-works.png)
 
 Whilst your jobs can automatically trigger without a human, it isn't often helpful for them to fail without a human being notified. If you use [Slack](https://slack.com), or a different chat room where your team hangs out, then I suggest having your pipeline inform you of failures or successes.
 
@@ -85,13 +85,13 @@ https://concourseci.slack.com/services/new/incoming-webhook/
 
 Choose a public or private channel into which your notifications will be delivered. For this tutorial, choose your own personal channel "Privately to you".
 
-![slack-webhook-private](/images/slack-webhook-private.png)
+![slack-webhook-private](../images/slack-webhook-private.png)
 
 Click "Add Incoming WebHooks integration" button.
 
 On the next page, you will be given a unique secret URL. Triple click to select, then copy it to your clipboard.
 
-![slack-webhook-url](/images/slack-webhook-url.png)
+![slack-webhook-url](../images/slack-webhook-url.png)
 
 Each pipeline might have its own `((slack-webhook))` parameter to send notifications to different Slack channels. So we will store the URL in a pipeline-specific location in Credhub (remember to run `bucc credhub` in your `bucc` project to re-login to Credhub):
 
@@ -142,7 +142,7 @@ fly -t bucc trigger-job -j slack-notifications/test -w
 
 Your lovely failure will now appear as a notification in Slack:
 
-![slack-webhook-test-failed](/images/slack-webhook-test-failed.png)
+![slack-webhook-test-failed](../images/slack-webhook-test-failed.png)
 
 ## Dynamic Notification Messages
 
@@ -150,9 +150,9 @@ In the preceding section the notification text was hardcoded within the `pipelin
 
 It is also possible to emit success notifications.
 
-In the example below there are two notifications (Slack combines messages from the same sender to save space). Each message contains information that is dynamically 
+In the example below there are two notifications (Slack combines messages from the same sender to save space). Each message contains information that is dynamically
 
-![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
+![slack-webhook-dynamic-messages](../images/slack-webhook-dynamic-messages.png)
 
 From the README of the `slack-notification-resource` being used, we can see there is a `text` and a `text_file` parameter https://github.com/cloudfoundry-community/slack-notification-resource#out-sends-message-to-slack
 
@@ -214,7 +214,7 @@ fi
 
 On failure, the message will start with "Unfortunately...". On success, the message will start with "Harray!".
 
-![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
+![slack-webhook-dynamic-messages](../images/slack-webhook-dynamic-messages.png)
 
 Visit https://api.slack.com/incoming-webhooks to learn more about contents of Slack messages.
 
@@ -232,11 +232,11 @@ fly -t bucc trigger-job -j slack-notifications/test -w
 
 Our Slack notifications above are pretty bland:
 
-![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
+![slack-webhook-dynamic-messages](../images/slack-webhook-dynamic-messages.png)
 
 Let's spice them up with custom image and username:
 
-![slack-webhook-custom-metadata](/images/slack-webhook-custom-metadata.png)
+![slack-webhook-custom-metadata](../images/slack-webhook-custom-metadata.png)
 
 Also, we can condense the `on_success` and `on_failure` sections into a shared `ensure` block:
 

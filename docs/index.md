@@ -5,7 +5,7 @@ image_path: /images/concourse-sample-pipeline.gif
 
 Learn to use https://concourse-ci.org with this linear sequence of tutorials. Learn each concept that builds on the previous concept.
 
-[![concourse-sample-pipeline](/images/concourse-sample-pipeline.gif)](https://concourse-ci.org/)
+[![concourse-sample-pipeline](../images/concourse-sample-pipeline.gif)](https://concourse-ci.org/)
 
 Concourse is a 100% open source CI/CD system with approximately 100 [integrations](https://concourse-ci.org/resource-types.html) to the outside world. Concourse's principles reduce the risk of switching to and from Concourse, by encouraging practices that decouple your project from your CI's little details, and keeping all configuration in declarative files that can be checked into version control.
 
@@ -35,19 +35,19 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
     wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
-    Following are the issues could face during windows 
+    Following are the issues could face during windows
     a)      For windows amd issue . please follow below steps.
                 - Right click Docker instance
                 - Go to Settings -> Daemon  -> Advanced -> Set the "experimental": true
                 - Restart Docker
                 - Switch to Linux container and restart the docker
-                
+
 
 ### Test Setup
 
 Open http://127.0.0.1:8080/ in your browser:
 
-[![initial](/images/dashboard-no-pipelines.png)](http://127.0.0.1:8080/)
+[![initial](../images/dashboard-no-pipelines.png)](http://127.0.0.1:8080/)
 
 Click on your operating system to download the `fly` CLI.
 

@@ -1,6 +1,6 @@
 # Run Tests Then Deploy
 
-![test-and-cf-deploy](/images/test-and-cf-deploy.png)
+![test-and-cf-deploy](../images/test-and-cf-deploy.png)
 
 In this section we combine four ideas into a more advanced job:
 
@@ -70,7 +70,7 @@ The sample application being deployed by the pipeline is https://github.com/clou
 
 ## Required Parameters
 
-![cf-push-expected-variables](/images/cf-push-expected-variables.png)
+![cf-push-expected-variables](../images/cf-push-expected-variables.png)
 
 The example `pipeline.yml` in the lesson folder uses the `cf` resource for deploying the application via `put: deploy-web-app`. You could use any resource (or a handcrafted task) to deploy your application instead. Declarative deployment platforms like Cloud Foundry and Kubernetes can trivialise our pipeline implementation. They are the "Just Do It" of CI/CD deployment orchestration.
 

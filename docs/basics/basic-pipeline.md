@@ -53,7 +53,7 @@ Visit the pipeline URL http://127.0.0.1:8080/teams/main/pipelines/hello-world
 
 It is a private pipeline and currently you are not logged in to the Concourse Web UI. You will be redirected to a login page.
 
-![dashboard-login](/images/dashboard-login.png)
+![dashboard-login](../images/dashboard-login.png)
 
 Enter the credentials for the admin user defined in `docker-compose.yml` then click "login" and you'll be redirected back to your pipeline.
 
@@ -61,15 +61,15 @@ Enter the credentials for the admin user defined in `docker-compose.yml` then cl
 
 Your pipeline has a blue bar across the top. This means it is paused. New pipelines start paused as you might not yet be ready for triggers to fire and start jobs running.
 
-![dashboard-pipeline-paused](/images/dashboard-pipeline-paused.png)
+![dashboard-pipeline-paused](../images/dashboard-pipeline-paused.png)
 
 There are two ways to unpause (or re-pause) a pipeline.
 
 1. Click the propeller icon in the top left to be redirected back the concourse dashboard. Then click the play button on your pipeline.
 
-    ![dashboard-hamburger-menu](/images/dashboard-hamburger-menu.png)
+    ![dashboard-hamburger-menu](../images/dashboard-hamburger-menu.png)
 
-    
+
 
 2. Using the `fly unpause-pipeline` command (or its alias `fly up`):
 
@@ -84,6 +84,6 @@ This first pipeline is unimpressive - a single job `job-hello-world` with no inp
 
 Click on `job-hello-world` and then click on the large `+` in the top right corner. Your job will run.
 
-![job](/images/job-hello-world.gif)
+![job](../images/job-hello-world.gif)
 
 Clicking the top-left "Home" icon will show the status of our pipeline. The job `job-hello-world` is now green. This means that the last time the job ran it completed successfully.

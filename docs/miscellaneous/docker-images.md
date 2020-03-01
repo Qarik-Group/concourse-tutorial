@@ -2,7 +2,7 @@
 
 This section will show how to take a Dockerfile project, build it and push to Docker Hub.
 
-![docker-push](/images/docker-push.png)
+![docker-push](../images/docker-push.png)
 
 You might have many uses for Docker images in your normal work; but you'll also want to curate Docker images for your Concourse pipelines. Your Concourse tasks will be a lot faster if any dependencies are preinstalled on the base image, rather than you downloading them each time from the Internet. Your team might start curating a set of Docker images to be used by all your pipelines.
 
@@ -17,7 +17,7 @@ cd tutorials/miscellaneous/docker-images
 Define a docker image
 ---------------------
 
-This section's subfolder `docker` contains a `Dockerfile` and a simple `hello-world` command. 
+This section's subfolder `docker` contains a `Dockerfile` and a simple `hello-world` command.
 
 ```dockerfile
 FROM busybox
