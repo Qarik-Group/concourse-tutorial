@@ -11,6 +11,7 @@ Concourse supports Cloud Foundry Credhub, Hashicorp Vault, Amazon SSM, and Amazo
 We will now switch from our `docker-compose up` deployment of Concourse to [bucc](https://github.com/starkandwayne/bucc) to deploy a local single VM version of Concourse that has the Credhub credentials manager. As a bonus, `bucc` will allow you to deploy a production-version of Concourse to any public or private cloud. In this tutorial we will deploy `bucc` to your local machine.
 
 First, you need to install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (for the local deployment of `bucc`).
+If you are running Ubuntu, macOS or CentOS, there are [additional dependencies](https://bosh.io/docs/cli-v2-install/#additional-dependencies) that need to be installed before the local deployment of `bucc`.
 
 Next:
 
