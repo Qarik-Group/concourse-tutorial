@@ -13,7 +13,7 @@ But with pipelines we now need to store the task file and task script somewhere 
 
 Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them "Resources". Example resources are `git`, `s3`, and `semver` respectively.
 
-See the Concourse documentation [Resource Types](https://concourse-ci.org/resource-types.html) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorials [Miscellaneous](/miscellaneous/) section also introduces some commonly useful Resource Types.
+See the Concourse documentation [Resource Types](https://concourse-ci.org/resource-types.html) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorial's [Miscellaneous](/miscellaneous/) section also introduces some commonly useful Resource Types.
 
 The most common resource type to store our task files and task scripts is the `git` resource type. Perhaps your task files could be fetched via the `s3` resource type from an AWS S3 file; or the `archive` resource type to extract them from a remote archive file. Or perhaps the task files could be pre-baked into the `image_resource` base Docker image. But mostly you will use a `git` resource in your pipeline to pull in your pipeline task files.
 
