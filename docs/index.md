@@ -110,5 +110,6 @@ When we use the `fly` command we will target this Concourse API using `fly --tar
 When you've finished with your local Concourse, deployed via `docker-compose up`, you can use `docker-compose down` to destroy it.
 
 ```plain
-docker-compose down
+cd ~
+sudo docker-compose down
 ```
