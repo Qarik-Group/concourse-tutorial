@@ -57,5 +57,5 @@ markdown_extensions:
 repo_name: "help fix the tutorials"
 repo_url: "https://github.com/starkandwayne/concourse-tutorial"
 edit_uri: edit/master/docs/
-extra_css: [print.css]
+extra_css: [print.css, stylesheets/extra.css]
 google_analytics: ["UA-50822525-6", "concoursetutorial.com"]
