@@ -57,6 +57,14 @@ succeeded
 
 The URL http://127.0.0.1:8080/builds/1 is viewable in the browser. It is another view of the same task.
 
+---
+**NOTE**
+
+You'll need to login to Concourse to view this page. The default credentials are `admin / admin`
+
+---
+
+
 ![build-output-hello-world](/images/build-output-hello-world.png)
 
 ## Task Docker Images
