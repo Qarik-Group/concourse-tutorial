@@ -2,13 +2,13 @@
 
 This section contains miscellaneous lessons that follow on from the sequential Basic lessons.
 
-Using a Credentials Manager with Concourse is best practice, so from this point onwards the lessons will assume you are continuing to run `bucc` from the [Secrets with Credentials Manager](/basics/secret-parameters.md) lesson. 
+Using a Credentials Manager with Concourse is best practice, so from this point onwards the lessons will assume you are continuing to run `bucc` from the [Secrets with Credentials Manager](/basics/secret-parameters/) lesson. 
 
 Therefore the lessons will include `fly -t bucc` commands, rather than `fly -t tutorial` commands.
 
 Also, the lessons will instruct to run `credhub set` commands to populate parameters for your pipelines.
 
-You can of course use any Concourse, with or without a credentials manager. Adjust the `fly -t bucc` target alias for your target Concourse, and you can use `fly set-pipeline` with `-v` or `-l` flags to pass in parameters from the command line. Revisit lesson [Parameters](/basics/parameters.md) to learn more.
+You can of course use any Concourse, with or without a credentials manager. Adjust the `fly -t bucc` target alias for your target Concourse, and you can use `fly set-pipeline` with `-v` or `-l` flags to pass in parameters from the command line. Revisit lesson [Parameters](/basics/parameters/) to learn more.
 
 ## Abbreviated pipelines
 
