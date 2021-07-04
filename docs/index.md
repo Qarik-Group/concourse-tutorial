@@ -29,18 +29,28 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
 
 1. Install [Docker](https://www.docker.com/community-edition).
 2. Install [Docker Compose](https://docs.docker.com/compose/install/#install-compose) if not included in your Docker installation.
-3. Deploy Concourse using Docker Compose:
+3. Start Docker
+    ```plain
+    systemctl enable docker
+    systemctl start docker 
+    sudo docker info
+    ```
+    You should not et an error message. 
+4. Deploy Concourse using Docker Compose:
 
     ```plain
     wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
-    Following are the issues could face during windows 
+    Following are the issues could face:
+    
     a)      For windows amd issue . please follow below steps.
                 - Right click Docker instance
                 - Go to Settings -> Daemon  -> Advanced -> Set the "experimental": true
                 - Restart Docker
                 - Switch to Linux container and restart the docker
+                
+    b)      For Linux, you may need to use ```sudo docker-compose up -d```
                 
 
 ### Test Setup
@@ -100,5 +110,6 @@ When we use the `fly` command we will target this Concourse API using `fly --tar
 When you've finished with your local Concourse, deployed via `docker-compose up`, you can use `docker-compose down` to destroy it.
 
 ```plain
-docker-compose down
+cd ~
+sudo docker-compose down
 ```
