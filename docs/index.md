@@ -41,7 +41,15 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
                 - Go to Settings -> Daemon  -> Advanced -> Set the "experimental": true
                 - Restart Docker
                 - Switch to Linux container and restart the docker
-                
+    
+    If you are running concourse on a docker server, rather than your own machine, you need to set the external url env variable
+    inside the docker-compose.yml otherwise you will not be able to login to the webui because it wiull redirect to 127.0.0.1:8080
+    ```plain
+    - CONCOURSE_EXTERNAL_URL
+    + CONCOURSE_EXTERNAL_URL=http://{{my-server}}:8080
+    ```
+    You will also need to access the webui and setup the fly target on this url rather than 127.0.0.1, 
+    so change every http://127.0.0.1:8080 in this tutorial to http://{{my-server}}:8080         
 
 ### Test Setup
 
