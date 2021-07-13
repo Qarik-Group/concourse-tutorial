@@ -35,13 +35,25 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
     wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
-    Following are the issues could face during windows 
-    a)      For windows amd issue . please follow below steps.
-                - Right click Docker instance
-                - Go to Settings -> Daemon  -> Advanced -> Set the "experimental": true
-                - Restart Docker
-                - Switch to Linux container and restart the docker
-                
+    The following are common issues found when working with the tutorial 
+    
+    a. For Windows AMD issues:
+    
+    - Right click Docker instance
+    - Go to Settings -> Daemon  -> Advanced -> Set the "experimental": true
+    - Restart Docker
+    - Switch to Linux container and restart the docker
+    
+    b. For running concourse on a docker server instead of locally:
+    
+    You need to set the external url env variable inside the docker-compose.yml. Without this change you will not be able to login to 
+    the webui because it would redirect to 127.0.0.1:8080
+    ```plain
+    - CONCOURSE_EXTERNAL_URL
+    + CONCOURSE_EXTERNAL_URL=http://{{my-server}}:8080
+    ```
+    You will also need to access the webui and setup the fly target to use this url rather than 127.0.0.1, 
+    so change every http://127.0.0.1:8080 in this tutorial to http://{{my-server}}:8080         
 
 ### Test Setup
 
