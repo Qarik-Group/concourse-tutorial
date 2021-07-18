@@ -5,7 +5,7 @@ description: Review the four ways to trigger a job.
 There are four ways for a job to be triggered:
 
 * Clicking the `+` button on the web UI of a job (as we did in previous sections)
-* Input resource triggering a job (see the next lesson [Triggering Jobs with Resources](/basics/triggers/))
+* Input resource triggering a job (see the next lesson [Triggering Jobs with Resources](triggers.md))
 * `fly trigger-job -j pipeline/jobname` command
 * Sending `POST` HTTP request to Concourse API
 

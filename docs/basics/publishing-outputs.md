@@ -116,8 +116,8 @@ The Docker image being used is described in the `image_resources` section of the
 
 The Docker image [`starkandwayne/concourse`](https://hub.docker.com/r/starkandwayne/concourse) is described at https://github.com/starkandwayne/dockerfiles/ and is common base Docker image used by many Stark & Wayne pipelines.
 
-Your organisation may wish to curate its own base Docker images to be shared across pipelines. After finishing the Basics lessons, visit Lesson [Create and Use Docker Images](/miscellaneous/docker-images/) for creating pipelines to create your own Docker images using Concourse.
+Your organisation may wish to curate its own base Docker images to be shared across pipelines. After finishing the Basics lessons, visit Lesson [Create and Use Docker Images](../miscellaneous/docker-images.md) for creating pipelines to create your own Docker images using Concourse.
 
 ## Tragic Security
 
-If you're feeling ill from copying your private keys into a plain text file (`pipeline.yml`) and then seeing them printed to the screen (during `fly set-pipeline -c pipeline.yml`), then fear not. We will get to [Secret with Credential Manager](/basics/secret-parameters/) soon.
+If you're feeling ill from copying your private keys into a plain text file (`pipeline.yml`) and then seeing them printed to the screen (during `fly set-pipeline -c pipeline.yml`), then fear not. We will get to [Secret with Credential Manager](secret-parameters.md) soon.

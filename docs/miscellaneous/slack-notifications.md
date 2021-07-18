@@ -193,7 +193,7 @@ jobs:
         text_file: notify_message/message
 ```
 
-Above, the `notify-message` folder is created by the `task: test-sometimes-works` step as an output, and consumed by `put: notify` resource. See the Basics section on [Passing task outputs to another task](/basics/task-outputs-to-inputs/) to revise this topic.
+Above, the `notify-message` folder is created by the `task: test-sometimes-works` step as an output, and consumed by `put: notify` resource. See the Basics section on [Passing task outputs to another task](../basics/task-outputs-to-inputs.md) to revise this topic.
 
 The `task: test-sometimes-works` step runs the `test-sometimes-works-notify-message.sh` script, which is the same as `test-sometimes-works.sh` but also creates a file `notify_message/message`.
 

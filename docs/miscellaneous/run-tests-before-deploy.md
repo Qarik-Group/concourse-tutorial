@@ -11,14 +11,14 @@ In this section we combine four ideas into a more advanced job:
 
 The resulting pipeline is a combination of the preceding lessons:
 
-* [Triggers](/basics/triggers/)
-* [Job Inputs](/basics/job-inputs/)
-* [Outputs to Inputs](/basics/task-outputs-to-inputs/)
-* [Secrets with Credentials Manager](/basics/secret-parameters/)
+* [Triggers](../basics/triggers.md)
+* [Job Inputs](../basics/job-inputs.md)
+* [Outputs to Inputs](../basics/task-outputs-to-inputs.md)
+* [Secrets with Credentials Manager](..//basics/secret-parameters.md)
 
 In the lesson we will deploy a sample Golang application to a Cloud Foundry platform. In your own Concourse pipelines you could deploy any application to any target platform.
 
-For convenience, we're reusing the `tutorials/basic/job-inputs/task-run-tests.sh` test script from lesson [Job Inputs](/basics/job-inputs/).
+For convenience, we're reusing the `tutorials/basic/job-inputs/task-run-tests.sh` test script from lesson [Job Inputs](..//basics/job-inputs.md).
 
 ```yaml
 - name: deploy-app
@@ -88,7 +88,7 @@ The `cf` resource deploys an application to Cloud Foundry. From the `pipeline.ym
     skip-cert-check: true
 ```
 
-As introduced in [Parameters](/basics/parameters/) and [Secrets with Credentials Manager](/basics/secret-parameters/)
+As introduced in [Parameters](../basics/parameters.md) and [Secrets with Credentials Manager](..//basics/secret-parameters.md)
 , the `((cf-api))` syntax is for late-binding variable, secret, or credential. This allows `pipeline.yml` to be generically useful and published in public. It also allows an operator to update variables in a central place and then all jobs will dynamically use the new variable values on demand.
 
 It is likely that `cf-api`, `cf-username`, `cf-password`, and `cf-organization` are common credentials for many pipelines, but `cf-space` might be specific to this pipeline. Example `credhub set` commands might be:

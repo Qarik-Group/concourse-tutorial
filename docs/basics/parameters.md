@@ -84,7 +84,7 @@ fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
 
 ## Revisiting Publishing Outputs
 
-In the previous lesson [Publishing Outputs](/basics/publishing-outputs/), there were two user-provided changes to the `pipeline.yml`. These can now be changed to parameters.
+In the previous lesson [Publishing Outputs](publishing-outputs.md), there were two user-provided changes to the `pipeline.yml`. These can now be changed to parameters.
 
 ```
 cd ../publishing-outputs
@@ -146,4 +146,4 @@ There are two downsides to the two approaches above.
       path: env
     ```
 
-The solution to both of these problems is to use a Concourse Credentials Manager and is discussed in lesson [Secret with Credential Manager](/basics/secret-parameters/).
+The solution to both of these problems is to use a Concourse Credentials Manager and is discussed in lesson [Secret with Credential Manager](secret-parameters.md).
