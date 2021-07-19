@@ -40,6 +40,8 @@ bucc up --lite
 
 The `bucc up --lite` command is similar to `bosh create-env` but adds Credhub to the same VM. The `bucc` command also includes subcommands for logging in to Concourse and Credhub.
 
+If `bucc up` fails with a timeout error while waiting for a disk to be mounted into a VM, consider using docker instead of VirtualBox. See [this article](https://starkandwayne.com/blog/bucc-docker) for details.
+
 ## Concourse & Credhub
 
 To target and login to your new Concourse:
