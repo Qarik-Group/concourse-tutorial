@@ -105,7 +105,7 @@ If you haven't already, add to your `pipeline.yml` the `resource_types` section 
 
 Next, we need to introduce the `on_failure` section of all build plan steps.
 
-Any `get`, `put`, or `task` step of a build plan can catch failures and do something interesting. From the [Concourse CI documentation](https://concourse-ci.org/on-failure-step-hook.html):
+Any `get`, `put`, or `task` step of a build plan can catch failures and do something interesting. From the [Concourse CI documentation](https://concourse-ci.org/jobs.html#schema.step.on_failure):
 
 ```yaml
 plan:

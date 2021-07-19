@@ -101,7 +101,7 @@ Linux fdfa0821-fbc9-42bc-5f2f-219ff09d8ede 4.4.0-101-generic #124~14.04.1-Ubuntu
 succeeded
 ```
 
-The reason that you can select any base `image` (or `image_resource` when [configuring a task](http://concourse-ci.org/running-tasks.html)) is that this allows your task to have any prepared dependencies that it needs to run. Instead of installing dependencies each time during a task you might choose to pre-bake them into an `image` to make your tasks much faster.
+The reason that you can select any base `image` (or `image_resource` when [configuring a task](http://concourse-ci.org/tasks.html#running-tasks)) is that this allows your task to have any prepared dependencies that it needs to run. Instead of installing dependencies each time during a task you might choose to pre-bake them into an `image` to make your tasks much faster.
 
 ## Miscellaneous
 
