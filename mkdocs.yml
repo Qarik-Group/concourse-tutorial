@@ -1,6 +1,8 @@
 ---
 site_name: Concourse Tutorial by Stark & Wayne
-pages:
+site_url: null
+use_directory_urls: false
+nav:
   - Basics:
       - Introduction: index.md
       - Hello World: basics/task-hello-world.md
@@ -58,4 +60,7 @@ repo_name: "help fix the tutorials"
 repo_url: "https://github.com/starkandwayne/concourse-tutorial"
 edit_uri: edit/master/docs/
 extra_css: [print.css, stylesheets/extra.css]
-google_analytics: ["UA-50822525-6", "concoursetutorial.com"]
+extra:
+  analytics:
+    provider: google
+    property: UA-XXXXXXXX-X
