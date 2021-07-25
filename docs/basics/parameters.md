@@ -33,8 +33,8 @@ If we `fly set-pipeline` but do not provide the parameters, we see an error when
 
 ```
 cd ../parameters
-fly -t tutorial sp -p parameters -c pipeline.yml
-fly -t tutorial up -p parameters
+fly -t tutorial set-pipeline -p parameters -c pipeline.yml
+fly -t tutorial unpause-pipeline -p parameters
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
@@ -49,7 +49,7 @@ errored
 ## Parameters from fly options
 
 ```
-fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=odie
+fly -t tutorial set-pipeline -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=odie
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
@@ -79,7 +79,7 @@ YAML
 Use the `--load-vars-from` flag (aliased `-l`) to pass in this file instead of the `-v` flag. The following command should not modify the pipeline from the preceding step as the resulting pipeline YAML is equivalent.
 
 ```
-fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
+fly -t tutorial set-pipeline -p parameters -c pipeline.yml -l credentials.yml
 ```
 
 ## Revisiting Publishing Outputs
@@ -117,8 +117,8 @@ publishing-outputs-private-key: |-
 Use the `--load-vars-from` or `-l` flag to pass the variables into the parameters:
 
 ```
-fly -t tutorial sp -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
-fly -t tutorial up -p publishing-outputs
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
+fly -t tutorial unpause-pipeline -p publishing-outputs
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date
 ```
 

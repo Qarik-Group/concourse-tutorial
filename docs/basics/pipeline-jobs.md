@@ -33,7 +33,7 @@ Update the pipeline:
 
 ```
 cd ../pipeline-jobs
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml -l ../publishing-outputs/credentials.yml
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml -l ../publishing-outputs/credentials.yml
 fly -t tutorial trigger-job -w -j publishing-outputs/job-bump-date
 ```
 

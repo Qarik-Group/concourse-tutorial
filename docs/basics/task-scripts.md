@@ -13,7 +13,7 @@ Let's refactor `task-hello-world/task_ubuntu_uname.yml` into a new task `task-sc
 
 ```
 cd ../task-scripts
-fly -t tutorial e -c task_show_uname.yml
+fly -t tutorial execute -c task_show_uname.yml
 ```
 
 The former specifies the latter as its task script:
