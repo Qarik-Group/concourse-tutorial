@@ -28,7 +28,9 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
 ## Getting Started
 
 1. Install [Docker](https://www.docker.com/community-edition).
-2. Install [Docker Compose](https://docs.docker.com/compose/install/#install-compose) if not included in your Docker installation.
+2. Install [Docker Compose](https://docs.docker.com/compose/install/#install-compose) if not included in your Docker installation. 
+While Docker's Compose V2 interface is still in beta, we will continue use the old docker-compose command line in this tutorial.
+We will leave it to the reader to mentally convert `docker-compose` to `docker compose` if want to use the Compose V2 interface
 3. Deploy Concourse using Docker Compose:
 
     ```plain
@@ -81,8 +83,8 @@ In the spirit of declaring absolutely everything you do to get absolutely the sa
 First, alias it with a name `tutorial` (this name is used by all the tutorial task scripts).
 
 ```plain
-fly --target tutorial login --concourse-url http://127.0.0.1:8080 -u admin -p admin
-fly --target tutorial sync
+fly --target=tutorial login --concourse-url=http://127.0.0.1:8080 --username=admin --password=admin
+fly --target=tutorial sync
 ```
 
 You can now see this saved target Concourse API in a local file:
@@ -106,6 +108,31 @@ targets:
 When we use the `fly` command we will target this Concourse API using `fly --target tutorial`.
 
 > @alexsuraci: I promise you'll end up liking it more than having an implicit target state :) Makes reusing commands from shell history much less dangerous (rogue fly configure can be bad)
+
+## Fly Help
+
+In keeping with the philosophy of clarity, all the fly commands in this tutorial will use the long form names for its command operations.
+If you get tired of typing out the command operation all the time, you can lookup the command's alias using fly help
+command. Most fly operations have an alias and as a bonus, you also get a short operation description!
+
+``` plain
+fly help
+```
+
+There are also long and short forms for options as well for fly operations.
+To see an operation's parameters and options place `--help` or `-h` after the operation parameter.
+
+``` plain
+fly login --help
+```
+Using option long forms as in the `fly login` command above, makes the command line hard to read, so we will use the short option forms
+in the remainder of this tutorial. Here is the login command again using the short option names.
+
+``` plain
+fly -t tutorial login --c http://127.0.0.1:8080 -u admin -p admin
+```
+
+Now, isn't that nicer to read and type!
 
 ## Destroy Concourse
 
