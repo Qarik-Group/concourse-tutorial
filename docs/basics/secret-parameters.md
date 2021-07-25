@@ -78,8 +78,8 @@ Back in your main `concourse-tutorial` terminal window, return to the `tutorials
 
 ```plain
 cd ../parameters
-fly -t bucc sp -p parameters -c pipeline.yml
-fly -t bucc up -p parameters
+fly -t bucc set-pipeline -p parameters -c pipeline.yml
+fly -t bucc unpause-pipeline -p parameters
 ```
 
 ## Insert values into Credentials Manager

@@ -40,8 +40,8 @@ Create this pipeline and run the `test` job a few times. Sometimes it will succe
 
 ```
 cd tutorials/miscellaneous/slack-notifications
-fly -t bucc sp -p slack-notifications -c pipeline-no-notifications.yml
-fly -t bucc up -p slack-notifications
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-no-notifications.yml
+fly -t bucc unpause-pipeline -p slack-notifications
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
@@ -136,7 +136,7 @@ We use the `on_failure` to invoke the `slack-notification` resource named `notif
 Update your pipeline and trigger the `test` job until you get a failure:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-slack-failures.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-slack-failures.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 ```
 
@@ -221,7 +221,7 @@ Visit https://api.slack.com/incoming-webhooks to learn more about contents of Sl
 To upgrade your pipeline and run the `test` job a few times to see success and failure notifications:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-dynamic-messages.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-dynamic-messages.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
@@ -254,7 +254,7 @@ Also, we can condense the `on_success` and `on_failure` sections into a shared `
 To upgrade your pipeline and run the `test` job a few times to see success and failure notifications:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-custom-metadata.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-custom-metadata.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w

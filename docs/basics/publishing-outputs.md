@@ -8,8 +8,8 @@ So far we have used the `git` resource to fetch down a git repository, and used 
 ```
 cd ../publishing-outputs
 cp pipeline-missing-credentials.yml pipeline.yml
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
-fly -t tutorial up -p publishing-outputs
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
+fly -t tutorial unpause-pipeline -p publishing-outputs
 ```
 
 Pipeline dashboard http://127.0.0.1:8080/teams/main/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
@@ -48,7 +48,7 @@ _Note: Please make sure that the key used here is not generated using a passphra
 Update the pipeline, force Concourse to quickly re-check the new Gist credentials, and then run the job:
 
 ```
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
 fly -t tutorial check-resource -r publishing-outputs/resource-gist
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date -w
 ```

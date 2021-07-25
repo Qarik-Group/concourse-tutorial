@@ -46,8 +46,8 @@ To deploy this change:
 
 ```
 cd ../pipeline-resources
-fly -t tutorial sp -c pipeline.yml -p hello-world
-fly -t tutorial up -p hello-world
+fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
+fly -t tutorial unpause-pipeline -p hello-world
 ```
 
 The output will show the delta between the two pipelines and request confirmation. Type `y`. If successful, it will show:

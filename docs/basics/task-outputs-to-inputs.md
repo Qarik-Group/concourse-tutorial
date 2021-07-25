@@ -22,8 +22,8 @@ Subsequent tasks (discussed in this section) or resources (discussed in the next
 
 ```
 cd ../task-outputs-to-inputs
-fly -t tutorial sp -p pass-files -c pipeline.yml
-fly -t tutorial up -p pass-files
+fly -t tutorial set-pipeline -p pass-files -c pipeline.yml
+fly -t tutorial unpause-pipeline -p pass-files
 fly -t tutorial trigger-job -j pass-files/job-pass-files -w
 ```
 

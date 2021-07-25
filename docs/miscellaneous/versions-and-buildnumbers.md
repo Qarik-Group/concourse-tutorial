@@ -110,8 +110,8 @@ The `version` resource will store the current SemVer value in a file `number`. T
 
 ```
 cd tutorials/mischellaneous/versions-and-buildnumbers
-fly -t bucc sp -p versions-and-buildnumbers -c pipeline-display-version.yml
-fly -t bucc up -p versions-and-buildnumbers
+fly -t bucc set-pipeline -p versions-and-buildnumbers -c pipeline-display-version.yml
+fly -t bucc unpause-pipeline -p versions-and-buildnumbers
 fly -t bucc trigger-job -j versions-and-buildnumbers/display-version -w
 ```
 
@@ -159,7 +159,7 @@ plan:
 Apply this change to our pipeline, and trigger the `bump-version` job a few times to see it increment the `0.0.1-rc.3` value:
 
 ```
-fly -t bucc sp -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
+fly -t bucc set-pipeline -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
@@ -176,8 +176,8 @@ Delete your pipeline and recreate it:
 ```
 fly -t bucc destroy-pipeline -p versions-and-buildnumbers
 
-fly -t bucc sp -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
-fly -t bucc up -p versions-and-buildnumbers
+fly -t bucc set-pipeline -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
+fly -t bucc unpause-pipeline -p versions-and-buildnumbers
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 ```
 
