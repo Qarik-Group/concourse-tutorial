@@ -30,7 +30,7 @@ Thanks to everyone who visits our Stark & Wayne booth at conferences and says "T
 1. Install [Docker](https://www.docker.com/community-edition).
 2. Install [Docker Compose](https://docs.docker.com/compose/install/#install-compose) if not included in your Docker installation. 
 While Docker's Compose V2 interface is still in beta, we will continue use the old docker-compose command line in this tutorial.
-We will leave it to the reader to mentally convert `docker-compose` to `docker compose` if want to use the Compose V2 interface
+We will leave it to the reader to mentally convert `docker-compose` to `docker compose`.
 3. Deploy Concourse using Docker Compose:
 
     ```plain
