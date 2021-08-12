@@ -63,4 +63,4 @@ extra_css: [print.css, stylesheets/extra.css]
 extra:
   analytics:
     provider: google
-    property: UA-XXXXXXXX-X
+    property: UA-50822525-6
