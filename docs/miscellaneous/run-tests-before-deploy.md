@@ -62,9 +62,10 @@ This will fail due to missing parameters.
 
 ## Free Cloud Foundry for Lesson
 
-To complete this lesson you will need access to a Cloud Foundry. I'd like to suggest you try [Pivotal Web Services](https://run.pivotal.io/) which is run by Pivotal, the company who funds the core Concourse CI dev team. They offer free trial credit which will be more than sufficient for this lesson.
+To complete this lesson you will need access to a Cloud Foundry. 
 
-After signup, visit https://console.run.pivotal.io/, and after navigating to your "org", create a new "space" called `run-tests-before-deploy`. This lesson's pipeline will deploy a sample app into this space.
+
+After signup, login to your account and  navigate to your "org", create a new "space" called `run-tests-before-deploy`. This lesson's pipeline will deploy a sample app into this space.
 
 The sample application being deployed by the pipeline is https://github.com/cloudfoundry-community/simple-go-web-app
 
@@ -111,5 +112,3 @@ fly -t bucc trigger-job -j run-tests-before-deploy/deploy-app -w
 ## Cleanup
 
 You can now delete the sample app from your Cloud Foundry account.
-
-If you are using Pivotal Web Services, visit https://console.run.pivotal.io/ and navigate to the `run-tests-before-deploy` space to find your application and delete it.
