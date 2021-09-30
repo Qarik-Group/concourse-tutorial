@@ -6,34 +6,37 @@ Download From: wget https://raw.githubusercontent.com/starkandwayne/concourse-tu
 
 Afterthen change URL with your public IP in YML file   ie. (http:3.82.191.135:8080)
 afterthen please add both of the lines on last (Already added in my forked repo)
-``
+
+```
 CONCOURSE_GARDEN_DNS_PROXY_ENABLE=true
 CONCOURSE_WORKER_GARDEN_DNS_PROXY_ENABLE=true
-``
+```
+
 #### Please exicute this command also
-``
+```
 iptables -P FORWARD ACCEPT                  
-``
+```
 
 > Concourse CI Installation with the help of docker
 
-``
+```
 docker-compose up -d
-``
+```
+
 ---
 ### After the installation Please download fly from your installation:
-``
+```
 wget "http://youriphere:8080/api/v1/cli?arch=amd64&platform=linux" -O fly
 chmod +x fly
 mv fly /usr/bin
-``
+```
 
 ---
 ### Fly Admin User initilisation
-``
+```
 fly -t env login -u admin -p admin
 fly --t env sync
-``
+```
 
 > cat ~/.flyrc               <-- you can change the same here once your have already done.
 
