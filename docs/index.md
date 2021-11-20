@@ -129,7 +129,7 @@ Using option long forms as in the `fly login` command above, makes the command l
 in the remainder of this tutorial. Here is the login command again using the short option names.
 
 ``` plain
-fly -t tutorial login --c http://127.0.0.1:8080 -u admin -p admin
+fly -t tutorial login -c http://127.0.0.1:8080 -u admin -p admin
 ```
 
 Now, isn't that nicer to read and type!
