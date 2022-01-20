@@ -1,12 +1,24 @@
+# Basic Editors for yml's
+
+A good editor can be monumental in the development of ymls. This section will list editors you can use to edit ymls's.
+
+## Notepad ++
+
+Notepad ++ has a simple interface and the desired essential features for writing yml files. Notpad++ has syntax highlighing, syntax collapse and included run features.
+
+## Sublime Text 2
+
+Sublime Text 2 has a welcoming interface and Syntax highlighting/assisted indentation by default to setup for yml creation from first use. There are many community made yml features available for install to further customize this editor. It is a very useful tool for yml creators everywhere.
+
 # Editors for Pipeline and Task yml's
 
-As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, indentation and missed parameters causes error when pipeline line is set/executed. You can use [`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline) to verify but it would be better if we can have editors highlighing the error much before in development. This would be similar to IDE's highlighing syntax errors. This section will list editors you can use to edit yml's for concourse pipleines and tasks. 
+As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, indentation and missed parameters causes error when pipeline line is set/executed. You can use [`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline) to verify but it would be better if we can have editors highlighing the error much before in development. This would be similar to IDE's highlighing syntax errors. This section will list editors you can use to edit yml's for concourse pipleines and tasks.
 
 ## Visual Studio Code
 ---------------------
 ![vscode](/images/vscode-concourse.png)
 
-You can use Visual Studio code, which is free to download [`here`](https://code.visualstudio.com/download) to edit the pipeline and task yml's. Once downloaded, you can install Concourse CI Pipeline Editor [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse). Provides validation and content assist for Concourse CI pipeline and task configuration yml files. This also auto suggests parameters and syntax errors. 
+You can use Visual Studio code, which is free to download [`here`](https://code.visualstudio.com/download) to edit the pipeline and task yml's. Once downloaded, you can install Concourse CI Pipeline Editor [`here`](https://marketplace.visualstudio.com/items?itemName=Pivotal.vscode-concourse). Provides validation and content assist for Concourse CI pipeline and task configuration yml files. This also auto suggests parameters and syntax errors.
 
 ### Functionality
 Some of the functionality include:

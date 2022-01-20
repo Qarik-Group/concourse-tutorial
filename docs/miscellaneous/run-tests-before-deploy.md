@@ -62,7 +62,7 @@ This will fail due to missing parameters.
 
 ## Free Cloud Foundry for Lesson
 
-To complete this lesson you will need access to a Cloud Foundry. 
+To complete this lesson you will need access to a Cloud Foundry.
 
 
 After signup, login to your account and  navigate to your "org", create a new "space" called `run-tests-before-deploy`. This lesson's pipeline will deploy a sample app into this space.
@@ -95,7 +95,7 @@ As introduced in [Parameters](../basics/parameters.md) and [Secrets with Credent
 It is likely that `cf-api`, `cf-username`, `cf-password`, and `cf-organization` are common credentials for many pipelines, but `cf-space` might be specific to this pipeline. Example `credhub set` commands might be:
 
 ```
-credhub set -n /concourse/main/cf-api          -t value -v https://api.run.pivotal.io
+credhub set -n /concourse/main/cf-api          -t value -v https://api.run.platform.io
 credhub set -n /concourse/main/cf-username     -t value -v drnic+ci@starkandwayne
 credhub set -n /concourse/main/cf-password     -t value -v secret-password
 credhub set -n /concourse/main/cf-organization -t value -v starkandwayne
