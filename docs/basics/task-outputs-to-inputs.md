@@ -3,7 +3,7 @@ image_path: /images/pass-files.png
 
 # Passing Task Outputs to Task Inputs
 
-In the [previous lesson](/basics/job-inputs/) our task `web-app-tests` consumed an input resource and ran a script that ran some unit tests. The task did not create anything new. Some tasks will want to create something that is then passed to another task for further processing (this lesson); and some tasks will create something that is pushed back out to the external world ([next lesson](/basics/publishing-outputs/)).
+In the [previous lesson](job-inputs.md) our task `web-app-tests` consumed an input resource and ran a script that ran some unit tests. The task did not create anything new. Some tasks will want to create something that is then passed to another task for further processing (this lesson); and some tasks will create something that is pushed back out to the external world ([next lesson](publishing-outputs.md)).
 
 So far our pipelines' tasks' inputs have only come from resources using `get: resource-tutorial` build plan steps.
 
@@ -22,8 +22,8 @@ Subsequent tasks (discussed in this section) or resources (discussed in the next
 
 ```
 cd ../task-outputs-to-inputs
-fly -t tutorial sp -p pass-files -c pipeline.yml
-fly -t tutorial up -p pass-files
+fly -t tutorial set-pipeline -p pass-files -c pipeline.yml
+fly -t tutorial unpause-pipeline -p pass-files
 fly -t tutorial trigger-job -j pass-files/job-pass-files -w
 ```
 

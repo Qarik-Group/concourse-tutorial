@@ -6,6 +6,14 @@ image_path: /images/build-output-hello-world.png
 
 The central concept of Concourse is to run tasks. You can run them directly from the command line as below, or from within pipeline jobs (as per every other section of the tutorial).
 
+From the same directory in which you previously deployed the Docker Concourse image (verify by running `ls -l` and looking for the `docker-compose.yml` file), start the local Concourse server.
+
+```
+docker-compose up
+```
+
+Now clone the Concourse Tutorial repo, switch to the task-hello-world directory, and run the command to execute the `task_hello_world.yml` task.
+
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial/tutorials/basic/task-hello-world
@@ -49,6 +57,14 @@ succeeded
 
 The URL http://127.0.0.1:8080/builds/1 is viewable in the browser. It is another view of the same task.
 
+---
+**NOTE**
+
+You'll need to login to Concourse to view this page. The default credentials are `admin / admin`
+
+---
+
+
 ![build-output-hello-world](/images/build-output-hello-world.png)
 
 ## Task Docker Images
@@ -85,8 +101,8 @@ Linux fdfa0821-fbc9-42bc-5f2f-219ff09d8ede 4.4.0-101-generic #124~14.04.1-Ubuntu
 succeeded
 ```
 
-The reason that you can select any base `image` (or `image_resource` when [configuring a task](http://concourse-ci.org/running-tasks.html)) is that this allows your task to have any prepared dependencies that it needs to run. Instead of installing dependencies each time during a task you might choose to pre-bake them into an `image` to make your tasks much faster.
+The reason that you can select any base `image` (or `image_resource` when [configuring a task](http://concourse-ci.org/tasks.html#running-tasks)) is that this allows your task to have any prepared dependencies that it needs to run. Instead of installing dependencies each time during a task you might choose to pre-bake them into an `image` to make your tasks much faster.
 
 ## Miscellaneous
 
-If you're interested in creating new Docker images using Concourse (of course you are), then there is a future section [Create and Use Docker Images](/miscellaneous/docker-images).
+If you're interested in creating new Docker images using Concourse (of course you are), then there is a future section [Create and Use Docker Images](../miscellaneous/docker-images.md).

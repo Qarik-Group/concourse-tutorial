@@ -7,13 +7,13 @@ It is very fast to iterate on a job's tasks by configuring them in the `pipeline
 
 The initial lessons introduced Tasks as standalone YAML files (which can be run via `fly execute`). Our `pipeline.yml` YAML files can be refactored to use these.
 
-Also in the earlier lesson [Task Scripts](/basics/task-scripts/) we looked at extracting complex `run` commands into standalone shell scripts.
+Also in the earlier lesson [Task Scripts](task-scripts.md) we looked at extracting complex `run` commands into standalone shell scripts.
 
 But with pipelines we now need to store the task file and task script somewhere outside of Concourse.
 
 Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them "Resources". Example resources are `git`, `s3`, and `semver` respectively.
 
-See the Concourse documentation [Resource Types](https://concourse-ci.org/resource-types.html) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorials [Miscellaneous](/miscellaneous/) section also introduces some commonly useful Resource Types.
+See the Concourse documentation [Resource Types](https://resource-types.concourse-ci.org) for the list of built-in resource types and community resource types. Send messages to Slack. Bump a version number from 0.5.6 to 1.0.0. Create a ticket on Pivotal Tracker. It is all possible with Concourse resource types. The Concourse Tutorial's [Miscellaneous](../miscellaneous/) section also introduces some commonly useful Resource Types.
 
 The most common resource type to store our task files and task scripts is the `git` resource type. Perhaps your task files could be fetched via the `s3` resource type from an AWS S3 file; or the `archive` resource type to extract them from a remote archive file. Or perhaps the task files could be pre-baked into the `image_resource` base Docker image. But mostly you will use a `git` resource in your pipeline to pull in your pipeline task files.
 
@@ -46,8 +46,8 @@ To deploy this change:
 
 ```
 cd ../pipeline-resources
-fly -t tutorial sp -c pipeline.yml -p hello-world
-fly -t tutorial up -p hello-world
+fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
+fly -t tutorial unpause-pipeline -p hello-world
 ```
 
 The output will show the delta between the two pipelines and request confirmation. Type `y`. If successful, it will show:
@@ -88,7 +88,7 @@ jobs:
   ...
 ```
 
-Any fetched resource can now be an input to any task in the job build plan. As discussed in lessons [Task Inputs](/basics/task-inputs/) and [Task Scripts](/basics/task-scripts/) task inputs can be used as task scripts.
+Any fetched resource can now be an input to any task in the job build plan. As discussed in lessons [Task Inputs](task-inputs.md) and [Task Scripts](task-scripts.md) task inputs can be used as task scripts.
 
 The second step runs a user-defined task. The pipeline named the task `hello-world`. The task itself is not described in the pipeline. Instead it is described in a file `tutorials/basic/task-hello-world/task_hello_world.yml` from the `resource-tutorial` input.
 

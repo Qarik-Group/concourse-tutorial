@@ -40,8 +40,8 @@ Create this pipeline and run the `test` job a few times. Sometimes it will succe
 
 ```
 cd tutorials/miscellaneous/slack-notifications
-fly -t bucc sp -p slack-notifications -c pipeline-no-notifications.yml
-fly -t bucc up -p slack-notifications
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-no-notifications.yml
+fly -t bucc unpause-pipeline -p slack-notifications
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
@@ -105,7 +105,7 @@ If you haven't already, add to your `pipeline.yml` the `resource_types` section 
 
 Next, we need to introduce the `on_failure` section of all build plan steps.
 
-Any `get`, `put`, or `task` step of a build plan can catch failures and do something interesting. From the [Concourse CI documentation](https://concourse-ci.org/on-failure-step-hook.html):
+Any `get`, `put`, or `task` step of a build plan can catch failures and do something interesting. From the [Concourse CI documentation](https://concourse-ci.org/jobs.html#schema.step.on_failure):
 
 ```yaml
 plan:
@@ -136,7 +136,7 @@ We use the `on_failure` to invoke the `slack-notification` resource named `notif
 Update your pipeline and trigger the `test` job until you get a failure:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-slack-failures.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-slack-failures.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 ```
 
@@ -193,7 +193,7 @@ jobs:
         text_file: notify_message/message
 ```
 
-Above, the `notify-message` folder is created by the `task: test-sometimes-works` step as an output, and consumed by `put: notify` resource. See the Basics section on [Passing task outputs to another task](/basics/task-outputs-to-inputs/) to revise this topic.
+Above, the `notify-message` folder is created by the `task: test-sometimes-works` step as an output, and consumed by `put: notify` resource. See the Basics section on [Passing task outputs to another task](../basics/task-outputs-to-inputs.md) to revise this topic.
 
 The `task: test-sometimes-works` step runs the `test-sometimes-works-notify-message.sh` script, which is the same as `test-sometimes-works.sh` but also creates a file `notify_message/message`.
 
@@ -221,7 +221,7 @@ Visit https://api.slack.com/incoming-webhooks to learn more about contents of Sl
 To upgrade your pipeline and run the `test` job a few times to see success and failure notifications:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-dynamic-messages.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-dynamic-messages.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
@@ -254,7 +254,7 @@ Also, we can condense the `on_success` and `on_failure` sections into a shared `
 To upgrade your pipeline and run the `test` job a few times to see success and failure notifications:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-custom-metadata.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-custom-metadata.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w

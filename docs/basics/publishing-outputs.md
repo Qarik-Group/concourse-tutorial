@@ -8,8 +8,8 @@ So far we have used the `git` resource to fetch down a git repository, and used 
 ```
 cd ../publishing-outputs
 cp pipeline-missing-credentials.yml pipeline.yml
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
-fly -t tutorial up -p publishing-outputs
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
+fly -t tutorial unpause-pipeline -p publishing-outputs
 ```
 
 Pipeline dashboard http://127.0.0.1:8080/teams/main/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
@@ -26,7 +26,7 @@ Click the "Embed" dropdown, select "Clone via SSH", and copy the git URL:
 
 ![ssh](/images/ssh.png)
 
-And modify the `resource-git` section of `pipeline.yml`:
+And modify the `resource-gist` section of `pipeline.yml`:
 
 ```
 - name: resource-gist
@@ -34,7 +34,7 @@ And modify the `resource-git` section of `pipeline.yml`:
   source:
     uri: git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git
     branch: master
-    private_key: |-
+    private_key: |
       -----BEGIN RSA PRIVATE KEY-----
       MIIEpQIBAAKCAQEAuvUl9YU...
       ...
@@ -48,7 +48,7 @@ _Note: Please make sure that the key used here is not generated using a passphra
 Update the pipeline, force Concourse to quickly re-check the new Gist credentials, and then run the job:
 
 ```
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
 fly -t tutorial check-resource -r publishing-outputs/resource-gist
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date -w
 ```
@@ -63,7 +63,7 @@ This pipeline is an example of updating a resource. It has pushed up new git com
 
 _Where did the new commit come from?_
 
-The `task: bump-timestamp-file` task configuration describes a single output `updated-gist`:
+The `bump-timestamp-file` task configuration describes a single output `updated-gist`:
 
 ```yaml
 outputs:
@@ -116,8 +116,8 @@ The Docker image being used is described in the `image_resources` section of the
 
 The Docker image [`starkandwayne/concourse`](https://hub.docker.com/r/starkandwayne/concourse) is described at https://github.com/starkandwayne/dockerfiles/ and is common base Docker image used by many Stark & Wayne pipelines.
 
-Your organisation may wish to curate its own based Docker images to be shared across pipelines. After finishing the Basics lessons, visit Lesson [Create and Use Docker Images](/miscellaneous/docker-images/) for creating pipelines to create your own Docker images using Concourse.
+Your organisation may wish to curate its own base Docker images to be shared across pipelines. After finishing the Basics lessons, visit Lesson [Create and Use Docker Images](../miscellaneous/docker-images.md) for creating pipelines to create your own Docker images using Concourse.
 
 ## Tragic Security
 
-If you're feeling ill from copying your private keys into a plain text file (`pipeline.yml`) and then seeing them printed to the screen (during `fly set-pipeline -c pipeline.yml`), then fear not. We will get to [Secret with Credential Manager](/basics/secret-parameters/) soon.
+If you're feeling ill from copying your private keys into a plain text file (`pipeline.yml`) and then seeing them printed to the screen (during `fly set-pipeline -c pipeline.yml`), then fear not. We will get to [Secret with Credential Manager](secret-parameters.md) soon.

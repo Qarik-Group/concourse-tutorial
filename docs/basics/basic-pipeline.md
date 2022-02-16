@@ -14,23 +14,21 @@ It will display the concourse pipeline (or any changes) and request confirmation
 
 ```yaml
 jobs:
-  job job-hello-world has been added:
-    name: job-hello-world
+  - name: job-hello-world
     public: true
     plan:
-    - task: hello-world
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: busybox}
-        run:
-          path: echo
-          args:
-          - hello world
+      - task: hello-world
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          run:
+            path: echo
+            args: [hello world]
 ```
 
-You will be prompted to apply any configuration changes each time you run `fly set-pipeline` (or its alias `fly sp`)
+You will be prompted to apply any configuration changes each time you run `fly set-pipeline`.
 
 ```
 apply configuration? [yN]:
@@ -73,7 +71,7 @@ There are two ways to unpause (or re-pause) a pipeline.
 
     
 
-2. Using the `fly unpause-pipeline` command (or its alias `fly up`):
+2. Using the `fly unpause-pipeline` command:
 
     ```
     fly -t tutorial unpause-pipeline -p hello-world

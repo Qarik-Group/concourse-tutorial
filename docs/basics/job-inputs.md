@@ -32,8 +32,8 @@ To run this task within a pipeline:
 
 ```
 cd ../job-inputs
-fly -t tutorial sp -p simple-app -c pipeline.yml
-fly -t tutorial up -p simple-app
+fly -t tutorial set-pipeline -p simple-app -c pipeline.yml
+fly -t tutorial unpause-pipeline -p simple-app
 ```
 
 View the pipeline UI http://127.0.0.1:8080/teams/main/pipelines/simple-app and notice that the job automatically starts.

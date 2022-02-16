@@ -11,6 +11,7 @@ Concourse supports Cloud Foundry Credhub, Hashicorp Vault, Amazon SSM, and Amazo
 We will now switch from our `docker-compose up` deployment of Concourse to [bucc](https://github.com/starkandwayne/bucc) to deploy a local single VM version of Concourse that has the Credhub credentials manager. As a bonus, `bucc` will allow you to deploy a production-version of Concourse to any public or private cloud. In this tutorial we will deploy `bucc` to your local machine.
 
 First, you need to install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (for the local deployment of `bucc`).
+If you are running Ubuntu, macOS or CentOS, there are [additional dependencies](https://bosh.io/docs/cli-v2-install/#additional-dependencies) that need to be installed before the local deployment of `bucc`.
 
 Next:
 
@@ -38,6 +39,8 @@ bucc up --lite
 ```
 
 The `bucc up --lite` command is similar to `bosh create-env` but adds Credhub to the same VM. The `bucc` command also includes subcommands for logging in to Concourse and Credhub.
+
+If `bucc up` fails with a timeout error while waiting for a disk to be mounted into a VM, consider using docker instead of VirtualBox. See [this article](https://starkandwayne.com/blog/bucc-docker) for details.
 
 ## Concourse & Credhub
 
@@ -75,8 +78,8 @@ Back in your main `concourse-tutorial` terminal window, return to the `tutorials
 
 ```plain
 cd ../parameters
-fly -t bucc sp -p parameters -c pipeline.yml
-fly -t bucc up -p parameters
+fly -t bucc set-pipeline -p parameters -c pipeline.yml
+fly -t bucc unpause-pipeline -p parameters
 ```
 
 ## Insert values into Credentials Manager

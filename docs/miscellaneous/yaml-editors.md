@@ -1,6 +1,6 @@
 # Editors for Pipeline and Task yml's
 
-As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, indentation and missed parameters causes error when pipeline line is set/executed. You can use [`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline.html) to verify but it would be better if we can have editors highlighing the error much before in development. This would be similar to IDE's highlighing syntax errors. This section will list editors you can use to edit yml's for concourse pipleines and tasks. 
+As the size of pipelines grow, it becomes very hard to edit yml's. Moreover, indentation and missed parameters causes error when pipeline line is set/executed. You can use [`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline) to verify but it would be better if we can have editors highlighing the error much before in development. This would be similar to IDE's highlighing syntax errors. This section will list editors you can use to edit yml's for concourse pipleines and tasks. 
 
 ## Visual Studio Code
 ---------------------
@@ -23,6 +23,6 @@ You can find more info and limitations in the plugin page [`here`](https://marke
 ---------------------
 ![atom](/images/atom-concourse.gif)
 
-You can use Atom, which is free to download [`here`](https://atom.io) to edit the pipleine and task yml's. Once downloaded, you can install concourse-vis [`here`](https://atom.io/packages/concourse-vis). This is a plugin to preview Concourse pipelines in Atom. One additional advantage with Atom is that it provides concourse pipeline preview before using `set-pipeline`, which is very cool.
+You can use Atom, which is free to download [`here`](https://atom.io) to edit the pipeline and task yml's. Once downloaded, you can install concourse-vis [`here`](https://atom.io/packages/concourse-vis). This is a plugin to preview Concourse pipelines in Atom. One additional advantage with Atom is that it provides concourse pipeline preview before using `set-pipeline`, which is very cool.
 
 You can find more info and limitations in the plugin page [`here`](https://atom.io/packages/concourse-vis)

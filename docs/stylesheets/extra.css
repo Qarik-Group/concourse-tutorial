@@ -1,0 +1,21 @@
+div.x3 {
+  width: 43%;
+  color: silver;
+}
+
+div.x3 img{
+  width: 50%;
+  margin-right: 50%;
+}
+
+div.x3 a:link {
+  color: white;
+}
+
+div.x3 a:visited {
+  color: white;
+}
+
+div.x3 a:active {
+  color: white;
+}

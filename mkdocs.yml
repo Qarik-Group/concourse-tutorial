@@ -1,6 +1,8 @@
 ---
 site_name: Concourse Tutorial by Stark & Wayne
-pages:
+site_url: null
+use_directory_urls: false
+nav:
   - Basics:
       - Introduction: index.md
       - Hello World: basics/task-hello-world.md
@@ -12,7 +14,7 @@ pages:
       - Trigger Jobs: basics/trigger-jobs.md
       - Triggering Jobs with Resources: basics/triggers.md
       - Destroying Pipelines: basics/destroy-pipelines.md
-      - Job Inputs: basics/job-inputs.md
+      - Using Resource Inputs in Job Tasks: basics/job-inputs.md
       - Passing Task Outputs to Task Inputs: basics/task-outputs-to-inputs.md
       - Publishing Outputs: basics/publishing-outputs.md
       - Parameters: basics/parameters.md
@@ -57,5 +59,8 @@ markdown_extensions:
 repo_name: "help fix the tutorials"
 repo_url: "https://github.com/starkandwayne/concourse-tutorial"
 edit_uri: edit/master/docs/
-extra_css: [print.css]
-google_analytics: ["UA-50822525-6", "concoursetutorial.com"]
+extra_css: [print.css, stylesheets/extra.css]
+extra:
+  analytics:
+    provider: google
+    property: UA-50822525-6
