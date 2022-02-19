@@ -1,30 +1,30 @@
-description: Review the four ways to trigger a job.
+description: Job を起動させる4つの方法をご紹介します。
 
-# Trigger Jobs
+# Job を起動する
 
-There are four ways for a job to be triggered:
+Job を起動する( "trigger" する)には4つの方法があります:
 
-* Clicking the `+` button on the web UI of a job (as we did in previous sections)
-* Input resource triggering a job (see the next lesson [Triggering Jobs with Resources](triggers.md))
-* `fly trigger-job -j pipeline/jobname` command
-* Sending `POST` HTTP request to Concourse API
+* Job の WebUI 上の `+` ボタンをクリックする(前のセクションで触れた通りです)
+* 検出した Resource を使って Job を起動する(これは次のレッスン [Resource から Job を起動する](triggers.md) でご紹介します)
+* `fly trigger-job -j pipeline/jobname` コマンド
+* `POST` の HTTP リクエストを Concourse API に送る
 
-We can re-trigger our `hello-world` pipeline's `job-hello-world`:
+以下のコマンドで、Pipeline `hello-world` の `job-hello-world` をもう1度起動することができます:
 
 ```
 fly -t tutorial trigger-job -j hello-world/job-hello-world
 ```
 
-Whilst the job is running, and after it has completed, you can then watch the output in your terminal using `fly watch`:
+Job が実行されている間（そして完了した後）、ターミナルで `fly watch` コマンドを使ってログの出力結果を見ることができます:
 
 ```
 fly -t tutorial watch -j hello-world/job-hello-world
 ```
 
-Alternately, you can combine the two commands - trigger the job and watch the output with the `trigger-job -w` flag:
+あるいは、2つのコマンドを組み合わせることもできます - Jobを起動し、`trigger-job -w` フラグで出力を監視します:
 
 ```
 fly -t tutorial trigger-job -j hello-world/job-hello-world -w
 ```
 
-In the next lesson we will learn to trigger jobs after changes to an input resource.
+次のレッスンでは、指定された Resource の変更が検出をトリガーにして、Job を起動する方法を学習します。

@@ -1,9 +1,9 @@
-description: The git resource can also be used to push a modified git repository to a remote endpoint (possibly different than where the git repo was originally cloned from).
+description: git Resource は、変更が入った gitリポジトリを、remote のエンドポイントに push するためにも使用できます(git repo が最初に clone された場所とは異なる場合があります)。
 image_path: /images/broken-resource.png
 
-# Publishing Outputs
+# ビルドの成果物をアップロードする
 
-So far we have used the `git` resource to fetch down a git repository, and used `git` & `time` resources as triggers. The [`git` resource](https://github.com/concourse/git-resource) can also be used to push a modified git repository to a remote endpoint (possibly different than where the git repo was originally cloned from).
+ここまで `git` Resource を使って git リポジトリを fetch し、`git` と `time` Resource をトリガーとして使用してきましたが、[`git` Resource](https://github.com/concourse/git-resource) は、変更が入った Git リポジトリを、remote のエンドポイントに push するためにも使用できます(git repo が最初に clone された場所とは異なる場合があります)。
 
 ```
 cd ../publishing-outputs
@@ -12,21 +12,21 @@ fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
 fly -t tutorial unpause-pipeline -p publishing-outputs
 ```
 
-Pipeline dashboard http://127.0.0.1:8080/teams/main/pipelines/publishing-outputs shows that the input resource is erroring (see orange in key):
+パイプラインのダッシュボード http://127.0.0.1:8080/teams/main/pipelines/publishing-outputs を見ると、入力した Resource にエラーが発生していることが分かります (オレンジ色の部分を参照してください):
 
 ![broken-resource](/images/broken-resource.png)
 
-The `pipeline.yml` does not yet have a git repo nor its write-access private key credentials.
+`pipeline.yml` は、まだ git repo や 書き込み操作に必要な秘密鍵を持っていません。
 
-[Create a Github Gist](https://gist.github.com/) with a single file `bumpme`, and press "Create public gist":
+[Create a Github Gist](https://gist.github.com/) で `bumpme` というファイルを作成し、"Create public gist" ボタンを押してください。
 
 ![gist](/images/gist.png)
 
-Click the "Embed" dropdown, select "Clone via SSH", and copy the git URL:
+"Embed"のドロップダウンをクリックし、 "Clone via SSH" を選択し、git URL をコピーします:
 
 ![ssh](/images/ssh.png)
 
-And modify the `resource-gist` section of `pipeline.yml`:
+それを `pipeline.yml` の `resource-gist` セクションに、以下のようにパラメータとして追加してください:
 
 ```
 - name: resource-gist
@@ -42,10 +42,10 @@ And modify the `resource-gist` section of `pipeline.yml`:
       -----END RSA PRIVATE KEY-----
 ```
 
-Also paste in your `~/.ssh/id_rsa` private key (or which ever you have registered with github) into the `private_key` section.
-_Note: Please make sure that the key used here is not generated using a passphrase. Otherwise, the key will not be accepted and you would get an error._
+また、あなたの `~/.ssh/id_rsa` 秘密鍵(もしくは GitHub に登録したもの)を `private_key` セクションに貼り付けてください。
+_注意: ここで使う秘密鍵がパスフレーズを使って生成されていないことを確認してください。秘密鍵が受け入れられず、エラーが発生してしまいます。_
 
-Update the pipeline, force Concourse to quickly re-check the new Gist credentials, and then run the job:
+パイプラインを更新し、Concourse に強制的にこの Gist のクレデンシャル情報を速やかに再確認してもらった後、Job を実行します:
 
 ```
 fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
@@ -53,24 +53,24 @@ fly -t tutorial check-resource -r publishing-outputs/resource-gist
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date -w
 ```
 
-Revisit the Web UI and the orange resource will change to black if it can successfully fetch the new `git@gist.github.com:XXXX.git` repo.
+再度 WebUI を確認しましょう。新しい `git@gist.github.com:XXXX.git` リポジトリを正常に取得できていれば、オレンジ色の Resource は黒色に変わります。
 
-After the `job-bump-date` job completes, refresh your gist:
+`job-bump-date` が完了したら、あなたの gist を更新してみてください:
 
 ![gist-bumped](/images/gist-bumped.png)
 
-This pipeline is an example of updating a resource. It has pushed up new git commits to the git repo (your github gist).
+この パイプラインは Resource を更新する例です。git repo(あなたの github gist)に新しい git commits を push しました。
 
-_Where did the new commit come from?_
+_新しい commit はどこからきたのですか?_
 
-The `bump-timestamp-file` task configuration describes a single output `updated-gist`:
+`task: bump-timestamp-file` の Task ファイルの設定で、1つの出力 `updated-gist`を指定しています:
 
 ```yaml
 outputs:
   - name: updated-gist
 ```
 
-The `bump-timestamp-file` task runs the following `bump-timestamp-file.sh` script:
+Task: `bump-timestamp-file` は次の `bump-timestamp-file.sh` を実行しています:
 
 ```bash
 git clone resource-gist updated-gist
@@ -85,7 +85,7 @@ git add .
 git commit -m "Bumped date"
 ```
 
-First, it copied the input resource `resource-gist` into the output resource `updated-gist` (using `git clone` as a preferred `git` way to do this). A trivial modification is made to the `updated-gist` directory, followed by a `git commit` to modify the `updated-gist` folder's Git repository. It is this `updated-gist` folder and its additional `git commit` that is subsequently pushed back to the gist by the pipeline step:
+まず、入力された Resource:`resource-gist` を、出力する Resource:`updated-gist` にコピーしました（ `git clone` を使用し、`git`の作法に従っています）。 `updated-gist` ディレクトリにいくつかの変更が加えられ、`updated-gist`フォルダのGitリポジトリを変更する `git commit` が続きます。この `updated-gist` フォルダと、`git commit` が追加され、パイプラインの次のステップで、gist に push されます:
 
 ```yaml
 - put: resource-gist
@@ -93,17 +93,17 @@ First, it copied the input resource `resource-gist` into the output resource `up
     repository: updated-gist
 ```
 
-The `updated-gist` output from the `task: bump-timestamp-file` step becomes the `updated-gist` input to the `resource-gist` resource because their names match (see the [`git` resource](https://github.com/concourse/git-resource) for additional configuration).
+`task: bump-timestamp-file` ステップからの `update-gist` の出力は、Resource:`resource-gist` の `updated-gist`として入力になっています([`git` resource](https://github.com/concourse/git-resource)でより詳しい情報を参照してください)。
 
-## Dependencies within Tasks
+## Task の依存ツールはどこでインストールするの？
 
-The `bump-timestamp-file.sh` script needed the `git` CLI.
+`bump-timestamp-file.sh` スクリプトは、`git` CLI を必要としました。
 
-It could have been installed at the top of the script using `apt-get update; apt-get install git` or similar, but this would have made the task very slow - each time it ran it would have reinstalled the CLI.
+`apt-get update; apt-get install git`などを使ってスクリプトの一番上でインストールすることができたでしょうが、これにより Task が非常に遅くなってしまいます(この Task が実行される度にCLIを再インストールしてしまうからです)。
 
-Instead, the `bump-timestamp-file.sh` step assumes its base Docker image already contains the `git` CLI.
+代わりに、`bump-timestamp-file.sh` のステップでは、ベースとなるDocker Image に、すでに `git` CLI が含まれていることを前提としています。
 
-The Docker image being used is described in the `image_resources` section of the task's configuration:
+使用されている Docker Image は、Task 設定の `image_resources` セクションに記述されています：
 
 ```yaml
   - task: bump-timestamp-file
@@ -114,10 +114,10 @@ The Docker image being used is described in the `image_resources` section of the
         source: { repository: starkandwayne/concourse }
 ```
 
-The Docker image [`starkandwayne/concourse`](https://hub.docker.com/r/starkandwayne/concourse) is described at https://github.com/starkandwayne/dockerfiles/ and is common base Docker image used by many Stark & Wayne pipelines.
+Docker Image: [`starkandwayne/concourse`](https://hub.docker.com/r/starkandwayne/concourse) は、https://github.com/starkandwayne/dockerfiles/ で説明されています。多くの Stark & Wayne の パイプラインで利用されている共通のベースとなる Docker Image です。
 
-Your organisation may wish to curate its own base Docker images to be shared across pipelines. After finishing the Basics lessons, visit Lesson [Create and Use Docker Images](../miscellaneous/docker-images.md) for creating pipelines to create your own Docker images using Concourse.
+あなたの組織は、独自の Docker イメージ を、パイプライン間で共有するように管理したいかもしれません。この基本レッスンを終えたら、レッスン: [Create and Use Docker Images](../miscellaneous/docker-images.md) にアクセスして、Concourse を使用して独自の Docker イメージを作成するための パイプラインを作成してみましょう。
 
-## Tragic Security
+## 秘密鍵をそのまま入力してるけど大丈夫？
 
-If you're feeling ill from copying your private keys into a plain text file (`pipeline.yml`) and then seeing them printed to the screen (during `fly set-pipeline -c pipeline.yml`), then fear not. We will get to [Secret with Credential Manager](secret-parameters.md) soon.
+秘密鍵を平文のテキストファイル(`pipeline.yml`)にコピーし、スクリーンに表示された(`fly set-pipeline -c pipeline.yml`の間)ことへの懸念なら心配ご無用です。この後すぐに [秘密パラメータを資格情報マネージャで管理する](secret-parameters.md) についても学びます.

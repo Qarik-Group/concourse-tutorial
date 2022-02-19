@@ -1,24 +1,24 @@
-# Introduction
+# はじめに
 
-This section contains miscellaneous lessons that follow on from the sequential Basic lessons.
+このセクションでは、ここまでの Basic レッスンに続く、様々なレッスンをご用意しました。
 
-Using a Credentials Manager with Concourse is best practice, so from this point onwards the lessons will assume you are continuing to run `bucc` from the [Secrets with Credentials Manager](../basics/secret-parameters.md) lesson. 
+Concourse では 資格情報マネージャを使用するのがベストプラクティスです。これ以降は、[秘密パラメータを資格情報マネージャで管理する](../basics/secret-parameters.md) の `bucc` を実行し続けることを前提としています。
 
-Therefore the lessons will include `fly -t bucc` commands, rather than `fly -t tutorial` commands.
+したがって、この後のレッスンには `fly -t tutorial` コマンドではなく、` fly -t bucc` コマンドを利用します。
 
-Also, the lessons will instruct to run `credhub set` commands to populate parameters for your pipelines.
+また、レッスンでは `credhub set` コマンドを使用して、パイプラインのパラメータを設定します。
 
-You can of course use any Concourse, with or without a credentials manager. Adjust the `fly -t bucc` target alias for your target Concourse, and you can use `fly set-pipeline` with `-v` or `-l` flags to pass in parameters from the command line. Revisit lesson [Parameters](../basics/parameters.md) to learn more.
+もちろん、資格証明マネージャの有無にかかわらず、Concourse を使用することができます。あなたがターゲットした Concourse の `fly -t bucc` のターゲットを変更し、` -v` または `-l` フラグで `fly set-pipeline` を使ってコマンドラインからパラメータを渡すことができます。 詳細は、[パラメータを利用する](../basics/parameters.md) のレッスンを参照してください。
 
-## Abbreviated pipelines
+## パイプライン表記の省略
 
-In the Basics section, all Concourse pipeline resources had names prefixed with `resource-` and jobs prefixed with `job-`. This was to help you easily learn that they are different, and start to see how each is used within a pipeline:
+Basic セクションでは、すべての Concourse パイプライン中の Resource に `resource-`、Jobに `job-` という接頭辞がが付いていました。これは、それらが異なっていることを簡単に理解し、それぞれがパイプラインの中で、どのように使用されているかを理解を助けるためでした:
 
-* resources appear within jobs via `get: myresource` and `put: myresource`
-* jobs appear within jobs as `passed: [myjob]` to form pipelines
+* Resource は、`get: myresource` と `put: myresource` を介して Job 内に表現される
+* Job は、Job の中で `passed: [myjob]` として パイプラインを形成する
 
-Normal pipelines do not include these prefixes. The Miscellaneous lessons' pipelines will no longer include the prefixes.
+通常のパイプラインには、これらの接頭辞は含まれません。今後のレッスンでは、これらの接頭辞は含まれませんので注意してください。
 
-## Requests for Lessons
+## レッスンのリクエスト
 
-If there is a lesson you'd like added to the Concourse Tutorial book, please [create an Issue](https://github.com/starkandwayne/concourse-tutorial/issues). It is very interesting to learn how you and your team are using Concourse, or looking to switch from a previous CI/CD tool to Concourse.
+この　Concourse チュートリアルに追加したいレッスンがある場合は、[create an Issue](https://github.com/starkandwayne/concourse-tutorial/issues) をご利用ください。あなたやあなたのチームがどのように Concourse を活用しているか、または以前の CI/CD ツールから Concourse への切り替えを検討することを我々が理解するのは、とても大切なことだと考えています。

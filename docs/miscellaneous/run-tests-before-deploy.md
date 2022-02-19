@@ -1,24 +1,24 @@
-# Run Tests Then Deploy
+# デプロイの前にテストを実行する
 
 ![test-and-cf-deploy](/images/test-and-cf-deploy.png)
 
-In this section we combine four ideas into a more advanced job:
+このセクションでは、4つのアイデアを使って、より高度な Job を作成していきます:
 
-1. trigger the job anytime the application repo is changed
-1. run the internal unit tests of the application
-1. if successful, deploy the web application immediately
-1. use secret parameters for the target deployment platform
+1. アプリケーションの repo が変更されるたびに Job を起動する
+1. アプリケーションの内部ユニットテストを実行する
+1. 成功したら、速やかに Web アプリケーションをデプロイする
+1. ターゲットのデプロイ先プラットフォームのために秘密パラメータを使用する
 
-The resulting pipeline is a combination of the preceding lessons:
+生成されるパイプラインは、これまでのレッスンの組み合わせです:
 
-* [Triggers](../basics/triggers.md)
-* [Job Inputs](../basics/job-inputs.md)
-* [Outputs to Inputs](../basics/task-outputs-to-inputs.md)
-* [Secrets with Credentials Manager](..//basics/secret-parameters.md)
+* [Resource を使って Job を起動する](../basics/triggers.md)
+* [Task で Resource から読み込んだファイルを利用する](../basics/job-inputs.md)
+* [成功した Task の `outputs` を次の Task の `inputs` にする](../basics/task-outputs-to-inputs.md)
+* [秘密パラメータを資格情報マネージャで管理する](..//basics/secret-parameters.md)
 
-In the lesson we will deploy a sample Golang application to a Cloud Foundry platform. In your own Concourse pipelines you could deploy any application to any target platform.
+このレッスンでは、サンプルの Go 言語のアプリケーションを、Cloud Foundry プラットフォームにデプロイします。Concourse のパイプラインでは、任意のアプリケーションを、任意の対象プラットフォームにデプロイすることができます。
 
-For convenience, we're reusing the `tutorials/basic/job-inputs/task-run-tests.sh` test script from lesson [Job Inputs](..//basics/job-inputs.md).
+ここでは便宜上、レッスン: [Task で Resource から読み込んだファイルを利用する](..//basics/job-inputs.md) から `tutorials/basic/job-inputs/task-run-tests.sh` を再利用しています。
 
 ```yaml
 - name: deploy-app
@@ -49,7 +49,7 @@ For convenience, we're reusing the `tutorials/basic/job-inputs/task-run-tests.sh
       path: app
 ```
 
-To deploy the `run-tests-before-deploy` pipeline, and trigger/watch the job:
+`run-tests-before-deploy`パイプラインをデプロイし, Job を 実行/監視 するために、以下のコマンドを実行します:
 
 ```
 cd tutorials/miscellaneous/run-tests-before-deploy
@@ -58,24 +58,24 @@ fly -t bucc unpause-pipeline -p run-tests-before-deploy
 fly -t bucc trigger-job -j run-tests-before-deploy/deploy-app -w
 ```
 
-This will fail due to missing parameters.
+これは、パラメータが存在しないために失敗します。
 
-## Free Cloud Foundry for Lesson
+## レッスン用の無料の Cloud Foundry を入手する
 
-To complete this lesson you will need access to a Cloud Foundry. 
+このレッスンを達成するためには、Cloud Foundry にアクセスする必要があります。
 
 
-After signup, login to your account and  navigate to your "org", create a new "space" called `run-tests-before-deploy`. This lesson's pipeline will deploy a sample app into this space.
+サインアップ後、アカウントにログインして "org" に移動し、 `run-tests-before-deploy` という名前の "space" を作成してください。このレッスンのパイプラインは、サンプルアプリケーションをこの space に展開します。
 
-The sample application being deployed by the pipeline is https://github.com/cloudfoundry-community/simple-go-web-app
+今回のパイプラインによってデプロイされるサンプルアプリケーションは https://github.com/cloudfoundry-community/simple-go-web-app です。
 
-## Required Parameters
+## 必要なパラメータ
 
 ![cf-push-expected-variables](/images/cf-push-expected-variables.png)
 
-The example `pipeline.yml` in the lesson folder uses the `cf` resource for deploying the application via `put: deploy-web-app`. You could use any resource (or a handcrafted task) to deploy your application instead. Declarative deployment platforms like Cloud Foundry and Kubernetes can trivialise our pipeline implementation. They are the "Just Do It" of CI/CD deployment orchestration.
+レッスンフォルダの `pipeline.yml` の例では、`put：deploy-web-app` を介して、アプリケーションをデプロイするための `cf` Resource を利用しています。任意の Resource (または手作りの Task) を使用してアプリケーションをデプロイすることができます。 Cloud Foundry や Kubernetes のような宣言的なデプロイメントプラットフォームは、私たちのパイプラインの実装をシンプルにしてくれます。 彼らは CI/CD デプロイメントオーケストレーションにおける "Just Do It"(あとはやるだけ) な存在なのです。
 
-The `cf` resource deploys an application to Cloud Foundry. From the `pipeline.yml` it is:
+`cf` Resource は Cloud Foundry にアプリケーションをデプロイします。`pipeline.yml` では以下のように記述されます:
 
 ```
 - name: deploy-web-app
@@ -89,10 +89,9 @@ The `cf` resource deploys an application to Cloud Foundry. From the `pipeline.ym
     skip-cert-check: true
 ```
 
-As introduced in [Parameters](../basics/parameters.md) and [Secrets with Credentials Manager](..//basics/secret-parameters.md)
-, the `((cf-api))` syntax is for late-binding variable, secret, or credential. This allows `pipeline.yml` to be generically useful and published in public. It also allows an operator to update variables in a central place and then all jobs will dynamically use the new variable values on demand.
+[パラメータを利用する](../basics/parameters.md) と [秘密パラメータを資格情報マネージャで管理する](..//basics/secret-parameters.md) で紹介したように、`((cf-api))` の構文は、後でバインドされる変数、秘密情報、またはクレデンシャルのためのものです。これにより、`pipeline.yml` が誰でも利用可能な状態で公開できるようになります。また、オペレーターは中央集権された場所で変数値を更新することができ、その後、すべての Job が新しい変数値を必要に応じて動的に使用します。
 
-It is likely that `cf-api`, `cf-username`, `cf-password`, and `cf-organization` are common credentials for many pipelines, but `cf-space` might be specific to this pipeline. Example `credhub set` commands might be:
+`cf-api`、`cf-username`、`cf-password`、`cf-organization` は多くのパイプラインで共通のクレデンシャルですが、 `cf-space` はこのパイプラインに固有のものです。 例えば、`credhub set` コマンドは以下のようになります:
 
 ```
 credhub set -n /concourse/main/cf-api          -t value -v https://api.run.pivotal.io
@@ -103,12 +102,12 @@ credhub set -n /concourse/main/cf-organization -t value -v starkandwayne
 credhub set -n /concourse/main/run-tests-before-deploy/cf-space -t value -v run-tests-before-deploy
 ```
 
-Once you've set your parameters in your Concourse credentials manager, or re-run `fly set-pipeline` to pass them in as variables, you can re-trigger the job:
+Concourse の資格情報マネージャでパラメータを設定したり、変数として渡すために `fly set-pipeline` を再実行したら、Job を再度起動してみましょう:
 
 ```
 fly -t bucc trigger-job -j run-tests-before-deploy/deploy-app -w
 ```
 
-## Cleanup
+## 後始末
 
-You can now delete the sample app from your Cloud Foundry account.
+作業が完了したので、Cloud Foundry アカウントから、サンプルアプリケーションを削除しても構いません。
