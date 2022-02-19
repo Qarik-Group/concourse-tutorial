@@ -7,14 +7,14 @@ image_path: /images/concourse-sample-pipeline.gif
 
 [![concourse-sample-pipeline](/images/concourse-sample-pipeline.gif)](https://concourse-ci.org/)
 
-Concourse は 100% オープンソースの CI/CD システムであり、約 100 個の外部との [インテグレーション機能](https://concourse-ci.org/resource-types.html) を備えています.
+Concourse は 100% オープンソースの CI/CD システムであり、約 100 個の外部との [インテグレーション機能](https://resource-types.concourse-ci.org/) -- [Resource types](https://concourse-ci.org/resource-types.html) --　を備えています.
 Concourse の原則は、プロジェクトを CI の細かい作業と分離するプラクティスを奨励し、すべての設定をバージョン管理システムにチェックインできる宣言ファイルに保存することで、Concourse クラスタ間での乗換リスクを軽減することにあります。
 
-この Concourse チュートリアルブックは、2015年以来、Concourse を学習するための世界で最も人気のあるコンテンツです。[Concourse 公式ドキュメント](https://concourse-ci.org/index.html)の良き友としてご利用ください。
+この Concourse チュートリアルブックは、2015年以来、Concourse を学習するための世界で最も人気のあるコンテンツです。[Concourse 公式ドキュメント](https://concourse-ci.org/docs.html)の良き友としてご利用ください。
 
 ## 謝辞
 
-Concourse CI を開発した Alex Suraci と、2014年に彼と開発者チームをスポンサードしてくれた Pivotal に感謝します。
+Concourse CI を開発した Alex Suraci と、2014年に彼と開発者チームをスポンサードしてくれた Pivotal と VMWare に感謝します。
 
 Stark＆Wayne では 2015年初頭に Concourse を学びながらこのチュートリアルを開始しました.2015年中頃からほぼすべてのクライアントプロジェクトで Concourse を使用していました。
 
@@ -30,11 +30,32 @@ Stark＆Wayne では 2015年初頭に Concourse を学びながらこのチュ�
 
 1. [Docker](https://www.docker.com/community-edition) をインストールしてください。
 2. もし Docker 中に含まれていない場合、[Docker Compose](https://docs.docker.com/compose/install/#install-compose) をインストールしてください。
+  Docker の Compose V2 インターフェースはまだベータ版ですが、このチュートリアルでは引き続き古い `docker-compose` コマンドラインを使用します。
+  `docker-compose` を `docker compose` に変換するかどうかは、みなさまにお任せします。
 3. Docker Compose を利用して、Concourse を下記のようにデプロイしてください:
     ```plain
     wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
+    The following are common issues found when working with the tutorial 
+    
+    a. For Windows AMD issues:
+    
+    - Right click Docker instance
+    - Go to Settings -> Daemon  -> Advanced -> Set the "experimental": true
+    - Restart Docker
+    - Switch to Linux container and restart the docker
+    
+    b. For running concourse on a docker server instead of locally:
+    
+    You need to set the external url env variable inside the docker-compose.yml. Without this change you will not be able to login to 
+    the webui because it would redirect to 127.0.0.1:8080
+    ```plain
+    - CONCOURSE_EXTERNAL_URL
+    + CONCOURSE_EXTERNAL_URL=http://{{my-server}}:8080
+    ```
+    You will also need to access the webui and setup the fly target to use this url rather than 127.0.0.1, 
+    so change every http://127.0.0.1:8080 in this tutorial to http://{{my-server}}:8080         
 
 ### セットアップのテストを行う
 
@@ -64,8 +85,8 @@ Windows ユーザの方は, [この記事](https://stackoverflow.com/questions/2
 まず、`tutorial` という名前でエイリアスを作ります。（この名前はチュートリアルすべての Task スクリプトで利用します）:
 
 ```plain
-fly --target tutorial login --concourse-url http://127.0.0.1:8080 -u admin -p admin
-fly --target tutorial sync
+fly --target=tutorial login --concourse-url=http://127.0.0.1:8080 --username=admin --password=admin
+fly --target=tutorial sync
 ```
 
 このターゲットとして保存された Concourse API は、ローカルファイル上でも確認することができます。
@@ -89,6 +110,29 @@ targets:
 `fly` コマンドを使うときに、` fly --target tutorial` と打つことで、このConcourse API をターゲットすることができます。
 
 > @alexsuraci: 私は暗黙のターゲット状態を持つよりも、この方法が皆様のお気に召すことを約束します:) Shellのヒストリーからコマンドを再利用しても、これならさほど危険にならずに済むからです（誤ったflyの設定を使っていると悪になる可能性はあります）。
+
+コマンドを明確にするため、このチュートリアルのすべての `fly` コマンドは、コマンド操作に長い形式の名前を使用します。
+コマンド操作を常に入力することにうんざりしている場合は、`fly help` を使用すると、コマンドのエイリアスを検索できます。
+ほとんどの `fly` コマンドにはエイリアスがあり、おまけとして、簡単な操作の説明も表示されます！
+
+``` plain
+fly help
+```
+
+`fly` のコマンドオプションにも長い形式と短い形式があります。
+操作のパラメーターとオプションを表示するには、操作パラメーターの後に `--help` または `-h` を配置します。
+
+``` plain
+fly login --help
+```
+
+上記の `fly login` コマンドのようにオプションの長い形式を使用すると、コマンドラインが読みにくくなるため、このチュートリアルの残りの部分では短いオプションの形式を使用します。 短いオプション名を使用したログインコマンドを次に示します。
+
+``` plain
+fly -t tutorial login -c http://127.0.0.1:8080 -u admin -p admin
+```
+
+これで、読むのもタイプするのもスッキリしましたね！
 
 ## Concourse を破棄する
 

@@ -33,11 +33,11 @@ image_path: /images/pipeline.png
 
 ```
 cd ../pipeline-jobs
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml -l ../publishing-outputs/credentials.yml
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml -l ../publishing-outputs/credentials.yml
 fly -t tutorial trigger-job -w -j publishing-outputs/job-bump-date
 ```
 
-`../publishing-outputs/credentials.yml` が見当たらない時は、前のレッスンの [成果物アップロード時のパラメータも設定する](/basics/parameters/#revisting-publishing-outputs) を参照してください。
+`../publishing-outputs/credentials.yml` が見当たらない時は、前のレッスンの [成果物アップロード時のパラメータも設定する](parameters.md#revisiting-publishing-outputs) を参照してください。
 
 ダッシュボード UI では、追加された Job とその Trigger / 非Trigger の Resource が表示されています。重要なのは、このレッスンではじめて複数の Job を扱うパイプラインに触れたということです:
 

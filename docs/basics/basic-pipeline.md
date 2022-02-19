@@ -14,20 +14,18 @@ fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
 
 ```yaml
 jobs:
-  job job-hello-world has been added:
-    name: job-hello-world
+  - name: job-hello-world
     public: true
     plan:
-    - task: hello-world
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: busybox}
-        run:
-          path: echo
-          args:
-          - hello world
+      - task: hello-world
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          run:
+            path: echo
+            args: [hello world]
 ```
 
 `fly set-pipeline`（またはそのエイリアス`fly sp`）を実行するたびに、設定の変更を適用するよう求められます。

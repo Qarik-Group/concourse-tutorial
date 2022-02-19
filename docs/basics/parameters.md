@@ -32,8 +32,8 @@ jobs:
 
 ```
 cd ../parameters
-fly -t tutorial sp -p parameters -c pipeline.yml
-fly -t tutorial up -p parameters
+fly -t tutorial set-pipeline -p parameters -c pipeline.yml
+fly -t tutorial unpause-pipeline -p parameters
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
@@ -48,7 +48,7 @@ errored
 ## パラメータを fly オプションで設定する
 
 ```
-fly -t tutorial sp -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=odie
+fly -t tutorial set-pipeline -p parameters -c pipeline.yml -v cat-name=garfield -v dog-name=odie
 fly -t tutorial trigger-job -j parameters/show-animal-names -w
 ```
 
@@ -78,12 +78,12 @@ YAML
 このファイルを `-v` フラグの代わりに渡すには、` --load-vars-from` フラグ（エイリアス: `-l`）を使います。次のコマンドは、結果の パイプライン の YAML が同じなため、前の手順からパイプラインは変更されていないことに注意してください。
 
 ```
-fly -t tutorial sp -p parameters -c pipeline.yml -l credentials.yml
+fly -t tutorial set-pipeline -p parameters -c pipeline.yml -l credentials.yml
 ```
 
 ## 成果物アップロード時のパラメータも設定する
 
-前のレッスン、[Publishing Outputs](/basics/publishing-outputs/) では、`pipeline.yml` にユーザが追加した2つの変更がありました。これらはパラメータを使って変更できるようになりました。
+前のレッスン、[Publishing Outputs](publishing-outputs.md) では、`pipeline.yml` にユーザが追加した2つの変更がありました。これらはパラメータを使って変更できるようになりました。
 
 ```
 cd ../publishing-outputs
@@ -116,8 +116,8 @@ publishing-outputs-private-key: |-
 `--load-vars-from` または `-l` フラグを使って、変数をパラメータに渡します:
 
 ```
-fly -t tutorial sp -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
-fly -t tutorial up -p publishing-outputs
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline-parameters.yml -l credentials.yml
+fly -t tutorial unpause-pipeline -p publishing-outputs
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date
 ```
 
@@ -145,4 +145,4 @@ fly -t tutorial trigger-job -j publishing-outputs/job-bump-date
       path: env
     ```
 
-これらの問題の解決策は、Concourse の資格情報マネージャを使用することです。これについては、[Secret with Credential Manager](/basics/secret-parameters/) のレッスンで説明します。
+これらの問題の解決策は、Concourse の資格情報マネージャを使用することです。これについては、[Secret with Credential Manager](secret-parameters.md) のレッスンで説明します。

@@ -8,7 +8,7 @@ description: Concourseは、処理の中にファイル/フォルダを渡すた
 
 ```
 cd ../task-inputs
-fly -t tutorial e -c no_inputs.yml
+fly -t tutorial execute -c no_inputs.yml
 ```
 
 この Task は `ls -al` を実行し、コンテナ内の作業フォルダの内容(空)を表示します:
@@ -20,8 +20,6 @@ drwxr-xr-x    2 root     root          4096 Feb 27 07:23 .
 drwxr-xr-x    3 root     root          4096 Feb 27 07:23 ..
 ```
 
-注: 上記の例では短縮形の `execute` コマンド `e` を使用しています。このように、多くのコマンドに短縮文字の形式があります。たとえば、**fly s ** は **fly sync** のエイリアスです。
-
 Taskの例 `inputs_required.yml` では、1つの入力を加えています:
 
 ```yaml
@@ -32,7 +30,7 @@ inputs:
 Taskを実行しようとすると...:
 
 ```
-fly -t tutorial e -c inputs_required.yml
+fly -t tutorial execute -c inputs_required.yml
 ```
 
 失敗します:
@@ -44,7 +42,7 @@ error: missing required input `some-important-input`
 通常、`fly execute`を実行したい場合、手元のローカルフォルダ（` .`）の内容を渡したいと考えるはずです。そのため、`-i name=path`オプションを使用して、必要な`inputs`にそれぞれパスを設定してみてください：
 
 ```
-fly -t tutorial e -c inputs_required.yml -i some-important-input=.
+fly -t tutorial execute -c inputs_required.yml -i some-important-input=.
 ```
 
 これで`fly execute`コマンドは`.`ディレクトリをコンテナへの入力内容としてアップロードします。`some-important-input`のパスで利用可能になります:
@@ -75,8 +73,10 @@ fly -t tutorial e -c inputs_required.yml -i some-important-input=../task-hello-w
 
 現在のディレクトリが必要な入力と同じ名前であれば、 `fly execute -i`オプションを削除することができます。
 
-Task: `input_parent_dir.yml` は、現在のディレクトリでもある入力`task-inputs`を含んでいます。よって次のコマンドは動作し、上記と同じ結果を返します。
+Task: `input_parent_dir.yml` は、現在のディレクトリでもある入力`task-inputs`を含んでいます。
+ディレクトリ `./task-inputs` に含まれる全ての内容が Docker イメージにアップロードされます。
+よって次のコマンドは動作し、上記と同じ結果を返します。
 
 ```
-fly -t tutorial e -c input_parent_dir.yml
+fly -t tutorial execute -c input_parent_dir.yml
 ```

@@ -11,14 +11,14 @@
 
 生成されるパイプラインは、これまでのレッスンの組み合わせです:
 
-* [Resource を使って Job を起動する](/basics/triggers/)
-* [Task で Resource から読み込んだファイルを利用する](/basics/job-inputs/)
-* [成功した Task の `outputs` を次の Task の `inputs` にする](/basics/task-outputs-to-inputs/)
-* [秘密パラメータを資格情報マネージャで管理する](/basics/secret-parameters/)
+* [Resource を使って Job を起動する](../basics/triggers.md)
+* [Task で Resource から読み込んだファイルを利用する](../basics/job-inputs.md)
+* [成功した Task の `outputs` を次の Task の `inputs` にする](../basics/task-outputs-to-inputs.md)
+* [秘密パラメータを資格情報マネージャで管理する](..//basics/secret-parameters.md)
 
 このレッスンでは、サンプルの Go 言語のアプリケーションを、Cloud Foundry プラットフォームにデプロイします。Concourse のパイプラインでは、任意のアプリケーションを、任意の対象プラットフォームにデプロイすることができます。
 
-ここでは便宜上、レッスン: [Task で Resource から読み込んだファイルを利用する](/basics/job-inputs/) から `tutorials/basic/job-inputs/task-run-tests.sh` を再利用しています。
+ここでは便宜上、レッスン: [Task で Resource から読み込んだファイルを利用する](..//basics/job-inputs.md) から `tutorials/basic/job-inputs/task-run-tests.sh` を再利用しています。
 
 ```yaml
 - name: deploy-app
@@ -62,9 +62,10 @@ fly -t bucc trigger-job -j run-tests-before-deploy/deploy-app -w
 
 ## レッスン用の無料の Cloud Foundry を入手する
 
-このレッスンを達成するためには、Cloud Foundry にアクセスする必要があります。ここでは、Pivotal 社が運営している [Pivotal Web Services](https://run.pivotal.io/) を試してみることをお勧めします。Pivotal は、Concourse CI のコア開発チームを援助している会社です。彼らはこのレッスンのために十分なほどの無料お試しクレジットを提供しています。
+このレッスンを達成するためには、Cloud Foundry にアクセスする必要があります。
 
-サインアップの後、https://console.run.pivotal.io/ にアクセスし、作成した"org"に行き、`run-tests-before-deploy` という名前の "space" を作成してください。 このレッスンのパイプラインは、サンプルアプリケーションをこの space に展開します。
+
+サインアップ後、アカウントにログインして "org" に移動し、 `run-tests-before-deploy` という名前の "space" を作成してください。このレッスンのパイプラインは、サンプルアプリケーションをこの space に展開します。
 
 今回のパイプラインによってデプロイされるサンプルアプリケーションは https://github.com/cloudfoundry-community/simple-go-web-app です。
 
@@ -88,7 +89,7 @@ fly -t bucc trigger-job -j run-tests-before-deploy/deploy-app -w
     skip-cert-check: true
 ```
 
-[パラメータを利用する](/basics/parameters/) と [秘密パラメータを資格情報マネージャで管理する](/basics/secret-parameters/) で紹介したように、`((cf-api))` の構文は、後でバインドされる変数、秘密情報、またはクレデンシャルのためのものです。これにより、`pipeline.yml` が誰でも利用可能な状態で公開できるようになります。また、オペレーターは中央集権された場所で変数値を更新することができ、その後、すべての Job が新しい変数値を必要に応じて動的に使用します。
+[パラメータを利用する](../basics/parameters.md) と [秘密パラメータを資格情報マネージャで管理する](..//basics/secret-parameters.md) で紹介したように、`((cf-api))` の構文は、後でバインドされる変数、秘密情報、またはクレデンシャルのためのものです。これにより、`pipeline.yml` が誰でも利用可能な状態で公開できるようになります。また、オペレーターは中央集権された場所で変数値を更新することができ、その後、すべての Job が新しい変数値を必要に応じて動的に使用します。
 
 `cf-api`、`cf-username`、`cf-password`、`cf-organization` は多くのパイプラインで共通のクレデンシャルですが、 `cf-space` はこのパイプラインに固有のものです。 例えば、`credhub set` コマンドは以下のようになります:
 
@@ -110,5 +111,3 @@ fly -t bucc trigger-job -j run-tests-before-deploy/deploy-app -w
 ## 後始末
 
 作業が完了したので、Cloud Foundry アカウントから、サンプルアプリケーションを削除しても構いません。
-
-Pivotal Web Services を使用している場合は、https://console.run.pivotal.io/ にアクセスして、 `run-tests-before-deploy` space に移動して、アプリケーションを見つけて削除しておいてください。

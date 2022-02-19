@@ -39,8 +39,8 @@ resources:
 
 ```
 cd ../triggers
-fly sp -t tutorial -c pipeline.yml -p hello-world
-fly up -t tutorial -p hello-world
+fly set-pipeline -t tutorial -c pipeline.yml -p hello-world
+fly unpause-pipeline -t tutorial -p hello-world
 ```
 
 `my-timer` という新しい Resource を追加し、約2分おきに `job-hello-world` を起動します。

@@ -7,20 +7,21 @@ Taskの `inputs` は、2種類の入力を渡すことができます:
 * 処理/テスト/コンパイル される 要件/依存関係
 * 複雑な処理を実行するために予め実行される Task スクリプト
 
-Concourse Task の一般的なパターンは、[前セクション](/basics/task-hello-world/#task-docker-images) で行なった(`uname` コマンドを引数 ` -a` で実行する)ような "直接コマンドを呼び出す" ものではなく、"複雑なシェルスクリプトを `run:` する" ものです。
+Concourse Task の一般的なパターンは、[前セクション](task-hello-world.md#task-docker-images) で行なった(`uname` コマンドを引数 `-a` で実行する)ような "直接コマンドを呼び出す" ものではなく、"複雑なシェルスクリプトを `run:` する" ものです。
 
 では、複製済のTaskスクリプト `task-scripts/task_show_uname.sh` を使って、`task-hello-world/task_ubuntu_uname.yml` を、新しいTask `task-scripts/task_show_uname.yml` にリファクタリングしましょう。
 
 ```
 cd ../task-scripts
-fly -t tutorial e -c task_show_uname.yml
+fly -t tutorial execute -c task_show_uname.yml
 ```
 
 `task-scripts/task_show_uname.yml` は、Task スクリプトとして `task-scripts/task_show_uname.sh` を指定します:
 
 ```yaml
 run:
-  path: ./task-scripts/task_show_uname.sh
+  path: /bin/sh
+  args: ["./task-scripts/task_show_uname.sh"]
 ```
 
 _`./task-scripts/task_show_uname.sh` ファイルはどこから持ってきたのですか?_

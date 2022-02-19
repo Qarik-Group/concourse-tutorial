@@ -6,7 +6,7 @@ Read the tutorial at https://concoursetutorial.com
 
 ## Thanks
 
-Thanks to Alex Suraci for inventing Concourse CI, and to Pivotal for sponsoring him and a team of developers to work since 2014.
+Thanks to Alex Suraci for inventing Concourse CI, and to Pivotal and VMWare for sponsoring him and a team of developers to work since 2014.
 
 At Stark & Wayne we started this tutorial as we were learning Concourse in early 2015, and we've been using Concourse in production since mid-2015 internally and at nearly all client projects.
 
@@ -20,7 +20,7 @@ Read the tutorial at https://concoursetutorial.com
 
 ## Local development of tutorial
 
-This tutorial is built using [`mkdocs`](http://www.mkdocs.org/). Once installed, you can continuously build and serve the tutorial locally with:
+This tutorial is built using [`mkdocs`](http://www.mkdocs.org/). Please make sure you have python3 and pip3 installed before running mkdocs and they are refenced as python and pip respectively. . Once installed, you can continuously build and serve the tutorial locally with:
 
 ```plain
 mkdocs serve

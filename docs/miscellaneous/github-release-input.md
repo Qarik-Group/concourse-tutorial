@@ -44,8 +44,8 @@ resources:
 
 ```
 cd tutorials/miscellaneous/github-release-input
-fly -t bucc sp -p github-release-input -c pipeline.yml
-fly -t bucc up -p github-release-input
+fly -t bucc set-pipeline -p github-release-input -c pipeline.yml
+fly -t bucc unpause-pipeline -p github-release-input
 fly -t bucc trigger-job -j github-release-input/shield -w
 ```
 

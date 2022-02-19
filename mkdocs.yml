@@ -1,6 +1,8 @@
 ---
 site_name: Concourse チュートリアル (by Stark & Wayne)
-pages:
+site_url: null
+use_directory_urls: false
+nav:
   - Basics:
       - まえがき: index.md
       - Hello World: basics/task-hello-world.md
@@ -59,5 +61,8 @@ markdown_extensions:
 repo_name: "help fix the tutorials"
 repo_url: "https://github.com/legnoh/concourse-tutorial"
 edit_uri: edit/master/docs/
-extra_css: [print.css]
-google_analytics: ["UA-142173330-1", "concoursetutorial-ja.site.lkj.io"]
+extra_css: [print.css, stylesheets/extra.css]
+extra:
+  analytics:
+    provider: google
+    property: UA-142173330-1

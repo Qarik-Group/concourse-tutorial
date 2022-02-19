@@ -8,13 +8,13 @@ YAMLファイル`pipeline.yml`の設定で、Job 中の Task を繰り返すこ�
 
 最初のレッスンでは、Task を1つの YAML ファイルとして(`fly execute`で実行可能なものとして)紹介しました。`pipeline.yml`では、これらの Task ファイルを利用するようにリファクタリングすることができます。
 
-また、[Task Scripts](/basics/task-scripts/) のレッスンでは、複雑な`run:` のコマンドの内容を、単独動作可能なシェルスクリプトファイルとして呼び出すやり方を学んできました。
+また、[Task スクリプトを別ファイルとして指定する](task-scripts.md) のレッスンでは、複雑な`run:` のコマンドの内容を、単独動作可能なシェルスクリプトファイルとして呼び出すやり方を学んできました。
 
 しかしパイプラインでは、Task ファイルと Task スクリプトを、Concourse の外に保存しておく必要があります。
 
 Concourse には、データの保存/取得をするサービスはありません。git リポジトリはありません。Blobstore もありません。ビルド番号もありません。すべての入力と出力を、Concourse の外から提供する必要があるのです。Concourse ではそれを "Resource" と呼んでいます。Resource の例としては、それぞれ 'git'、 's3'、 'semver' などが挙げられます。
 
-Concourse にあらかじめビルドイン(組み込み)されている Resource と、Concourse コミュニティによって作られた Resource の一覧については、公式ドキュメントの[Resource Types](https://concourse-ci.org/resource-types.html)を参照してください。Slack にメッセージを送る、バージョン番号を0.5.6から1.0.0に bump(上げる) する、Pivotal Tracker にチケットを作る...このようなことはすべて、Concourse の Resource Type によって可能になります。このチュートリアルの [Miscellaneous](/miscellaneous/) セクションでも、一般的に有用とされる Resource Type について紹介しています。
+Concourse にあらかじめビルドイン(組み込み)されている Resource と、Concourse コミュニティによって作られた Resource の一覧については、公式ドキュメントの[Resource Types](https://resource-types.concourse-ci.org)を参照してください。Slack にメッセージを送る、バージョン番号を0.5.6から1.0.0に bump(上げる) する、Pivotal Tracker にチケットを作る...このようなことはすべて、Concourse の Resource Type によって可能になります。このチュートリアルの [Miscellaneous](../miscellaneous/) セクションでも、一般的に有用とされる Resource Type について紹介しています。
 
 Task ファイルと Task スクリプトを保存する最も一般的な Resource Type は `git` Resource Type です。もしくは、Taskファイル を AWS S3 上から `s3` Resource Type を介して入手することもできます。また、`archive` Resource Type を使用してリモートアーカイブファイルからそれらを抽出することも可能です。あるいは、Task ファイルを `image_resource`ベースのDockerImageに入れておくこともできるでしょう。とは言えほとんどの場合は、`git` Resource を使用して パイプライン の Task ファイルを取得することになるでしょう。
 
@@ -47,8 +47,8 @@ jobs:
 
 ```
 cd ../pipeline-resources
-fly -t tutorial sp -c pipeline.yml -p hello-world
-fly -t tutorial up -p hello-world
+fly -t tutorial set-pipeline -c pipeline.yml -p hello-world
+fly -t tutorial unpause-pipeline -p hello-world
 ```
 
 出力には、2つのパイプライン間の差分と変更確認のリクエストが表示されますので、yを押します。成功すると、次のように表示されます:
@@ -89,7 +89,7 @@ jobs:
   ...
 ```
 
-読み込まれた Resource は、 Job のビルド計画において、任意の Task で入力として利用できるようになります。 [Task への入力](/basics/task-inputs/) と [Task スクリプト](/basics/task-scripts/) で説明したとおり、Task への入力は Task スクリプトとして使用できます。
+読み込まれた Resource は、 Job のビルド計画において、任意の Task で入力として利用できるようになります。 [Task への入力](task-inputs.md) と [Task スクリプト](task-scripts.md) で説明したとおり、Task への入力は Task スクリプトとして使用できます。
 
 2番目のステップでは、ユーザが定義した Task を実行します。パイプライン上では `hello-world` と命名しました。 Task の中身は パイプライン上には記述されていませんが、その代わりに入力した `resource-tutorial` の `tutorials/basic/task-hello-world/task_hello_world.yml` に記述されています。
 

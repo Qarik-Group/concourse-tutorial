@@ -11,6 +11,7 @@ Concourse は、Cloud Foundry Credhub, Hashicorp Vault, Amazon SSM, Amazon Secre
 Concourse の `docker-compose up` デプロイメントから、[bucc](https://github.com/starkandwayne/bucc) に切り替えることで、Credhub を持つ Concourse のローカル単一VMバージョンをデプロイします。これに加え、`bucc` はパブリッククラウド、またはプライベートクラウドに Concourse のプロダクションバージョンを配備することも可能にしてします。 このチュートリアルでは、ローカルマシンに `bucc` をデプロイします。
 
 まず、[VirtualBox](https://www.virtualbox.org/wiki/Downloads) をインストールしてください(`bucc`のローカルデプロイに必要になります).
+Ubuntu, macOS, CentOS をお使いの場合は、`bucc` のインストールの前に[依存するソフトウェア](https://bosh.io/docs/cli-v2-install/#additional-dependencies )の事前インストールが必要です。
 
 次に下記のように bucc の git リポジトリをワークスペースに clone します:
 
@@ -39,7 +40,9 @@ bucc up --lite
 
 `bucc up --lite` コマンドは `bosh create-env` と似ていますが、同じ VM に Credhub を追加します。`bucc` コマンドには、Concourse と Credhub にログインするためのサブコマンドも含まれています。
 
-## Concourse と Credhub にログインする
+ディスクがVMにマウントされるのを待っているときに、`bucc up` がタイムアウトエラーで失敗した場合、VirtualBox の代わりに docker を使用することを検討してください。 詳細については、[この記事](https://starkandwayne.com/blog/bucc-docker) を参照してください。
+
+## Concourse と Credhub
 
 新しい Concourse にターゲットを設定してログインするには下記のコマンドを利用します:
 
@@ -75,8 +78,8 @@ You are not currently authenticated. Please log in to continue.
 
 ```plain
 cd ../parameters
-fly -t bucc sp -p parameters -c pipeline.yml
-fly -t bucc up -p parameters
+fly -t bucc set-pipeline -p parameters -c pipeline.yml
+fly -t bucc unpause-pipeline -p parameters
 ```
 
 ## 資格情報マネージャーにパラメータを設定する

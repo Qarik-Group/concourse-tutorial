@@ -112,8 +112,8 @@ jobs:
 
 ```
 cd tutorials/mischellaneous/versions-and-buildnumbers
-fly -t bucc sp -p versions-and-buildnumbers -c pipeline-display-version.yml
-fly -t bucc up -p versions-and-buildnumbers
+fly -t bucc set-pipeline -p versions-and-buildnumbers -c pipeline-display-version.yml
+fly -t bucc unpause-pipeline -p versions-and-buildnumbers
 fly -t bucc trigger-job -j versions-and-buildnumbers/display-version -w
 ```
 
@@ -161,7 +161,7 @@ plan:
 この変更をパイプラインに適用してから、Job: `bump-version` を数回起動し、`0.0.1-rc.3`まで値が増加することを確認してみましょう:
 
 ```
-fly -t bucc sp -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
+fly -t bucc set-pipeline -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
@@ -178,8 +178,8 @@ Concourse の Resource はすべて Concourse の外に保存されるため、�
 ```
 fly -t bucc destroy-pipeline -p versions-and-buildnumbers
 
-fly -t bucc sp -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
-fly -t bucc up -p versions-and-buildnumbers
+fly -t bucc set-pipeline -p versions-and-buildnumbers -c pipeline-bump-then-save.yml
+fly -t bucc unpause-pipeline -p versions-and-buildnumbers
 fly -t bucc trigger-job -j versions-and-buildnumbers/bump-version -w
 ```
 

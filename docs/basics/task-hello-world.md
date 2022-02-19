@@ -6,6 +6,14 @@ image_path: /images/build-output-hello-world.png
 
 Concourse の基本的なコンセプトは、Task を実行することです。 以下のようにコマンドラインから、また WebUI のパイプラインの Job 画面から（チュートリアルの他のセクションでも同様に）直接実行することができます。
 
+From the same directory in which you previously deployed the Docker Concourse image (verify by running `ls -l` and looking for the `docker-compose.yml` file), start the local Concourse server.
+
+```
+docker-compose up
+```
+
+Now clone the Concourse Tutorial repo, switch to the task-hello-world directory, and run the command to execute the `task_hello_world.yml` task.
+
 ```
 git clone https://github.com/starkandwayne/concourse-tutorial.git
 cd concourse-tutorial/tutorials/basic/task-hello-world
@@ -48,6 +56,14 @@ succeeded
 
 表示されたURL http://127.0.0.1:8080/builds/1 を使うと WebUI でも実行結果を確認できます。CLI を使わずとも Task の実行結果を得られて便利です。
 
+---
+**NOTE**
+
+You'll need to login to Concourse to view this page. The default credentials are `admin / admin`
+
+---
+
+
 ![build-output-hello-world](/images/build-output-hello-world.png)
 
 ## Task の Docker イメージ
@@ -84,8 +100,8 @@ Linux fdfa0821-fbc9-42bc-5f2f-219ff09d8ede 4.4.0-101-generic #124~14.04.1-Ubuntu
 succeeded
 ```
 
-実行時のベースになる`image`([Task 実行時](http://concourse-ci.org/running-tasks.html) における`image_resource`) を選択できるのは、Task の実行に必要な依存関係の整理を行う為です。Task の実行中に毎回依存する基本ライブラリなどをインストールするのではなく、`image` にあらかじめそれらを用意したものを用いることで、Task を遥かに高速に実行することができます。
+実行時のベースになる`image`([Task 実行時](http://concourse-ci.org/tasks.html#running-tasks) における`image_resource`) を選択できるのは、Task の実行に必要な依存関係の整理を行う為です。Task の実行中に毎回依存する基本ライブラリなどをインストールするのではなく、`image` にあらかじめそれらを用意したものを用いることで、Task を遥かに高速に実行することができます。
 
 ## ちなみに
 
-Concourse を使って新しい Docker イメージを作成したい場合、[Docker イメージの作成・利用](/miscellaneous/docker-images) をご覧ください。
+Concourse を使って新しい Docker イメージを作成したい場合、[Docker イメージの作成・利用](../miscellaneous/docker-images.md) をご覧ください。

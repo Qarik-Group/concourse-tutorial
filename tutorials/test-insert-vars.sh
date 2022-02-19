@@ -17,5 +17,8 @@ credhub set -n /concourse/main/slack-webhook -t value -v "${slack_webhook:?requi
 
 credhub set -n /concourse/main/version-aws-bucket -t value -v "${version_aws_bucket:?required}" >/dev/null
 
+credhub set -n /concourse/main/publishing-outputs-gist-uri -t value -v "${publishing-outputs-gist-uri:?required}" >/dev/null
+credhub set -n /concourse/main/publishing-outputs-private-key -t value -v "${/publishing-outputs-private-key:?required}" >/dev/null
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 $DIR/test-pipeline-vars.sh

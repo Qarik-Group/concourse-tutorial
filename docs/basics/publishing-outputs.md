@@ -8,8 +8,8 @@ image_path: /images/broken-resource.png
 ```
 cd ../publishing-outputs
 cp pipeline-missing-credentials.yml pipeline.yml
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
-fly -t tutorial up -p publishing-outputs
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
+fly -t tutorial unpause-pipeline -p publishing-outputs
 ```
 
 パイプラインのダッシュボード http://127.0.0.1:8080/teams/main/pipelines/publishing-outputs を見ると、入力した Resource にエラーが発生していることが分かります (オレンジ色の部分を参照してください):
@@ -22,7 +22,6 @@ fly -t tutorial up -p publishing-outputs
 
 ![gist](/images/gist.png)
 
-<<<<<<< HEAD
 "Embed"のドロップダウンをクリックし、 "Clone via SSH" を選択し、git URL をコピーします:
 
 ![ssh](/images/ssh.png)
@@ -35,7 +34,7 @@ fly -t tutorial up -p publishing-outputs
   source:
     uri: git@gist.github.com:e028e491e42b9fb08447a3bafcf884e5.git
     branch: master
-    private_key: |-
+    private_key: |
       -----BEGIN RSA PRIVATE KEY-----
       MIIEpQIBAAKCAQEAuvUl9YU...
       ...
@@ -49,7 +48,7 @@ _注意: ここで使う秘密鍵がパスフレーズを使って生成され�
 パイプラインを更新し、Concourse に強制的にこの Gist のクレデンシャル情報を速やかに再確認してもらった後、Job を実行します:
 
 ```
-fly -t tutorial sp -p publishing-outputs -c pipeline.yml
+fly -t tutorial set-pipeline -p publishing-outputs -c pipeline.yml
 fly -t tutorial check-resource -r publishing-outputs/resource-gist
 fly -t tutorial trigger-job -j publishing-outputs/job-bump-date -w
 ```
@@ -117,8 +116,8 @@ git commit -m "Bumped date"
 
 Docker Image: [`starkandwayne/concourse`](https://hub.docker.com/r/starkandwayne/concourse) は、https://github.com/starkandwayne/dockerfiles/ で説明されています。多くの Stark & Wayne の パイプラインで利用されている共通のベースとなる Docker Image です。
 
-あなたの組織は、独自の Docker Image を、パイプライン間で共有するように管理したいかもしれません。この基本レッスンを終えたら、レッスン: [Create and Use Docker Images](/miscellaneous/docker-images/) にアクセスして、コンコースを使用して独自の Docker Image を作成するための パイプラインを作成してみましょう。
+あなたの組織は、独自の Docker イメージ を、パイプライン間で共有するように管理したいかもしれません。この基本レッスンを終えたら、レッスン: [Create and Use Docker Images](../miscellaneous/docker-images.md) にアクセスして、Concourse を使用して独自の Docker イメージを作成するための パイプラインを作成してみましょう。
 
 ## 秘密鍵をそのまま入力してるけど大丈夫？
 
-秘密鍵を平文のテキストファイル(`pipeline.yml`)にコピーし、スクリーンに表示された(`fly set-pipeline -c pipeline.yml`の間)ことへの懸念なら心配ご無用です。この後すぐに [Secret with Credential Manager](/basics/secret-parameters/) についても学びます.
+秘密鍵を平文のテキストファイル(`pipeline.yml`)にコピーし、スクリーンに表示された(`fly set-pipeline -c pipeline.yml`の間)ことへの懸念なら心配ご無用です。この後すぐに [秘密パラメータを資格情報マネージャで管理する](secret-parameters.md) についても学びます.

@@ -3,7 +3,7 @@ image_path: /images/git-resource-in.png
 
 # Job の出力結果をターミナルで確認する
 
-`job-hello-world`の [ビルドページ](http://127.0.0.1:8080/teams/main/pipelines/helloworld/jobs/job-hello-world/builds/1) を見ると、`git`コマンドを実行して Git リポジトリを clone した後に、Task:`hello-world` を実行した結果が出力されており、とても分かりやすいです。
+`job-hello-world`の [ビルドページ](http://127.0.0.1:8080/teams/main/pipelines/hello-world/jobs/job-hello-world/builds/1) を見ると、`git` コマンドを実行して Git リポジトリを clone した後に、Task:`hello-world` を実行した結果が分かりやすく表示されます。
 
 ![git-resource-in](/images/git-resource-in.png)
 

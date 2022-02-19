@@ -5,7 +5,7 @@ description: Job を起動させる4つの方法をご紹介します。
 Job を起動する( "trigger" する)には4つの方法があります:
 
 * Job の WebUI 上の `+` ボタンをクリックする(前のセクションで触れた通りです)
-* Resource の検出から Job を起動する(これは次のレッスン [Resource から Job を起動する](/basics/triggers/) でご紹介します)
+* 検出した Resource を使って Job を起動する(これは次のレッスン [Resource から Job を起動する](triggers.md) でご紹介します)
 * `fly trigger-job -j pipeline/jobname` コマンド
 * `POST` の HTTP リクエストを Concourse API に送る
 

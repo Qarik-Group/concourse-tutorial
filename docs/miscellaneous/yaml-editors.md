@@ -1,6 +1,6 @@
 # パイプラインと Task 編集用のエディタ
 
-パイプラインのサイズが大きくなると、yml を編集するのが非常に難しくなります。 また、インデントのミスやパラメータ不足は、パイプライン設定/実行のエラーの元になります。こうしたチェックには[`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline.html) を使うことができますが、開発前にあらかじめエラーを即ハイライトしてくれるエディタがあると捗ります。これは、IDE の構文エラーのハイライト機能に近いものです。 このセクションでは、Concourse のパイプラインと Task の yml の編集に使用できるエディタをご紹介します。
+パイプラインのサイズが大きくなると、yml を編集するのが非常に難しくなります。 また、インデントのミスやパラメータ不足は、パイプライン設定/実行のエラーの元になります。こうしたチェックには[`validate-pipeline`](https://concourse-ci.org/setting-pipelines.html#fly-validate-pipeline) を使うことができますが、開発前にあらかじめエラーを即ハイライトしてくれるエディタがあると捗ります。これは、IDE の構文エラーのハイライト機能に近いものです。 このセクションでは、Concourse のパイプラインと Task の yml の編集に使用できるエディタをご紹介します。
 
 ## Visual Studio Code
 ---------------------
@@ -31,6 +31,6 @@
 ---------------------
 ![atom](/images/atom-concourse.gif)
 
-[`ここ`](https://atom.io) から Atom をダウンロードし、パイプラインと Task の yml を自由に編集することができます。ダウンロードしたら、concourse-vis プラグインを[`ここ`](https://atom.io/packages/concourse-vis) からインストールしましょう。これは、Atom 上で Concourse パイプラインをプレビューするためのプラグインです。Atom のもう一つの利点は、`set-pipeline` を使う前に、超クールに Concourse パイプラインのプレビューを確認できる点です。
+[`ここ`](https://atom.io) から Atom をダウンロードし、パイプラインと Task の yml を自由に編集することができます。ダウンロードしたら、concourse-vis プラグインを[`ここ`](https://atom.io/packages/concourse-vis) からインストールしましょう。これは、Atom 上で Concourse パイプラインをプレビューするためのプラグインです。Atom のもう一つの利点は、`set-pipeline` を使う前に、とてもクールに Concourse パイプラインのプレビューを確認できる点です。
 
 [`この`](https://atom.io/packages/concourse-vis) プラグインのページで、さらに詳細な情報と制限事項を確認できます。

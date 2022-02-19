@@ -40,8 +40,8 @@ jobs:
 
 ```
 cd tutorials/miscellaneous/slack-notifications
-fly -t bucc sp -p slack-notifications -c pipeline-no-notifications.yml
-fly -t bucc up -p slack-notifications
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-no-notifications.yml
+fly -t bucc unpause-pipeline -p slack-notifications
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
@@ -105,7 +105,7 @@ credhub set -n /concourse/main/slack-notifications/slack-webhook -t value -v htt
 
 次に、すべてのビルド計画のステップに、`on_failure` セクションを追加する必要があります。
 
-ビルド計画の`get`, `put`, `task` では、その失敗を捕らえて何らかのアクションを設定することができます。 [Concourse CI documentation](https://concourse-ci.org/on-failure-step-hook.html) より:
+ビルド計画の`get`, `put`, `task` では、その失敗を捕らえて何らかのアクションを設定することができます。 [Concourse CI documentation](https://concourse-ci.org/jobs.html#schema.step.on_failure) より:
 
 ```yaml
 plan:
@@ -136,7 +136,7 @@ plan:
 パイプラインを更新し、失敗するまで `test` Job を起動してください:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-slack-failures.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-slack-failures.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 ```
 
@@ -194,7 +194,7 @@ jobs:
         text_file: notify_message/message
 ```
 
-上記の `notify-message` フォルダは、`task:test-sometimes-works` ステップによって出力として生成され、 `put：notify` Resource によって利用されます。このトピックを修正するには、 Basic セクション: [成功した Task の `outputs` を別の Task の `inputs` にする](/basics/task-outputs-to-inputs/) を参照してください。
+上記の `notify-message` フォルダは、`task:test-sometimes-works` ステップによって出力として生成され、 `put：notify` Resource によって利用されます。このトピックを修正するには、 Basic セクション: [成功した Task の `outputs` を別の Task の `inputs` にする](../basics/task-outputs-to-inputs.md) を参照してください。
 
 `task: test-sometimes-works` のステップでは、`test-sometimes-works-notify-message.sh` スクリプトを実行しています。これは `test-sometimes-works.sh` とやっていることは同じですが、`notify_message/message` を生成していることに注目してください。
 
@@ -222,7 +222,7 @@ Slack メッセージの内容については、 https://api.slack.com/incoming-
 パイプラインをアップグレードし、Job:`test` を数回実行して成功と失敗の通知を確認したい場合、以下のように実行してください:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-dynamic-messages.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-dynamic-messages.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
@@ -257,7 +257,7 @@ Our Slack notifications above are pretty bland:
 パイプラインをアップグレードし、Job:`test` を数回実行して成功と失敗の通知を確認するには、以下のように実行してください:
 
 ```
-fly -t bucc sp -p slack-notifications -c pipeline-custom-metadata.yml
+fly -t bucc set-pipeline -p slack-notifications -c pipeline-custom-metadata.yml
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w
 fly -t bucc trigger-job -j slack-notifications/test -w

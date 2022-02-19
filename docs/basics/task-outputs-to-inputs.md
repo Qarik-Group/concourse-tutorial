@@ -3,7 +3,7 @@ image_path: /images/pass-files.png
 
 # 成功した Task の `outputs` を別の Task の `inputs` にする
 
-[前のレッスン](/basics/job-inputs/) の Task:`web-app-tests` は、Resource を`inputs`に使って、いくつかのユニットテストを実行しました。この Task では、成果物を何も生成しませんでしたが、Task によっては(このレッスンで扱う Task のことです)、あとで処理するために何か別の Task に渡すものを作成したいと考えるでしょう。そして時には Concourse の外へ渡すことも考えられます([次のレッスン](/basics/publishing-outputs/)で扱います)。
+[前のレッスン](job-inputs.md) の Task:`web-app-tests` は、Resource を`inputs`に使って、いくつかのユニットテストを実行しました。この Task では、成果物を何も生成しませんでしたが、Task によっては(このレッスンで扱う Task のことです)、あとで処理するために何か別の Task に渡すものを作成したいと考えるでしょう。そして時には Concourse の外へ渡すことも考えられます([次のレッスン](publishing-outputs.md)で扱います)。
 
 これまで私たちが見てきたパイプラインの Task の `inputs` は、`get: resource-tutorial` の ビルド計画ステップを利用する Resource からきているものだけでした。
 
@@ -22,8 +22,8 @@ Task が上のような `outputs` セクションを含んでいた場合、`run
 
 ```
 cd ../task-outputs-to-inputs
-fly -t tutorial sp -p pass-files -c pipeline.yml
-fly -t tutorial up -p pass-files
+fly -t tutorial set-pipeline -p pass-files -c pipeline.yml
+fly -t tutorial unpause-pipeline -p pass-files
 fly -t tutorial trigger-job -j pass-files/job-pass-files -w
 ```
 

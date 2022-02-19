@@ -10,16 +10,29 @@
 <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
 <meta name="theme-color" content="#ffffff">
 
-{% if page and page.meta and page.meta.title %}<meta property="og:title" content="{{ page.meta.title }}">
+{% if page and page.meta and page.meta.title %}
+<meta property="og:title" content="{{ page.meta.title }}">
 <!-- og:xyz property information https://developers.facebook.com/docs/sharing/webmasters#images -->
-{% elif page and page.title and not page.is_homepage %}<meta property="og:title" content="{{ page.title }} - {{ config.site_name }}">
-{% else %}<meta property="og:title" content="{{ config.site_name }}">{% endif %}
-{% if page and page.meta and page.meta.description %}<meta property="og:description" content="{{ page.meta.description }}">{% endif %}
+{% elif page and page.title and not page.is_homepage %}
+<meta property="og:title" content="{{ page.title }} - {{ config.site_name }}">
+{% else %}
+<meta property="og:title" content="{{ config.site_name }}">{% endif %}
+{% if page and page.meta and page.meta.description %}
+<meta property="og:description" content="{{ page.meta.description }}">{% endif %}
 {% if page and page.meta and page.meta.image_path %}
-{% if page.meta.image_path   %}<meta property="og:image"        content="{{ config.site_url }}{{ page.meta.image_path   }}">{% endif %}
-{% if page.meta.image_alt    %}<meta property="og:image:alt"    content="{{ page.meta.image_alt    }}">{% endif %}
-{% if page.meta.image_type   %}<meta property="og:image:type"   content="{{ page.meta.image_type   }}">{% endif %}
-{% if page.meta.image_width  %}<meta property="og:image:width"  content="{{ page.meta.image_width  }}">{% endif %}
-{% if page.meta.image_height %}<meta property="og:image:height" content="{{ page.meta.image_height }}">{% endif %}
+{% if page.meta.image_path   %}
+<meta property="og:image" content="{{ config.site_url }}{{ page.meta.image_path   }}">{% endif %}
+{% if page.meta.image_alt    %}
+<meta property="og:image:alt" content="{{ page.meta.image_alt    }}">{% endif %}
+{% if page.meta.image_type   %}
+<meta property="og:image:type" content="{{ page.meta.image_type   }}">{% endif %}
+{% if page.meta.image_width  %}
+<meta property="og:image:width" content="{{ page.meta.image_width  }}">{% endif %}
+{% if page.meta.image_height %}
+<meta property="og:image:height" content="{{ page.meta.image_height }}">{% endif %}
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="https://starkandwayne.activehosted.com/f/embed.php?id=85" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

@@ -85,8 +85,8 @@ credhub set -n /concourse/main/docker-hub-password -t value -v yourpassword
 次に、パイプラインをセットアップし、Job: `publish` を実行します:
 
 ```
-fly -t bucc sp -p push-docker-image -c pipeline.yml -n
-fly -t bucc up -p push-docker-image
+fly -t bucc set-pipeline -p push-docker-image -c pipeline.yml -n
+fly -t bucc unpause-pipeline -p push-docker-image
 fly -t bucc trigger-job -j push-docker-image/publish -w
 ```
 

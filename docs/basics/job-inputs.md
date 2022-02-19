@@ -34,8 +34,8 @@ Resource: `resource-app` はこの時、Task コンテナ内に一緒に読み�
 
 ```
 cd ../job-inputs
-fly -t tutorial sp -p simple-app -c pipeline.yml
-fly -t tutorial up -p simple-app
+fly -t tutorial set-pipeline -p simple-app -c pipeline.yml
+fly -t tutorial unpause-pipeline -p simple-app
 ```
 
 パイプラインの UI http://127.0.0.1:8080/teams/main/pipelines/simple-app を見ると、Job が自動的に開始していることがわかるでしょう。
