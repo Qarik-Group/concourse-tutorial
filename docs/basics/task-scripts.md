@@ -39,5 +39,9 @@ The current directory was uploaded to the Concourse task container and placed in
 
 Therefore its file `task_show_uname.sh` is available within the Concourse task container at `task-scripts/task_show_uname.sh`.
 
-The only further requirement is that `task_show_uname.sh` is an executable script.
+The only further requirement is that `task_show_uname.sh` is an executable script.  
+
+N.B. For Windows users, some may see this error `uname: invalid option --` when you execute the fly command. This may have happened because when you downloaded the GitHub repo on Windows machine, Windows style line ending have been applied to the `task_show_uname.sh` file. One way to fix that is to open up the file in Notepad++, click on "Edit->EOL Conversion->Unix". Save the file and execute the fly command again.  
+
+
 
