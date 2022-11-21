@@ -4,7 +4,7 @@ resources:
     type: git
     source:
       uri: https://github.com/povorozniuk/concourse-tutorial.git
-      branch: develop
+      branch: master
 
 jobs:
   - name: job-hello-world
