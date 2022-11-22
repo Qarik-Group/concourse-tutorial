@@ -1,4 +1,5 @@
 ---
+# Comment
 resources:
   - name: resource-tutorial
     type: git
