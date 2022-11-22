@@ -4,12 +4,12 @@ resources:
     type: git
     source:
       uri: https://github.com/povorozniuk/concourse-tutorial.git
-      branch: develop
+      branch: master
 
-  - name: my-timer
-    type: time
-    source:
-      interval: 2m
+  # - name: my-timer
+  #   type: time
+  #   source:
+  #     interval: 2m
 
 jobs:
   - name: job-hello-world
@@ -17,7 +17,7 @@ jobs:
     serial: true
     plan:
       - get: resource-tutorial
-      - get: my-timer
+      # - get: my-timer
         trigger: true
       - task: hello-world
         file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml
