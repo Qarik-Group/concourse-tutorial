@@ -23,7 +23,21 @@ Read the tutorial at https://concoursetutorial.com
 This tutorial is built using [`mkdocs`](http://www.mkdocs.org/). Please make sure you have python3 and pip3 installed before running mkdocs and they are refenced as python and pip respectively. . Once installed, you can continuously build and serve the tutorial locally with:
 
 ```plain
+pip install mkdocs
+pip install pymdown-extensions
+pip install mkdocs-material
+
 mkdocs serve
+```
+
+## Manual deployment
+
+```
+mkdocs build
+cd site
+gsutil -m cp -r . gs://concoursetutorial-com-website
+gsutil -m rsync -r -x '\.git.*' . gs://concoursetutorial-com-website
+
 ```
 
 View the site and live changes at https://localhost:8000.

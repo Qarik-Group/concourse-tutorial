@@ -1,5 +1,5 @@
 ---
-site_name: Concourse Tutorial by Stark & Wayne
+site_name: Concourse Tutorial by Stark & Wayne (powered by <a href='https://www.qarik.com'>Qarik</a>)
 site_url: null
 use_directory_urls: false
 nav:
@@ -63,4 +63,4 @@ extra_css: [print.css, stylesheets/extra.css]
 extra:
   analytics:
     provider: google
-    property: UA-50822525-6
+    property: G-JS6FYEJY56
