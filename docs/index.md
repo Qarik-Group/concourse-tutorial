@@ -57,6 +57,20 @@ We will leave it to the reader to mentally convert `docker-compose` to `docker c
     You will also need to access the webui and setup the fly target to use this url rather than 127.0.0.1, 
     so change every http://127.0.0.1:8080 in this tutorial to http://{{my-server}}:8080         
 
+    c. Error running task in Linux environment:
+    run check: find or create container on worker workerId: failed to retrieve kernel parameter "net.ipv4.tcp_retries1": open /proc/sys/net/ipv4/tcp_retries1: no such file     or directory
+    
+    Check if kernel version supports net.ipv4.tcp_retries1 parameter. Try update the kernel.
+    
+    d. Error resolving name:
+    failed to ping registry: 2 error(s) occurred:
+    
+    Added follow parameters to docker-compose.yml:
+    CONCOURSE_GARDEN_DNS_PROXY_ENABLE=true
+    CONCOURSE_WORKER_GARDEN_DNS_PROXY_ENABLE=true
+    
+    
+
 ### Test Setup
 
 Open http://127.0.0.1:8080/ in your browser:
