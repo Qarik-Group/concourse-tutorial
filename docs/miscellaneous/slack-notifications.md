@@ -212,7 +212,7 @@ EOF
 fi
 ```
 
-On failure, the message will start with "Unfortunately...". On success, the message will start with "Harray!".
+On failure, the message will start with "Unfortunately...". On success, the message will start with "Hurray!".
 
 ![slack-webhook-dynamic-messages](/images/slack-webhook-dynamic-messages.png)
 
