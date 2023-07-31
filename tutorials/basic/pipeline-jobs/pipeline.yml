@@ -22,7 +22,7 @@ jobs:
         config:
           platform: linux
           image_resource:
-            type: docker-image
+            type: registry-image
             source: {repository: starkandwayne/concourse}
           inputs:
             - name: resource-tutorial
@@ -44,7 +44,7 @@ jobs:
         config:
           platform: linux
           image_resource:
-            type: docker-image
+            type: registry-image
             source: {repository: busybox}
           inputs:
             - name: resource-gist

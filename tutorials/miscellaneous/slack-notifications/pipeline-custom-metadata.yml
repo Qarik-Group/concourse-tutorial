@@ -1,7 +1,7 @@
 ---
 resource_types:
   - name: slack-notification
-    type: docker-image
+    type: registry-image
     source:
       repository: cfcommunity/slack-notification-resource
 
@@ -27,7 +27,7 @@ jobs:
         config:
           platform: linux
           image_resource:
-            type: docker-image
+            type: registry-image
             source: {repository: busybox}
           inputs:
             - name: tutorial

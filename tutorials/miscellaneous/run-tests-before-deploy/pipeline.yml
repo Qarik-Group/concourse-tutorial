@@ -33,7 +33,7 @@ jobs:
           platform: linux
 
           image_resource:
-            type: docker-image
+            type: registry-image
             source: {repository: golang, tag: 1.9-alpine}
 
           inputs:

@@ -6,8 +6,8 @@ resources:
       uri: https://github.com/drnic/concourse-tutorial.git
       branch: develop
 
-  - name: hello-world-docker-image
-    type: docker-image
+  - name: hello-world-registry-image
+    type: registry-image
     source:
       email: ((docker-hub-email))
       username: ((docker-hub-username))
@@ -19,14 +19,14 @@ jobs:
     public: true
     plan:
       - get: tutorial
-      - put: hello-world-docker-image
+      - put: hello-world-registry-image
         params:
-          build: tutorial/tutorials/miscellaneous/docker-images/docker
+          build: tutorial/tutorials/miscellaneous/registry-images/docker
       - task: run
         config:
           platform: linux
           image_resource:
-            type: docker-image
+            type: registry-image
             source:
               repository: ((docker-hub-username))/concourse-tutorial-hello-world
           run:

@@ -23,7 +23,7 @@ nav:
   - Miscellaneous:
       - Introduction: miscellaneous/index.md
       - Run Tests Before Deploy: miscellaneous/run-tests-before-deploy.md
-      - Create and Use Docker Images: miscellaneous/docker-images.md
+      - Create and Use Docker Images: miscellaneous/registry-images.md
       - Versions and Build Numbers: miscellaneous/versions-and-buildnumbers.md
       - GitHub Release Input: miscellaneous/github-release-input.md
       - Slack Notifications: miscellaneous/slack-notifications.md
