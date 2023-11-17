@@ -57,7 +57,7 @@ markdown_extensions:
       permalink: true
 
 repo_name: "help fix the tutorials"
-repo_url: "https://github.com/starkandwayne/concourse-tutorial"
+repo_url: "https://github.com/Qarik-Group/concourse-tutorial"
 edit_uri: edit/master/docs/
 extra_css: [print.css, stylesheets/extra.css]
 extra:

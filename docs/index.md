@@ -34,7 +34,7 @@ We will leave it to the reader to mentally convert `docker-compose` to `docker c
 3. Deploy Concourse using Docker Compose:
 
     ```plain
-    wget https://raw.githubusercontent.com/starkandwayne/concourse-tutorial/master/docker-compose.yml
+    wget https://raw.githubusercontent.com/Qarik-Group/concourse-tutorial/master/docker-compose.yml
     docker-compose up -d
     ```
     The following are common issues found when working with the tutorial 
